@@ -1,7 +1,7 @@
 
 public class Card {
 	private int y;
-	public Card() {
-		y = 5;
+	public Card(int j) {
+		y = j;
 	}
 }
