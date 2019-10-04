@@ -1,4 +1,7 @@
 
 public class Card {
-	private int x;
+	private int y;
+	public Card() {
+		y = 5;
+	}
 }
