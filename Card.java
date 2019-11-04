@@ -1,5 +1,35 @@
+import java.util.*;
 
-abstract class Card
+
+public abstract class Card
 {
+	private String ID;
+	private ArrayList<String> chain = new ArrayList<String>();
+	private ArrayList<String> cost = new ArrayList<String>();
+	private int numberOfPlayers;
+	private String color;
+	
+	
+	public Card(String n, String c) {
+		
+	}
+	
+	
+	public String getID() {
+		return ID;
+	}
+	public ArrayList<String> getChain() {
+		return chain;
+	}
+	public ArrayList<String> getCost() {
+		return cost;
+	}
+	public int getNumberOfPlayers() {
+		return numberOfPlayers;
+	}
+	public String getColor() {
+		return color;
+	}
+	
 	
 }
