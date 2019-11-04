@@ -52,6 +52,7 @@ public abstract class Card
 		this.color = color;
 	}
 	
+	//toString() method
 	public String toString() {
 		return name + " - " + color +" Card | Cost: " + cost;
 		// Format:Arsenal - Red Card | Cost: 2 wood, 1 ore, 1 loom 
