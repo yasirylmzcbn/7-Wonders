@@ -10,7 +10,7 @@ public abstract class Card
 	private String color;
 	
 	
-	public Card(String n, String c) {
+	public Card(String name, String col, ArrayList<String> ch, ArrayList<String> co, int numOfPlayers) {
 		
 	}
 	
