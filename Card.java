@@ -11,52 +11,43 @@ public abstract class Card
 	
 	
 	public Card(String na, String col, ArrayList<String> ch, ArrayList<String> co, int numOfPlayers) {
-		name = na;
-		color = col;
-		chain = ch;
-		cost = co;
-		numberOfPlayers = numOfPlayers;
+		
 	}
 	
 	//getters
-	public String getName() {
+	public String getName() 
+	{
 		return name;
 	}
-	public ArrayList<String> getChain() {
+	public ArrayList<String> getChain() 
+	{
 		return chain;
 	}
-	public ArrayList<String> getCost() {
+	public ArrayList<String> getCost() 
+	{
 		return cost;
 	}
-	public int getNumberOfPlayers() {
+	public int getNumberOfPlayers() 
+	{
 		return numberOfPlayers;
 	}
-	public String getColor() {
+	public String getColor() 
+	{
 		return color;
 	}
 	
 	//setters
-	public void setName(String na) {
+	public void setName(String na) 
+	{
 		name = na;
 	}
-	public void setChain(ArrayList<String> chain) {
+	public void setChain(ArrayList<String> chain) 
+	{
 		this.chain = chain;
 	}
-	public void setCost(ArrayList<String> cost) {
+	public void setCost(ArrayList<String> cost) 
+	{
 		this.cost = cost;
-	}
-	public void setNumberOfPlayers(int numberOfPlayers) {
-		this.numberOfPlayers = numberOfPlayers;
-	}
-	public void setColor(String color) {
-		this.color = color;
-	}
-	
-	//toString() method
-	public String toString() {
-		return name + " - " + color +" Card | Cost: " + cost;
-		// Format:Arsenal - Red Card | Cost: 2 wood, 1 ore, 1 loom 
-		// idk if we have to display the numberOfPlayers required to play the card
 	}
 	
 }
