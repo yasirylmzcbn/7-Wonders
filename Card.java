@@ -3,20 +3,20 @@ import java.util.*;
 
 public abstract class Card
 {
-	private String ID;
+	private String name;
 	private ArrayList<String> chain = new ArrayList<String>();
 	private ArrayList<String> cost = new ArrayList<String>();
 	private int numberOfPlayers;
 	private String color;
 	
 	
-	public Card(String name, String col, ArrayList<String> ch, ArrayList<String> co, int numOfPlayers) {
+	public Card(String na, String col, ArrayList<String> ch, ArrayList<String> co, int numOfPlayers) {
 		
 	}
 	
-	
-	public String getID() {
-		return ID;
+	//getters
+	public String getName() {
+		return name;
 	}
 	public ArrayList<String> getChain() {
 		return chain;
@@ -31,5 +31,15 @@ public abstract class Card
 		return color;
 	}
 	
+	//setters
+	public void setName(String na) {
+		name = na;
+	}
+	public void setChain(ArrayList<String> chain) {
+		this.chain = chain;
+	}
+	public void setCost(ArrayList<String> cost) {
+		this.cost = cost;
+	}
 	
 }
