@@ -1,2 +1,10 @@
 # 7-Wonders
-7 wonders
+## Text File Format
+*All inputs are separated by a "/"*
+
+**Card.java**
+
+*cardName*/*colour*/*previousChainCard*-*followingChainCard*/*cost*/*numberOfPlayers*
+
+## To do
+- [ ] This document
