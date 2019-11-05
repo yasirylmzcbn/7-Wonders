@@ -8,6 +8,8 @@ public class ResourceCard extends Card
 	public ResourceCard(String name, String color, ArrayList<String> cost, ArrayList<String> chain, ArrayList<String> resources, int players, boolean allAvailable)
 	{
 		super(name, color, cost, chain, players);
+		this.allAvailable = allAvailable;
+		resource = resources;
 		
 	}
 	public boolean isAllAvailable() 
@@ -18,6 +20,7 @@ public class ResourceCard extends Card
 	{
 		this.allAvailable = allAvailable;
 	}
+	
 	public ArrayList<String> getResource() 
 	{
 		return resource;
