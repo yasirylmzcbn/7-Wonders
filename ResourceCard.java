@@ -5,7 +5,7 @@ public class ResourceCard extends Card
 	
 	private boolean allAvailable;
 	private ArrayList<String> resource;
-	public ResourceCard(String name, String color, ArrayList<String> cost, ArrayList<String> chain, ArrayList<String> resources, int players, boolean allAvailable)
+	public ResourceCard(String name, String color, ArrayList<String> cost, ArrayList<String> chain, int players, boolean allAvailable, ArrayList<String> resources)
 	{
 		super(name, color, cost, chain, players);
 		this.allAvailable = allAvailable;
