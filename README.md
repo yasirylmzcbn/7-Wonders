@@ -4,7 +4,7 @@
 
 **Card.java**
 
-*cardType*/*cardName*/*colour*/*previousChainCard*-*followingChainCard*/*cost*/*numberOfPlayers*
+*cardType*/*cardName*/*colour*/*previousChainCard*/*cost*/*numberOfPlayers*
 
 ## To do
 - [ ] This document
