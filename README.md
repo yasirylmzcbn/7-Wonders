@@ -6,5 +6,9 @@
 
 *cardType*/*cardName*/*colour*/*previousChainCard*/*cost*/*numberOfPlayers*
 
+**ResourceCardCard.java**
+
+*cardType*/*cardName*/*colour*/*previousChainCard*/*cost*/*numberOfPlayers*/*resourcesGiven*
+
 ## To do
 - [ ] This document
