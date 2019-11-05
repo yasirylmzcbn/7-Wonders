@@ -7,4 +7,3 @@ resouceCard/Timber Yard/brown/null/gold/3/stone,log/false
 resourceCard/Loom/silver/null/null/3/cloth
 resourceCard/Glassworks/silver/null/null/3/glass
 resourceCard/Press/silver/null/null/3/paper
-civicsCard/Pawnshop/blue
