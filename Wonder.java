@@ -12,4 +12,16 @@ public class Wonder {
 	private Card selectedCard;
 	private String action;
 	private ArrayList<String> trades;
+	private int losses;
+	private int wins;
+	private ArrayList<Card> stages;
+	private String WonderAbility;
+	
+	public Wonder(String n) {
+		name = n;
+		playerWonders = 0;
+		money = 3;
+		victoryPoints = 0;
+		
+	}
 }
