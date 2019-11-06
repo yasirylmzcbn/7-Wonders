@@ -16,10 +16,11 @@ public class GameState
 	}
 	public ArrayList<Integer> finalPoints()
 	{
+		return null;
 	}
 	public int whoWon()
 	{
-		
+		return 0;
 	}
 	public void rotateHands()
 	{
