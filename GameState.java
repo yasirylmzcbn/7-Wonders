@@ -20,7 +20,7 @@ public class GameState
 	private HashMap<Integer, ArrayList<Card>> deck; // Integer=age, ArrayList=Cards themselves
 	
 	private Scanner input; // parses through card files
-	
+
 	public GameState()
 	{
 		
