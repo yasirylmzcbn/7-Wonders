@@ -10,9 +10,13 @@
 
 *cardType*/*cardName*/*colour*/*previousChainCard*/*cost*/*numberOfPlayers*/*resourcesGiven*
 
-**CivicseCard.java**
+**CivicsCard.java**
 
 *cardType*/*cardName*/*colour*/*previousChainCard*/*cost*/*numberOfPlayers*/*victoryPoints*
+
+**MilitaryCard.java**
+
+*cardType*/*cardName*/*colour*/*previousChainCard*/*cost*/*numberOfPlayers*/*militaryPoints*
 
 ## To do
 - [ ] This document
