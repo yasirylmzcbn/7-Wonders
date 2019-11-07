@@ -14,11 +14,13 @@ public class Wonder {
 	private ArrayList<String> trades;
 	
 	
-	public Wonder(String n) {
+	public Wonder(String n, int i) {
 		name = n;
-		playerWonders = 0;
+		playerWonders = i;
 		money = 3;
-		victoryPoints = 0;
-		
+		victoryPoints = 0;	
+		militaryPower = 0;
+		action = "";
+		trades = new ArrayList<String>();
 	}
 }
