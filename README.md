@@ -18,7 +18,7 @@
 
 *cardType*/*cardName*/*colour*/*previousChainCard*/*cost*/*numberOfPlayers*/*militaryPoints*
 
-**TechCard.java**
+**TechCard.java** Science types: compass is *math*, gear is *gear*, and tablet is *tablet*
 
 *cardType*/*cardName*/*colour*/*previousChainCard*/*cost*/*numberOfPlayers*/*scienceType*
 
