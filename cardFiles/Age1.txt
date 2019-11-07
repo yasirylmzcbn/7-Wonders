@@ -1,9 +1,10 @@
-resourceCard/Lumber Yard/brown/null/null/3/log/true
-resourceCard/Stone Pit/brown/null/null/3/stone/true
-resourceCard/Clay Pool/brown/null/null/3/clay/true
-resourceCard/Ore Vein/brown/null/null/3/ore/true
-resourceCard/Clay Pit/brown/null/gold/3/clay||ore/false
-resouceCard/Timber Yard/brown/null/gold/3/stone,log/false
+resourceCard/Lumber Yard/brown/null/null/3/log
+resourceCard/Stone Pit/brown/null/null/3/stone
+resourceCard/Clay Pool/brown/null/null/3/clay
+resourceCard/Ore Vein/brown/null/null/3/ore
+resourceCard/Clay Pit/brown/null/gold/3/clay||ore
+resouceCard/Timber Yard/brown/null/gold/3/stone,log
 resourceCard/Loom/silver/null/null/3/cloth
 resourceCard/Glassworks/silver/null/null/3/glass
 resourceCard/Press/silver/null/null/3/paper
+
