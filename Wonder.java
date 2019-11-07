@@ -15,8 +15,9 @@ public class Wonder {
 	private int losses;
 	private int wins;
 	private ArrayList<Card> stages;
-	private String WonderAbility;
-	
+	private String wonderAbility;
+	private int numPlayers;
+  private String WonderAbility;
 	
 	public Wonder(String n, int i) {
 		name = n;
@@ -27,7 +28,15 @@ public class Wonder {
 		action = "";
 		trades = new ArrayList<String>();
   }
-
+  
+	public void changeHands(int i) {
+		
+		
+		
+		
+	}
+	
+	//getters and setters
 	public String getName() {
 		return name;
 	}
