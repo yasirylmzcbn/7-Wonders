@@ -21,7 +21,7 @@ public class Wonder {
 	
 	
 	
-	public void changeHands(i) {
+	public void changeHands(int i) {
 		
 		
 		
