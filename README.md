@@ -6,9 +6,13 @@
 
 *cardType*/*cardName*/*colour*/*previousChainCard*/*cost*/*numberOfPlayers*
 
-**ResourceCardCard.java**
+**ResourceCard.java**
 
 *cardType*/*cardName*/*colour*/*previousChainCard*/*cost*/*numberOfPlayers*/*resourcesGiven*
+
+**CivicseCard.java**
+
+*cardType*/*cardName*/*colour*/*previousChainCard*/*cost*/*numberOfPlayers*/*victoryPoints*
 
 ## To do
 - [ ] This document
