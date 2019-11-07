@@ -18,5 +18,9 @@
 
 *cardType*/*cardName*/*colour*/*previousChainCard*/*cost*/*numberOfPlayers*/*militaryPoints*
 
+**TechCard.java**
+
+*cardType*/*cardName*/*colour*/*previousChainCard*/*cost*/*numberOfPlayers*/*scienceType*
+
 ## To do
 - [ ] This document
