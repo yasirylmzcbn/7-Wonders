@@ -29,16 +29,28 @@ public class Wonder extends GameState {
 		action = "";
 		trades = new ArrayList<String>();
 		losses = wins = 0;
-  }
-  
-  public void changeHands(int i) {
+	}
+	
+	public void changeHands(int i) {
 		if((hand+i)<=numPlayers||(hand+i)>=0)
 		hand=hand+i;
 		else {
 			if(i<0)
 				hand=numPlayers;
-		hand=0;
+			hand=0;
 		}
+	}
+		
+	public void burnCard() {
+		money +=3;
+	}
+
+	public boolean playable(Card c) {
+		if(c.getNumberOfPlayers() > numOfPlayers)
+			return false;
+		
+		return true;
+	}
 	
 	//getters and setters
 	public String getName() {
@@ -136,17 +148,5 @@ public class Wonder extends GameState {
 	}
 	public void setNumPlayers(int numPlayers) {
 		this.numPlayers = numPlayers;
-	}
-	
-
-	public void burnCard() {
-		money +=3;
-	}
-
-	public boolean playable(Card c) {
-		if(c.getNumberOfPlayers() > numOfPlayers)
-			return false;
-		
-		return true;
 	}
 }
