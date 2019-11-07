@@ -1,6 +1,8 @@
 # 7-Wonders
 ## Text File Format
-*All inputs are separated by a "/"*
+* All inputs are separated by a "/"
+* if there are multiple resources used to build a card, use a comma to separate them, with no spaces. ex. if one needs 2 stone and 1 wood to build a card, it would be:
+> /stone,stone,wood/
 
 **Card.java**
 
