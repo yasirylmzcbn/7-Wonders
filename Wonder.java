@@ -13,5 +13,12 @@ public class Wonder {
 	private String action;
 	private ArrayList<String> trades;
 	
-
+	
+	public Wonder(String n) {
+		name = n;
+		playerWonders = 0;
+		money = 3;
+		victoryPoints = 0;
+		
+	}
 }
