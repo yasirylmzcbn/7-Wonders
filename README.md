@@ -8,7 +8,7 @@
 
 *cardType*/*cardName*/*colour*/*previousChainCard*/*cost*/*numberOfPlayers*
 
-**ResourceCard.java**
+**ResourceCard.java** Resource types: cloth is *cloth*, glass is *glass*, paper is *paper*
 
 *cardType*/*cardName*/*colour*/*previousChainCard*/*cost*/*numberOfPlayers*/*resourcesGiven*
 

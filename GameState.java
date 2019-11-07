@@ -6,6 +6,7 @@ public class GameState
 {
 	private boolean endOfGame;
 	private boolean warTime;
+
 	private int age;
 	private int numberOfPlayers;
 	private int order; // 1 if clockwise, -1 if anticlockwise
@@ -22,8 +23,29 @@ public class GameState
 
 	public GameState()
 	{
+		endOfGame = false;
+		warTime = false;
+		age = 1;
+		numberOfPlayers = 3;
+		order = 1;
+		round = 1;
 		
+		decisionMade = new ArrayList<Boolean>();
+		for (int i = 0; i < numberOfPlayers; i++)
+			decisionMade.add(false);
+		
+		graveyard = new ArrayList<Card>();
+		
+		selectedResources = new ArrayList<String>();
+		
+		wonders = new ArrayList<Wonder>();
+		for (int i = 0; i < numberOfPlayers; i++)
+			{} // to do
+		
+		ArrayList<Card> hands = new ArrayList<Card>();
+		//playerHands = new ArrayList<hands>();
 	}
+	
 	public ArrayList<Integer> finalPoints()
 	{
 		return null;
