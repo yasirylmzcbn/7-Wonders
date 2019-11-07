@@ -6,7 +6,7 @@ public class GameState
 {
 	private boolean endOfGame;
 	private boolean warTime;
-	
+
 	private int age;
 	private int numberOfPlayers;
 	private int order; // 1 if clockwise, -1 if anticlockwise
