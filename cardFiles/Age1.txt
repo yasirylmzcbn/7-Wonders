@@ -7,4 +7,7 @@ resouceCard/Timber Yard/brown/null/gold/3/stone,log
 resourceCard/Loom/silver/null/null/3/cloth
 resourceCard/Glassworks/silver/null/null/3/glass
 resourceCard/Press/silver/null/null/3/paper
-
+civicsCard/Baths/blue/null/null/3/3
+civicsCard/Altar/blue/null/stone/3/2
+civicsCard/Theater/blue/null/null/3/2
+militaryCard/Stockade/red
