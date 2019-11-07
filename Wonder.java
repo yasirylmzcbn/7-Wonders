@@ -1,8 +1,9 @@
 import java.util.*;
 
-public class Wonder {
+public class Wonder extends GameState {
 	private String name;
 	private HashMap<String, HashSet<Card>> cardsPlayed;
+	private int numOfPlayers;
 	private int playerWonders;
 	private int money;
 	private int victoryPoints;
@@ -18,10 +19,19 @@ public class Wonder {
 	private String wonderAbility;
 	private int numPlayers;
 	
-	
-	
-	
-	public void changeHands(int i) {
+	public Wonder(String n, int i) {
+		name = n;
+		numOfPlayers = i;
+		playerWonders = 0;
+		money = 3;
+		victoryPoints = 0;	
+		militaryPower = 0;
+		action = "";
+		trades = new ArrayList<String>();
+		losses = wins = 0;
+  }
+  
+  public void changeHands(int i) {
 		if((hand+i)<=numPlayers||(hand+i)>=0)
 		hand=hand+i;
 		else {
@@ -29,9 +39,6 @@ public class Wonder {
 				hand=numPlayers;
 		hand=0;
 		}
-	}
-	
-	
 	
 	//getters and setters
 	public String getName() {
@@ -132,4 +139,14 @@ public class Wonder {
 	}
 	
 
+	public void burnCard() {
+		money +=3;
+	}
+
+	public boolean playable(Card c) {
+		if(c.getNumberOfPlayers() > numOfPlayers)
+			return false;
+		
+		return true;
+	}
 }
