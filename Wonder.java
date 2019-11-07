@@ -17,18 +17,24 @@ public class Wonder {
 	private ArrayList<Card> stages;
 	private String wonderAbility;
 	private int numPlayers;
+  private String WonderAbility;
 	
-	
-	
-	
+	public Wonder(String n, int i) {
+		name = n;
+		playerWonders = i;
+		money = 3;
+		victoryPoints = 0;	
+		militaryPower = 0;
+		action = "";
+		trades = new ArrayList<String>();
+  }
+  
 	public void changeHands(int i) {
 		
 		
 		
 		
 	}
-	
-	
 	
 	//getters and setters
 	public String getName() {
@@ -127,6 +133,4 @@ public class Wonder {
 	public void setNumPlayers(int numPlayers) {
 		this.numPlayers = numPlayers;
 	}
-	
-
 }
