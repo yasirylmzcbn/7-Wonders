@@ -1,4 +1,7 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -21,6 +24,13 @@ public class GameState
 	
 	private Scanner input; // parses through card files
 
+	// temp method for testing only
+	public static void main(String[] args)
+	{
+		GameState s = new GameState();
+	}
+	
+	
 	public GameState()
 	{
 		endOfGame = false;
@@ -42,8 +52,10 @@ public class GameState
 		for (int i = 0; i < numberOfPlayers; i++)
 			{} // to do
 		
-		ArrayList<Card> hands = new ArrayList<Card>();
+		//ArrayList<Card> hands = new ArrayList<Card>();
 		//playerHands = new ArrayList<hands>();
+		
+		readCards();
 	}
 	
 	/*
@@ -86,5 +98,52 @@ public class GameState
 	public void nextRound()
 	{
 		
+	}
+	
+	/*
+	 * Creates every card through the text files for age 1, 2, and 3
+	 * private HashMap<Integer, ArrayList<Card>> deck;
+	 */
+	public void readCards()
+	{
+		deck = new HashMap<Integer, ArrayList<Card>>();
+		
+		try
+		{
+			input = new Scanner(new File("src/cardFiles/Age1.txt"));
+		}
+		catch (FileNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		
+		ArrayList<Card> ageOneCards = new ArrayList<Card>();
+		while (input.hasNext())
+		{
+			String vals[] = input.nextLine().split("/");
+			String type = vals[0];
+			String name = vals[1];
+			String color = vals[2];
+			ArrayList<String> chain = new ArrayList<String>(Arrays.asList(vals[3].split(",")));
+			ArrayList<String> cost = new ArrayList<String> (Arrays.asList(vals[4].split(",")));
+			
+			int players = Integer.parseInt(vals[5]);
+			
+			if (type.equals("resourceCard"))
+			{
+				ArrayList<String> resource = new ArrayList<String>(Arrays.asList(vals[6].split(",")));
+				ResourceCard card = new ResourceCard(name, color, cost, chain, players, resource);
+				ageOneCards.add(card);
+			}
+		}
+		
+		for (Card c: ageOneCards)
+			System.out.println(c);
+		/*File ageTwoFile = new File("src/cardFiles/Age1.txt");
+		ArrayList<Card> ageTwoCards = new ArrayList<Card>();
+		
+		File ageThreeFile = new File("src/cardFiles/Age1.txt");
+		ArrayList<Card> ageThreeCards = new ArrayList<Card>();*/
+	
 	}
 }

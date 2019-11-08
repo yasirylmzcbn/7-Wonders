@@ -11,7 +11,11 @@ public abstract class Card
 	
 	
 	public Card(String na, String col, ArrayList<String> ch, ArrayList<String> co, int numOfPlayers) {
-		
+		this.name = na;
+		this.color = col;
+		this.chain = ch;
+		this.cost = co;
+		this.numberOfPlayers = numOfPlayers;
 	}
 	
 	//getters
@@ -48,6 +52,11 @@ public abstract class Card
 	public void setCost(ArrayList<String> cost) 
 	{
 		this.cost = cost;
+	}
+	
+	public String toString()
+	{
+		return getName() + " " + getColor() + " " + getChain() + " " + getCost() + " " + getNumberOfPlayers();
 	}
 	
 }
