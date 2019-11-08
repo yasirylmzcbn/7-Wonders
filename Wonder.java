@@ -16,9 +16,8 @@ public class Wonder extends GameState {
 	private int losses;
 	private int wins;
 	private ArrayList<Card> stages;
-	private String wonderAbility;
 	private int numPlayers;
-  private String WonderAbility;
+	private String WonderAbility;
 	
 	public Wonder(String n, int i) {
 		name = n;
@@ -157,19 +156,15 @@ public class Wonder extends GameState {
 	public void setWonderAbility(String wonderAbility) {
 		WonderAbility = wonderAbility;
 	}
-	
-	
-	
-	
+
 	public void burnCard() {
 		money +=3;
 	}
 
 	
 	public boolean playable(Card c) {
-		if(c.getNumberOfPlayers() > numOfPlayers)
-			return false;
-		
+		if(cardsPlayed.get("resource").contains(c))
 		return true;
+		return false;
 	}
 }
