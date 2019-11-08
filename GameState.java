@@ -46,8 +46,29 @@ public class GameState
 		//playerHands = new ArrayList<hands>();
 	}
 	
+	/*
+	 * should this method be moved to wonder.java and this method be used to just call the other ones?
+	 */
+	// calculated the victory points of each player at the end of the game
 	public ArrayList<Integer> finalPoints()
 	{
+		ArrayList<Integer> points = new ArrayList<Integer>(this.numberOfPlayers);
+		
+		// each player
+		for (int i = 0; i < this.numberOfPlayers; i++)
+		{
+			int totalPoints = 0;
+			Wonder currentWonder = wonders.get(i);
+			
+			// military calculation
+			totalPoints += currentWonder.getLosses() + currentWonder.getWins();
+			
+			// points from coins
+			totalPoints += currentWonder.getMoney() / 3;
+			
+			// point for each wonder built
+			
+		}
 		return null;
 	}
 	public int whoWon()
