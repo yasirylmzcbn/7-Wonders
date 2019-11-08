@@ -137,7 +137,8 @@ public class GameState
 			}
 		}
 		
-		System.out.println(ageOneCards);
+		for (Card c: ageOneCards)
+			System.out.println(c);
 		/*File ageTwoFile = new File("src/cardFiles/Age1.txt");
 		ArrayList<Card> ageTwoCards = new ArrayList<Card>();
 		
