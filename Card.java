@@ -11,7 +11,11 @@ public abstract class Card
 	
 	
 	public Card(String na, String col, ArrayList<String> ch, ArrayList<String> co, int numOfPlayers) {
-		
+		name = na;
+		color = col;
+		chain = ch;
+		cost = co;
+		numberOfPlayers = numOfPlayers;
 	}
 	
 	//getters
