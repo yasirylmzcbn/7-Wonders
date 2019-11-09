@@ -16,4 +16,3 @@ techCard/Laboratory/green/Workshop/clay,clay,paper/3/gear
 civicsCard/Courthouse/blue/Scriptorium/clay,clay,cloth/3/4
 techCard/Library/green/Scriptorium/stone,stone,cloth/3/tablet
 techCard/School/green/null/wood,paper/3/tablet
-
