@@ -32,11 +32,11 @@ public class Wonder extends GameState {
 	}
 	
 	public void changeHands(int i) {
-		if((hand+i)<=numPlayers||(hand+i)>=0)
+		if((hand+i)<=numOfPlayers||(hand+i)>=0)
 		hand=hand+i;
 		else {
 			if(i<0)
-				hand=numPlayers;
+				hand=numOfPlayers;
 			else
 				hand=0;
 		}
@@ -171,11 +171,11 @@ public class Wonder extends GameState {
 		}
 
 		public String getWonderAbility() {
-			return WonderAbility;
+			return wonderAbility;
 		}
 
 		public void setWonderAbility(String wonderAbility) {
-			WonderAbility = wonderAbility;
+			this.wonderAbility = wonderAbility;
 		}
 		//end of getter/setters
 
