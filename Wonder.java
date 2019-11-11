@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Wonder extends GameState {
+public class Wonder {
 	private String name;
 	private HashMap<String, HashSet<Card>> cardsPlayed; //String = type/color of card, HashSet<Card> = cards
 	private int numOfPlayers;
