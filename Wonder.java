@@ -29,17 +29,17 @@ public class Wonder {
 		action = "";
 		trades = new ArrayList<String>();
 		losses = wins = 0;
-		cardsPlayed.put("brown",new HashSet<Card>());
-		cardsPlayed.put("silver",new HashSet<Card>());
-		cardsPlayed.put("red",new HashSet<Card>());
+		cardsPlayed.put("Brown",new HashSet<Card>());
+		cardsPlayed.put("Silver",new HashSet<Card>());
+		cardsPlayed.put("Red",new HashSet<Card>());
 		cardsPlayed.put("blue",new HashSet<Card>());
-		cardsPlayed.put("green",new HashSet<Card>());
-		cardsPlayed.put("yellow",new HashSet<Card>());
-		cardsPlayed.put("purple",new HashSet<Card>());
-		cardsPlayed.put("wonder",new HashSet<Card>());
+		cardsPlayed.put("Green",new HashSet<Card>());
+		cardsPlayed.put("Yellow",new HashSet<Card>());
+		cardsPlayed.put("Purple",new HashSet<Card>());
+		cardsPlayed.put("Wonder",new HashSet<Card>());
 		//hard coded wonders
 		if(name.contentEquals("The Colossus of Rhodes")) {
-			cardsPlayed.add(new ResourceCard("The Colossus of Rhodes","brown",null,null,3,))
+			cardsPlayed.add(new ResourceCard("The Colossus of Rhodes","brown",null,null,3,));
 			//wonder 1
 			ArrayList<String> cor1Cost = new ArrayList<String>();
 			cor1Cost.add("wood");
@@ -89,7 +89,7 @@ public class Wonder {
 
 	}
 
-	}
+	
 	
 	public void burnCard() {
 		money +=3;
