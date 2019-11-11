@@ -16,7 +16,8 @@ public class Wonder extends GameState {
 	private int losses;
 	private int wins;
 	private ArrayList<Card> stages;
-	private String WonderAbility;
+	private String wonderAbility;
+
 	
 	public Wonder(String n, int i) {
 		name = n;
@@ -28,18 +29,24 @@ public class Wonder extends GameState {
 		action = "";
 		trades = new ArrayList<String>();
 		losses = wins = 0;
-  }
-
-
+	}
+	
 	public void changeHands(int i) {
-    
+		if((hand+i)<=numPlayers||(hand+i)>=0)
+		hand=hand+i;
+		else {
+			if(i<0)
+				hand=numPlayers;
+			else
+				hand=0;
+		}
 	}
 	
 	public void burnCard() {
 		money +=3;
 	}
 	public int buildWonder() {
-		
+		//not done
 		++playerWonders;
 		return playerWonders;
 	}
@@ -48,10 +55,6 @@ public class Wonder extends GameState {
 		return false;
 		return true;
 	}
-	
-	
-	
-	
 	
 	
 	//getters and setters

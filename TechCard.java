@@ -21,4 +21,8 @@ public class TechCard extends Card
 		this.techGiven = techGiven;
 	}
 	
+	public String toString()
+	{
+		return super.toString() + String.format("Tech: %-5s", getTechGiven());
+	}
 }

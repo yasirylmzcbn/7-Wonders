@@ -18,4 +18,8 @@ public class CivicsCard extends Card
 		this.victoryPoints = victoryPoints;
 	}
 
+	public String toString()
+	{
+		return super.toString() + String.format("VP: %-5s", getVictoryPoints());
+	}
 }

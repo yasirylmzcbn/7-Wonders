@@ -7,4 +7,12 @@ resourceCard/Glassworks/silver/null/null/3/glass
 resourceCard/Press/silver/null/null/3/paper
 civicsCard/Aqueduct/blue/Baths/stone,stone,stone/3/5
 civicsCard/Temple/blue/Altar/wood,clay,glass/3/3
-
+civicsCard/Statue/blue/Theater/wood,ore,ore/3/4
+militaryCard/Walls/red/null/stone,stone,stone/3/2
+militaryCard/Stables/red/Apothecary/ore,clay,wood/3/2
+techCard/Dispensary/green/Apothecary/ore,ore,glass/3/math
+militaryCard/Archery Range/red/Workshop/wood,wood,ore/3/2
+techCard/Laboratory/green/Workshop/clay,clay,paper/3/gear
+civicsCard/Courthouse/blue/Scriptorium/clay,clay,cloth/3/4
+techCard/Library/green/Scriptorium/stone,stone,cloth/3/tablet
+techCard/School/green/null/wood,paper/3/tablet

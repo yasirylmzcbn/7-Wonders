@@ -20,4 +20,9 @@ public class MilitaryCard extends Card
 	public void setMilitaryPower(int militaryPower) {
 		this.militaryPower = militaryPower;
 	}
+	
+	public String toString()
+	{
+		return super.toString() + String.format("MP: %-5s", getMilitaryPower());
+	}
 }
