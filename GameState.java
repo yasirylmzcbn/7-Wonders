@@ -9,6 +9,9 @@ import java.util.Scanner;
 
 public class GameState
 {
+	/*
+	 * IS THERE A NEED FOR currentPlayer?
+	 */
 	public static final String[] WONDERNAMES = {"The Colossus of Rhodes",
 												"The Lighthouse of Alexandria",
 												"The Temple of Artemis in Ephesus",
@@ -19,6 +22,7 @@ public class GameState
 	private boolean endOfGame;
 	private boolean warTime;
 
+	private int currentPlayer;
 	private int age;
 	private int numberOfPlayers;
 	private int order; // 1 if clockwise, -1 if anticlockwise
@@ -41,6 +45,7 @@ public class GameState
 		numberOfPlayers = 3;
 		order = 1;
 		round = 1;
+		currentPlayer = (int)(Math.random() * numberOfPlayers);
 		
 		decisionMade = new ArrayList<Boolean>();
 		for (int i = 0; i < numberOfPlayers; i++)
@@ -57,7 +62,8 @@ public class GameState
 		Iterator<Integer> iter = randomWonder.iterator();
 		
 		for (int i = 0; i < numberOfPlayers; i++)
-			wonders.add(new Wonder(WONDERNAMES[iter.next()], numberOfPlayers));
+			wonders.add(new Wonder(WONDERNAMES[0], numberOfPlayers));
+			//wonders.add(new Wonder(WONDERNAMES[iter.next()], numberOfPlayers));
 		
 		playerHands = new ArrayList<ArrayList<Card>>();
 		for (int i = 0; i < numberOfPlayers; i++)
@@ -308,5 +314,13 @@ public class GameState
 
 	public void setInput(Scanner input) {
 		this.input = input;
+	}
+
+	public int getCurrentPlayer() {
+		return currentPlayer;
+	}
+
+	public void setCurrentPlayer(int currentPlayer) {
+		this.currentPlayer = currentPlayer;
 	}
 }
