@@ -174,5 +174,6 @@ public class Wonder extends GameState {
 		public void setWonderAbility(String wonderAbility) {
 			WonderAbility = wonderAbility;
 		}
+		//end of getter/setters
 
 }
