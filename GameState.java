@@ -3,10 +3,13 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class GameState
 {
+	public static final String[] WONDERNAMES = {"Rhodes", "Alexandria", "Ephesos", "Gizah", "Olympia", "Babylon", "Halikarnassos"};
 	private boolean endOfGame;
 	private boolean warTime;
 
@@ -23,14 +26,7 @@ public class GameState
 	private HashMap<Integer, ArrayList<Card>> deck; // Integer=age, ArrayList=Cards themselves
 	
 	private Scanner input; // parses through card files
-
-	// temp method for testing only
-	public static void main(String[] args)
-	{
-		GameState s = new GameState();
-	}
-	
-	
+		
 	public GameState()
 	{
 		endOfGame = false;
@@ -49,13 +45,19 @@ public class GameState
 		selectedResources = new ArrayList<String>();
 		
 		wonders = new ArrayList<Wonder>();
+		HashSet<Integer> randomWonder = new HashSet<Integer>();
+		while (randomWonder.size() < numberOfPlayers)
+			randomWonder.add((int)(Math.random() * 7));
+		Iterator<Integer> iter = randomWonder.iterator();
 		for (int i = 0; i < numberOfPlayers; i++)
-			{} // to do
+		{
+			wonders.add(new Wonder(WONDERNAMES[iter.next()], numberOfPlayers));
+		}
 		
 		//ArrayList<Card> hands = new ArrayList<Card>();
 		//playerHands = new ArrayList<hands>();
 		
-		readCards();
+		//readCards();*/
 	}
 	
 	/*
