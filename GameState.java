@@ -167,7 +167,7 @@ public class GameState
 					tempCards.add(card);
 				}
 			}
-			
+			//IF AGE == 3 then change the guild cards accordingly
 			deck.put(i, tempCards);
 		}
 		
