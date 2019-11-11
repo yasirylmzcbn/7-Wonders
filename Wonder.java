@@ -39,7 +39,13 @@ public class Wonder {
 		cardsPlayed.put("Wonder",new HashSet<Card>());
 		//hard coded wonders
 		if(name.contentEquals("The Colossus of Rhodes")) {
-			cardsPlayed.add(new ResourceCard("The Colossus of Rhodes","brown",null,null,3,));
+			
+			/*
+			 * Possibly need to fix lines 46 through 48
+			 */
+			ArrayList<String> tempResource = new ArrayList<String>();
+			tempResource.add("ore");
+			cardsPlayed.get("Brown").add(new ResourceCard("The Colossus of Rhodes","brown",null,null,3,tempResource));
 			//wonder 1
 			ArrayList<String> cor1Cost = new ArrayList<String>();
 			cor1Cost.add("wood");
