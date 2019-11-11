@@ -21,7 +21,8 @@ public class ResourceCard extends Card
 	
 	public String toString()
 	{
-		return super.toString() + String.format("Re: %-20s", getResource());
+		//return super.toString() + String.format("Re: %-20s", getResource());
+		return super.toString() + "; Resource: " + getResource();
 	}
 	
 }

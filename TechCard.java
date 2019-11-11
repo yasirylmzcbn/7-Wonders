@@ -23,6 +23,7 @@ public class TechCard extends Card
 	
 	public String toString()
 	{
-		return super.toString() + String.format("Tech: %-5s", getTechGiven());
+		//return super.toString() + String.format("Tech: %-5s", getTechGiven());
+		return super.toString() + "; techGiven: " + getTechGiven();
 	}
 }
