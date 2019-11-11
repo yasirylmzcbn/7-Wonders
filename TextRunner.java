@@ -5,9 +5,9 @@ public class TextRunner
 	{
 		GameState state = new GameState();
 		
-		while (state.isEndOfGame())
+		/*while (!state.isEndOfGame())
 		{
 			
-		}
+		}*/
 	}
 }
