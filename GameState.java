@@ -172,4 +172,134 @@ public class GameState
 		}*/
 	
 	}
+
+
+	public boolean isEndOfGame() {
+		return endOfGame;
+	}
+
+
+	public void setEndOfGame(boolean endOfGame) {
+		this.endOfGame = endOfGame;
+	}
+
+
+	public boolean isWarTime() {
+		return warTime;
+	}
+
+
+	public void setWarTime(boolean warTime) {
+		this.warTime = warTime;
+	}
+
+
+	public int getAge() {
+		return age;
+	}
+
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+
+	public int getNumberOfPlayers() {
+		return numberOfPlayers;
+	}
+
+
+	public void setNumberOfPlayers(int numberOfPlayers) {
+		this.numberOfPlayers = numberOfPlayers;
+	}
+
+
+	public int getOrder() {
+		return order;
+	}
+
+
+	public void setOrder(int order) {
+		this.order = order;
+	}
+
+
+	public int getRound() {
+		return round;
+	}
+
+
+	public void setRound(int round) {
+		this.round = round;
+	}
+
+
+	public ArrayList<Boolean> getDecisionMade() {
+		return decisionMade;
+	}
+
+
+	public void setDecisionMade(ArrayList<Boolean> decisionMade) {
+		this.decisionMade = decisionMade;
+	}
+
+
+	public ArrayList<Card> getGraveyard() {
+		return graveyard;
+	}
+
+
+	public void setGraveyard(ArrayList<Card> graveyard) {
+		this.graveyard = graveyard;
+	}
+
+
+	public ArrayList<String> getSelectedResources() {
+		return selectedResources;
+	}
+
+
+	public void setSelectedResources(ArrayList<String> selectedResources) {
+		this.selectedResources = selectedResources;
+	}
+
+
+	public ArrayList<Wonder> getWonders() {
+		return wonders;
+	}
+
+
+	public void setWonders(ArrayList<Wonder> wonders) {
+		this.wonders = wonders;
+	}
+
+
+	public ArrayList<ArrayList<Card>> getPlayerHands() {
+		return playerHands;
+	}
+
+
+	public void setPlayerHands(ArrayList<ArrayList<Card>> playerHands) {
+		this.playerHands = playerHands;
+	}
+
+
+	public HashMap<Integer, ArrayList<Card>> getDeck() {
+		return deck;
+	}
+
+
+	public void setDeck(HashMap<Integer, ArrayList<Card>> deck) {
+		this.deck = deck;
+	}
+
+
+	public Scanner getInput() {
+		return input;
+	}
+
+
+	public void setInput(Scanner input) {
+		this.input = input;
+	}
 }
