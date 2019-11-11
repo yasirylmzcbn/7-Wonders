@@ -37,7 +37,8 @@ public class Wonder extends GameState {
 		else {
 			if(i<0)
 				hand=numPlayers;
-			hand=0;
+			else
+				hand=0;
 		}
 	}
 		
