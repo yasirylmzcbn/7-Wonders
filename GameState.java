@@ -62,8 +62,8 @@ public class GameState
 		Iterator<Integer> iter = randomWonder.iterator();
 		
 		for (int i = 0; i < numberOfPlayers; i++)
-			wonders.add(new Wonder(WONDERNAMES[0], numberOfPlayers));
-			//wonders.add(new Wonder(WONDERNAMES[iter.next()], numberOfPlayers));
+			//wonders.add(new Wonder(WONDERNAMES[0], numberOfPlayers));
+			wonders.add(new Wonder(WONDERNAMES[iter.next()], numberOfPlayers));
 		
 		playerHands = new ArrayList<ArrayList<Card>>();
 		for (int i = 0; i < numberOfPlayers; i++)
