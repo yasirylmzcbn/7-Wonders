@@ -9,7 +9,13 @@ import java.util.Scanner;
 
 public class GameState
 {
-	public static final String[] WONDERNAMES = {"Rhodes", "Alexandria", "Ephesos", "Gizah", "Olympia", "Babylon", "Halikarnassos"};
+	public static final String[] WONDERNAMES = {"The Colossus of Rhodes",
+												"The Lighthouse of Alexandria",
+												"The Temple of Artemis in Ephesus",
+												"The Pyramids of Giza",
+												"The Statue of Zeus in Olympia",
+												"The Hanging Gardens of Babylon",
+												"The Mausoleum of Halicarnassus"};
 	private boolean endOfGame;
 	private boolean warTime;
 
@@ -49,15 +55,15 @@ public class GameState
 		while (randomWonder.size() < numberOfPlayers)
 			randomWonder.add((int)(Math.random() * 7));
 		Iterator<Integer> iter = randomWonder.iterator();
+		
 		for (int i = 0; i < numberOfPlayers; i++)
-		{
 			wonders.add(new Wonder(WONDERNAMES[iter.next()], numberOfPlayers));
-		}
 		
-		//ArrayList<Card> hands = new ArrayList<Card>();
-		//playerHands = new ArrayList<hands>();
+		playerHands = new ArrayList<ArrayList<Card>>();
+		for (int i = 0; i < numberOfPlayers; i++)
+			playerHands.add(new ArrayList<Card>());
 		
-		//readCards();*/
+		readCards();
 	}
 	
 	/*
@@ -174,7 +180,6 @@ public class GameState
 		}*/
 	
 	}
-
 
 	public boolean isEndOfGame() {
 		return endOfGame;
