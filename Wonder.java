@@ -3,7 +3,7 @@ import java.util.*;
 public class Wonder extends GameState {
 	private String name;
 	private HashMap<String, HashSet<Card>> cardsPlayed; //String = type/color of card, HashSet<Card> = cards 
-	private int numOfPlayers;
+	private int numPlayers;
 	private int playerWonders;
 	private int money;
 	private int victoryPoints;
@@ -16,12 +16,12 @@ public class Wonder extends GameState {
 	private int losses;
 	private int wins;
 	private ArrayList<Card> stages;
-	private String wonderAbility;
+	private String WonderAbility;
 
 	
 	public Wonder(String n, int i) {
 		name = n;
-		numOfPlayers = i;
+		numPlayers = i;
 		playerWonders = 0;
 		money = 3;
 		victoryPoints = 0;	
@@ -29,9 +29,6 @@ public class Wonder extends GameState {
 		action = "";
 		trades = new ArrayList<String>();
 		losses = wins = 0;
-<<<<<<< Updated upstream
-	}
-=======
 		cardsPlayed.put("brown",new HashSet<Card>());
 		cardsPlayed.put("silver",new HashSet<Card>());
 		cardsPlayed.put("red",new HashSet<Card>());
@@ -78,7 +75,7 @@ public class Wonder extends GameState {
 		}
   }
 
->>>>>>> Stashed changes
+
 	
 	public void changeHands(int i) {
 		if((hand+i)<=numPlayers||(hand+i)>=0)
@@ -88,23 +85,18 @@ public class Wonder extends GameState {
 				hand=numPlayers;
 			else
 				hand=0;
-		}
-<<<<<<< Updated upstream
-	}
-=======
+		}}
 
-	}
-
->>>>>>> Stashed changes
 	
 	public void burnCard() {
 		money +=3;
 	}
 	public int buildWonder(Card c) {
 		//not done
+		if(playerWonders >= 3)
+		return 0;
 		++playerWonders;
-<<<<<<< Updated upstream
-=======
+
 		if(playerWonders == 1)
 			victoryPoints += 3;
 		else if(playerWonders == 2)
@@ -113,7 +105,6 @@ public class Wonder extends GameState {
 		HashSet<Card> x = cardsPlayed.get("WonderCards");
 		x.add(c);
 		
->>>>>>> Stashed changes
 		return playerWonders;
 	}
 	public boolean playable(Card c) {
