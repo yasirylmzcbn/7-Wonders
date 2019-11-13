@@ -95,6 +95,10 @@ public class Wonder {
 		}
 
 	}
+	public ArrayList<Card> getAllPlayerResources() {
+		ArrayList<Card> list = new ArrayList<Card>();
+		return list;
+	}
 
 	public void playCard(Card c) {
 		if(playable(c))
