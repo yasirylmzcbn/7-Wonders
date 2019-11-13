@@ -39,7 +39,7 @@ public class Wonder {
 		cardsPlayed.put("Purple",new HashSet<Card>());
 		cardsPlayed.put("Wonder",new HashSet<Card>());
 		//hard coded wonders
-		if(name.contentEquals("The Colossus of Rhodes")) {
+		if(name.equals("The Colossus of Rhodes")) {
 			
 			/*
 			 * Possibly need to fix lines 46 through 48
@@ -118,8 +118,11 @@ public class Wonder {
 
 	}
 
-	
-	
+	public void playCard(Card c) {
+		if(playable(c))
+			System.out.println("You built "+ c.getName() + ", a " + c.getColor()+" card, by paying " + c.getCost());
+		else System.out.println("You have already built this card");
+	}
 	public void burnCard() {
 		money +=3;
 	}
