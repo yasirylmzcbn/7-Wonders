@@ -39,7 +39,7 @@ public class Wonder {
 		cardsPlayed.put("Purple",new HashSet<Card>());
 		cardsPlayed.put("Wonder",new HashSet<Card>());
 		//hard coded wonders
-		if(name.contentEquals("The Colossus of Rhodes")) {
+		if(name.equals("The Colossus of Rhodes")) {
 			
 			/*
 			 * Possibly need to fix lines 46 through 48
