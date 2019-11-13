@@ -61,7 +61,7 @@ public class Wonder {
 			ArrayList<String> cor3Cost = new ArrayList<String>();
 			for(int k=0;k<4;k++)
 				cor3Cost.add("ore");
-			stages.add(new CivicsCard("cor2","wonder",cor3Cost,null,3,7));
+			stages.add(new CivicsCard("cor3","wonder",cor3Cost,null,3,7));
 		}
 		else if(name.contentEquals("The Lighthouse of Alexandria")) {
 			//wonder 1
@@ -78,8 +78,30 @@ public class Wonder {
 			ArrayList<String> cor3Cost = new ArrayList<String>();
 			for(int k=0;k<4;k++)
 				cor3Cost.add("ore");
-			stages.add(new CivicsCard("cor2","wonder",cor3Cost,null,3,7));
+			stages.add(new CivicsCard("cor3","wonder",cor3Cost,null,3,7));
 		}
+		else if(name.contentEquals("The Temple of Artemis in Ephesus")) {
+			//wonder 1
+			ArrayList<String> cor1Cost = new ArrayList<String>();
+			cor1Cost.add("stone");
+			cor1Cost.add("stone");
+			stages.add(new CivicsCard("cor1","wonder",cor1Cost,null,3,3));
+			//wonder 2
+			ArrayList<String> cor2Cost = new ArrayList<String>();
+			for(int k=0;k<2;k++)
+				cor2Cost.add("wood");
+			ArrayList<String> cor2Resource = new ArrayList<String>();
+			for(int k=0;k<9;k++)
+				cor2Resource.add("coin");
+			stages.add(new ResourceCard("cor2","wonder",cor2Cost,null,3,cor2Resource));
+			//wonder 3
+			ArrayList<String> cor3Cost = new ArrayList<String>();
+			for(int k=0;k<2;k++)
+				cor3Cost.add("paper");
+			stages.add(new CivicsCard("cor3","wonder",cor3Cost,null,3,7));
+		}
+		
+		
   }
 
 	
@@ -113,7 +135,7 @@ public class Wonder {
 	}
 	public boolean playable(Card c) {
 		if(cardsPlayed.get(c.getColor()).contains(c))
-		return false;
+			return false;
 		return true;
 	}
 	
