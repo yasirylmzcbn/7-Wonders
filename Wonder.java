@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Wonder extends GameState {
 	private String name;
-	private HashMap<String, HashSet<Card>> cardsPlayed; //String = type/color of card, HashSet<Card> = cards
+	private HashMap<String, HashSet<Card>> cardsPlayed; //String = type/color of card, HashSet<Card> = cards 
 	private int numOfPlayers;
 	private int playerWonders;
 	private int money;
@@ -29,7 +29,56 @@ public class Wonder extends GameState {
 		action = "";
 		trades = new ArrayList<String>();
 		losses = wins = 0;
+<<<<<<< Updated upstream
 	}
+=======
+		cardsPlayed.put("brown",new HashSet<Card>());
+		cardsPlayed.put("silver",new HashSet<Card>());
+		cardsPlayed.put("red",new HashSet<Card>());
+		cardsPlayed.put("blue",new HashSet<Card>());
+		cardsPlayed.put("green",new HashSet<Card>());
+		cardsPlayed.put("yellow",new HashSet<Card>());
+		cardsPlayed.put("purple",new HashSet<Card>());
+		cardsPlayed.put("wonder",new HashSet<Card>());
+		//hard coded wonders
+		if(name.contentEquals("The Colossus of Rhodes")) {
+//			cardsPlayed.add(new ResourceCard("The Colossus of Rhodes","brown",null,null,3,));
+			//wonder 1
+			ArrayList<String> cor1Cost = new ArrayList<String>();
+			cor1Cost.add("wood");
+			cor1Cost.add("wood");
+			stages.add(new CivicsCard("cor1","wonder",cor1Cost,null,3,3));
+			//wonder 2
+			ArrayList<String> cor2Cost = new ArrayList<String>();
+			for(int k=0;k<3;k++)
+				cor2Cost.add("clay");
+			stages.add(new MilitaryCard("cor2","wonder",cor2Cost,null,3,2));
+			//wonder 3
+			ArrayList<String> cor3Cost = new ArrayList<String>();
+			for(int k=0;k<4;k++)
+				cor3Cost.add("ore");
+			stages.add(new CivicsCard("cor2","wonder",cor3Cost,null,3,7));
+		}
+		else if(name.contentEquals("The Lighthouse of Alexandria")) {
+			//wonder 1
+			ArrayList<String> cor1Cost = new ArrayList<String>();
+			cor1Cost.add("wood");
+			cor1Cost.add("wood");
+			stages.add(new CivicsCard("cor1","wonder",cor1Cost,null,3,3));
+			//wonder 2
+			ArrayList<String> cor2Cost = new ArrayList<String>();
+			for(int k=0;k<3;k++)
+				cor2Cost.add("clay");
+			stages.add(new MilitaryCard("cor2","wonder",cor2Cost,null,3,2));
+			//wonder 3
+			ArrayList<String> cor3Cost = new ArrayList<String>();
+			for(int k=0;k<4;k++)
+				cor3Cost.add("ore");
+			stages.add(new CivicsCard("cor2","wonder",cor3Cost,null,3,7));
+		}
+  }
+
+>>>>>>> Stashed changes
 	
 	public void changeHands(int i) {
 		if((hand+i)<=numPlayers||(hand+i)>=0)
@@ -40,14 +89,31 @@ public class Wonder extends GameState {
 			else
 				hand=0;
 		}
+<<<<<<< Updated upstream
 	}
+=======
+
+	}
+
+>>>>>>> Stashed changes
 	
 	public void burnCard() {
 		money +=3;
 	}
-	public int buildWonder() {
+	public int buildWonder(Card c) {
 		//not done
 		++playerWonders;
+<<<<<<< Updated upstream
+=======
+		if(playerWonders == 1)
+			victoryPoints += 3;
+		else if(playerWonders == 2)
+			victoryPoints += 7;
+		
+		HashSet<Card> x = cardsPlayed.get("WonderCards");
+		x.add(c);
+		
+>>>>>>> Stashed changes
 		return playerWonders;
 	}
 	public boolean playable(Card c) {
