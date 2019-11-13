@@ -33,7 +33,7 @@ public class Wonder {
 		cardsPlayed.put("Brown",new HashSet<Card>());
 		cardsPlayed.put("Silver",new HashSet<Card>());
 		cardsPlayed.put("Red",new HashSet<Card>());
-		cardsPlayed.put("blue",new HashSet<Card>());
+		cardsPlayed.put("Blue",new HashSet<Card>());
 		cardsPlayed.put("Green",new HashSet<Card>());
 		cardsPlayed.put("Yellow",new HashSet<Card>());
 		cardsPlayed.put("Purple",new HashSet<Card>());
