@@ -46,7 +46,7 @@ public class Wonder {
 			 */
 			ArrayList<String> tempResource = new ArrayList<String>();
 			tempResource.add("ore");
-			cardsPlayed.get("Brown").add(new ResourceCard("The Colossus of Rhodes","brown",null,null,3,tempResource));
+			cardsPlayed.get("Wonder").add(new ResourceCard("The Colossus of Rhodes","brown",null,null,3,tempResource));
 			//wonder 1
 			ArrayList<String> cor1Cost = new ArrayList<String>();
 			cor1Cost.add("wood");
@@ -64,6 +64,9 @@ public class Wonder {
 			stages.add(new CivicsCard("cor3","wonder",cor3Cost,null,3,7));
 		}
 		else if(name.contentEquals("The Lighthouse of Alexandria")) {
+			ArrayList<String> tempResource = new ArrayList<String>();
+			tempResource.add("glass");
+			cardsPlayed.get("Wonder").add(new ResourceCard("The Lighthouse of Alexandria","silver",null,null,3,tempResource));
 			//wonder 1
 			ArrayList<String> cor1Cost = new ArrayList<String>();
 			cor1Cost.add("wood");
@@ -81,6 +84,9 @@ public class Wonder {
 			stages.add(new CivicsCard("cor3","wonder",cor3Cost,null,3,7));
 		}
 		else if(name.contentEquals("The Temple of Artemis in Ephesus")) {
+			ArrayList<String> tempResource = new ArrayList<String>();
+			tempResource.add("paper");
+			cardsPlayed.get("Wonder").add(new ResourceCard("The Temple of Artemis in Ephesus","silver",null,null,3,tempResource));
 			//wonder 1
 			ArrayList<String> cor1Cost = new ArrayList<String>();
 			cor1Cost.add("stone");
