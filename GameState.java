@@ -3,13 +3,26 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class GameState
 {
+	/*
+	 * IS THERE A NEED FOR currentPlayer?
+	 */
+	public static final String[] WONDERNAMES = {"The Colossus of Rhodes",
+												"The Lighthouse of Alexandria",
+												"The Temple of Artemis in Ephesus",
+												"The Pyramids of Giza",
+												"The Statue of Zeus in Olympia",
+												"The Hanging Gardens of Babylon",
+												"The Mausoleum of Halicarnassus"};
 	private boolean endOfGame;
 	private boolean warTime;
 
+	private int currentPlayer;
 	private int age;
 	private int numberOfPlayers;
 	private int order; // 1 if clockwise, -1 if anticlockwise
@@ -23,14 +36,7 @@ public class GameState
 	private HashMap<Integer, ArrayList<Card>> deck; // Integer=age, ArrayList=Cards themselves
 	
 	private Scanner input; // parses through card files
-
-	// temp method for testing only
-	public static void main(String[] args)
-	{
-		GameState s = new GameState();
-	}
-	
-	
+		
 	public GameState()
 	{
 		endOfGame = false;
@@ -39,6 +45,7 @@ public class GameState
 		numberOfPlayers = 3;
 		order = 1;
 		round = 1;
+		currentPlayer = (int)(Math.random() * numberOfPlayers);
 		
 		decisionMade = new ArrayList<Boolean>();
 		for (int i = 0; i < numberOfPlayers; i++)
@@ -49,11 +56,18 @@ public class GameState
 		selectedResources = new ArrayList<String>();
 		
 		wonders = new ArrayList<Wonder>();
-		for (int i = 0; i < numberOfPlayers; i++)
-			{} // to do
+		HashSet<Integer> randomWonder = new HashSet<Integer>();
+		while (randomWonder.size() < numberOfPlayers)
+			randomWonder.add((int)(Math.random() * 7));
+		Iterator<Integer> iter = randomWonder.iterator();
 		
-		//ArrayList<Card> hands = new ArrayList<Card>();
-		//playerHands = new ArrayList<hands>();
+		for (int i = 0; i < numberOfPlayers; i++)
+			//wonders.add(new Wonder(WONDERNAMES[0], numberOfPlayers));
+			wonders.add(new Wonder(WONDERNAMES[iter.next()], numberOfPlayers));
+		
+		playerHands = new ArrayList<ArrayList<Card>>();
+		for (int i = 0; i < numberOfPlayers; i++)
+			playerHands.add(new ArrayList<Card>());
 		
 		readCards();
 	}
@@ -159,7 +173,7 @@ public class GameState
 					tempCards.add(card);
 				}
 			}
-			
+			//IF AGE == 3 then change the guild cards accordingly
 			deck.put(i, tempCards);
 		}
 		
@@ -172,7 +186,6 @@ public class GameState
 		}*/
 	
 	}
-
 
 	public boolean isEndOfGame() {
 		return endOfGame;
@@ -301,5 +314,13 @@ public class GameState
 
 	public void setInput(Scanner input) {
 		this.input = input;
+	}
+
+	public int getCurrentPlayer() {
+		return currentPlayer;
+	}
+
+	public void setCurrentPlayer(int currentPlayer) {
+		this.currentPlayer = currentPlayer;
 	}
 }

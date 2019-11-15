@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Wonder{
+public class Wonder {
 	private String name;
 	private HashMap<String, HashSet<Card>> cardsPlayed; //String = type/color of card, HashSet<Card> = cards
 	private int numOfPlayers;
@@ -29,21 +29,24 @@ public class Wonder{
 		action = "";
 		trades = new ArrayList<String>();
 		losses = wins = 0;
-		cardsPlayed.put("brown",new HashSet<Card>());
-		cardsPlayed.put("silver",new HashSet<Card>());
-		cardsPlayed.put("red",new HashSet<Card>());
-		cardsPlayed.put("blue",new HashSet<Card>());
-		cardsPlayed.put("green",new HashSet<Card>());
-		cardsPlayed.put("yellow",new HashSet<Card>());
-		cardsPlayed.put("purple",new HashSet<Card>());
-		cardsPlayed.put("wonder",new HashSet<Card>());
+		cardsPlayed = new HashMap<String, HashSet<Card>>();
+		cardsPlayed.put("Brown",new HashSet<Card>());
+		cardsPlayed.put("Silver",new HashSet<Card>());
+		cardsPlayed.put("Red",new HashSet<Card>());
+		cardsPlayed.put("Blue",new HashSet<Card>());
+		cardsPlayed.put("Green",new HashSet<Card>());
+		cardsPlayed.put("Yellow",new HashSet<Card>());
+		cardsPlayed.put("Purple",new HashSet<Card>());
+		cardsPlayed.put("Wonder",new HashSet<Card>());
 		//hard coded wonders
-		if(name.contentEquals("The Colossus of Rhodes")) {
+    if(name.equals("The Colossus of Rhodes")) {
 			ArrayList<String> cor = new ArrayList<String>();
 			cor.add("ore");
+      
 			HashSet<Card> temp = cardsPlayed.get("Wonder");
 			
-			temp.add(new ResourceCard("The Colossus of Rhodes","brown",null,null,3,cor));
+			cardsPlayed.get("Brown").add(new ResourceCard("The Colossus of Rhodes","brown",null,null,3,cor));
+
 			//wonder 1
 			ArrayList<String> cor1Cost = new ArrayList<String>();
 			cor1Cost.add("wood");
@@ -58,7 +61,7 @@ public class Wonder{
 			ArrayList<String> cor3Cost = new ArrayList<String>();
 			for(int k=0;k<4;k++)
 				cor3Cost.add("ore");
-			stages.add(new CivicsCard("cor2","wonder",cor3Cost,null,3,7));
+			stages.add(new CivicsCard("cor3","wonder",cor3Cost,null,3,7));
 		}
 		else if(name.contentEquals("The Lighthouse of Alexandria")) {
 			//wonder 1
@@ -75,8 +78,30 @@ public class Wonder{
 			ArrayList<String> cor3Cost = new ArrayList<String>();
 			for(int k=0;k<4;k++)
 				cor3Cost.add("ore");
-			stages.add(new CivicsCard("cor2","wonder",cor3Cost,null,3,7));
+			stages.add(new CivicsCard("cor3","wonder",cor3Cost,null,3,7));
 		}
+		else if(name.contentEquals("The Temple of Artemis in Ephesus")) {
+			//wonder 1
+			ArrayList<String> cor1Cost = new ArrayList<String>();
+			cor1Cost.add("stone");
+			cor1Cost.add("stone");
+			stages.add(new CivicsCard("cor1","wonder",cor1Cost,null,3,3));
+			//wonder 2
+			ArrayList<String> cor2Cost = new ArrayList<String>();
+			for(int k=0;k<2;k++)
+				cor2Cost.add("wood");
+			ArrayList<String> cor2Resource = new ArrayList<String>();
+			for(int k=0;k<9;k++)
+				cor2Resource.add("coin");
+			stages.add(new ResourceCard("cor2","wonder",cor2Cost,null,3,cor2Resource));
+			//wonder 3
+			ArrayList<String> cor3Cost = new ArrayList<String>();
+			for(int k=0;k<2;k++)
+				cor3Cost.add("paper");
+			stages.add(new CivicsCard("cor3","wonder",cor3Cost,null,3,7));
+		}
+		
+		
   }
 
 	
@@ -92,9 +117,17 @@ public class Wonder{
 		}
 
 	}
-
-	
-	
+	public ArrayList<Card> getAllPlayerResources() {
+		
+		ArrayList<Card> list = new ArrayList<Card>();
+		return list;
+	}
+	public void playCard(Card c) {
+		if(playable(c))
+			System.out.println("You built "+ c.getName() + ", a " + c.getColor()+" card, by paying " + c.getCost());
+		else System.out.println("You have already built this card");
+	}
+  
 	public void burnCard() {
 		money +=3;
 	}
@@ -110,7 +143,7 @@ public class Wonder{
 	}
 	public boolean playable(Card c) {
 		if(cardsPlayed.get(c.getColor()).contains(c))
-		return false;
+			return false;
 		return true;
 	}
 	
