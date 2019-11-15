@@ -42,7 +42,7 @@ public class Wonder {
     if(name.equals("The Colossus of Rhodes")) {
 			ArrayList<String> cor = new ArrayList<String>();
 			cor.add("ore");
-
+			
 			cardsPlayed.get("Wonder").add(new ResourceCard("The Colossus of Rhodes","brown",null,null,3,cor));
 
 			//wonder 1
@@ -66,7 +66,7 @@ public class Wonder {
 			ArrayList<String> loa1Cost = new ArrayList<String>();
 			loa1Cost.add("wood");
 			loa1Cost.add("wood");
-			stages.add(new CivicsCard("cor1","wonder",loa1Cost,null,3,3));
+			stages.add(new CivicsCard("loa1","wonder",loa1Cost,null,3,3));
 			//wonder 2
 			ArrayList<String> loa2Cost = new ArrayList<String>();
 			for(int k=0;k<3;k++)
@@ -100,17 +100,17 @@ public class Wonder {
 		}
 		else if(name.equals("The Hanging Gardens of Babylon")) {
 		ArrayList<String> hgob = new ArrayList<String>();
-		//cor.add("ore");
+		hgob.add("ore");
   
 		HashSet<Card> temp = cardsPlayed.get("Wonder");
 		
-		cardsPlayed.get("Brown").add(new ResourceCard("The Colossus of Rhodes","brown",null,null,3,cor));
+		cardsPlayed.get("Brown").add(new ResourceCard("The Colossus of Rhodes","brown",null,null,3,hgob));
 
 		//wonder 1
-		ArrayList<String> cor1Cost = new ArrayList<String>();
-		cor1Cost.add("wood");
-		cor1Cost.add("wood");
-		stages.add(new CivicsCard("cor1","wonder",cor1Cost,null,3,3));
+		ArrayList<String> hgob1Cost = new ArrayList<String>();
+		hgob1Cost.add("clay");
+		hgob1Cost.add("clay");
+		stages.add(new CivicsCard("cor1","wonder",hgob1Cost,null,3,3));
 		//wonder 2
 		ArrayList<String> cor2Cost = new ArrayList<String>();
 		for(int k=0;k<3;k++)
