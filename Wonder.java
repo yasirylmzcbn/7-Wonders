@@ -66,44 +66,68 @@ public class Wonder {
 			tempResource.add("glass");
 			cardsPlayed.get("Wonder").add(new ResourceCard("The Lighthouse of Alexandria","silver",null,null,3,tempResource));
 			//wonder 1
-			ArrayList<String> cor1Cost = new ArrayList<String>();
-			cor1Cost.add("wood");
-			cor1Cost.add("wood");
-			stages.add(new CivicsCard("cor1","wonder",cor1Cost,null,3,3));
+			ArrayList<String> loa1Cost = new ArrayList<String>();
+			loa1Cost.add("wood");
+			loa1Cost.add("wood");
+			stages.add(new CivicsCard("cor1","wonder",loa1Cost,null,3,3));
 			//wonder 2
-			ArrayList<String> cor2Cost = new ArrayList<String>();
+			ArrayList<String> loa2Cost = new ArrayList<String>();
 			for(int k=0;k<3;k++)
-				cor2Cost.add("clay");
-			stages.add(new MilitaryCard("cor2","wonder",cor2Cost,null,3,2));
+				loa2Cost.add("clay");
+			stages.add(new MilitaryCard("cor2","wonder",loa2Cost,null,3,2));
 			//wonder 3
-			ArrayList<String> cor3Cost = new ArrayList<String>();
+			ArrayList<String> loa3Cost = new ArrayList<String>();
 			for(int k=0;k<4;k++)
-				cor3Cost.add("ore");
-			stages.add(new CivicsCard("cor3","wonder",cor3Cost,null,3,7));
+				loa3Cost.add("ore");
+			stages.add(new CivicsCard("cor3","wonder",loa3Cost,null,3,7));
 		}
 		else if(name.contentEquals("The Temple of Artemis in Ephesus")) {
 			ArrayList<String> tempResource = new ArrayList<String>();
 			tempResource.add("paper");
 			cardsPlayed.get("Wonder").add(new ResourceCard("The Temple of Artemis in Ephesus","silver",null,null,3,tempResource));
 			//wonder 1
-			ArrayList<String> cor1Cost = new ArrayList<String>();
-			cor1Cost.add("stone");
-			cor1Cost.add("stone");
-			stages.add(new CivicsCard("cor1","wonder",cor1Cost,null,3,3));
+			ArrayList<String> toaie1Cost = new ArrayList<String>();
+			toaie1Cost.add("stone");
+			toaie1Cost.add("stone");
+			stages.add(new CivicsCard("cor1","wonder",toaie1Cost,null,3,3));
 			//wonder 2
-			ArrayList<String> cor2Cost = new ArrayList<String>();
+			ArrayList<String> toaie2Cost = new ArrayList<String>();
 			for(int k=0;k<2;k++)
-				cor2Cost.add("wood");
-			ArrayList<String> cor2Resource = new ArrayList<String>();
+				toaie2Cost.add("wood");
+			ArrayList<String> toaie2Resource = new ArrayList<String>();
 			for(int k=0;k<9;k++)
-				cor2Resource.add("coin");
-			stages.add(new ResourceCard("cor2","wonder",cor2Cost,null,3,cor2Resource));
+				toaie2Resource.add("coin");
+			stages.add(new ResourceCard("cor2","wonder",toaie2Cost,null,3,toaie2Resource));
 			//wonder 3
-			ArrayList<String> cor3Cost = new ArrayList<String>();
+			ArrayList<String> toaie3Cost = new ArrayList<String>();
 			for(int k=0;k<2;k++)
-				cor3Cost.add("paper");
-			stages.add(new CivicsCard("cor3","wonder",cor3Cost,null,3,7));
+				toaie3Cost.add("paper");
+			stages.add(new CivicsCard("cor3","wonder",toaie3Cost,null,3,7));
 		}
+		else if(name.equals("The Hanging Gardens of Babylon")) {
+		ArrayList<String> hgob = new ArrayList<String>();
+		//cor.add("ore");
+  
+		HashSet<Card> temp = cardsPlayed.get("Wonder");
+		
+		cardsPlayed.get("Brown").add(new ResourceCard("The Colossus of Rhodes","brown",null,null,3,cor));
+
+		//wonder 1
+		ArrayList<String> cor1Cost = new ArrayList<String>();
+		cor1Cost.add("wood");
+		cor1Cost.add("wood");
+		stages.add(new CivicsCard("cor1","wonder",cor1Cost,null,3,3));
+		//wonder 2
+		ArrayList<String> cor2Cost = new ArrayList<String>();
+		for(int k=0;k<3;k++)
+			cor2Cost.add("clay");
+		stages.add(new MilitaryCard("cor2","wonder",cor2Cost,null,3,2));
+		//wonder 3
+		ArrayList<String> cor3Cost = new ArrayList<String>();
+		for(int k=0;k<4;k++)
+			cor3Cost.add("ore");
+		stages.add(new CivicsCard("cor3","wonder",cor3Cost,null,3,7));
+	}
 		
 		
   }
