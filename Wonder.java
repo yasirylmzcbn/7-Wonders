@@ -39,7 +39,11 @@ public class Wonder{
 		cardsPlayed.put("wonder",new HashSet<Card>());
 		//hard coded wonders
 		if(name.contentEquals("The Colossus of Rhodes")) {
-			cardsPlayed.add(new ResourceCard("The Colossus of Rhodes","brown",null,null,3,))
+			ArrayList<String> cor = new ArrayList<String>();
+			cor.add("ore");
+			HashSet<Card> temp = cardsPlayed.get("Wonder");
+			
+			temp.add(new ResourceCard("The Colossus of Rhodes","brown",null,null,3,cor));
 			//wonder 1
 			ArrayList<String> cor1Cost = new ArrayList<String>();
 			cor1Cost.add("wood");
@@ -89,7 +93,7 @@ public class Wonder{
 
 	}
 
-	}
+	
 	
 	public void burnCard() {
 		money +=3;
