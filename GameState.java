@@ -103,7 +103,13 @@ public class GameState
 	}
 	public void rotateHands()
 	{
-		
+		for(Wonder w: wonders)
+		{
+			if(age == 1 || age ==3)
+			{
+				
+			}
+		}
 	}
 	public void finishRound()
 	{
