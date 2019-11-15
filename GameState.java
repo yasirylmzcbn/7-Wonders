@@ -62,7 +62,6 @@ public class GameState
 		Iterator<Integer> iter = randomWonder.iterator();
 		
 		for (int i = 0; i < numberOfPlayers; i++)
-			//wonders.add(new Wonder(WONDERNAMES[0], numberOfPlayers));
 			wonders.add(new Wonder(WONDERNAMES[iter.next()], numberOfPlayers));
 		
 		playerHands = new ArrayList<ArrayList<Card>>();
@@ -97,9 +96,18 @@ public class GameState
 		}
 		return null;
 	}
+	
+	/*
+	 * Returns index of player who
+	 */
 	public int whoWon()
 	{
-		return 0;
+		int winner = 0;
+		ArrayList<Integer> finalPoints = finalPoints();
+		for (int i = 0; i < finalPoints.size(); i++)
+			if (finalPoints.get(i) > finalPoints.get(winner))
+				winner = i;
+		return winner;
 	}
 	public void rotateHands()
 	{
@@ -118,6 +126,45 @@ public class GameState
 	public void nextRound()
 	{
 		
+	}
+	
+	/*
+	 * warTime() gives each wonder either wins or losses. For each wonder, it only goes to war with the far right to prevent double conflicts
+	 */
+	public void warTime()
+	{
+		// for each wonder
+		for (int i = 0; i < wonders.size(); i++)
+		{
+			Wonder rightWonder = getRightWonder();
+			Wonder ownWonder = wonders.get(i);
+			int rightPower = rightWonder.getMilitaryPower();
+			int ownPower = ownWonder.getMilitaryPower();
+			
+			if (ownPower > rightPower)
+			{
+				if (age == 1)
+					ownWonder.setWins(ownWonder.getWins() + 1);
+				//else if (age)
+
+				rightWonder.setLosses(rightWonder.getLosses() + 1);
+			}
+			if (ownPower < rightPower)
+			{
+				
+			}
+			
+			
+		}
+	}
+	public Wonder getLeftWonder()
+	{
+		return null;
+	}
+	public Wonder getRightWonder()
+	{
+		Object joe = new Object();
+		return (Wonder)joe;
 	}
 	
 	/*
