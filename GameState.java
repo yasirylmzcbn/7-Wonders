@@ -9,9 +9,6 @@ import java.util.Scanner;
 
 public class GameState
 {
-	/*
-	 * IS THERE A NEED FOR currentPlayer?
-	 */
 	public static final String[] WONDERNAMES = {"The Colossus of Rhodes",
 												"The Lighthouse of Alexandria",
 												"The Temple of Artemis in Ephesus",
@@ -26,7 +23,7 @@ public class GameState
 	private int age;
 	private int numberOfPlayers;
 	private int order; // 1 if clockwise, -1 if anticlockwise
-	private int round;
+	private int round; // rounds 1 through 7
 
 	private ArrayList<Boolean> decisionMade; // if all players have made decision for the turn
 	private ArrayList<Card> graveyard; // stores all cards discarded
@@ -37,6 +34,11 @@ public class GameState
 	
 	private Scanner input; // parses through card files
 		
+	/*
+	 * Initialises all variables
+	 * Reads in and initialises cards with readCards() method
+	 * Creates a random wonder for each player using the WONDERNAMES variable
+	 */
 	public GameState()
 	{
 		endOfGame = false;
@@ -47,6 +49,7 @@ public class GameState
 		round = 1;
 		currentPlayer = (int)(Math.random() * numberOfPlayers);
 		
+		// sets all decisionsMade to false for the start of the game
 		decisionMade = new ArrayList<Boolean>();
 		for (int i = 0; i < numberOfPlayers; i++)
 			decisionMade.add(false);
@@ -55,19 +58,21 @@ public class GameState
 		
 		selectedResources = new ArrayList<String>();
 		
+		// Creates a random wonder for each player using the WONDERNAMES variable
 		wonders = new ArrayList<Wonder>();
 		HashSet<Integer> randomWonder = new HashSet<Integer>();
 		while (randomWonder.size() < numberOfPlayers)
 			randomWonder.add((int)(Math.random() * 7));
 		Iterator<Integer> iter = randomWonder.iterator();
-		
 		for (int i = 0; i < numberOfPlayers; i++)
 			wonders.add(new Wonder(WONDERNAMES[iter.next()], numberOfPlayers));
 		
+		// initialises each player's hand but does NOT add any cards
 		playerHands = new ArrayList<ArrayList<Card>>();
 		for (int i = 0; i < numberOfPlayers; i++)
 			playerHands.add(new ArrayList<Card>());
 		
+		// initialises every card in the game
 		readCards();
 	}
 	
@@ -136,7 +141,7 @@ public class GameState
 		// for each wonder
 		for (int i = 0; i < wonders.size(); i++)
 		{
-			Wonder rightWonder = getRightWonder();
+			Wonder rightWonder = getRightWonder(i);
 			Wonder ownWonder = wonders.get(i);
 			int rightPower = rightWonder.getMilitaryPower();
 			int ownPower = ownWonder.getMilitaryPower();
@@ -145,26 +150,44 @@ public class GameState
 			{
 				if (age == 1)
 					ownWonder.setWins(ownWonder.getWins() + 1);
-				//else if (age)
+				else if (age == 2)
+					ownWonder.setWins(ownWonder.getWins() + 3);
+				else if (age == 3)
+					ownWonder.setWins(ownWonder.getWins() + 5);
 
 				rightWonder.setLosses(rightWonder.getLosses() + 1);
 			}
 			if (ownPower < rightPower)
 			{
+				if (age == 1)
+					rightWonder.setWins(rightWonder.getWins() + 1);
+				else if (age == 2)
+					rightWonder.setWins(rightWonder.getWins() + 3);
+				else if (age == 3)
+					rightWonder.setWins(rightWonder.getWins() + 5);
 				
+				ownWonder.setLosses(ownWonder.getLosses() + 1);
 			}
-			
-			
 		}
 	}
-	public Wonder getLeftWonder()
+	
+	public Wonder getLeftWonder(int wonder)
 	{
-		return null;
+		Wonder ownWonder = wonders.get(wonder);
+		
+		int leftWonder = wonder - 1;
+		if (leftWonder < 0)
+			leftWonder = 3;
+		return wonders.get(leftWonder);
 	}
-	public Wonder getRightWonder()
+	public Wonder getRightWonder(int wonder)
 	{
-		Object joe = new Object();
-		return (Wonder)joe;
+		Wonder ownWonder = wonders.get(wonder);
+		
+		int rightWonder = wonder + 1;
+		if (rightWonder > 3)
+			rightWonder = 0;
+		return wonders.get(rightWonder);
 	}
 	
 	/*
@@ -229,14 +252,6 @@ public class GameState
 			//IF AGE == 3 then change the guild cards accordingly
 			deck.put(i, tempCards);
 		}
-		
-		/* temporary method
-		for (ArrayList<Card> list: deck.values())
-		{
-			for (Card c: list)
-				System.out.println(c);
-			System.out.println();
-		}*/
 	
 	}
 
