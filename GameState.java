@@ -79,7 +79,7 @@ public class GameState
 	/*
 	 * should this method be moved to wonder.java and this method be used to just call the other ones?
 	 */
-	// calculated the victory points of each player at the end of the game
+	// TODO calculated the victory points of each player at the end of the game
 	public ArrayList<Integer> finalPoints()
 	{
 		ArrayList<Integer> points = new ArrayList<Integer>(this.numberOfPlayers);
@@ -103,7 +103,7 @@ public class GameState
 	}
 	
 	/*
-	 * Returns index of player who
+	 * Returns index of player who is in first place
 	 */
 	public int whoWon()
 	{
@@ -118,10 +118,7 @@ public class GameState
 	{
 		for(Wonder w: wonders)
 		{
-			if(age == 1 || age ==3)
-			{
-				
-			}
+			w.changeHands(order);
 		}
 	}
 	public void finishRound()
