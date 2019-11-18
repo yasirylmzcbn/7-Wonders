@@ -43,7 +43,7 @@ public class Wonder {
 			ArrayList<String> cor = new ArrayList<String>();
 			cor.add("ore");
 			
-			cardsPlayed.get("Wonder").add(new ResourceCard("The Colossus of Rhodes","brown",null,null,3,cor));
+			cardsPlayed.get("Wonder").add(new ResourceCard("The Colossus of Rhodes","wonder",null,null,3,cor));
 
 			//wonder 1
 			ArrayList<String> cor1Cost = new ArrayList<String>();
