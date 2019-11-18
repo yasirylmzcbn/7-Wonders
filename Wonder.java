@@ -152,8 +152,11 @@ public class Wonder {
 
 
 	public void playCard(Card c) {
+		if(!playable(c))
+			return;
 		
-		
+		HashSet<Card> l = cardsPlayed.get(c.getColor());
+		l.add(c);
 		if(c.getColor().equals("blue")) {
 			CivicsCard x = (CivicsCard) c;
 			victoryPoints += x.getVictoryPoints();
@@ -185,7 +188,7 @@ public class Wonder {
 		else if(playerWonders == 2)
 			victoryPoints += 7;
 		
-		HashSet<Card> x = cardsPlayed.get("WonderCards");
+		HashSet<Card> x = cardsPlayed.get("wonder");
 		x.add(c);
 
 		return playerWonders;
