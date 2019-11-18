@@ -30,6 +30,7 @@ public class Wonder {
 		action = "";
 		trades = new ArrayList<String>();
 		losses = wins = 0;
+		cardsPlayed = new HashMap<String, HashSet<Card>>();
 
 		cardsPlayed.put("brown",new HashSet<Card>());
 		cardsPlayed.put("silver",new HashSet<Card>());
