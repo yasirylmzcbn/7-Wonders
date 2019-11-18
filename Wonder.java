@@ -135,7 +135,7 @@ public class Wonder {
 			ArrayList<String> sofzio2Cost = new ArrayList<String>();
 			for(int k=0;k<2;k++)
 				sofzio2Cost.add("stone");
-			stages.add(new GuildCard("sofzio2","wonder",sofzio2Cost,null,3,"sofzio2"));
+			stages.add(new GuildCard("sofzio2","wonder",sofzio2Cost,null,3,"free*Age"));
 			//wonder 3
 			ArrayList<String> sofzio3Cost = new ArrayList<String>();
 			for(int k=0;k<4;k++)
@@ -157,7 +157,7 @@ public class Wonder {
 			ArrayList<String> moh2Cost = new ArrayList<String>();
 			for(int k=0;k<3;k++)
 				moh2Cost.add("ore");
-			stages.add(new GuildCard("moh2","wonder",moh2Cost,null,3,"moh2"));
+			stages.add(new GuildCard("moh2","wonder",moh2Cost,null,3,"graveyard"));
 			//wonder 3
 			ArrayList<String> moh3Cost = new ArrayList<String>();
 			for(int k=0;k<2;k++)
