@@ -45,7 +45,7 @@ public class GameState
 		warTime = false;
 		age = 1;
 		numberOfPlayers = 3;
-		order = -1;
+		order = 1;
 		round = 1;
 		currentPlayer = (int)(Math.random() * numberOfPlayers);
 		
