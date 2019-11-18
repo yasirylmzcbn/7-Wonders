@@ -79,11 +79,16 @@ public class Wonder {
 			stages.add(new CivicsCard("cor3","wonder",loa3Cost,null,3,7));
 		}
 		else if(name.contentEquals("The Temple of Artemis in Ephesus")) {
+			ArrayList<String> toaie = new ArrayList<String>();
+			toaie.add("glass");
+			
+			cardsPlayed.get("Wonder").add(new ResourceCard("The Temple of Artemis in Ephesus","wonder",null,null,3,toaie));
+
 			//wonder 1
 			ArrayList<String> toaie1Cost = new ArrayList<String>();
 			toaie1Cost.add("stone");
 			toaie1Cost.add("stone");
-			stages.add(new CivicsCard("cor1","wonder",toaie1Cost,null,3,3));
+			stages.add(new CivicsCard("toaie1","wonder",toaie1Cost,null,3,3));
 			//wonder 2
 			ArrayList<String> toaie2Cost = new ArrayList<String>();
 			for(int k=0;k<2;k++)
@@ -91,12 +96,12 @@ public class Wonder {
 			ArrayList<String> toaie2Resource = new ArrayList<String>();
 			for(int k=0;k<9;k++)
 				toaie2Resource.add("coin");
-			stages.add(new ResourceCard("cor2","wonder",toaie2Cost,null,3,toaie2Resource));
+			stages.add(new ResourceCard("toaie2","wonder",toaie2Cost,null,3,toaie2Resource));
 			//wonder 3
 			ArrayList<String> toaie3Cost = new ArrayList<String>();
 			for(int k=0;k<2;k++)
 				toaie3Cost.add("paper");
-			stages.add(new CivicsCard("cor3","wonder",toaie3Cost,null,3,7));
+			stages.add(new CivicsCard("toaie3","wonder",toaie3Cost,null,3,7));
 			}
 		else if(name.equals("The Hanging Gardens of Babylon")) {
 			ArrayList<String> hgob = new ArrayList<String>();
