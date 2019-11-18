@@ -15,15 +15,11 @@ public class Wonder extends GameState {
 	private ArrayList<String> trades;
 	private int losses;
 	private int wins;
-<<<<<<< Updated upstream
-	private ArrayList<Card> stages;
 	private String WonderAbility;
-
-=======
 	private ArrayList<Card> stages=new ArrayList<Card>();
 	private String wonderAbility;
 	private HashMap<String, Integer> techCardPoints;
->>>>>>> Stashed changes
+
 	
 	public Wonder(String n, int i) {
 		name = n;
@@ -35,7 +31,7 @@ public class Wonder extends GameState {
 		action = "";
 		trades = new ArrayList<String>();
 		losses = wins = 0;
-<<<<<<< Updated upstream
+
 		cardsPlayed.put("brown",new HashSet<Card>());
 		cardsPlayed.put("silver",new HashSet<Card>());
 		cardsPlayed.put("red",new HashSet<Card>());
@@ -44,7 +40,7 @@ public class Wonder extends GameState {
 		cardsPlayed.put("yellow",new HashSet<Card>());
 		cardsPlayed.put("purple",new HashSet<Card>());
 		cardsPlayed.put("wonder",new HashSet<Card>());
-=======
+
 		techCardPoints = new HashMap<String, Integer>();
 		techCardPoints.put("tablet", 0);
 		techCardPoints.put("gear", 0);
@@ -60,7 +56,7 @@ public class Wonder extends GameState {
 		cardsPlayed.put("Purple",new HashSet<Card>());
 		cardsPlayed.put("Wonder",new HashSet<Card>());
 		
->>>>>>> Stashed changes
+
 		//hard coded wonders
 		if(name.contentEquals("The Colossus of Rhodes")) {
 //			cardsPlayed.add(new ResourceCard("The Colossus of Rhodes","brown",null,null,3,));
@@ -111,9 +107,7 @@ public class Wonder extends GameState {
 				hand=0;
 		}}
 
-<<<<<<< Updated upstream
-	
-=======
+
 	public void playCard(Card c) {
 		
 		if(c.getColor().equals("blue")) {
@@ -127,7 +121,6 @@ public class Wonder extends GameState {
 		}
 
 	}
->>>>>>> Stashed changes
 	public void burnCard() {
 		money +=3;
 	}
