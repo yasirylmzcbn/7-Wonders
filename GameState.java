@@ -92,11 +92,9 @@ public class GameState
 			// points from coins
 			totalPoints += currentWonder.getMoney() / 3;
 			
-			// points from each wonder built and blue cards
+			// points from each wonder built, blue cards, green cards
+			//
 			totalPoints += currentWonder.victoryPoints;
-			
-			// points from scientific structures
-			
 			
 			// points from commercial structures
 			
