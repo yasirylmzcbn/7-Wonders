@@ -2,11 +2,11 @@ import java.util.*;
 
 public class Wonder {
 	private String name;
-	private HashMap<String, HashSet<Card>> cardsPlayed; //String = type/color of card, HashSet<Card> = cards
-	private int numOfPlayers;
+	private HashMap<String, HashSet<Card>> cardsPlayed; //String = type/color of card, HashSet<Card> = cards 
+	private int numPlayers;
 	private int playerWonders;
 	private int money;
-	private int victoryPoints;
+	public int victoryPoints;
 	private ListIterator<Card> iter;
 	private int hand;
 	private int militaryPower;
@@ -17,11 +17,12 @@ public class Wonder {
 	private int wins;
 	private ArrayList<Card> stages=new ArrayList<Card>();
 	private String wonderAbility;
+	private HashMap<String, Integer> techCardPoints;
 
 	
 	public Wonder(String n, int i) {
 		name = n;
-		numOfPlayers = i;
+		numPlayers = i;
 		playerWonders = 0;
 		money = 3;
 		victoryPoints = 0;	
@@ -29,15 +30,21 @@ public class Wonder {
 		action = "";
 		trades = new ArrayList<String>();
 		losses = wins = 0;
-		cardsPlayed = new HashMap<String, HashSet<Card>>();
-		cardsPlayed.put("Brown",new HashSet<Card>());
-		cardsPlayed.put("Silver",new HashSet<Card>());
-		cardsPlayed.put("Red",new HashSet<Card>());
-		cardsPlayed.put("Blue",new HashSet<Card>());
-		cardsPlayed.put("Green",new HashSet<Card>());
-		cardsPlayed.put("Yellow",new HashSet<Card>());
-		cardsPlayed.put("Purple",new HashSet<Card>());
-		cardsPlayed.put("Wonder",new HashSet<Card>());
+
+		cardsPlayed.put("brown",new HashSet<Card>());
+		cardsPlayed.put("silver",new HashSet<Card>());
+		cardsPlayed.put("red",new HashSet<Card>());
+		cardsPlayed.put("blue",new HashSet<Card>());
+		cardsPlayed.put("green",new HashSet<Card>());
+		cardsPlayed.put("yellow",new HashSet<Card>());
+		cardsPlayed.put("purple",new HashSet<Card>());
+		cardsPlayed.put("wonder",new HashSet<Card>());
+
+		techCardPoints = new HashMap<String, Integer>();
+		techCardPoints.put("tablet", 0);
+		techCardPoints.put("gear", 0);
+		techCardPoints.put("compass", 0);
+
 		//hard coded wonders
     if(name.equals("The Colossus of Rhodes")) {
 			ArrayList<String> cor = new ArrayList<String>();
@@ -132,7 +139,6 @@ public class Wonder {
 		
   }
 
-	
 	public void changeHands(int i) {
 		if((hand+i)<=numOfPlayers||(hand+i)>=0)
 
@@ -142,9 +148,23 @@ public class Wonder {
 				hand=numOfPlayers;
 			else
 				hand=0;
+		}}
+
+
+	public void playCard(Card c) {
+		
+		if(c.getColor().equals("blue")) {
+			CivicsCard x = (CivicsCard) c;
+			victoryPoints += x.getVictoryPoints();
+		}
+		if(c.getColor().equals("green")) {
+			TechCard x = (TechCard) c;
+			int quantity = techCardPoints.get(x.getTechGiven());
+			techCardPoints.put(x.getTechGiven(), quantity++);
 		}
 
 	}
+
 	public ArrayList<Card> getAllPlayerResources() {
 		
 		ArrayList<Card> list = new ArrayList<Card>();
@@ -155,18 +175,23 @@ public class Wonder {
 			System.out.println("You built "+ c.getName() + ", a " + c.getColor()+" card, by paying " + c.getCost());
 		else System.out.println("You have already built this card");
 	}
-  
+ 
 	public void burnCard() {
 		money +=3;
 	}
-	public int buildWonder() {
+	public int buildWonder(Card c) {
 		//not done
+		if(playerWonders >= 3)
+		  return 0;
 		++playerWonders;
 		if(playerWonders == 1)
 			victoryPoints += 3;
 		else if(playerWonders == 2)
 			victoryPoints += 7;
 		
+		HashSet<Card> x = cardsPlayed.get("WonderCards");
+		x.add(c);
+
 		return playerWonders;
 	}
 	public boolean playable(Card c) {

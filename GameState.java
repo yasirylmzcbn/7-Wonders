@@ -76,18 +76,14 @@ public class GameState
 		readCards();
 	}
 	
-	/*
-	 * should this method be moved to wonder.java and this method be used to just call the other ones?
-	 */
-	// TODO calculated the victory points of each player at the end of the game
 	public ArrayList<Integer> finalPoints()
 	{
 		ArrayList<Integer> points = new ArrayList<Integer>(this.numberOfPlayers);
-		
+		int totalPoints;
 		// each player
 		for (int i = 0; i < this.numberOfPlayers; i++)
 		{
-			int totalPoints = 0;
+			totalPoints = 0;
 			Wonder currentWonder = wonders.get(i);
 			
 			// military calculation
@@ -96,10 +92,23 @@ public class GameState
 			// points from coins
 			totalPoints += currentWonder.getMoney() / 3;
 			
-			// point for each wonder built
+			// points from each wonder built and blue cards
+			totalPoints += currentWonder.victoryPoints;
 			
+			// points from scientific structures
+			
+			
+			// points from commercial structures
+			
+			
+			// points from guilds
+			
+			
+			
+			// add total points for each player to the list
+			points.add(totalPoints);
 		}
-		return null;
+		return points;
 	}
 	
 	/*
