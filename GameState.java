@@ -45,7 +45,7 @@ public class GameState
 		warTime = false;
 		age = 1;
 		numberOfPlayers = 3;
-		order = 1;
+		order = -1;
 		round = 1;
 		currentPlayer = (int)(Math.random() * numberOfPlayers);
 		
@@ -130,11 +130,25 @@ public class GameState
 	}
 	public void finishRound()
 	{
+		for(Wonder w: wonders)
+		{
+			
+		}
 		
 	}
 	public void nextRound()
 	{
-		
+		round++;
+		if(round == 6)
+		{
+			warTime();
+			age++;
+			if(age == 4)
+			{
+				endOfGame = true;
+			}
+			
+		}
 	}
 	
 	/*
