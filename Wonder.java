@@ -3,7 +3,7 @@ import java.util.*;
 public class Wonder {
 	private String name;
 	private HashMap<String, HashSet<Card>> cardsPlayed; //String = type/color of card, HashSet<Card> = cards 
-	private int numPlayers;
+	private int numOfPlayers;
 	private int playerWonders;
 	private int money;
 	public int victoryPoints;
@@ -22,7 +22,7 @@ public class Wonder {
 	
 	public Wonder(String n, int i) {
 		name = n;
-		numPlayers = i;
+		numOfPlayers = i;
 		playerWonders = 0;
 		money = 3;
 		victoryPoints = 0;	
@@ -117,7 +117,7 @@ public class Wonder {
   
 		HashSet<Card> temp = cardsPlayed.get("Wonder");
 		
-		cardsPlayed.get("Brown").add(new ResourceCard("The Colossus of Rhodes","brown",null,null,3,cor));
+//		cardsPlayed.get("Brown").add(new ResourceCard("The Colossus of Rhodes","brown",null,null,3,cor));
 
 		//wonder 1
 		ArrayList<String> cor1Cost = new ArrayList<String>();
@@ -153,6 +153,7 @@ public class Wonder {
 
 	public void playCard(Card c) {
 		
+		
 		if(c.getColor().equals("blue")) {
 			CivicsCard x = (CivicsCard) c;
 			victoryPoints += x.getVictoryPoints();
@@ -169,11 +170,6 @@ public class Wonder {
 		
 		ArrayList<Card> list = new ArrayList<Card>();
 		return list;
-	}
-	public void playCard(Card c) {
-		if(playable(c))
-			System.out.println("You built "+ c.getName() + ", a " + c.getColor()+" card, by paying " + c.getCost());
-		else System.out.println("You have already built this card");
 	}
  
 	public void burnCard() {
