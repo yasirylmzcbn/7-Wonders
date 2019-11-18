@@ -20,6 +20,7 @@ public class CivicsCard extends Card
 
 	public String toString()
 	{
-		return super.toString() + String.format("VP: %-5s", getVictoryPoints());
+		//return super.toString() + String.format("VP: %-5s", getVictoryPoints());
+		return super.toString() + "; VPoints: " + getVictoryPoints();
 	}
 }

@@ -23,6 +23,7 @@ public class MilitaryCard extends Card
 	
 	public String toString()
 	{
-		return super.toString() + String.format("MP: %-5s", getMilitaryPower());
+		//return super.toString() + String.format("MP: %-5s", getMilitaryPower());
+		return super.toString() + "; MPower: " + getMilitaryPower();
 	}
 }

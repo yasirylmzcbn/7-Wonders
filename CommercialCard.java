@@ -23,7 +23,8 @@ public class CommercialCard extends Card
 	
 	public String toString()
 	{
-		return super.toString() + String.format("ID: %-5s", getId());
+		//return super.toString() + String.format("ID: %-5s", getId());
+		return super.toString() + "; ID: " + getId();
 	}
 	
 }
