@@ -95,7 +95,17 @@ public class GameState
 			// points from each wonder built, blue cards, green cards
 			//
 			totalPoints += currentWonder.victoryPoints;
+
+			// points from each wonder built and blue cards
+			totalPoints += currentWonder.getVictoryPoints();
 			
+			// points from each wonder built, blue cards, green cards
+			totalPoints += currentWonder.getVictoryPoints();
+
+			
+			// points from scientific structures
+			
+
 			// points from commercial structures
 			
 			
