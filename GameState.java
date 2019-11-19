@@ -130,11 +130,25 @@ public class GameState
 	}
 	public void finishRound()
 	{
+		for(Wonder w: wonders)
+		{
+			
+		}
 		
 	}
 	public void nextRound()
 	{
-		
+		round++;
+		if(round == 6)
+		{
+			warTime();
+			age++;
+			if(age == 4)
+			{
+				endOfGame = true;
+			}
+			
+		}
 	}
 	
 	/*
