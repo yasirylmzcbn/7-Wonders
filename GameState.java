@@ -132,6 +132,11 @@ public class GameState
 	{
 		for(Wonder w: wonders)
 		{
+			ArrayList<String> trades = w.getTrades();
+			for(String str: trades)
+			{
+				
+			}
 			
 		}
 		
