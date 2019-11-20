@@ -34,6 +34,10 @@ public class GameState
 	private ArrayList<ArrayList<Card>> playerHands;
 	private HashMap<Integer, ArrayList<Card>> deck; // Integer=age, ArrayList=Cards themselves
 	
+	private boolean halic;
+	private boolean usedOlympia;
+
+	
 	private Scanner input; // parses through card files
 		
 	/*
@@ -59,6 +63,9 @@ public class GameState
 		graveyard = new ArrayList<Card>();
 		
 		selectedResources = new ArrayList<String>();
+		
+		halic = false;
+		usedOlympia = false;
 		
 		// Creates a random wonder for each player using the WONDERNAMES variable
 		wonders = new ArrayList<Wonder>();
@@ -240,9 +247,29 @@ public class GameState
 			{
 				endOfGame = true;
 			}
+			
+			usedOlympia = false;
+			
+		}
+	}
+	public void nextPlayer()
+	{
+		currentPlayer++;
+		if(currentPlayer == numberOfPlayers)
+		{
+			currentPlayer = 0;
 		}
 	}
 	
+	public boolean canUseOlympia()
+	{
+		boolean isOlympia = wonders.get(currentPlayer).getName().contentEquals("The Statue of Zeus in Olympia");
+		boolean hasStage2 = wonders.get(currentPlayer).getPlayerWonders()>=2;
+		
+		return isOlympia&&hasStage2&&!usedOlympia;
+	}
+
+
 	/*
 	 * warTime() gives each wonder either wins or losses. For each wonder, it only goes to war with the far right to prevent double conflicts
 	 */
