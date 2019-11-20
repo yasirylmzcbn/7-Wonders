@@ -178,6 +178,7 @@ public class GameState
 				w.playCard(w.getSelectedCard());
 			}
 		}
+		
 		for(int i = 0; i<wonders.size(); i++)
 		{
 			Wonder w = wonders.get(i);
