@@ -140,8 +140,49 @@ public class GameState
 	}
 	public void finishRound()
 	{
+		
 		for(Wonder w: wonders)
 		{
+			if(w.getAction().contentEquals("Burn"))
+			{
+				w.burnCard();
+			}
+			else if(w.getAction().contentEquals("Build"))
+			{
+				w.buildWonder();
+			}
+			else if(w.getAction().contentEquals("Play"))
+			{
+				w.playCard(w.getSelectedCard());
+			}
+		}
+		for(int i = 0; i<wonders.size(); i++)
+		{
+			Wonder w = wonders.get(i);
+			ArrayList<String> trades = w.getTrades();
+			for(String str: trades)
+			{
+				String temp = "";
+				for(String s: WONDERNAMES)
+				{
+					if(str.contains(s))
+					{
+						temp = s;
+					}
+				}
+				int tradeV = Integer.parseInt(str.substring(str.length()+1));
+				if(temp.equals(getLeftWonder(i).getName()))
+				{
+					getLeftWonder(i).addMoney(tradeV);
+					w.addMoney(-tradeV);
+				}
+				if(temp.equals(getRightWonder(i).getName()))
+				{
+					getRightWonder(i).addMoney(tradeV);
+					w.addMoney(-tradeV);
+				}
+			}
+			w.getTrades().clear();
 			
 		}
 		
@@ -205,7 +246,7 @@ public class GameState
 		
 		int leftWonder = wonder - 1;
 		if (leftWonder < 0)
-			leftWonder = 3;
+			leftWonder = numberOfPlayers-1;
 		return wonders.get(leftWonder);
 	}
 	public Wonder getRightWonder(int wonder)
@@ -213,7 +254,7 @@ public class GameState
 		Wonder ownWonder = wonders.get(wonder);
 		
 		int rightWonder = wonder + 1;
-		if (rightWonder > 3)
+		if (rightWonder > numberOfPlayers-1)
 			rightWonder = 0;
 		return wonders.get(rightWonder);
 	}

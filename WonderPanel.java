@@ -6,12 +6,30 @@ import javax.swing.JPanel;
 
 public class WonderPanel extends JPanel implements MouseListener
 {
+	private GameState game;
+	
 	public WonderPanel()
 	{
 		super();
+		game = new GameState();
 	}
 	
 	public void paint(Graphics g)
+	{
+		
+	}
+	
+	public void drawHand()
+	{
+		
+	}
+	
+	public void drawCardsPlayed()
+	{
+		
+	}
+	
+	public void drawMainMenu()
 	{
 		
 	}
