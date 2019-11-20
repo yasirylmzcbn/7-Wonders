@@ -130,6 +130,22 @@ public class GameState
 	}
 	public void finishRound()
 	{
+		
+		for(Wonder w: wonders)
+		{
+			if(w.getAction().contentEquals("Burn"))
+			{
+				w.burnCard();
+			}
+			else if(w.getAction().contentEquals("Build"))
+			{
+				w.buildWonder();
+			}
+			else if(w.getAction().contentEquals("Play"))
+			{
+				w.playCard(w.getSelectedCard());
+			}
+		}
 		for(int i = 0; i<wonders.size(); i++)
 		{
 			Wonder w = wonders.get(i);
@@ -148,20 +164,16 @@ public class GameState
 				if(temp.equals(getLeftWonder(i).getName()))
 				{
 					getLeftWonder(i).addMoney(tradeV);
+					w.addMoney(-tradeV);
 				}
 				if(temp.equals(getRightWonder(i).getName()))
 				{
 					getRightWonder(i).addMoney(tradeV);
+					w.addMoney(-tradeV);
 				}
 			}
+			w.getTrades().clear();
 			
-		}
-		for(Wonder w: wonders)
-		{
-			if(w.getAction().contentEquals("Burn"))
-			{
-				
-			}
 		}
 		
 	}
