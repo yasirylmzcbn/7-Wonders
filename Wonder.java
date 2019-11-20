@@ -203,7 +203,9 @@ public class Wonder {
 			return false;
 		return true;
 	}
-	
+	public void addMoney(int i) {
+		money+=i;
+	}
 	
 	//getters and setters
 		public String getName() {
