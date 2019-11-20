@@ -221,6 +221,8 @@ public class GameState
 				endOfGame = true;
 			}
 			
+			usedOlympia = false;
+			
 		}
 	}
 	public void nextPlayer()
