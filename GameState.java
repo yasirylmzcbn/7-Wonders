@@ -2,9 +2,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 
 public class GameState
@@ -32,6 +34,10 @@ public class GameState
 	private ArrayList<ArrayList<Card>> playerHands;
 	private HashMap<Integer, ArrayList<Card>> deck; // Integer=age, ArrayList=Cards themselves
 	
+	private boolean halic;
+	private boolean usedOlympia;
+
+	
 	private Scanner input; // parses through card files
 		
 	/*
@@ -57,6 +63,9 @@ public class GameState
 		graveyard = new ArrayList<Card>();
 		
 		selectedResources = new ArrayList<String>();
+		
+		halic = false;
+		usedOlympia = false;
 		
 		// Creates a random wonder for each player using the WONDERNAMES variable
 		wonders = new ArrayList<Wonder>();
@@ -215,14 +224,58 @@ public class GameState
 		{
 			warTime();
 			age++;
+			
+			// configures guild cards
+			if (age == 3)
+			{
+				ArrayList<Card> guilds = new ArrayList<Card>();
+				ArrayList<Card> temp = deck.get(age);
+				
+				for (int i = 0; i < deck.get(age).size(); i++)
+				{
+					Card tempCard = temp.get(i);
+					if (tempCard.getColor().equals("purple"))
+					{
+						guilds.add(temp.remove(i));
+					}
+				}
+				
+				if (numberOfPlayers >= 3)
+				{
+					Collections.shuffle(guilds);
+					
+					for (int i = 0; i < 5; i++)
+						temp.add(guilds.get(i));
+				}
+			}
+			// ends game
 			if(age == 4)
 			{
 				endOfGame = true;
 			}
 			
+			usedOlympia = false;
+			
+		}
+	}
+	public void nextPlayer()
+	{
+		currentPlayer++;
+		if(currentPlayer == numberOfPlayers)
+		{
+			currentPlayer = 0;
 		}
 	}
 	
+	public boolean canUseOlympia()
+	{
+		boolean isOlympia = wonders.get(currentPlayer).getName().contentEquals("The Statue of Zeus in Olympia");
+		boolean hasStage2 = wonders.get(currentPlayer).getPlayerWonders()>=2;
+		
+		return isOlympia&&hasStage2&&!usedOlympia;
+	}
+
+
 	/*
 	 * warTime() gives each wonder either wins or losses. For each wonder, it only goes to war with the far right to prevent double conflicts
 	 */
