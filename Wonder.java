@@ -280,6 +280,9 @@ public class Wonder {
 	}
 	
 	//getters and setters
+	public HashMap<String, Integer> getTechCardPoints() {
+		return techCardPoints;
+	}
 		public String getName() {
 			return name;
 		}
