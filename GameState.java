@@ -92,7 +92,6 @@ public class GameState
 			// points from coins
 			totalPoints += currentWonder.getMoney() / 3;
 			
-			// points from each wonder built, blue cards, green cards
 			// points from each wonder built
 			totalPoints += currentWonder.getVictoryPoints();
 
@@ -105,22 +104,29 @@ public class GameState
 			}
 			
 			// points from scientific structures
-			int each = 0;
+			int each;
 				each = currentWonder.getTechCardPoints().get("tablet");
 					totalPoints += each*each;
 				each = currentWonder.getTechCardPoints().get("gear");
 					totalPoints += each*each;
 				each = currentWonder.getTechCardPoints().get("compass");
 					totalPoints += each*each;
+					
 			// points from commercial structures
 			ArrayList<Card> crds = new ArrayList<Card>();
 			crds.addAll(currentWonder.getCardsPlayed().get("yellow"));
-			int numOfGrayCards = 0;
+			int numOfGrayCards = currentWonder.getCardsPlayed().get("gray").size();
+			int numOfBrownCards = currentWonder.getCardsPlayed().get("brown").size();
+			int numOfYellowCards = currentWonder.getCardsPlayed().get("yellow").size();
 			for (int j = 0; j < crds.size(); j++) {
-				if(crds.get(i).getName().equals("ChamberOfCommerce")) {
+				if(crds.get(j).getName().equals("ChamberOfCommerce")) 
+					totalPoints += numOfGrayCards*2;
+				
+				if(crds.get(j).getName().equals("Haven"))
+					totalPoints += numOfBrownCards;
 					
-				}
-					
+				if(crds.get(j).getName().equals("Lighthouse"))
+					totalPoints += numOfYellowCards;
 			}
 			
 			
