@@ -2,9 +2,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 
 public class GameState
@@ -184,11 +186,35 @@ public class GameState
 		{
 			warTime();
 			age++;
+			
+			// configures guild cards
+			if (age == 3)
+			{
+				ArrayList<Card> guilds = new ArrayList<Card>();
+				ArrayList<Card> temp = deck.get(age);
+				
+				for (int i = 0; i < deck.get(age).size(); i++)
+				{
+					Card tempCard = temp.get(i);
+					if (tempCard.getColor().equals("purple"))
+					{
+						guilds.add(temp.remove(i));
+					}
+				}
+				
+				if (numberOfPlayers >= 3)
+				{
+					Collections.shuffle(guilds);
+					
+					for (int i = 0; i < 5; i++)
+						temp.add(guilds.get(i));
+				}
+			}
+			// ends game
 			if(age == 4)
 			{
 				endOfGame = true;
 			}
-			
 		}
 	}
 	

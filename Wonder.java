@@ -51,7 +51,7 @@ public class Wonder {
 			ArrayList<String> cor = new ArrayList<String>();
 			cor.add("ore");
 
-			cardsPlayed.get("Wonder").add(new ResourceCard("The Colossus of Rhodes","brown",null,null,3,cor));
+			cardsPlayed.get("wonder").add(new ResourceCard("The Colossus of Rhodes","brown",null,null,3,cor));
 
 			//wonder 1
 			ArrayList<String> cor1Cost = new ArrayList<String>();
@@ -72,7 +72,7 @@ public class Wonder {
 		else if(name.contentEquals("The Lighthouse of Alexandria")) {
 			ArrayList<String> tempResource = new ArrayList<String>();
 			tempResource.add("glass");
-			cardsPlayed.get("Wonder").add(new ResourceCard("The Lighthouse of Alexandria","silver",null,null,3,tempResource));
+			cardsPlayed.get("wonder").add(new ResourceCard("The Lighthouse of Alexandria","silver",null,null,3,tempResource));
 			//wonder 1
 			ArrayList<String> loa1Cost = new ArrayList<String>();
 			loa1Cost.add("wood");
@@ -92,7 +92,7 @@ public class Wonder {
 		else if(name.contentEquals("The Temple of Artemis in Ephesus")) {
 			ArrayList<String> tempResource = new ArrayList<String>();
 			tempResource.add("paper");
-			cardsPlayed.get("Wonder").add(new ResourceCard("The Temple of Artemis in Ephesus","silver",null,null,3,tempResource));
+			cardsPlayed.get("wonder").add(new ResourceCard("The Temple of Artemis in Ephesus","silver",null,null,3,tempResource));
 			//wonder 1
 			ArrayList<String> toaie1Cost = new ArrayList<String>();
 			toaie1Cost.add("stone");
@@ -116,7 +116,7 @@ public class Wonder {
 		ArrayList<String> hgob = new ArrayList<String>();
 		//cor.add("ore");
   
-		HashSet<Card> temp = cardsPlayed.get("Wonder");
+		HashSet<Card> temp = cardsPlayed.get("wonder");
 		
 //		cardsPlayed.get("Brown").add(new ResourceCard("The Colossus of Rhodes","brown",null,null,3,cor));
 
