@@ -153,8 +153,8 @@ public class Wonder {
 
 
 	public void playCard(Card c) {
-		if(!playable(c))
-			return;
+		//if(!playable(c)), Raymond: I don't think we need this
+			//return;
 		
 		HashSet<Card> l = cardsPlayed.get(c.getColor());
 		l.add(c);
@@ -179,10 +179,8 @@ public class Wonder {
 	public void burnCard() {
 		money +=3;
 	}
-	public int buildWonder(Card c) {
-		//not done
-		if(playerWonders >= 3)
-		  return 0;
+	public int buildWonder() 
+	{
 		++playerWonders;
 		if(playerWonders == 1)
 			victoryPoints += 3;
@@ -190,9 +188,15 @@ public class Wonder {
 			victoryPoints += 7;
 		
 		HashSet<Card> x = cardsPlayed.get("wonder");
-		x.add(c);
+		x.add(stages.get(playerWonders-1));
 
 		return playerWonders;
+	}
+	public boolean canBuildWonder()
+	{
+		if(playerWonders >= 3)
+		  return false;
+		return true;
 	}
 	public boolean playable(Card c) {
 		if(cardsPlayed.get(c.getColor()).contains(c))
