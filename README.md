@@ -24,6 +24,10 @@
 
 *cardType*/*cardName*/*colour*/*previousChainCard*/*cost*/*numberOfPlayers*/*scienceType*
 
+**GuildCard.java**
+
+*cardType*/*cardName*/*colour*/*previousChainCard*/*cost*/*numberOfPlayers*/*id*
+
 ## To do
 - [ ] This document
 
