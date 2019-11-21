@@ -47,10 +47,11 @@ public class Wonder {
 		techCardPoints.put("compass", 0);
 
 		//hard coded wonders
+		ArrayList<String> aaaaa = new ArrayList<String>();
     if(name.equals("The Colossus of Rhodes")) {
 			ArrayList<String> cor = new ArrayList<String>();
 			cor.add("ore");
-			cardsPlayed.get("wonder").add(new ResourceCard("The Colossus of Rhodes","brown",null,null,3,cor));
+			cardsPlayed.get("wonder").add(new ResourceCard("The Colossus of Rhodes","brown",aaaaa,aaaaa,3,cor));
 
 			//wonder 1
 			ArrayList<String> cor1Cost = new ArrayList<String>();
@@ -72,7 +73,7 @@ public class Wonder {
 			ArrayList<String> loa = new ArrayList<String>();
 			loa.add("glass");
 			
-			cardsPlayed.get("Wonder").add(new ResourceCard("The Lighthouse of Alexandria","wonder",null,null,3,loa));
+			cardsPlayed.get("Wonder").add(new ResourceCard("The Lighthouse of Alexandria","wonder",aaaaa,aaaaa,3,loa));
       
 			//wonder 1
 			ArrayList<String> loa1Cost = new ArrayList<String>();
@@ -97,7 +98,7 @@ public class Wonder {
 			ArrayList<String> toaie = new ArrayList<String>();
 			toaie.add("paper");
 			
-			cardsPlayed.get("Wonder").add(new ResourceCard("The Temple of Artemis in Ephesus","wonder",null,null,3,toaie));
+			cardsPlayed.get("Wonder").add(new ResourceCard("The Temple of Artemis in Ephesus","wonder", aaaaa, aaaaa,3,toaie));
       
 			//wonder 1
 			ArrayList<String> toaie1Cost = new ArrayList<String>();
@@ -122,7 +123,7 @@ public class Wonder {
 			ArrayList<String> hgob = new ArrayList<String>();
 			hgob.add("clay");
 			
-			cardsPlayed.get("Wonder").add(new ResourceCard("The Hanging Gardens of Babylon","wonder",null,null,3,hgob));
+			cardsPlayed.get("Wonder").add(new ResourceCard("The Hanging Gardens of Babylon","wonder",aaaaa,aaaaa,3,hgob));
 
 			//wonder 1
 			ArrayList<String> hgob1Cost = new ArrayList<String>();
