@@ -9,6 +9,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
+/*
+ * TODO
+ * 
+ */
 public class GameState
 {
 	public static final String[] WONDERNAMES = {"The Colossus of Rhodes",
@@ -232,6 +236,7 @@ public class GameState
 				ArrayList<Card> guilds = new ArrayList<Card>();
 				ArrayList<Card> temp = deck.get(age);
 				
+				// puts all purple cards in guilds
 				for (int i = 0; i < deck.get(age).size(); i++)
 				{
 					Card tempCard = temp.get(i);
@@ -241,13 +246,11 @@ public class GameState
 					}
 				}
 				
-				if (numberOfPlayers >= 3)
-				{
+				// randomly selects guild cards
 					Collections.shuffle(guilds);
 					
-					for (int i = 0; i < 5; i++)
+					for (int i = 0; i < numberOfPlayers + 2; i++)
 						temp.add(guilds.get(i));
-				}
 			}
 			// ends game
 			if(age == 4)
@@ -278,18 +281,19 @@ public class GameState
 	
 	public void passOutHands()
 	{
-		ArrayList<Card> ageDeck = deck.get(age);
-		////
-		System.out.println(ageDeck.size());
+		int ageIndex = age - 1;
+		ArrayList<Card> ageDeck = deck.get(ageIndex);
 		Collections.shuffle(ageDeck);
 		
 		for (int i = 0; i < numberOfPlayers; i++)
 		{
 			ArrayList<Card> playerCards = playerHands.get(i);
 			
+			
 			for (int j = 0; j < 7; j++)
 			{
-				playerCards.add(ageDeck.remove(0));
+				if (ageDeck.size() > 0)
+					playerCards.add(ageDeck.remove(0));
 			}
 		}
 	}
@@ -413,6 +417,7 @@ public class GameState
 					}
 				}
 			}
+			
 			//IF AGE == 3 then change the guild cards accordingly
 			deck.put(i, tempCards);
 		}
@@ -437,7 +442,6 @@ public class GameState
 	public void setWarTime(boolean warTime) {
 		this.warTime = warTime;
 	}
-
 
 	public int getAge() {
 		return age;
