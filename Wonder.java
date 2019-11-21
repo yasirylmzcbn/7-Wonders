@@ -6,7 +6,7 @@ public class Wonder {
 	private int numOfPlayers;
 	private int playerWonders;
 	private int money;
-	public int victoryPoints;
+	private int victoryPoints;
 	private ListIterator<Card> iter;
 	private int hand;
 	private int militaryPower;
@@ -96,7 +96,7 @@ public class Wonder {
 
 			ArrayList<String> toaie = new ArrayList<String>();
 			toaie.add("paper");
-			
+      
 			cardsPlayed.get("wonder").add(new ResourceCard("The Temple of Artemis in Ephesus","wonder",null,null,3,toaie));
       
 			//wonder 1
@@ -209,15 +209,15 @@ public class Wonder {
   }
 
 	public void changeHands(int i) {
-		if((hand+i)<=numOfPlayers||(hand+i)>=0)
-
-		hand=hand+i;
+		if((hand+i)<numOfPlayers&&(hand+i)>=0)
+			hand=hand+i;
 		else {
-			if(i<0)
-				hand=numOfPlayers;
-			else
+			if(hand+i<0)
+				hand = numOfPlayers-1;
+			else if((hand+i)>=numOfPlayers)
 				hand=0;
-		}}
+		}
+	}
 
 
 	public void playCard(Card c) {

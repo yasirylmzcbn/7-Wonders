@@ -4,6 +4,8 @@
 * if there are multiple resources used to build a card, use a comma to separate them, with no spaces. ex. if one needs 2 stone and 1 wood to build a card, it would be:
 > /stone,stone,wood/
 
+coin is the resource for money
+
 **Card.java**
 
 *cardType*/*cardName*/*colour*/*previousChainCard*/*cost*/*numberOfPlayers*

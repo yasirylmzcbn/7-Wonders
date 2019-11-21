@@ -75,7 +75,7 @@ public class GameState
 		wonders = new ArrayList<Wonder>();
 		HashSet<Integer> randomWonder = new HashSet<Integer>();
 		while (randomWonder.size() < numberOfPlayers)
-			randomWonder.add((int)(Math.random() * 7));
+			randomWonder.add((int)(Math.random() * 8)+1);
 		Iterator<Integer> iter = randomWonder.iterator();
 		for (int i = 0; i < numberOfPlayers; i++)
 			wonders.add(new Wonder(WONDERNAMES[iter.next()], numberOfPlayers));
@@ -106,13 +106,13 @@ public class GameState
 			totalPoints = 0;
 			Wonder currentWonder = wonders.get(i);
 			
+			
 			// military calculation
 			totalPoints += currentWonder.getLosses() + currentWonder.getWins();
 			
 			// points from coins
 			totalPoints += currentWonder.getMoney() / 3;
 			
-			// points from each wonder built, blue cards, green cards
 			// points from each wonder built
 			totalPoints += currentWonder.getVictoryPoints();
 
@@ -125,28 +125,72 @@ public class GameState
 			}
 			
 			// points from scientific structures
-			int each = 0;
+			int each;
 				each = currentWonder.getTechCardPoints().get("tablet");
 					totalPoints += each*each;
 				each = currentWonder.getTechCardPoints().get("gear");
 					totalPoints += each*each;
 				each = currentWonder.getTechCardPoints().get("compass");
 					totalPoints += each*each;
+					
 			// points from commercial structures
 			ArrayList<Card> crds = new ArrayList<Card>();
 			crds.addAll(currentWonder.getCardsPlayed().get("yellow"));
-			int numOfGrayCards = 0;
+			int numOfGrayCards = currentWonder.getCardsPlayed().get("gray").size();
+			int numOfBrownCards = currentWonder.getCardsPlayed().get("brown").size();
+			int numOfYellowCards = currentWonder.getCardsPlayed().get("yellow").size();
 			for (int j = 0; j < crds.size(); j++) {
-				if(crds.get(i).getName().equals("ChamberOfCommerce")) {
+				if(crds.get(j).getName().equals("Chamber Of Commerce")) 
+					totalPoints += numOfGrayCards*2;
+				
+				if(crds.get(j).getName().equals("Haven"))
+					totalPoints += numOfBrownCards;
 					
-				}
-					
+				if(crds.get(j).getName().equals("Lighthouse"))
+					totalPoints += numOfYellowCards;
 			}
 			
-			
 			// points from guilds
+			Wonder leftWonder = getLeftWonder(i);
+			Wonder rightWonder = getRightWonder(i);
+			ArrayList<Card> guilds = new ArrayList<Card>();
+			guilds.addAll(currentWonder.getCardsPlayed().get("purple"));
+			for (int j = 0; j < guilds.size(); j++) {
+				if(guilds.get(i).getName().equals("Builders Guild")) 
+					totalPoints += currentWonder.getPlayerWonders()
+								+ leftWonder.getPlayerWonders()
+								+ rightWonder.getPlayerWonders();
+				
+				if(guilds.get(i).getName().equals("Craftmens Guild"))
+					totalPoints += 2 * (leftWonder.getCardsPlayed().get("gray").size()
+								+ rightWonder.getCardsPlayed().get("gray").size());
+				
+				if(guilds.get(i).getName().equals("Magistrates Guild"))
+					totalPoints += leftWonder.getCardsPlayed().get("blue").size()
+								+ rightWonder.getCardsPlayed().get("blue").size();
 			
-			
+				if(guilds.get(i).getName().equals("Philosophers Guild"))
+					totalPoints += leftWonder.getCardsPlayed().get("green").size()
+								+ rightWonder.getCardsPlayed().get("green").size();
+				
+				if(guilds.get(i).getName().equals("Shipowners Guild"))
+					totalPoints += currentWonder.getCardsPlayed().get("brown").size()
+								+ currentWonder.getCardsPlayed().get("silver").size()
+								+ currentWonder.getCardsPlayed().get("purple").size();
+				
+				if(guilds.get(i).getName().equals("Strategists Guild"))
+					totalPoints += leftWonder.getLosses()
+								+ rightWonder.getLosses();
+				
+				if(guilds.get(i).getName().equals("Traders Guild"))
+					totalPoints += leftWonder.getCardsPlayed().get("yellow").size()
+								+ rightWonder.getCardsPlayed().get("yellow").size();
+				
+				if(guilds.get(i).getName().equals("Workers Guild"))
+					totalPoints += leftWonder.getCardsPlayed().get("brown").size()
+								+ rightWonder.getCardsPlayed().get("brown").size();
+				
+			}
 			
 			// add total points for each player to the list
 			points.add(totalPoints);
@@ -191,6 +235,37 @@ public class GameState
 				w.playCard(w.getSelectedCard());
 			}
 		}
+		
+		
+		for(Wonder w: wonders)
+		{
+			if(w.getAction().contentEquals("Play"))
+			{
+				// points from commercial structures
+				ArrayList<Card> crds = new ArrayList<Card>();
+				crds.addAll(w.getCardsPlayed().get("yellow"));
+				int numOfGrayCards = w.getCardsPlayed().get("gray").size();
+				int numOfBrownCards = w.getCardsPlayed().get("brown").size();
+				int numOfYellowCards = w.getCardsPlayed().get("yellow").size();
+				for (int j = 0; j < crds.size(); j++) 
+				{
+					if(crds.get(j).getName().equals("Chamber Of Commerce")) 
+						w.addMoney(numOfGrayCards*2);
+					
+					if(crds.get(j).getName().equals("Haven"))
+						 w.addMoney(numOfBrownCards);
+						
+					if(crds.get(j).getName().equals("Lighthouse"))
+						w.addMoney(numOfYellowCards);
+					
+					if(crds.get(j).getName().equals("Vineyard"))
+					
+						w.addMoney(numOfYellowCards);
+				}
+				
+			}
+		}
+		
 		for(int i = 0; i<wonders.size(); i++)
 		{
 			Wonder w = wonders.get(i);
@@ -222,6 +297,8 @@ public class GameState
 		}
 		
 	}
+
+
 	public void nextRound()
 	{
 		round++;
