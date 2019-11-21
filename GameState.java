@@ -224,10 +224,33 @@ public class GameState
 				w.playCard(w.getSelectedCard());
 			}
 		}
+		
+		
 		for(Wonder w: wonders)
 		{
 			if(w.getAction().contentEquals("Play"))
 			{
+				// points from commercial structures
+				ArrayList<Card> crds = new ArrayList<Card>();
+				crds.addAll(w.getCardsPlayed().get("yellow"));
+				int numOfGrayCards = w.getCardsPlayed().get("gray").size();
+				int numOfBrownCards = w.getCardsPlayed().get("brown").size();
+				int numOfYellowCards = w.getCardsPlayed().get("yellow").size();
+				for (int j = 0; j < crds.size(); j++) 
+				{
+					if(crds.get(j).getName().equals("Chamber Of Commerce")) 
+						w.addMoney(numOfGrayCards*2);
+					
+					if(crds.get(j).getName().equals("Haven"))
+						 w.addMoney(numOfBrownCards);
+						
+					if(crds.get(j).getName().equals("Lighthouse"))
+						w.addMoney(numOfYellowCards);
+					
+					if(crds.get(j).getName().equals("Vineyard"))
+					
+						w.addMoney(numOfYellowCards);
+				}
 				
 			}
 		}
@@ -263,6 +286,8 @@ public class GameState
 		}
 		
 	}
+
+
 	public void nextRound()
 	{
 		round++;
