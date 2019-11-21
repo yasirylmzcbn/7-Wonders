@@ -76,6 +76,10 @@ public class GameState
 		for (int i = 0; i < numberOfPlayers; i++)
 			wonders.add(new Wonder(WONDERNAMES[iter.next()], numberOfPlayers));
 		
+		// sets the hand number of each player
+		for (int i = 0; i < numberOfPlayers; i++)
+			wonders.get(i).setHand(i);
+		
 		// initialises each player's hand but does NOT add any cards
 		playerHands = new ArrayList<ArrayList<Card>>();
 		for (int i = 0; i < numberOfPlayers; i++)
@@ -83,6 +87,9 @@ public class GameState
 		
 		// initialises every card in the game
 		readCards();
+		
+		// passes out the card for each player
+		passOutHands();
 	}
 	
 	public ArrayList<Integer> finalPoints()
@@ -268,6 +275,24 @@ public class GameState
 		
 		return isOlympia&&hasStage2&&!usedOlympia;
 	}
+	
+	public void passOutHands()
+	{
+		ArrayList<Card> ageDeck = deck.get(age);
+		////
+		System.out.println(ageDeck.size());
+		Collections.shuffle(ageDeck);
+		
+		for (int i = 0; i < numberOfPlayers; i++)
+		{
+			ArrayList<Card> playerCards = playerHands.get(i);
+			
+			for (int j = 0; j < 7; j++)
+			{
+				playerCards.add(ageDeck.remove(0));
+			}
+		}
+	}
 
 
 	/*
@@ -355,35 +380,37 @@ public class GameState
 				
 				int players = Integer.parseInt(vals[5]);
 				
-				if (type.equals("resourceCard")) {
-					ArrayList<String> resource = new ArrayList<String>(Arrays.asList(vals[6].split(",")));
-					ResourceCard card = new ResourceCard(name, color, chain, cost, players, resource);
-					tempCards.add(card);
-				}
-				else if (type.equals("militaryCard")) {
-					int militaryPower = Integer.parseInt(vals[6]);
-					MilitaryCard card = new MilitaryCard(name, color, chain, cost, players, militaryPower);
-					tempCards.add(card);
-				}
-				else if (type.equals("techCard")) {
-					String techGiven = vals[6];
-					TechCard card = new TechCard(name, color, chain, cost, players, techGiven);
-					tempCards.add(card);
-				}
-				else if (type.equals("civicsCard")) {
-					int vp = Integer.parseInt(vals[6]);
-					CivicsCard card = new CivicsCard(name, color, chain, cost, players, vp);
-					tempCards.add(card);
-				}
-				else if (type.equals("guildCard")) {
-					String id = vals[6];
-					GuildCard card = new GuildCard(name, color, chain, cost, players, id);
-					tempCards.add(card);
-				}
-				else if (type.equals("commercialCard")) {
-					String id = vals[6];
-					CommercialCard card = new CommercialCard(name, color, chain, cost, players, id);
-					tempCards.add(card);
+				if (players >= numberOfPlayers) {
+					if (type.equals("resourceCard")) {
+						ArrayList<String> resource = new ArrayList<String>(Arrays.asList(vals[6].split(",")));
+						ResourceCard card = new ResourceCard(name, color, chain, cost, players, resource);
+						tempCards.add(card);
+					}
+					else if (type.equals("militaryCard")) {
+						int militaryPower = Integer.parseInt(vals[6]);
+						MilitaryCard card = new MilitaryCard(name, color, chain, cost, players, militaryPower);
+						tempCards.add(card);
+					}
+					else if (type.equals("techCard")) {
+						String techGiven = vals[6];
+						TechCard card = new TechCard(name, color, chain, cost, players, techGiven);
+						tempCards.add(card);
+					}
+					else if (type.equals("civicsCard")) {
+						int vp = Integer.parseInt(vals[6]);
+						CivicsCard card = new CivicsCard(name, color, chain, cost, players, vp);
+						tempCards.add(card);
+					}
+					else if (type.equals("guildCard")) {
+						String id = vals[6];
+						GuildCard card = new GuildCard(name, color, chain, cost, players, id);
+						tempCards.add(card);
+					}
+					else if (type.equals("commercialCard")) {
+						String id = vals[6];
+						CommercialCard card = new CommercialCard(name, color, chain, cost, players, id);
+						tempCards.add(card);
+					}
 				}
 			}
 			//IF AGE == 3 then change the guild cards accordingly

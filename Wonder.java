@@ -72,7 +72,7 @@ public class Wonder {
 			ArrayList<String> loa = new ArrayList<String>();
 			loa.add("glass");
 			
-			cardsPlayed.get("Wonder").add(new ResourceCard("The Lighthouse of Alexandria","wonder",null,null,3,loa));
+			cardsPlayed.get("wonder").add(new ResourceCard("The Lighthouse of Alexandria","wonder",null,null,3,loa));
       
 			//wonder 1
 			ArrayList<String> loa1Cost = new ArrayList<String>();
@@ -97,7 +97,7 @@ public class Wonder {
 			ArrayList<String> toaie = new ArrayList<String>();
 			toaie.add("paper");
 			
-			cardsPlayed.get("Wonder").add(new ResourceCard("The Temple of Artemis in Ephesus","wonder",null,null,3,toaie));
+			cardsPlayed.get("wonder").add(new ResourceCard("The Temple of Artemis in Ephesus","wonder",null,null,3,toaie));
       
 			//wonder 1
 			ArrayList<String> toaie1Cost = new ArrayList<String>();
@@ -122,7 +122,7 @@ public class Wonder {
 			ArrayList<String> hgob = new ArrayList<String>();
 			hgob.add("clay");
 			
-			cardsPlayed.get("Wonder").add(new ResourceCard("The Hanging Gardens of Babylon","wonder",null,null,3,hgob));
+			cardsPlayed.get("wonder").add(new ResourceCard("The Hanging Gardens of Babylon","wonder",null,null,3,hgob));
 
 			//wonder 1
 			ArrayList<String> hgob1Cost = new ArrayList<String>();
@@ -144,7 +144,7 @@ public class Wonder {
 			ArrayList<String> sofzio = new ArrayList<String>();
 			sofzio.add("wood");
 			
-			cardsPlayed.get("Wonder").add(new ResourceCard("The Statue of Zeus in Olympia","wonder",null,null,3,sofzio));
+			cardsPlayed.get("wonder").add(new ResourceCard("The Statue of Zeus in Olympia","wonder",null,null,3,sofzio));
 
 			//wonder 1
 			ArrayList<String> sofzio1Cost = new ArrayList<String>();
@@ -166,7 +166,7 @@ public class Wonder {
 			ArrayList<String> moh = new ArrayList<String>();
 			moh.add("cloth");
 			
-			cardsPlayed.get("Wonder").add(new ResourceCard("The Mausoleum of Halicarnassus","wonder",null,null,3,moh));
+			cardsPlayed.get("wonder").add(new ResourceCard("The Mausoleum of Halicarnassus","wonder",null,null,3,moh));
 
 			//wonder 1
 			ArrayList<String> moh1Cost = new ArrayList<String>();
@@ -188,7 +188,7 @@ public class Wonder {
 			ArrayList<String> pog = new ArrayList<String>();
 			pog.add("stone");
 			
-			cardsPlayed.get("Wonder").add(new ResourceCard("The Pyramids of Giza","wonder",null,null,3,pog));
+			cardsPlayed.get("wonder").add(new ResourceCard("The Pyramids of Giza","wonder",null,null,3,pog));
 
 			//wonder 1
 			ArrayList<String> pog1Cost = new ArrayList<String>();
