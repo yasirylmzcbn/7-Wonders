@@ -2,8 +2,8 @@ resourceCard/Lumber Yard/brown/null/null/3/log
 resourceCard/Stone Pit/brown/null/null/3/stone
 resourceCard/Clay Pool/brown/null/null/3/clay
 resourceCard/Ore Vein/brown/null/null/3/ore
-resourceCard/Clay Pit/brown/null/gold/3/clay||ore
-resouceCard/Timber Yard/brown/null/gold/3/stone||log
+resourceCard/Clay Pit/brown/null/coin/3/clay||ore
+resouceCard/Timber Yard/brown/null/coin/3/stone||log
 resourceCard/Loom/silver/null/null/3/cloth
 resourceCard/Glassworks/silver/null/null/3/glass
 resourceCard/Press/silver/null/null/3/paper
@@ -16,3 +16,6 @@ militaryCard/Guard Tower/red/null/clay/3/1
 techCard/Apothecary/green/null/cloth/3/math
 techCard/Workshop/green/null/glass/3/gear
 techCard/Scriptorium/green/null/paper/3/tablet
+commercialCard/East Trading Post/yellow/null/coin/3/clay,stone,wood,ore*trading*right
+commercialCard/West Trading Post/yellow/null/coin/3/clay,stone,wood,ore*trading*left
+commercialCard/Marketplace/yellow/null/coin/3/glass,cloth,paper*trading*left&&right

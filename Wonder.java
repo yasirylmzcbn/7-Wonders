@@ -210,15 +210,15 @@ public class Wonder {
   }
 
 	public void changeHands(int i) {
-		if((hand+i)<=numOfPlayers||(hand+i)>=0)
-
-		hand=hand+i;
+		if((hand+i)<numOfPlayers&&(hand+i)>=0)
+			hand=hand+i;
 		else {
-			if(i<0)
-				hand=numOfPlayers;
-			else
+			if(hand+i<0)
+				hand = numOfPlayers-1;
+			else if((hand+i)>=numOfPlayers)
 				hand=0;
-		}}
+		}
+	}
 
 
 	public void playCard(Card c) {
