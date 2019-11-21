@@ -9,6 +9,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
+/*
+ * TODO
+ * 
+ */
 public class GameState
 {
 	public static final String[] WONDERNAMES = {"The Colossus of Rhodes",
@@ -76,6 +80,10 @@ public class GameState
 		for (int i = 0; i < numberOfPlayers; i++)
 			wonders.add(new Wonder(WONDERNAMES[iter.next()], numberOfPlayers));
 		
+		// sets the hand number of each player
+		for (int i = 0; i < numberOfPlayers; i++)
+			wonders.get(i).setHand(i);
+		
 		// initialises each player's hand but does NOT add any cards
 		playerHands = new ArrayList<ArrayList<Card>>();
 		for (int i = 0; i < numberOfPlayers; i++)
@@ -83,6 +91,9 @@ public class GameState
 		
 		// initialises every card in the game
 		readCards();
+		
+		// passes out the card for each player
+		passOutHands();
 	}
 	
 	public ArrayList<Integer> finalPoints()
@@ -302,6 +313,7 @@ public class GameState
 				ArrayList<Card> guilds = new ArrayList<Card>();
 				ArrayList<Card> temp = deck.get(age);
 				
+				// puts all purple cards in guilds
 				for (int i = 0; i < deck.get(age).size(); i++)
 				{
 					Card tempCard = temp.get(i);
@@ -311,13 +323,11 @@ public class GameState
 					}
 				}
 				
-				if (numberOfPlayers >= 3)
-				{
+				// randomly selects guild cards
 					Collections.shuffle(guilds);
 					
-					for (int i = 0; i < 5; i++)
+					for (int i = 0; i < numberOfPlayers + 2; i++)
 						temp.add(guilds.get(i));
-				}
 			}
 			// ends game
 			if(age == 4)
@@ -344,6 +354,25 @@ public class GameState
 		boolean hasStage2 = wonders.get(currentPlayer).getPlayerWonders()>=2;
 		
 		return isOlympia&&hasStage2&&!usedOlympia;
+	}
+	
+	public void passOutHands()
+	{
+		int ageIndex = age - 1;
+		ArrayList<Card> ageDeck = deck.get(ageIndex);
+		Collections.shuffle(ageDeck);
+		
+		for (int i = 0; i < numberOfPlayers; i++)
+		{
+			ArrayList<Card> playerCards = playerHands.get(i);
+			
+			
+			for (int j = 0; j < 7; j++)
+			{
+				if (ageDeck.size() > 0)
+					playerCards.add(ageDeck.remove(0));
+			}
+		}
 	}
 
 
@@ -432,37 +461,40 @@ public class GameState
 				
 				int players = Integer.parseInt(vals[5]);
 				
-				if (type.equals("resourceCard")) {
-					ArrayList<String> resource = new ArrayList<String>(Arrays.asList(vals[6].split(",")));
-					ResourceCard card = new ResourceCard(name, color, chain, cost, players, resource);
-					tempCards.add(card);
-				}
-				else if (type.equals("militaryCard")) {
-					int militaryPower = Integer.parseInt(vals[6]);
-					MilitaryCard card = new MilitaryCard(name, color, chain, cost, players, militaryPower);
-					tempCards.add(card);
-				}
-				else if (type.equals("techCard")) {
-					String techGiven = vals[6];
-					TechCard card = new TechCard(name, color, chain, cost, players, techGiven);
-					tempCards.add(card);
-				}
-				else if (type.equals("civicsCard")) {
-					int vp = Integer.parseInt(vals[6]);
-					CivicsCard card = new CivicsCard(name, color, chain, cost, players, vp);
-					tempCards.add(card);
-				}
-				else if (type.equals("guildCard")) {
-					String id = vals[6];
-					GuildCard card = new GuildCard(name, color, chain, cost, players, id);
-					tempCards.add(card);
-				}
-				else if (type.equals("commercialCard")) {
-					String id = vals[6];
-					CommercialCard card = new CommercialCard(name, color, chain, cost, players, id);
-					tempCards.add(card);
+				if (players >= numberOfPlayers) {
+					if (type.equals("resourceCard")) {
+						ArrayList<String> resource = new ArrayList<String>(Arrays.asList(vals[6].split(",")));
+						ResourceCard card = new ResourceCard(name, color, chain, cost, players, resource);
+						tempCards.add(card);
+					}
+					else if (type.equals("militaryCard")) {
+						int militaryPower = Integer.parseInt(vals[6]);
+						MilitaryCard card = new MilitaryCard(name, color, chain, cost, players, militaryPower);
+						tempCards.add(card);
+					}
+					else if (type.equals("techCard")) {
+						String techGiven = vals[6];
+						TechCard card = new TechCard(name, color, chain, cost, players, techGiven);
+						tempCards.add(card);
+					}
+					else if (type.equals("civicsCard")) {
+						int vp = Integer.parseInt(vals[6]);
+						CivicsCard card = new CivicsCard(name, color, chain, cost, players, vp);
+						tempCards.add(card);
+					}
+					else if (type.equals("guildCard")) {
+						String id = vals[6];
+						GuildCard card = new GuildCard(name, color, chain, cost, players, id);
+						tempCards.add(card);
+					}
+					else if (type.equals("commercialCard")) {
+						String id = vals[6];
+						CommercialCard card = new CommercialCard(name, color, chain, cost, players, id);
+						tempCards.add(card);
+					}
 				}
 			}
+			
 			//IF AGE == 3 then change the guild cards accordingly
 			deck.put(i, tempCards);
 		}
@@ -487,7 +519,6 @@ public class GameState
 	public void setWarTime(boolean warTime) {
 		this.warTime = warTime;
 	}
-
 
 	public int getAge() {
 		return age;

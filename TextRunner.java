@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class TextRunner
@@ -24,11 +25,17 @@ public class TextRunner
 			
 			printNewRound();
 			
+			printWonderInformation();
+			printOneLine();
+			
 			printPlayedCards();
+			printOneLine();
 			
 			printPlayerHand();
+			printOneLine();
 			
 			handSelection();
+			printOneLine();
 			
 			break;
 		}
@@ -47,37 +54,74 @@ public class TextRunner
 	
 	public static void printPlayerHand()
 	{
-		System.out.println("Your hand:\n{");
+		System.out.println("Your hand:");
+		
+		for (int i = 0; i < 25; i++) System.out.print("="); System.out.println();
+		
 		ArrayList<Card> playerHand = state.getPlayerHands().get(state.getCurrentPlayer());
+		
 		for (int i = 0; i < playerHand.size(); i++)
 			System.out.println(i + " " + playerHand.get(i));
-		System.out.println("}");
+		
+		for (int i = 0; i < 25; i++) System.out.print("="); System.out.println();
 	}
 	
 	public static void printPlayedCards()
 	{
-		System.out.println("Your Played Cards:\n{");
+		System.out.println("Your Played Cards:");
+		
+		for (int i = 0; i < 25; i++) System.out.print("="); System.out.println();//
+		
 		HashMap<String, HashSet<Card>> tempMap = currentWonder.getCardsPlayed();
 		for (String s: tempMap.keySet())
 			for (Card c: tempMap.get(s))
 				System.out.println(s + ": " + c);
-		System.out.println("}");
+		
+		for (int i = 0; i < 25; i++) System.out.print("="); System.out.println();//
+	}
+	
+	public static void printWonderInformation()
+	{
+		System.out.printf("%s; coin:%d, vp:%d, mp:%d, win:%d; loss:%d\n", currentWonder.getName(), currentWonder.getMoney(), currentWonder.getVictoryPoints(),
+				currentWonder.getMilitaryPower(), currentWonder.getWins(), currentWonder.getLosses());
+	}
+	
+	public static void printOneLine()
+	{
+		System.out.println("\n");
 	}
 	
 	/*
 	 * Scanner takes in input for player choice
 	 */
-	private static void handSelection()
+	public static void handSelection()
 	{
-		System.out.print("Choose index of card to play: ");
-		int playerInput;
-		do
-		{
-			playerInput = input.nextInt();
-		}
-		while (playerInput >= 0 && playerInput <= currentHand.size());
+		int playerInput = 0;
+		
+		do {
+			System.out.print("Choose index of card to play: ");
 			
-		System.out.println("help this isn\'t working");
-		System.out.println("chose " + state.getPlayerHands().get(currentPlayer).get(playerInput));
+			try {
+			playerInput = input.nextInt();
+			} catch (InputMismatchException e) {
+				System.out.println("Error: cannot convert from String to int");
+				break;
+			}
+			System.out.println();
+			
+			//System.out.println();
+		}
+		while (playerInput < 0 || playerInput > currentHand.size() - 1);
+		
+		// TODO should this operation be manual and inside TextRunner?
+		currentWonder.setSelectedCard(currentHand.remove(playerInput));
+		System.out.println("Chose card " + currentWonder.getSelectedCard().getName());
 	}
 }
+
+
+
+
+
+
+
