@@ -186,6 +186,13 @@ public class GameState
 				w.playCard(w.getSelectedCard());
 			}
 		}
+		for(Wonder w: wonders)
+		{
+			if(w.getAction().contentEquals("Play"))
+			{
+				
+			}
+		}
 		
 		for(int i = 0; i<wonders.size(); i++)
 		{
