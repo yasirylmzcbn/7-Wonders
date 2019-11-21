@@ -6,7 +6,7 @@ public class Wonder {
 	private int numOfPlayers;
 	private int playerWonders;
 	private int money;
-	public int victoryPoints;
+	private int victoryPoints;
 	private ListIterator<Card> iter;
 	private int hand;
 	private int militaryPower;
