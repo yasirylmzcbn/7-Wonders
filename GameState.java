@@ -75,7 +75,7 @@ public class GameState
 		wonders = new ArrayList<Wonder>();
 		HashSet<Integer> randomWonder = new HashSet<Integer>();
 		while (randomWonder.size() < numberOfPlayers)
-			randomWonder.add((int)(Math.random() * 8)+1);
+			randomWonder.add((int)(Math.random() * 6) + 0);  
 		Iterator<Integer> iter = randomWonder.iterator();
 		for (int i = 0; i < numberOfPlayers; i++)
 			wonders.add(new Wonder(WONDERNAMES[iter.next()], numberOfPlayers));
@@ -242,28 +242,35 @@ public class GameState
 			if(w.getAction().contentEquals("Play"))
 			{
 				// points from commercial structures
-				ArrayList<Card> crds = new ArrayList<Card>();
-				crds.addAll(w.getCardsPlayed().get("yellow"));
+				Card temp = w.getSelectedCard();
 				int numOfGrayCards = w.getCardsPlayed().get("gray").size();
 				int numOfBrownCards = w.getCardsPlayed().get("brown").size();
 				int numOfYellowCards = w.getCardsPlayed().get("yellow").size();
-				for (int j = 0; j < crds.size(); j++) 
-				{
-					if(crds.get(j).getName().equals("Chamber Of Commerce")) 
-						w.addMoney(numOfGrayCards*2);
-					
-					if(crds.get(j).getName().equals("Haven"))
-						 w.addMoney(numOfBrownCards);
-						
-					if(crds.get(j).getName().equals("Lighthouse"))
-						w.addMoney(numOfYellowCards);
-					
-					if(crds.get(j).getName().equals("Vineyard"))
-					
-						w.addMoney(numOfYellowCards);
-				}
 				
+				
+				if(temp.getName().equals("Chamber Of Commerce")) 
+					w.addMoney(numOfGrayCards*2);
+				
+				if(temp.getName().equals("Haven"))
+					 w.addMoney(numOfBrownCards);
+					
+				if(temp.getName().equals("Lighthouse"))
+					w.addMoney(numOfYellowCards);
+				
+				if(temp.getName().equals("Arena"))
+				{
+					w.addMoney(3*w.getPlayerWonders());
+				}
+					
+				//For neighbors and themselves 
+				if(temp.getName().equals("Vineyard"))
+				{
+					int rightBrown = w.getCardsPlayed().get("brown").size();
+					int leftBrown = w.getCardsPlayed().get("brown").size();
+					w.addMoney(numOfBrownCards+rightBrown+leftBrown);
+				}
 			}
+			
 		}
 		
 		for(int i = 0; i<wonders.size(); i++)
