@@ -221,9 +221,6 @@ public class Wonder {
 
 
 	public void playCard(Card c) {
-		//if(!playable(c)), Raymond: I don't think we need this
-			//return;
-		
 		HashSet<Card> l = cardsPlayed.get(c.getColor());
 		l.add(c);
 		if(c.getColor().equals("blue")) {

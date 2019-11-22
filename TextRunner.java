@@ -93,7 +93,14 @@ public class TextRunner
 	
 	/*
 	 * Scanner takes in input for player choice
+	 * TODO should wonder be chosen like a card?
 	 */
+	public static void optionSelection()
+	{
+		System.out.println("Type 'play' to play a card, 'build' to build a wonder, 'burn' to burn a card, 'display' to display your played cards, 'displayleft' for left wonder, or 'displayright for rightwonder");
+		
+	}
+	
 	public static void handSelection()
 	{
 		int playerInput = 0;
@@ -113,9 +120,10 @@ public class TextRunner
 		}
 		while (playerInput < 0 || playerInput > currentHand.size() - 1);
 		
-		// TODO should this operation be manual and inside TextRunner?
+		// TODO should this operation be manual and inside TextRunner, or should it be a method in gameState?
 		currentWonder.setSelectedCard(currentHand.remove(playerInput));
-		System.out.println("Chose card " + currentWonder.getSelectedCard().getName());
+		System.out.println("Card \"" + currentWonder.getSelectedCard().getName() + "\" chosen");
+		// TODO setAction? formatting action
 	}
 }
 
