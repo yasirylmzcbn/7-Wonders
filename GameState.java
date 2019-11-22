@@ -242,28 +242,42 @@ public class GameState
 			if(w.getAction().contentEquals("Play"))
 			{
 				// points from commercial structures
-				ArrayList<Card> crds = new ArrayList<Card>();
-				crds.addAll(w.getCardsPlayed().get("yellow"));
+				Card temp = w.getSelectedCard();
 				int numOfGrayCards = w.getCardsPlayed().get("gray").size();
 				int numOfBrownCards = w.getCardsPlayed().get("brown").size();
 				int numOfYellowCards = w.getCardsPlayed().get("yellow").size();
-				for (int j = 0; j < crds.size(); j++) 
-				{
-					if(crds.get(j).getName().equals("Chamber Of Commerce")) 
-						w.addMoney(numOfGrayCards*2);
-					
-					if(crds.get(j).getName().equals("Haven"))
-						 w.addMoney(numOfBrownCards);
-						
-					if(crds.get(j).getName().equals("Lighthouse"))
-						w.addMoney(numOfYellowCards);
-					
-					if(crds.get(j).getName().equals("Vineyard"))
-					
-						w.addMoney(numOfYellowCards);
-				}
 				
+				
+				if(temp.getName().equals("Chamber Of Commerce")) 
+					w.addMoney(numOfGrayCards*2);
+				
+				if(temp.getName().equals("Haven"))
+					 w.addMoney(numOfBrownCards);
+					
+				if(temp.getName().equals("Lighthouse"))
+					w.addMoney(numOfYellowCards);
+				
+				if(temp.getName().equals("Arena"))
+				{
+					w.addMoney(3*w.getPlayerWonders());
+				}
+					
+				//For neighbors and themselves 
+				if(temp.getName().equals("Vineyard"))
+				{
+					int rightBrown = getRightWonder(w).getCardsPlayed().get("brown").size();
+					int leftBrown = getLeftWonder(w).getCardsPlayed().get("brown").size();
+					w.addMoney(numOfBrownCards+rightBrown+leftBrown);
+				}
 			}
+			if(w.getAction().contentEquals("Build"))
+			{
+				if(w.getName().equals("The Mausoleum of Halicarnassus")&&w.getPlayerWonders()==2);
+				halic = true;
+			}
+			w.setAction("");
+			w.setSelectedCard(null);
+			
 		}
 		
 		for(int i = 0; i<wonders.size(); i++)
@@ -414,6 +428,23 @@ public class GameState
 		}
 	}
 	
+	public Wonder getLeftWonder(Wonder wonder)
+	{
+		int leftWonderPos = -1;
+		for (int i = 0; i < numberOfPlayers; i++)
+		{
+			Wonder temp = wonders.get(i);
+			if (temp.getName().equals(wonder.getName()))
+			{
+				leftWonderPos = i - 1;
+				if (leftWonderPos < 0)
+					leftWonderPos = numberOfPlayers - 1;
+				return wonders.get(leftWonderPos);
+			}
+				
+		}
+		return null;
+	}
 	public Wonder getLeftWonder(int wonder)
 	{
 		Wonder ownWonder = wonders.get(wonder);
@@ -422,6 +453,24 @@ public class GameState
 		if (leftWonder < 0)
 			leftWonder = numberOfPlayers-1;
 		return wonders.get(leftWonder);
+	}
+	
+	public Wonder getRightWonder(Wonder wonder)
+	{
+		int rightWonderPos = -1;
+		for (int i = 0; i < numberOfPlayers; i++)
+		{
+			Wonder temp = wonders.get(i);
+			if (temp.getName().equals(wonder.getName()))
+			{
+				rightWonderPos = i + 1;
+				if (rightWonderPos > numberOfPlayers - 1)
+					rightWonderPos = 0;
+				return wonders.get(rightWonderPos);
+			}
+				
+		}
+		return null;
 	}
 	public Wonder getRightWonder(int wonder)
 	{
