@@ -132,7 +132,12 @@ public class GameState
 					totalPoints += each*each;
 				each = currentWonder.getTechCardPoints().get("compass");
 					totalPoints += each*each;
-					
+				/* NOT DONE
+					if(currentWonder.getTechCardPoints().get("tablet") >= 1
+				&& currentWonder.getTechCardPoints().get("gear") >= 1
+				&& currentWonder.getTechCardPoints().get("compass") >= 1) 
+					totalPoints += 7;
+					NOT DONE */
 			// points from commercial structures
 			ArrayList<Card> crds = new ArrayList<Card>();
 			crds.addAll(currentWonder.getCardsPlayed().get("yellow"));
