@@ -37,7 +37,7 @@ public class TextRunner
 			handSelection();
 			printOneLine();
 			
-			break;
+//			break;
 		}
 	}
 
@@ -75,6 +75,7 @@ public class TextRunner
 		HashMap<String, HashSet<Card>> tempMap = currentWonder.getCardsPlayed();
 		for (String s: tempMap.keySet())
 			for (Card c: tempMap.get(s))
+				if(!s.equals("wonder"))
 				System.out.println(s + ": " + c);
 		
 		for (int i = 0; i < 25; i++) System.out.print("="); System.out.println();//
@@ -97,12 +98,14 @@ public class TextRunner
 	public static void handSelection()
 	{
 		int playerInput = 0;
-		
+		HashSet<Card> cards;
 		do {
 			System.out.print("Choose index of card to play: ");
 			
 			try {
 			playerInput = input.nextInt();
+			cards = currentWonder.getCardsPlayed().get(currentHand.get(playerInput).getColor());
+			cards.add(currentHand.get(playerInput));
 			} catch (InputMismatchException e) {
 				System.out.println("Error: cannot convert from String to int");
 				break;
