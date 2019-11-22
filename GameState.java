@@ -414,6 +414,23 @@ public class GameState
 		}
 	}
 	
+	public Wonder getLeftWonder(Wonder wonder)
+	{
+		int leftWonderPos = -1;
+		for (int i = 0; i < numberOfPlayers; i++)
+		{
+			Wonder temp = wonders.get(i);
+			if (temp.getName().equals(wonder.getName()))
+			{
+				leftWonderPos = i - 1;
+				if (leftWonderPos < 0)
+					leftWonderPos = numberOfPlayers - 1;
+				return wonders.get(leftWonderPos);
+			}
+				
+		}
+		return null;
+	}
 	public Wonder getLeftWonder(int wonder)
 	{
 		Wonder ownWonder = wonders.get(wonder);
@@ -422,6 +439,24 @@ public class GameState
 		if (leftWonder < 0)
 			leftWonder = numberOfPlayers-1;
 		return wonders.get(leftWonder);
+	}
+	
+	public Wonder getRightWonder(Wonder wonder)
+	{
+		int rightWonderPos = -1;
+		for (int i = 0; i < numberOfPlayers; i++)
+		{
+			Wonder temp = wonders.get(i);
+			if (temp.getName().equals(wonder.getName()))
+			{
+				rightWonderPos = i + 1;
+				if (rightWonderPos > numberOfPlayers - 1)
+					rightWonderPos = 0;
+				return wonders.get(rightWonderPos);
+			}
+				
+		}
+		return null;
 	}
 	public Wonder getRightWonder(int wonder)
 	{
