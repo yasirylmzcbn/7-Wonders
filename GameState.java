@@ -357,6 +357,7 @@ public class GameState
 			usedOlympia = false;
 			
 		}
+		halic = false;
 	}
 	public void nextPlayer()
 	{
@@ -690,4 +691,25 @@ public class GameState
 	public void setCurrentPlayer(int currentPlayer) {
 		this.currentPlayer = currentPlayer;
 	}
+
+	public boolean isHalic() {
+		return halic;
+	}
+
+	public void setHalic(boolean halic) {
+		this.halic = halic;
+	}
+
+	public boolean isUsedOlympia() {
+		return usedOlympia;
+	}
+
+	public void setUsedOlympia(boolean usedOlympia) {
+		this.usedOlympia = usedOlympia;
+	}
+
+	public static String[] getWondernames() {
+		return WONDERNAMES;
+	}
+	
 }
