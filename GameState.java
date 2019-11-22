@@ -265,11 +265,18 @@ public class GameState
 				//For neighbors and themselves 
 				if(temp.getName().equals("Vineyard"))
 				{
-					int rightBrown = w.getCardsPlayed().get("brown").size();
-					int leftBrown = w.getCardsPlayed().get("brown").size();
+					int rightBrown = getRightWonder(w).getCardsPlayed().get("brown").size();
+					int leftBrown = getLeftWonder(w).getCardsPlayed().get("brown").size();
 					w.addMoney(numOfBrownCards+rightBrown+leftBrown);
 				}
 			}
+			if(w.getAction().contentEquals("Build"))
+			{
+				if(w.getName().equals("The Mausoleum of Halicarnassus")&&w.getPlayerWonders()==2);
+				halic = true;
+			}
+			w.setAction("");
+			w.setSelectedCard(null);
 			
 		}
 		
