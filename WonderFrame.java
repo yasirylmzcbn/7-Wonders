@@ -17,7 +17,8 @@ public class WonderFrame extends JFrame
 		super(name);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(new Dimension(WIDTH, HEIGHT));
-		this.add(new WonderPanel());
-		setVisible(true);
+		this.add(new WonderPanel(this.getSize()));
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		this.setVisible(true);
 	}
 }
