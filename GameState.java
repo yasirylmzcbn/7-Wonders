@@ -321,6 +321,7 @@ public class GameState
 	public void nextRound()
 	{
 		round++;
+		rotateHands();
 		if(round == 6)
 		{
 			warTime();
@@ -554,6 +555,11 @@ public class GameState
 			deck.put(i, tempCards);
 		}
 	
+	}
+	
+	public boolean allDecisionsMade()
+	{
+		return decisionMade.contains(false);
 	}
 
 	public boolean isEndOfGame() {
