@@ -223,10 +223,6 @@ public class Wonder {
 	public void playCard(Card c) {
 		HashSet<Card> l = cardsPlayed.get(c.getColor());
 		l.add(c);
-		if(c.getColor().equals("blue")) {
-			CivicsCard x = (CivicsCard) c;
-			victoryPoints += x.getVictoryPoints();
-		}
 		if(c.getColor().equals("green")) {
 			TechCard x = (TechCard) c;
 			int quantity = techCardPoints.get(x.getTechGiven());
