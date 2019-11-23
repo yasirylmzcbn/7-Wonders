@@ -46,7 +46,7 @@ public class TextRunner
 			}
 			testing += 1;
 			
-			break;
+//			break;
 		}
 	}
 
@@ -84,6 +84,7 @@ public class TextRunner
 		HashMap<String, HashSet<Card>> tempMap = currentWonder.getCardsPlayed();
 		for (String s: tempMap.keySet())
 			for (Card c: tempMap.get(s))
+				if(!s.equals("wonder"))
 				System.out.println(s + ": " + c);
 		
 		for (int i = 0; i < 25; i++) System.out.print("="); System.out.println();//
@@ -141,7 +142,7 @@ public class TextRunner
 	public static void handSelection()
 	{
 		int playerInput = 0;
-		
+		HashSet<Card> cards;
 		do {
 			System.out.print("Choose index of card to play: ");
 			
