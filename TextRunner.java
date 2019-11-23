@@ -7,35 +7,44 @@ import java.util.Scanner;
 public class TextRunner
 {
 	public static GameState state;
-	public static Scanner input;
+	public static Scanner keyboard;
 	public static Wonder currentWonder;
 	public static int currentPlayer;
 	public static ArrayList<Card> currentHand;
 	
 	public static void main(String[] args)
 	{
-		input = new Scanner(System.in);
+		keyboard = new Scanner(System.in);
 		state = new GameState();
-		
+		int testing = 0;
 		while (!state.isEndOfGame())
 		{
-			currentWonder = state.getWonders().get(state.getCurrentPlayer());
-			currentPlayer = state.getCurrentPlayer();
-			currentHand = state.getPlayerHands().get(currentPlayer);
-			
 			printNewRound();
-			
-			printWonderInformation();
-			printOneLine();
-			
-			printPlayedCards();
-			printOneLine();
-			
-			printPlayerHand();
-			printOneLine();
-			
-			handSelection();
-			printOneLine();
+			// for each player in one round
+			while (!state.allDecisionsMade())
+			{
+				System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!" + testing);
+				printDivider();
+				currentWonder = state.getWonders().get(state.getCurrentPlayer());
+				currentPlayer = state.getCurrentPlayer();
+				currentHand = state.getPlayerHands().get(currentPlayer);
+				
+				printPlayerInfo(currentWonder);
+				printOneLine();
+				
+				printPlayedCards();
+				printOneLine();
+				
+				printPlayerHand();
+				printOneLine();
+				
+				optionSelection();
+				printOneLine();
+				
+				state.nextPlayer();
+				//break;
+			}
+			testing += 1;
 			
 			break;
 		}
@@ -80,15 +89,24 @@ public class TextRunner
 		for (int i = 0; i < 25; i++) System.out.print("="); System.out.println();//
 	}
 	
-	public static void printWonderInformation()
-	{
-		System.out.printf("%s; coin:%d, vp:%d, mp:%d, win:%d; loss:%d\n", currentWonder.getName(), currentWonder.getMoney(), currentWonder.getVictoryPoints(),
-				currentWonder.getMilitaryPower(), currentWonder.getWins(), currentWonder.getLosses());
-	}
-	
 	public static void printOneLine()
 	{
 		System.out.println("\n");
+	}
+	
+	public static void printPlayerInfo(Wonder wond)
+	{
+		for (int i = 0; i < 5; i++)
+			System.out.print(">");
+		System.out.printf(" PLAYER %d ::::: %s\tcoins: %d,\tvp: %d,\t mp: %d,\twins: %d,\tlosses: %d\n", state.getCurrentPlayer(), wond.getName(), wond.getMoney(), wond.getVictoryPoints(),
+				wond.getMilitaryPower(), wond.getWins(), wond.getLosses());
+	}
+	
+	public static void printDivider()
+	{
+		for (int i = 0; i < 50; i++)
+			System.out.print("<>");
+		System.out.println();
 	}
 	
 	/*
@@ -97,7 +115,26 @@ public class TextRunner
 	 */
 	public static void optionSelection()
 	{
-		System.out.println("Type 'play' to play a card, 'build' to build a wonder, 'burn' to burn a card, 'display' to display your played cards, 'displayleft' for left wonder, or 'displayright for rightwonder");
+		System.out.println("Type 'Play', 'Build' (wonder), 'Burn', 'Display' (cards and other info)");
+		String input = keyboard.next();
+		
+		switch (input) {
+		case "Play":
+			currentWonder.setAction("Play");
+			handSelection();
+			break;
+		case "Build":
+			currentWonder.setAction("Build");
+			// doThing();
+			break;
+		case "Burn":
+			currentWonder.setAction("Burn");
+			// burn();
+			break;
+		case "display":
+			// display();
+			break;
+		}
 		
 	}
 	
@@ -109,14 +146,12 @@ public class TextRunner
 			System.out.print("Choose index of card to play: ");
 			
 			try {
-			playerInput = input.nextInt();
+			playerInput = keyboard.nextInt();
 			} catch (InputMismatchException e) {
 				System.out.println("Error: cannot convert from String to int");
 				break;
 			}
 			System.out.println();
-			
-			//System.out.println();
 		}
 		while (playerInput < 0 || playerInput > currentHand.size() - 1);
 		
