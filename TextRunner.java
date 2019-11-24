@@ -16,14 +16,14 @@ public class TextRunner
 	{
 		keyboard = new Scanner(System.in);
 		state = new GameState();
-		int testing = 0;
 		while (!state.isEndOfGame())
 		{
 			printNewRound();
+			System.out.println("ROUND " + state.getRound());
+			
 			// for each player in one round
 			while (!state.allDecisionsMade())
 			{
-				System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!" + testing);
 				printDivider();
 				currentWonder = state.getWonders().get(state.getCurrentPlayer());
 				currentPlayer = state.getCurrentPlayer();
@@ -42,11 +42,9 @@ public class TextRunner
 				printOneLine();
 				
 				state.nextPlayer();
-				//break;
 			}
-			testing += 1;
-			
-//			break;
+			state.finishRound();
+			state.setRound(state.getRound() + 1);
 		}
 	}
 
@@ -122,7 +120,7 @@ public class TextRunner
 		switch (input) {
 		case "Play":
 			currentWonder.setAction("Play");
-			handSelection();
+			play();
 			break;
 		case "Build":
 			currentWonder.setAction("Build");
@@ -139,7 +137,12 @@ public class TextRunner
 		
 	}
 	
-	public static void handSelection()
+	public static void resourceSelection()
+	{
+		
+	}
+	
+	public static void play()
 	{
 		int playerInput = 0;
 		HashSet<Card> cards;
@@ -157,9 +160,27 @@ public class TextRunner
 		while (playerInput < 0 || playerInput > currentHand.size() - 1);
 		
 		// TODO should this operation be manual and inside TextRunner, or should it be a method in gameState?
-		currentWonder.setSelectedCard(currentHand.remove(playerInput));
+		if (currentWonder.playable(currentHand.get(playerInput)));
+			currentWonder.setSelectedCard(currentHand.remove(playerInput));
 		System.out.println("Card \"" + currentWonder.getSelectedCard().getName() + "\" chosen");
-		// TODO setAction? formatting action
+		
+		// selects resources in order to play card
+		resourceSelection();
+	}
+	
+	public static void build()
+	{
+		
+	}
+	
+	public static void burn()
+	{
+		
+	}
+	
+	public static void display()
+	{
+		
 	}
 }
 
