@@ -1,6 +1,4 @@
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -9,11 +7,15 @@ import java.io.File;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 public class WonderPanel extends JPanel implements MouseListener
 {
 	private GameState game;
 	private boolean showMainMenu;
+	
+	// for debugging
+	private JTextArea log;
 	
 	public WonderPanel(Dimension size)
 	{
@@ -27,7 +29,7 @@ public class WonderPanel extends JPanel implements MouseListener
 	
 	public void paint(Graphics g)
 	{
-		System.out.println("REPAINTED"); // for debugging
+		// System.out.println("REPAINTED"); // for debugging
 		
 		if (showMainMenu)
 			drawMainMenu(g);
@@ -73,13 +75,13 @@ public class WonderPanel extends JPanel implements MouseListener
 		if (showMainMenu)
 		{
 			// pressed play button
-			if (x <= 1040 && x >= 850 && y <= 525 && y >= 450)
+			if (x <= 1090 && x >= 785 && y <= 685 && y >= 595)
 			{
 				System.out.println("Game started");
 				showMainMenu = false; // moves to actual game screen
 			}
 			// pressed quit
-			if (x <= 1050 && x >= 850 && y <= 650 && y >= 575)
+			if (x <= 1060 && x >= 805 && y <= 835 && y >= 750)
 			{
 				System.out.println("Game quit");
 				System.exit(0); // exits the game
