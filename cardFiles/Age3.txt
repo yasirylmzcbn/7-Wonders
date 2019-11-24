@@ -2,4 +2,3 @@ civicsCard/Pantheon/blue/Temple/clay,clay,ore,paper,cloth,glass/3/7
 civicsCard/Gardens/blue/Statue/wood,clay,clay/3/5
 civicsCard/Town Hall/blue/null/glass,ore,stone,stone/3/6
 civicsCard/Palace/blue/null/glass,paper,cloth,clay,wood,ore,stone/3/8
-guildCard/Workers Guild/purple/null/ore,ore,clay,stone,wood/3/VP*yellow*left&&right
