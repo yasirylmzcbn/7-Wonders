@@ -1,6 +1,7 @@
 import java.util.*;
 
 public class Wonder {
+	// TODO should there be a resource ArrayList that holds every resource a wonder has?
 	private String name;
 	private HashMap<String, HashSet<Card>> cardsPlayed; //String = type/color of card, HashSet<Card> = cards 
 	private int numOfPlayers;
@@ -219,7 +220,6 @@ public class Wonder {
 		}
 	}
 
-
 	public void playCard(Card c) {
 		HashSet<Card> l = cardsPlayed.get(c.getColor());
 		l.add(c);
@@ -272,125 +272,125 @@ public class Wonder {
 	public HashMap<String, Integer> getTechCardPoints() {
 		return techCardPoints;
 	}
-		public String getName() {
-			return name;
-		}
+	public String getName() {
+		return name;
+	}
 
-		public void setName(String name) {
-			this.name = name;
-		}
+	public void setName(String name) {
+		this.name = name;
+	}
 
-		public HashMap<String, HashSet<Card>> getCardsPlayed() {
-			return cardsPlayed;
-		}
+	public HashMap<String, HashSet<Card>> getCardsPlayed() {
+		return cardsPlayed;
+	}
 
-		public void setCardsPlayed(HashMap<String, HashSet<Card>> cardsPlayed) {
-			this.cardsPlayed = cardsPlayed;
-		}
+	public void setCardsPlayed(HashMap<String, HashSet<Card>> cardsPlayed) {
+		this.cardsPlayed = cardsPlayed;
+	}
 
-		public int getPlayerWonders() {
-			return playerWonders;
-		}
+	public int getPlayerWonders() {
+		return playerWonders;
+	}
 
-		public void setPlayerWonders(int playerWonders) {
-			this.playerWonders = playerWonders;
-		}
+	public void setPlayerWonders(int playerWonders) {
+		this.playerWonders = playerWonders;
+	}
 
-		public int getMoney() {
-			return money;
-		}
+	public int getMoney() {
+		return money;
+	}
 
-		public void setMoney(int money) {
-			this.money = money;
-		}
+	public void setMoney(int money) {
+		this.money = money;
+	}
 
-		public int getVictoryPoints() {
-			return victoryPoints;
-		}
+	public int getVictoryPoints() {
+		return victoryPoints;
+	}
 
-		public void setVictoryPoints(int victoryPoints) {
-			this.victoryPoints = victoryPoints;
-		}
+	public void setVictoryPoints(int victoryPoints) {
+		this.victoryPoints = victoryPoints;
+	}
 
-		public ListIterator<Card> getIter() {
-			return iter;
-		}
+	public ListIterator<Card> getIter() {
+		return iter;
+	}
 
-		public void setIter(ListIterator<Card> iter) {
-			this.iter = iter;
-		}
+	public void setIter(ListIterator<Card> iter) {
+		this.iter = iter;
+	}
 
-		public int getHand() {
-			return hand;
-		}
+	public int getHand() {
+		return hand;
+	}
 
-		public void setHand(int hand) {
-			this.hand = hand;
-		}
+	public void setHand(int hand) {
+		this.hand = hand;
+	}
 
-		public int getMilitaryPower() {
-			return militaryPower;
-		}
+	public int getMilitaryPower() {
+		return militaryPower;
+	}
 
-		public void setMilitaryPower(int militaryPower) {
-			this.militaryPower = militaryPower;
-		}
+	public void setMilitaryPower(int militaryPower) {
+		this.militaryPower = militaryPower;
+	}
 
-		public Card getSelectedCard() {
-			return selectedCard;
-		}
+	public Card getSelectedCard() {
+		return selectedCard;
+	}
 
-		public void setSelectedCard(Card selectedCard) {
-			this.selectedCard = selectedCard;
-		}
+	public void setSelectedCard(Card selectedCard) {
+		this.selectedCard = selectedCard;
+	}
 
-		public String getAction() {
-			return action;
-		}
+	public String getAction() {
+		return action;
+	}
 
-		public void setAction(String action) {
-			this.action = action;
-		}
+	public void setAction(String action) {
+		this.action = action;
+	}
 
-		public ArrayList<String> getTrades() {
-			return trades;
-		}
+	public ArrayList<String> getTrades() {
+		return trades;
+	}
 
-		public void setTrades(ArrayList<String> trades) {
-			this.trades = trades;
-		}
+	public void setTrades(ArrayList<String> trades) {
+		this.trades = trades;
+	}
 
-		public int getLosses() {
-			return losses;
-		}
+	public int getLosses() {
+		return losses;
+	}
 
-		public void setLosses(int losses) {
-			this.losses = losses;
-		}
+	public void setLosses(int losses) {
+		this.losses = losses;
+	}
 
-		public int getWins() {
-			return wins;
-		}
+	public int getWins() {
+		return wins;
+	}
 
-		public void setWins(int wins) {
-			this.wins = wins;
-		}
+	public void setWins(int wins) {
+		this.wins = wins;
+	}
 
-		public ArrayList<Card> getStages() {
-			return stages;
-		}
+	public ArrayList<Card> getStages() {
+		return stages;
+	}
 
-		public void setStages(ArrayList<Card> stages) {
-			this.stages = stages;
-		}
+	public void setStages(ArrayList<Card> stages) {
+		this.stages = stages;
+	}
 
-		public String getWonderAbility() {
-			return wonderAbility;
-		}
+	public String getWonderAbility() {
+		return wonderAbility;
+	}
 
-		public void setWonderAbility(String wonderAbility) {
-			this.wonderAbility = wonderAbility;
-		}
-		//end of getter/setters
+	public void setWonderAbility(String wonderAbility) {
+		this.wonderAbility = wonderAbility;
+	}
+	//end of getter/setters
 
 }

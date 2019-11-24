@@ -24,23 +24,32 @@ public class TextRunner
 			currentHand = state.getPlayerHands().get(currentPlayer);
 
 			printNewRound();
+			System.out.println("ROUND " + state.getRound());
 			
-			printWonderInformation();
-			printOneLine();
-			
-			printPlayedCards();
-			printOneLine();
-			
-			printPlayerHand();
-			printOneLine();
-			
-			handSelection();
-			printOneLine();
-			
-//			break;
-		
-			state.nextPlayer();
-			
+			// for each player in one round
+			while (!state.allDecisionsMade())
+			{
+				printDivider();
+				currentWonder = state.getWonders().get(state.getCurrentPlayer());
+				currentPlayer = state.getCurrentPlayer();
+				currentHand = state.getPlayerHands().get(currentPlayer);
+				
+				printPlayerInfo(currentWonder);
+				printOneLine();
+				
+				printPlayedCards();
+				printOneLine();
+				
+				printPlayerHand();
+				printOneLine();
+				
+				optionSelection();
+				printOneLine();
+				
+				state.nextPlayer();
+			}
+			state.finishRound();
+			state.setRound(state.getRound() + 1);
 		}
 	}
 
@@ -98,6 +107,37 @@ public class TextRunner
 	/*
 	 * Scanner takes in input for player choice
 	 */
+	public static void optionSelection()
+	{
+		System.out.println("Type 'Play', 'Build' (wonder), 'Burn', 'Display' (cards and other info)");
+		String input = keyboard.next();
+		
+		switch (input) {
+		case "Play":
+			currentWonder.setAction("Play");
+			play();
+			break;
+		case "Build":
+			currentWonder.setAction("Build");
+			// doThing();
+			break;
+		case "Burn":
+			currentWonder.setAction("Burn");
+			// burn();
+			break;
+		case "display":
+			// display();
+			break;
+		}
+		
+	}
+	
+	public static void resourceSelection()
+	{
+		
+	}
+	
+	public static void play()
 	public static void handSelection()
 	{
 		int playerInput = 0;
@@ -124,6 +164,27 @@ public class TextRunner
 		}
 		while (playerInput < 0 || playerInput > currentHand.size() - 1);
 		
+		// TODO should this operation be manual and inside TextRunner, or should it be a method in gameState?
+		if (currentWonder.playable(currentHand.get(playerInput)));
+			currentWonder.setSelectedCard(currentHand.remove(playerInput));
+		System.out.println("Card \"" + currentWonder.getSelectedCard().getName() + "\" chosen");
+		
+		// selects resources in order to play card
+		resourceSelection();
+	}
+	
+	public static void build()
+	{
+		
+	}
+	
+	public static void burn()
+	{
+		
+	}
+	
+	public static void display()
+  {
 		// TODO should this operation be manual and inside TextRunner?
 		currentWonder.setSelectedCard(currentHand.remove(playerInput));
 		System.out.println("Chose card " + currentWonder.getSelectedCard().getName());
