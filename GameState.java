@@ -222,6 +222,11 @@ public class GameState
 			w.changeHands(order);
 		}
 	}
+	
+	/*
+	 * Plays the action of each wonder (burn, build, or play) using the action String
+	 * Trades with the player if chosen to
+	 */
 	public void finishRound()
 	{
 		
@@ -559,7 +564,7 @@ public class GameState
 	
 	public boolean allDecisionsMade()
 	{
-		return decisionMade.contains(false);
+		return !decisionMade.contains(false);
 	}
 
 	public boolean isEndOfGame() {
