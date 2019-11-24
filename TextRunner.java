@@ -138,6 +138,9 @@ public class TextRunner
 	}
 	
 	public static void play()
+	{
+		
+	}
 	public static void handSelection()
 	{
 		int playerInput = 0;
