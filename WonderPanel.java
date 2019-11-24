@@ -53,7 +53,7 @@ public class WonderPanel extends JPanel implements MouseListener
 		BufferedImage mainMenuBackground = null;
 		BufferedImage mainMenuLogo = null;
 		try {
-		mainMenuBackground = ImageIO.read(new File("src/images/mainmenubackground.png"));
+		mainMenuBackground = ImageIO.read(new File("src/images/newmainmenubackground.png"));
 		} catch (Exception e) {
 			System.out.println("Could not load image: " + e);
 		}
