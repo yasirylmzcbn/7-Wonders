@@ -14,7 +14,7 @@ public class SevenWondersFrame extends JFrame
 	super(frameName);
 	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	setSize(WIDTH,HEIGHT);
-	add(new SevenWondersPanel());
+	add(new SevenWondersPanel(WIDTH, HEIGHT));
 	setVisible(true);
 	
 		
