@@ -20,24 +20,35 @@ public class TextRunner
 		state = new GameState();
 		while (!state.isEndOfGame())
 		{
-			currentWonder = state.getWonders().get(state.getCurrentPlayer());
-			currentPlayer = state.getCurrentPlayer();
-			currentHand = state.getPlayerHands().get(currentPlayer);
-
 			printNewRound();
-			printWonderInformation();	
-			printOneLine();	
+			while (!state.allDecisionsMade())
+			{
+				/* debugging
+				for (int i = 0; i < state.getPlayerHands().size(); i++)
+					System.out.println(i + " " + state.getPlayerHands().get(i)); // debugging
+				System.out.println();*/
 				
-			printPlayedCards();	
-			printOneLine();	
+				currentWonder = state.getWonders().get(state.getCurrentPlayer());
+				currentPlayer = state.getCurrentPlayer();
+				currentHand = state.getPlayerHands().get(currentWonder.getHand());
+	
+				printWonderInformation();	
+				printOneLine();	
+					
+				printPlayedCards();	
+				printOneLine();	
+					
+				printPlayerHand();	
+				printOneLine();	
+					
+				optionSelection();	
+				printOneLine();	
 				
-			printPlayerHand();	
-			printOneLine();	
-				
-			optionSelection();	
-			printOneLine();	
+				state.nextPlayer();
+			}
 			
-			state.nextPlayer();
+			state.finishRound();
+			state.nextRound();
 		}
 	}
 
@@ -47,7 +58,7 @@ public class TextRunner
 	public static void printNewRound()
 	{
 		for (int i = 0; i < 25; i++) System.out.print("~~~~~~");
-		System.out.printf("\n%75s\n", "New Round");
+		System.out.printf("\n%75s %d, %s %d\n", "Age", state.getAge(), "Round", state.getRound());
 		for (int i = 0; i < 25; i++) System.out.print("~~~~~~");
 		System.out.println();
 	}
@@ -58,7 +69,7 @@ public class TextRunner
 		
 		for (int i = 0; i < 25; i++) System.out.print("="); System.out.println();
 		
-		ArrayList<Card> playerHand = state.getPlayerHands().get(state.getCurrentPlayer());
+		ArrayList<Card> playerHand = state.getPlayerHands().get(currentWonder.getHand());
 		
 		for (int i = 0; i < playerHand.size(); i++)
 			System.out.println(i + " " + playerHand.get(i));
@@ -134,6 +145,11 @@ public class TextRunner
 	{
 		// gets the ArrayList that has the same colour as selected card
 		HashSet<Card> playedCards = currentWonder.getCardsPlayed().get(currentWonder.getSelectedCard().getColor());
+		
+		// when everything is valid
+		ArrayList<Boolean> decision = state.getDecisionMade();
+		decision.set(state.getCurrentPlayer(), true);
+		state.setDecisionMade(decision);
 	}
 	
 	public static void handSelection()
