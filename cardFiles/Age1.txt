@@ -13,7 +13,7 @@ civicsCard/Theater/blue/null/null/3/2
 militaryCard/Stockade/red/null/wood/3/1
 militaryCard/Barracks/red/null/ore/3/1
 militaryCard/Guard Tower/red/null/clay/3/1
-techCard/Apothecary/green/null/cloth/3/math
+techCard/Apothecary/green/null/cloth/3/compass
 techCard/Workshop/green/null/glass/3/gear
 techCard/Scriptorium/green/null/paper/3/tablet
 commercialCard/East Trading Post/yellow/null/null/3/clay,stone,wood,ore*trading*right
