@@ -12,6 +12,7 @@ public class TextRunner
 	public static int currentPlayer;
 	public static ArrayList<Card> currentHand;
 	public static boolean endOfRound = false;
+	public static boolean hasQuit = false; // if the player has chosen to click cancel out of play, build, or burn
 	
 	public static void main(String[] args)
 	{
@@ -24,32 +25,19 @@ public class TextRunner
 			currentHand = state.getPlayerHands().get(currentPlayer);
 
 			printNewRound();
-			System.out.println("ROUND " + state.getRound());
+			printWonderInformation();	
+			printOneLine();	
+				
+			printPlayedCards();	
+			printOneLine();	
+				
+			printPlayerHand();	
+			printOneLine();	
+				
+			optionSelection();	
+			printOneLine();	
 			
-			// for each player in one round
-			while (!state.allDecisionsMade())
-			{
-				printDivider();
-				currentWonder = state.getWonders().get(state.getCurrentPlayer());
-				currentPlayer = state.getCurrentPlayer();
-				currentHand = state.getPlayerHands().get(currentPlayer);
-				
-				printPlayerInfo(currentWonder);
-				printOneLine();
-				
-				printPlayedCards();
-				printOneLine();
-				
-				printPlayerHand();
-				printOneLine();
-				
-				optionSelection();
-				printOneLine();
-				
-				state.nextPlayer();
-			}
-			state.finishRound();
-			state.setRound(state.getRound() + 1);
+			state.nextPlayer();
 		}
 	}
 
@@ -110,12 +98,12 @@ public class TextRunner
 	public static void optionSelection()
 	{
 		System.out.println("Type 'Play', 'Build' (wonder), 'Burn', 'Display' (cards and other info)");
-		String input = keyboard.next();
+		String option = input.next();
 		
-		switch (input) {
+		switch (option) {
 		case "Play":
 			currentWonder.setAction("Play");
-			play();
+			handSelection();
 			break;
 		case "Build":
 			currentWonder.setAction("Build");
@@ -130,49 +118,66 @@ public class TextRunner
 			break;
 		}
 		
+		/*
+		 * If the player from the previous options has not made
+		 * a valid choice, then they will be prompted to make a
+		 * selection between those again in order to progress
+		 */
+		if (hasQuit)
+			optionSelection();
+		
 	}
 	
+	// IMPORTANT: selected card should only be added to played cards if the selected resources are valid
+	// TODO: trading cards
 	public static void resourceSelection()
 	{
-		
+		// gets the ArrayList that has the same colour as selected card
+		HashSet<Card> playedCards = currentWonder.getCardsPlayed().get(currentWonder.getSelectedCard().getColor());
 	}
 	
-	public static void play()
-	{
-		
-	}
 	public static void handSelection()
 	{
-		int playerInput = 0;
-		HashSet<Card> cards;
-		do {
+		int playerInput = -1;
+		
+		// checks if selection is in bounds and is playable (doesn't check for resources)
+		do
+		{
+			System.out.println("type 'quit' to quit");
 			System.out.print("Choose index of card to play: ");
 			
-			try {
-			playerInput = input.nextInt();
-			cards = currentWonder.getCardsPlayed().get(currentHand.get(playerInput).getColor());
-			cards.add(currentHand.get(playerInput));
-			} 
-			catch (InputMismatchException e) {
-				System.out.println("Error: cannot convert from String to int");
+			// quits out of the loop and goes back to option selection
+			String temp = input.next();
+			if (temp.equals("quit"))
+			{
+				hasQuit = true;
+				return;
 			}
-			catch(IndexOutOfBoundsException e) {
-				if(currentHand.size() == 0)
-				System.out.println("There are no cards left in the hand");
-				else System.out.println("Woah! That number is too big! Please try again");
-			}
-			System.out.println();
+			hasQuit = false;
 			
-			//System.out.println();
+			try {
+			playerInput = Integer.parseInt(temp);
+			} catch (NumberFormatException e) {
+				System.out.println("Cannot convert from String to int");
+				playerInput = -1;
+			}
+			
+			// checks if card is playable, else it continues the loop
+			if (playerInput >= 0 && playerInput <= currentHand.size() - 1)
+				if (!currentWonder.playable(currentHand.get(playerInput)))
+					playerInput = -1;
+			
+			System.out.println();
 		}
+		
 		while (playerInput < 0 || playerInput > currentHand.size() - 1);
 		
-		// TODO should this operation be manual and inside TextRunner, or should it be a method in gameState?
-		if (currentWonder.playable(currentHand.get(playerInput)));
+		// sets the selected card to player input, but doesn't add to cardsPlayed yet
+		if (playerInput >= 0 && playerInput <= currentHand.size() - 1)
 			currentWonder.setSelectedCard(currentHand.remove(playerInput));
-		System.out.println("Card \"" + currentWonder.getSelectedCard().getName() + "\" chosen");
+		System.out.println("Card '" + currentWonder.getSelectedCard().getName() + "' chosen");
 		
-		// selects resources in order to play card
+		// goes to resource selection of card, will add to cardsPlayed
 		resourceSelection();
 	}
 	
@@ -187,15 +192,8 @@ public class TextRunner
 	}
 	
 	public static void display()
-  {
-		// TODO should this operation be manual and inside TextRunner?
-		currentWonder.setSelectedCard(currentHand.remove(playerInput));
-		System.out.println("Chose card " + currentWonder.getSelectedCard().getName());
+	{
 		
-		if(currentHand.size() == 1) {
-			endOfRound = true;
-			currentWonder.setMoney(currentWonder.getMoney()+3);
-		}
 	}
 }
 
