@@ -1,35 +1,40 @@
-import java.awt.*;
-import java.io.File; 
-import java.io.*;
-import java.io.IOException; 
-import java.awt.image.BufferedImage; 
-import javax.imageio.ImageIO;
+import java.awt.Graphics;
 import java.awt.event.MouseEvent;
-import javax.swing.*;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+
 public class SevenWondersPanel extends JPanel implements MouseListener
 {
-	private int[] posX;
-	private GameState game;
-	private int width;
-	private int height;
-	
 	private boolean GameLobby;
 	private boolean wonderDist;
 	private boolean displayAllPlayed;
-	private String displayOtherWonder;
-	private boolean displayHalic;//might become a String later on
+	private boolean displayHalic; //might become a String later on
 	private boolean displayGraveyard;
+	
+	private int[] posX;
+	private int width;
+	private int height;
+	
+	private GameState game;
+	private String displayOtherWonder;
 	
 	public SevenWondersPanel(int width, int height)
 	{
 		super();
-		game = new GameState();
 		addMouseListener(this);
-		//setLayout(null);
+		setLayout(null);
+		setSize(width, height);
+		
+		game = new GameState();
 		this.width = width;
 		this.height = height;
-		
 		GameLobby = true;
 		wonderDist = false;
 		
@@ -39,28 +44,38 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 	{
 		if(GameLobby)
 		{
-			try 
-			{
-				BufferedImage back = ImageIO.read(new File("src/images/mainmenubackground.png"));
-				g.drawImage(back, 0, 0,1200, 800, null);
-				
-				//g.fillRect(525, 330, 125, 70);//where PLAY is
-				//g.fillRect(525, 420, 140, 70);//where QUIT is
-				
-			}catch(IOException e) {
-				
-			}
+			drawMainMenu(g);
 		}
 		if(wonderDist)
 		{
-			try 
-			{
-				BufferedImage back = ImageIO.read(new File("src/images/background.png"));
-				g.drawImage(back, 0, 0,1200, 800, null);
-				
-			}catch(IOException e) {
-				
-			}
+			drawBackground(g);
+		}
+	}
+	
+	// draws start and quit buttons
+	public void drawMainMenu(Graphics g)
+	{
+		try
+		{
+			BufferedImage mainMenuBackground = ImageIO.read(new File("src/images/newmainmenubackground.png"));
+			g.drawImage(mainMenuBackground, 0, 0, width, height, null);
+		}
+		catch(IOException e)
+		{
+			System.out.println("Cannot find background image!");
+		}
+	}
+	
+	public void drawBackground(Graphics g)
+	{
+		try
+		{
+			BufferedImage background = ImageIO.read(new File("src/images/background.png"));
+			g.drawImage(background, 0, 0, width, height, null);
+		}
+		catch(IOException e)
+		{
+			System.out.println("Cannot find background image!");
 		}
 	}
 	
@@ -68,12 +83,13 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 	{
 		if(GameLobby)
 		{
-			if(e.getX()>=525&&e.getX()<=665&&e.getY()>=420&&e.getY()<=490) //IF QUIT
+			if(e.getX()>=805&&e.getX()<=1060&&e.getY()>=750&&e.getY()<=835) //IF QUIT
 			{
-				JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
-				frame.dispose();
+				/*JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+				frame.dispose();*/
+				System.exit(0);
 			}
-			if(e.getX()>=525&&e.getX()<=650&&e.getY()>=330&&e.getY()<=400) //IF PLAY
+			if(e.getX()>=785&&e.getX()<=1090&&e.getY()>=595&&e.getY()<=685) //IF PLAY
 			{
 				GameLobby = false;
 				wonderDist = true;
