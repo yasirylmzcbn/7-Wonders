@@ -57,7 +57,7 @@ public abstract class Card
 	public String toString()
 	{
 		//return String.format("%-7s %-15s Chain: %-13s Cost: %-25s Players: %-3s", getColor(), getName(), getChain(), getCost(), getNumberOfPlayers());
-		return getName() + "; Chain:" + getChain() + "; Cost:" + getCost() + "; Players:" + getNumberOfPlayers();
+		return getColor() + " " + getName() + "; Chain:" + getChain() + "; Cost:" + getCost() + "; Players:" + getNumberOfPlayers();
 	}
 	
 }
