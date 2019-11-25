@@ -141,12 +141,12 @@ public class GameState
 			// points from commercial structures
 			ArrayList<Card> crds = new ArrayList<Card>();
 			crds.addAll(currentWonder.getCardsPlayed().get("yellow"));
-			int numOfGrayCards = currentWonder.getCardsPlayed().get("gray").size();
+			int numOfSilverCards = currentWonder.getCardsPlayed().get("silver").size();
 			int numOfBrownCards = currentWonder.getCardsPlayed().get("brown").size();
 			int numOfYellowCards = currentWonder.getCardsPlayed().get("yellow").size();
 			for (int j = 0; j < crds.size(); j++) {
 				if(crds.get(j).getName().equals("Chamber Of Commerce")) 
-					totalPoints += numOfGrayCards*2;
+					totalPoints += numOfSilverCards*2;
 				
 				if(crds.get(j).getName().equals("Haven"))
 					totalPoints += numOfBrownCards;
@@ -167,8 +167,8 @@ public class GameState
 								+ rightWonder.getPlayerWonders();
 				
 				if(guilds.get(i).getName().equals("Craftmens Guild"))
-					totalPoints += 2 * (leftWonder.getCardsPlayed().get("gray").size()
-								+ rightWonder.getCardsPlayed().get("gray").size());
+					totalPoints += 2 * (leftWonder.getCardsPlayed().get("silver").size()
+								+ rightWonder.getCardsPlayed().get("silver").size());
 				
 				if(guilds.get(i).getName().equals("Magistrates Guild"))
 					totalPoints += leftWonder.getCardsPlayed().get("blue").size()
@@ -253,13 +253,13 @@ public class GameState
 			{
 				// points from commercial structures
 				Card temp = w.getSelectedCard();
-				int numOfGrayCards = w.getCardsPlayed().get("gray").size();
+				int numOfSilverCards = w.getCardsPlayed().get("silver").size();
 				int numOfBrownCards = w.getCardsPlayed().get("brown").size();
 				int numOfYellowCards = w.getCardsPlayed().get("yellow").size();
 				
 				
 				if(temp.getName().equals("Chamber Of Commerce")) 
-					w.addMoney(numOfGrayCards*2);
+					w.addMoney(numOfSilverCards*2);
 				
 				if(temp.getName().equals("Haven"))
 					 w.addMoney(numOfBrownCards);
@@ -319,6 +319,9 @@ public class GameState
 			w.getTrades().clear();
 			
 		}
+		
+		for (int i = 0; i < decisionMade.size(); i++)
+			decisionMade.set(i, false);
 		
 	}
 
