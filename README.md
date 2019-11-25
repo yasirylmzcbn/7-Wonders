@@ -22,7 +22,7 @@ coin is the resource for money
 
 *cardType*/*cardName*/*colour*/*previousChainCard*/*cost*/*numberOfPlayers*/*militaryPoints*
 
-**TechCard.java** Science types: compass is *math*, gear is *gear*, and tablet is *tablet*
+**TechCard.java** Science types: compass is *compass*, gear is *gear*, and tablet is *tablet*
 
 *cardType*/*cardName*/*colour*/*previousChainCard*/*cost*/*numberOfPlayers*/*scienceType*
 
