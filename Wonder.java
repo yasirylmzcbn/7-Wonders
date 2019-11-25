@@ -134,7 +134,7 @@ public class Wonder {
 			ArrayList<String> hgob2Cost = new ArrayList<String>();
 			for(int k=0;k<3;k++)
 				hgob2Cost.add("wood");
-			stages.add(new TechCard("hgob2","wonder",hgob2Cost,null,3,"math||gear||tablet"));
+			stages.add(new TechCard("hgob2","wonder",hgob2Cost,null,3,"compass||gear||tablet"));
 			//wonder 3
 			ArrayList<String> hgob3Cost = new ArrayList<String>();
 			for(int k=0;k<4;k++)
