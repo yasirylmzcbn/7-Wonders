@@ -334,7 +334,12 @@ public class GameState
 		rotateHands();
 		if(round == 6)
 		{
-			playerHands.clear();
+			for(int i = 0; i<playerHands.size();i++)
+			{
+				ArrayList<Card> temp = playerHands.get(i);
+				graveyard.add(temp.remove(0));
+			}
+			//playerHands.clear();
 			warTime();
 			age++;
 			
