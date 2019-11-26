@@ -116,6 +116,10 @@ public class TextRunner
 			handSelection();
 			break;
 		case "Build":
+			/*
+			 * TODO
+			 * Need a resource selection screen to build wonder
+			 */
 			currentWonder.setAction("Build");
 			if(currentWonder.getPlayerWonders() < 3)
 			 currentWonder.buildWonder();
