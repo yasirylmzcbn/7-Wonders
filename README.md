@@ -34,5 +34,6 @@ coin is the resource for money
 **graphics**
 - [ ] Dynamic screen resolution, getActualPosition(positionOnScreen) = (int)((ScreenWidth/1920)(positionOnScreen))
 - [ ] Selected card is lowered
+- [ ] Shadows under cards and wonders
 
 # Wonder Names

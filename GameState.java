@@ -75,7 +75,7 @@ public class GameState
 		wonders = new ArrayList<Wonder>();
 		HashSet<Integer> randomWonder = new HashSet<Integer>();
 		while (randomWonder.size() < numberOfPlayers)
-			randomWonder.add((int)(Math.random() * 6) + 0);  
+			randomWonder.add((int)(Math.random() * 7) + 0);  
 		Iterator<Integer> iter = randomWonder.iterator();
 		for (int i = 0; i < numberOfPlayers; i++)
 			wonders.add(new Wonder(WONDERNAMES[iter.next()], numberOfPlayers));
