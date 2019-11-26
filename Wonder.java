@@ -230,13 +230,54 @@ public class Wonder {
 		}
 
 	}
+	
 
-	public ArrayList<Card> getAllPlayerResources() {
+	public ArrayList<String> getAllPlayerResources() {
 		
-		ArrayList<Card> list = new ArrayList<Card>();
+		ArrayList<String> list = getCardResources();
+		
+		ArrayList<Card> crds = new ArrayList<Card>();
+		crds.addAll(cardsPlayed.get("yellow"));
+		for(int i = 0 ; i<crds.size(); i++)
+		{
+			if(crds.get(i).equals("Forum")||crds.get(i).equals("Caravansery"))
+			{
+				list.add(((CommercialCard)(crds.get(i))).getId());
+			}
+		}
+		
+		if(name.contentEquals("The Lighthouse of Alexandria")&&playerWonders == 2||name.contentEquals("The Hanging Gardens of Babylon")&&playerWonders == 2)
+		{
+			list.addAll(((ResourceCard)(stages.get(1))).getResource());
+		}
+
 		return list;
 	}
- 
+	
+	public ArrayList<String> getCardResources()
+	{
+		ArrayList<String> list = new ArrayList<String>();
+		HashSet<Card> temp = cardsPlayed.get("brown");
+		Iterator<Card> tempIter = temp.iterator();
+		
+		while(tempIter.hasNext())
+		{
+			ArrayList<String> arr = ((ResourceCard)(tempIter.next())).getResource();
+			list.addAll(arr);
+		}
+		
+		temp = cardsPlayed.get("silver");
+		tempIter = temp.iterator();
+		
+		while(tempIter.hasNext())
+		{
+			ArrayList<String> arr = ((ResourceCard)(tempIter.next())).getResource();
+			list.addAll(arr);
+		}
+		return list;
+	}
+	
+	
 	public void burnCard() {
 		money +=3;
 	}
@@ -248,8 +289,17 @@ public class Wonder {
 		else if(playerWonders == 2)
 			victoryPoints += 7;
 		
+		playCard(stages.get(playerWonders-1));
+		
 		HashSet<Card> x = cardsPlayed.get("wonder");
 		x.add(stages.get(playerWonders-1));
+		
+		
+		if(playerWonders == 2 && name.contentEquals("The Temple of Artemis in Ephesus"))
+		{
+			money+=9;
+		}
+		
 
 		return playerWonders;
 	}
