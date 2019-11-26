@@ -4,6 +4,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -12,6 +13,9 @@ import javax.swing.SwingUtilities;
 
 public class SevenWondersPanel extends JPanel implements MouseListener
 {
+	public static final int HANDXPOS = 5, HANDYPOS = 5; // where the images of player's hand will start from
+	public static final int CARDWIDTH = 180, CARDHEIGHT = 275;
+	
 	private boolean GameLobby;
 	private boolean wonderDist;
 	private boolean displayAllPlayed;
@@ -23,7 +27,10 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 	private int height;
 	
 	private GameState game;
+	
 	private String displayOtherWonder;
+	
+	
 	
 	public SevenWondersPanel(int width, int height)
 	{
@@ -49,6 +56,19 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		if(wonderDist)
 		{
 			drawBackground(g);
+			drawHand(g);
+		}
+		if (displayAllPlayed)
+		{
+			
+		}
+		if (displayHalic)
+		{
+			
+		}
+		if (displayGraveyard)
+		{
+			
 		}
 	}
 	
@@ -79,8 +99,37 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		}
 	}
 	
+	public void drawHand(Graphics g)
+	{
+		// hand of current player
+		ArrayList<Card> currentHand = game.getPlayerHands().get(game.getCurrentPlayer());
+		
+		// Card names with no spaces and to lower case in order to match image file names
+		ArrayList<String> playerHandNames = new ArrayList<String>();
+		for (int i = 0; i < currentHand.size(); i++)
+			playerHandNames.add(currentHand.get(i).getName().replace(" ", "").toLowerCase());
+		
+		// assign card images
+		BufferedImage cards[] = new BufferedImage[playerHandNames.size()];
+		for (int i = 0; i < cards.length; i++)
+		{
+			try {
+				cards[i] = ImageIO.read(new File("src/images/cards/" + playerHandNames.get(i) + ".png"));
+			} catch (IOException e) {
+				System.out.println("Cannot find file " + playerHandNames.get(i));
+			}
+		}
+		
+		// draw card images
+		for (int i = 0; i < cards.length; i++)
+		{
+			g.drawImage(cards[i], HANDXPOS + (CARDWIDTH + 10) * i, HANDYPOS, null);
+		}
+	}
+	
 	public void mousePressed(MouseEvent e)
 	{
+		System.out.println(e.getX() + ", " + e.getY());
 		if(GameLobby)
 		{
 			if(e.getX()>=805&&e.getX()<=1060&&e.getY()>=750&&e.getY()<=835) //IF QUIT
