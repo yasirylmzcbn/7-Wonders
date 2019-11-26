@@ -110,7 +110,12 @@ public class TextRunner
 	 */
 	public static void optionSelection()
 	{
-		System.out.println("Type 'Play', 'Build' (wonder), 'Burn', 'Display' (cards and other info)");
+		String s = "";
+		if(state.canUseOlympia())
+		{
+			s = " 'WonderAbility'(build a structure of your choice or free), ";
+		}
+		System.out.println("Type 'Play', 'Build' (wonder), 'Burn',"+s+" 'Display' (cards and other info)");
 		String option = input.next().toLowerCase();
 		switch (option) {
 		case "play":
