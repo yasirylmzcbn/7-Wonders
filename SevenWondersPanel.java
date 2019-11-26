@@ -1,3 +1,5 @@
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -7,9 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 
 public class SevenWondersPanel extends JPanel implements MouseListener
 {
@@ -131,6 +131,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		}
 	}
 	
+	// draws player wonder along with the coins, military power, wins, and losses
 	public void drawWonder(Graphics g)
 	{
 		// wonder of current player
@@ -148,6 +149,21 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		}
 		
 		g.drawImage(wonder, WONDERXPOS, WONDERYPOS, WONDERWIDTH, WONDERHEIGHT, null);
+		
+		// draws the stats
+		
+		
+		int i = 1;
+		int starting = WONDERYPOS + 70;
+		g.setColor(new Color(0, 0, 0, 100));
+		g.fillRect(WONDERXPOS, starting, 130, 120);
+		
+		g.setColor(Color.white);
+		g.setFont(new Font("TimesRoman", Font.BOLD, 16));
+		g.drawString(currentWonder.getMoney() + " Coins", WONDERXPOS + 5, starting + (i++ * 25));
+		g.drawString(currentWonder.getMilitaryPower() + " Military Power", WONDERXPOS + 5, starting + (i++ * 25));
+		g.drawString(currentWonder.getWins() + " Wins", WONDERXPOS + 5, starting + (i++ * 25));
+		g.drawString(currentWonder.getLosses() + " Losses", WONDERXPOS + 5, starting + (i++ * 25));
 	}
 	
 	public void mousePressed(MouseEvent e)
