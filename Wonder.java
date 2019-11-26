@@ -246,7 +246,7 @@ public class Wonder {
 			}
 		}
 		
-		if(name.contentEquals("The Lighthouse of Alexandria")&&playerWonders == 2||name.contentEquals("The Hanging Gardens of Babylon")&&playerWonders == 2)
+		if(name.contentEquals("The Lighthouse of Alexandria")&&playerWonders == 2)
 		{
 			list.addAll(((ResourceCard)(stages.get(1))).getResource());
 		}
