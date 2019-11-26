@@ -1,7 +1,7 @@
-resourceCard/Sawmill/brown/null/gold/3/wood,wood
-resourceCard/Quarry/brown/null/gold/3/stone,stone
-resourceCard/Brickyard/brown/null/gold/3/clay,clay
-resourceCard/Foundry/brown/null/gold/3/stone,stone
+resourceCard/Sawmill/brown/null/coin/3/wood,wood
+resourceCard/Quarry/brown/null/coin/3/stone,stone
+resourceCard/Brickyard/brown/null/coin/3/clay,clay
+resourceCard/Foundry/brown/null/coin/3/stone,stone
 resourceCard/Loom/silver/null/null/3/cloth
 resourceCard/Glassworks/silver/null/null/3/glass
 resourceCard/Press/silver/null/null/3/paper
