@@ -15,7 +15,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 {
 	public static final int HANDXPOS = 5, HANDYPOS = 5; // where the images of player's hand will start from
 	public static final int CARDWIDTH = 180, CARDHEIGHT = 275;
-	public static final int WONDERXPOS = 1100, WONDERYPOS = 730;
+	public static final int WONDERXPOS = 1120, WONDERYPOS = 720;
 	public static final int WONDERWIDTH = 756, WONDERHEIGHT = 313; // multiplied by 1.25
 	//public static final int WONDERWIDTH = 605, WONDERHEIGHT = 250; // original
 	
