@@ -109,27 +109,22 @@ public class TextRunner
 	public static void optionSelection()
 	{
 		System.out.println("Type 'Play', 'Build' (wonder), 'Burn', 'Display' (cards and other info)");
-		String option = input.next();
+		String option = input.next().toLowerCase();
 		switch (option) {
-		case "Play":
+		case "play":
 			currentWonder.setAction("Play");
 			handSelection();
 			break;
-		case "Build":
+		case "build":
 			currentWonder.setAction("Build");
-			if(currentWonder.getPlayerWonders() < 3)
-			 currentWonder.buildWonder();
-			else {
-				System.out.println("You already have all 3 wonders, please choose again");
-				optionSelection();
-			}
+			build();
 			break;
-		case "Burn":
+		case "burn":
 			currentWonder.setAction("Burn");
-			// burn();
+			 burn();
 			break;
 		case "display":
-			// display();
+			 display();
 			break;
 		}
 		
@@ -203,16 +198,38 @@ public class TextRunner
 	
 	public static void build()
 	{
+		// not done
 		
+		if(currentWonder.getPlayerWonders() < 3) {
+			System.out.println("Choose index of the card you want to build a wonder with");
+			Card c = currentHand.remove(input.nextInt());
+			currentWonder.buildWonder();
+			System.out.println("You used " + c.getName() + " to build Wonder #"+currentWonder.getPlayerWonders());
+			 }
+			else {
+				System.out.println("You already have all 3 wonders, please choose again");
+				optionSelection();
+			}
 	}
 	
 	public static void burn()
 	{
-		
+		System.out.println("Choose index of a card to burn");
+		Card c = currentHand.remove(input.nextInt());
+		currentWonder.burnCard();
+		System.out.println("You burnt " + c.getName() + " and gained 3 coins.\nYour new coin balance: " + currentWonder.getMoney());
 	}
 	
 	public static void display()
 	{
+		System.out.println("All available resources: " + currentWonder.getAllPlayerResources());
+		System.out.println("Number of Wonders built: " + currentWonder.getPlayerWonders());
+		System.out.println();
+		System.out.println("Your neighbor's resources (right): " + state.getRightWonder(currentPlayer).getAllPlayerResources());
+		System.out.println("Your neighbor's number of Wonders (right): " + state.getRightWonder(currentPlayer).getPlayerWonders());
+		System.out.println("Your neighbor's resources (left): " + state.getLeftWonder(currentPlayer).getAllPlayerResources());
+		System.out.println("Your neighbor's number of Wonders (right): " + state.getLeftWonder(currentPlayer).getPlayerWonders());
+		optionSelection();
 		
 	}
 }
