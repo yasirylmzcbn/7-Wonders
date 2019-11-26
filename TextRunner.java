@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.InputMismatchException;
@@ -142,16 +144,123 @@ public class TextRunner
 	 * TODO:
 	 * trading cards
 	 * method might be changed so that it passes in the paramater Card, which is the selected card so that the method can be used for build wonder as well
+	 * checking for chain cards
+	 * have it remove coins when using coins to play card
+	 * 
+	 * 
+	 * Gets every resource that player has
+	 * puts the resources in a hashmap<boolean, string>
+	 * player can either select/deselect resource to use, cancel the operation, confirm the operation, or trade with others
+	 * checks if resources are valid to play the card
+	 * plays the card
 	 */
 	public static void resourceSelection()
 	{
-		// gets the ArrayList that has the same colour as selected card
-		HashSet<Card> playedCards = currentWonder.getCardsPlayed().get(currentWonder.getSelectedCard().getColor());
+		// Shows every resource needed to build the card, including the coins
+		System.out.println("Cost to build " + currentWonder.getSelectedCard().getName() + ": " + currentWonder.getSelectedCard().getCost());
 		
-		// when everything is valid
-		ArrayList<Boolean> decision = state.getDecisionMade();
-		decision.set(state.getCurrentPlayer(), true);
-		state.setDecisionMade(decision);
+		// checks if the card actually costs anything to build
+		if (!currentWonder.getSelectedCard().getCost().get(0).equals("null"))
+		{
+			// every resource that a player has
+			String[] allResources = currentWonder.getAllPlayerResources().toArray(new String[0]);
+			// resources that the player will be selecting to play
+			ArrayList<String> selected = new ArrayList<String>();
+			
+			int playerInput = -1;
+			
+			while (true)
+			{	
+				System.out.println("type 'quit' to quit");
+				System.out.println("type 'confirm' to confirm selection");
+				System.out.println("Choose index of resource to select/deselect: ");
+				
+				// prints out the resources needed to play a card
+				for (int i = 0; i < allResources.length; i++)
+					System.out.println(i + "-" + allResources[i]);
+				
+				// quits out of the loop and goes back to option selection
+				String temp = input.next();
+				if (temp.equals("quit"))
+				{
+					hasQuit = true;
+					return;
+				}
+				hasQuit = false;
+				
+				// if the player has confirmed their resource selection
+				if (temp.equals("confirm"))
+				{
+					for (int i = 0; i < allResources.length; i++)
+						if (allResources[i].contains("-Selected"))
+							selected.add(allResources[i].substring(0, allResources[i].indexOf("-Selected")));
+					state.setSelectedResources(selected);
+					ArrayList<String> needed = new ArrayList<String>(currentWonder.getSelectedCard().getCost());
+					
+					
+					// checks if everything in selected and needed match
+					for (int i = 0; i < needed.size(); i++)
+					{
+						String str = needed.get(i);
+						
+						for (int j = 0; j < selected.size(); j++)
+						{
+							if (str.contains(selected.get(j)) || selected.get(j).contains(str))
+							{
+								needed.remove(i);
+								selected.remove(i);
+							}
+						}
+					}
+					
+					// if it all matches (resources all valid)
+					if (needed.size() == 0)
+					{
+						System.out.println("Played card " + currentWonder.getSelectedCard());
+						currentWonder.playCard(currentWonder.getSelectedCard());
+						
+						// when everything is valid
+						ArrayList<Boolean> decision = state.getDecisionMade();
+						decision.set(state.getCurrentPlayer(), true);
+						state.setDecisionMade(decision);
+						break;
+					}
+					else
+						System.out.println("Invalid resources selected");
+				}
+				else
+				{
+					// gets player input
+					try {
+					playerInput = Integer.parseInt(temp);
+					} catch (NumberFormatException e) {
+						System.out.println("Cannot convert from String to int");
+						playerInput = -1;
+					}
+					
+					// checks if card is playable, else it continues the loop
+					if (playerInput < 0 && playerInput > allResources.length - 1)
+					{
+						System.out.println("Index is out of bounds");
+						playerInput = -1;
+					}
+					else
+					{
+						// if it is selected, then deselect it
+						if (allResources[playerInput].contains("-Selected"))
+							allResources[playerInput] = allResources[playerInput].substring(0, allResources[playerInput].indexOf("-Selected"));
+						else
+							allResources[playerInput] = allResources[playerInput] + "-Selected";
+					}
+				}
+				System.out.println();
+			}
+		}
+	}
+	
+	public static void trade()
+	{
+		
 	}
 	
 	public static void handSelection()
@@ -245,6 +354,5 @@ public class TextRunner
 		System.out.println("Your neighbor's resources (left): " + state.getLeftWonder(currentPlayer).getCardResources());
 		System.out.println("Your neighbor's number of Wonders (right): " + state.getLeftWonder(currentPlayer).getPlayerWonders());
 		optionSelection();
-		
 	}
 }
