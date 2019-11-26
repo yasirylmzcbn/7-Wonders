@@ -15,6 +15,9 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 {
 	public static final int HANDXPOS = 5, HANDYPOS = 5; // where the images of player's hand will start from
 	public static final int CARDWIDTH = 180, CARDHEIGHT = 275;
+	public static final int WONDERXPOS = 1100, WONDERYPOS = 730;
+	public static final int WONDERWIDTH = 756, WONDERHEIGHT = 313; // multiplied by 1.25
+	//public static final int WONDERWIDTH = 605, WONDERHEIGHT = 250; // original
 	
 	private boolean GameLobby;
 	private boolean wonderDist;
@@ -57,6 +60,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		{
 			drawBackground(g);
 			drawHand(g);
+			drawWonder(g);
 		}
 		if (displayAllPlayed)
 		{
@@ -132,28 +136,18 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		// wonder of current player
 		Wonder currentWonder = game.getWonders().get(game.getCurrentPlayer());
 		
-		/*
-		// Card names with no spaces and to lower case in order to match image file names
-		ArrayList<String> playerHandNames = new ArrayList<String>();
-		for (int i = 0; i < currentHand.size(); i++)
-			playerHandNames.add(currentHand.get(i).getName().replace(" ", "").toLowerCase());
-		
-		// assign card images
-		BufferedImage cards[] = new BufferedImage[playerHandNames.size()];
-		for (int i = 0; i < cards.length; i++)
+		// assigns image to wonder
+		BufferedImage wonder = null;
+		try
 		{
-			try {
-				cards[i] = ImageIO.read(new File("src/images/cards/" + playerHandNames.get(i) + ".png"));
-			} catch (IOException e) {
-				System.out.println("Cannot find file " + playerHandNames.get(i));
-			}
+			wonder = ImageIO.read(new File("src/images/wonders/" + currentWonder.getName() + ".png"));
+		}
+		catch (IOException e)
+		{
+			System.out.println("Cannot find " + currentWonder.getName());
 		}
 		
-		// draw card images
-		for (int i = 0; i < cards.length; i++)
-		{
-			g.drawImage(cards[i], HANDXPOS + (CARDWIDTH + 10) * i, HANDYPOS, null);
-		}*/
+		g.drawImage(wonder, WONDERXPOS, WONDERYPOS, WONDERWIDTH, WONDERHEIGHT, null);
 	}
 	
 	public void mousePressed(MouseEvent e)
