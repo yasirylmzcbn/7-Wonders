@@ -130,6 +130,9 @@ public class TextRunner
 			currentWonder.setAction("Burn");
 			 burn();
 			break;
+		case "WonderAbility":
+			
+			
 		case "display":
 			 display();
 			break;
@@ -324,7 +327,7 @@ public class TextRunner
 		if(currentWonder.getPlayerWonders() < 3) {
 			System.out.println("Choose index of the card you want to build a wonder with");
 			Card c = currentHand.remove(input.nextInt());
-			currentWonder.buildWonder();
+			//currentWonder.buildWonder();
 			System.out.println("You used " + c.getName() + " to build Wonder #"+currentWonder.getPlayerWonders());
 			 }
 			else {
@@ -340,7 +343,7 @@ public class TextRunner
 	{
 		System.out.println("Choose index of a card to burn");
 		Card c = currentHand.remove(input.nextInt());
-		currentWonder.burnCard();
+		//currentWonder.burnCard();
 		System.out.println("You burnt " + c.getName() + " and gained 3 coins.\nYour new coin balance: " + currentWonder.getMoney());
 		
 		// sets decision to true to progress game
