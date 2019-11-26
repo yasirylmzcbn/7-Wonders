@@ -31,6 +31,8 @@ coin is the resource for money
 *cardType*/*cardName*/*colour*/*previousChainCard*/*cost*/*numberOfPlayers*/*id*
 
 ## To do
-- [ ] This document
+**graphics**
+- [ ] Dynamic screen resolution, getActualPosition(positionOnScreen) = (int)((ScreenWidth/1920)(positionOnScreen))
+- [ ] Selected card is lowered
 
 # Wonder Names
