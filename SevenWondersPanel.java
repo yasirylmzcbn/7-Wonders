@@ -102,7 +102,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 	public void drawHand(Graphics g)
 	{
 		// hand of current player
-		ArrayList<Card> currentHand = game.getPlayerHands().get(game.getCurrentPlayer());
+		ArrayList<Card> currentHand = game.getPlayerHands().get(game.getWonders().get(game.getCurrentPlayer()).getHand());
 		
 		// Card names with no spaces and to lower case in order to match image file names
 		ArrayList<String> playerHandNames = new ArrayList<String>();
@@ -125,6 +125,35 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		{
 			g.drawImage(cards[i], HANDXPOS + (CARDWIDTH + 10) * i, HANDYPOS, null);
 		}
+	}
+	
+	public void drawWonder(Graphics g)
+	{
+		// wonder of current player
+		Wonder currentWonder = game.getWonders().get(game.getCurrentPlayer());
+		
+		/*
+		// Card names with no spaces and to lower case in order to match image file names
+		ArrayList<String> playerHandNames = new ArrayList<String>();
+		for (int i = 0; i < currentHand.size(); i++)
+			playerHandNames.add(currentHand.get(i).getName().replace(" ", "").toLowerCase());
+		
+		// assign card images
+		BufferedImage cards[] = new BufferedImage[playerHandNames.size()];
+		for (int i = 0; i < cards.length; i++)
+		{
+			try {
+				cards[i] = ImageIO.read(new File("src/images/cards/" + playerHandNames.get(i) + ".png"));
+			} catch (IOException e) {
+				System.out.println("Cannot find file " + playerHandNames.get(i));
+			}
+		}
+		
+		// draw card images
+		for (int i = 0; i < cards.length; i++)
+		{
+			g.drawImage(cards[i], HANDXPOS + (CARDWIDTH + 10) * i, HANDYPOS, null);
+		}*/
 	}
 	
 	public void mousePressed(MouseEvent e)
