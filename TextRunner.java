@@ -110,7 +110,6 @@ public class TextRunner
 	{
 		System.out.println("Type 'Play', 'Build' (wonder), 'Burn', 'Display' (cards and other info)");
 		String option = input.next();
-		
 		switch (option) {
 		case "Play":
 			currentWonder.setAction("Play");
@@ -118,7 +117,12 @@ public class TextRunner
 			break;
 		case "Build":
 			currentWonder.setAction("Build");
-			// doThing();
+			if(currentWonder.getPlayerWonders() < 3)
+			 currentWonder.buildWonder();
+			else {
+				System.out.println("You already have all 3 wonders, please choose again");
+				optionSelection();
+			}
 			break;
 		case "Burn":
 			currentWonder.setAction("Burn");
