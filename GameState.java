@@ -29,7 +29,7 @@ public class GameState
 	private int age;
 	private int numberOfPlayers;
 	private int order; // 1 if clockwise, -1 if anticlockwise
-	private int round; // rounds 1 through 7
+	private int round; // rounds 1 through 6 (since last card is burned)
 
 	private ArrayList<Boolean> decisionMade; // if all players have made decision for the turn
 	private ArrayList<Card> graveyard; // stores all cards discarded
@@ -334,6 +334,7 @@ public class GameState
 		rotateHands();
 		if(round == 6)
 		{
+			playerHands.clear();
 			warTime();
 			age++;
 			
@@ -359,6 +360,8 @@ public class GameState
 					for (int i = 0; i < numberOfPlayers + 2; i++)
 						temp.add(guilds.get(i));
 			}
+			passOutHands(); //NEED THIS
+			round = 1; //Resets Round
 			// ends game
 			if(age == 4)
 			{
