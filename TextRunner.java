@@ -116,10 +116,6 @@ public class TextRunner
 			handSelection();
 			break;
 		case "build":
-			/*
-			 * TODO
-			 * Need a resource selection screen to build wonder
-			 */
 			currentWonder.setAction("Build");
 			build();
 			break;
@@ -142,8 +138,11 @@ public class TextRunner
 		
 	}
 	
-	// IMPORTANT: selected card should only be added to played cards if the selected resources are valid
-	// TODO: trading cards
+	/* IMPORTANT: selected card should only be added to played cards if the selected resources are valid
+	 * TODO:
+	 * trading cards
+	 * method might be changed so that it passes in the paramater Card, which is the selected card so that the method can be used for build wonder as well
+	 */
 	public static void resourceSelection()
 	{
 		// gets the ArrayList that has the same colour as selected card
@@ -200,6 +199,10 @@ public class TextRunner
 		resourceSelection();
 	}
 	
+	/*
+	 * TODO
+	 * Need a resource selection screen to build wonder
+	 */
 	public static void build()
 	{
 		// not done
@@ -214,6 +217,9 @@ public class TextRunner
 				System.out.println("You already have all 3 wonders, please choose again");
 				optionSelection();
 			}
+		
+		// gets resource and sets decision made to true
+		resourceSelection();
 	}
 	
 	public static void burn()
@@ -222,6 +228,11 @@ public class TextRunner
 		Card c = currentHand.remove(input.nextInt());
 		currentWonder.burnCard();
 		System.out.println("You burnt " + c.getName() + " and gained 3 coins.\nYour new coin balance: " + currentWonder.getMoney());
+		
+		// sets decision to true to progress game
+		ArrayList<Boolean> decision = state.getDecisionMade();
+		decision.set(state.getCurrentPlayer(), true);
+		state.setDecisionMade(decision);
 	}
 	
 	public static void display()
