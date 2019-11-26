@@ -229,10 +229,11 @@ public class TextRunner
 		System.out.println("All available resources: " + currentWonder.getAllPlayerResources());
 		System.out.println("Number of Wonders built: " + currentWonder.getPlayerWonders());
 		System.out.println();
+		/* Raymond: I dont think this should go here
 		System.out.println("Your neighbor's resources (right): " + state.getRightWonder(currentPlayer).getCardResources());
 		System.out.println("Your neighbor's number of Wonders (right): " + state.getRightWonder(currentPlayer).getPlayerWonders());
 		System.out.println("Your neighbor's resources (left): " + state.getLeftWonder(currentPlayer).getCardResources());
-		System.out.println("Your neighbor's number of Wonders (right): " + state.getLeftWonder(currentPlayer).getPlayerWonders());
+		System.out.println("Your neighbor's number of Wonders (right): " + state.getLeftWonder(currentPlayer).getPlayerWonders());*/
 		optionSelection();
 		
 	}
