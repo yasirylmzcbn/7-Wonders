@@ -2,8 +2,8 @@ import javax.swing.JFrame;
 
 public class SevenWondersFrame extends JFrame
 {
-	private static final int WIDTH = 1920;
-	private static final int HEIGHT = 1080;
+	private static final int WIDTH = 1500;
+	private static final int HEIGHT = 850;
 
 	public SevenWondersFrame(String frameName)
 	{
