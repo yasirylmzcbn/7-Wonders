@@ -368,11 +368,10 @@ public class TextRunner
 				
 				// checks for out of bounds
 				if (playerInput >= 0 && playerInput <= currentHand.size() - 1)
-					if (!currentWonder.playable(currentHand.get(playerInput)))
-					{
-						System.out.println("Index is out of bounds!");
-						playerInput = -1;
-					}
+				{
+					System.out.println("Index is out of bounds!");
+					playerInput = -1;
+				}
 			}
 			while (playerInput < 0 || playerInput > currentHand.size() - 1);
 			
@@ -421,11 +420,10 @@ public class TextRunner
 			
 			// checks for out of bounds
 			if (playerInput >= 0 && playerInput <= currentHand.size() - 1)
-				if (!currentWonder.playable(currentHand.get(playerInput)))
-				{
-					System.out.println("Index is out of bounds!");
-					playerInput = -1;
-				}
+			{
+				System.out.println("Index is out of bounds!");
+				playerInput = -1;
+			}
 		}
 		while (playerInput < 0 || playerInput > currentHand.size() - 1);
 		

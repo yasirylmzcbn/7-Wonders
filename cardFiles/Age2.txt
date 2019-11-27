@@ -8,11 +8,14 @@ resourceCard/Press/silver/null/null/3/paper
 civicsCard/Aqueduct/blue/Baths/stone,stone,stone/3/5
 civicsCard/Temple/blue/Altar/wood,clay,glass/3/3
 civicsCard/Statue/blue/Theater/wood,ore,ore/3/4
+civicsCard/Courthouse/blue/Scriptorium/clay,clay,cloth/3/4
 militaryCard/Walls/red/null/stone,stone,stone/3/2
 militaryCard/Stables/red/Apothecary/ore,clay,wood/3/2
-techCard/Dispensary/green/Apothecary/ore,ore,glass/3/compass
 militaryCard/Archery Range/red/Workshop/wood,wood,ore/3/2
+techCard/Dispensary/green/Apothecary/ore,ore,glass/3/compass
 techCard/Laboratory/green/Workshop/clay,clay,paper/3/gear
-civicsCard/Courthouse/blue/Scriptorium/clay,clay,cloth/3/4
 techCard/Library/green/Scriptorium/stone,stone,cloth/3/tablet
 techCard/School/green/null/wood,paper/3/tablet
+commercialCard/Forum/yellow/East Trading Post,West Trading Post/clay,clay/3/cloth||glass||paper
+commercialCard/Caravansery/yellow/Marketplace/wood,wood/3/clay||stone||ore||wood
+commercialCard/Vineyard/yellow/null/null/3/coin*brown*left&&right&&down

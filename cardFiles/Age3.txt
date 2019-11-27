@@ -1,4 +1,26 @@
+guildCard/Workers Guild/purple/null/ore,ore,clay,stone,wood/3/VP*brown*left&&right
+guildCard/Craftmens Guild/purple/null/ore,ore,stone,stone/3/VP,VP*silver*left&&right
+guildCard/Traders Guild/purple/null/cloth,paper,glass/3/VP*yellow*left&&right
+guildCard/Philosophers Guild/purple/null/clay,clay,clay,cloth,paper/3/VP*green*left&&right
+guildCard/Spies Guild/purple/null/clay,clay,clay,glass/3/VP*red*left&&right
+guildCard/Strategists Guild/purple/null/ore,ore,stone,cloth/3/VP*loss*left&&right
+guildCard/Shipowners Guild/purple/null/wood,wood,wood,paper,glass/3/VP*brown&&silver&&purple*left&&right
+guildCard/Scientists Guild/purple/null/wood,wood,ore,ore,paper/3/math||gear||tablet
+guildCard/Magistrates Guild/purple/null/wood,wood,wood,stone,paper/3/VP*blue*left&&right
+guildCard/Builders Guild/purple/null/stone,stone,clay,clay,glass/3/VP*wonder*left&&right&&down
+militaryCard/Fortifications/red/Walls/stone,ore,ore,ore/3/3
+militaryCard/Arsenal/red/null/ore,wood,wood,cloth/3/3
+militaryCard/Siege Workshop/red/Laboratory/wood,clay,clay,clay/3/3
 civicsCard/Pantheon/blue/Temple/clay,clay,ore,paper,cloth,glass/3/7
 civicsCard/Gardens/blue/Statue/wood,clay,clay/3/5
 civicsCard/Town Hall/blue/null/glass,ore,stone,stone/3/6
 civicsCard/Palace/blue/null/glass,paper,cloth,clay,wood,ore,stone/3/8
+civicsCard/Senate/blue/Library/ore,stone,wood,wood/3/6
+techCard/Lodge/green/Dispensary/clay,clay,cloth,paper/3/compass
+techCard/Observatory/green/Laboratory/ore,ore,glass,cloth/3/gear
+techCard/Universtiy/green/Library/wood,wood,paper,glass/3/tablet
+techCard/Academy/green/School/stone,stone,stone,glass/3/compass
+techCard/Study/green/School/wood,paper,cloth/3/gear
+commercialCard/Haven/yellow/Forum/cloth,ore,wood/3/coin*brown*down*VP
+commercialCard/Lighthouse/yellow/Caravansery/glass,stone/3/coin*yellow*down*VP
+commercialCard/Arena/yellow/Dispensary/ore,stone,stone/3/coin,coin,coin*wonder*down*VP
