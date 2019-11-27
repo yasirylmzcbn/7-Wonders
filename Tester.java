@@ -1,13 +1,15 @@
+import java.util.Arrays;
 
 public class Tester
 {
 	public static void main(String[] args)
 	{
-		int HANDXPOS = 25;
-		// draw card images
-		for (int i = 0; i < 7; i++)
-		{
-			System.out.println(190 * i + 25);
-		}
+		String test = "stone||wood";
+		String another = "oy";
+		if (test.contains("||"))
+			System.out.println(test);
+		if (another.contains("||"))
+			System.out.println(another);
+		
 	}
 }
