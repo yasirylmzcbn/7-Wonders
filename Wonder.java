@@ -255,9 +255,9 @@ public class Wonder {
 			list.addAll(((ResourceCard)(stages.get(1))).getResource());
 		}
 		
-		// adds gold coins
+		// adds coins as resources
 		for (int i = 0; i < getMoney(); i++)
-			list.add("gold");
+			list.add("coin");
 		
 		//
 		//crds.clear();
