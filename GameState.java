@@ -197,6 +197,9 @@ public class GameState
 					totalPoints += leftWonder.getCardsPlayed().get("brown").size()
 								+ rightWonder.getCardsPlayed().get("brown").size();
 				
+				if(guilds.get(i).getName().equals("Spies Guild"))
+					totalPoints += leftWonder.getCardsPlayed().get("red").size()
+								+ rightWonder.getCardsPlayed().get("red").size();
 			}
 			
 			// add total points for each player to the list
