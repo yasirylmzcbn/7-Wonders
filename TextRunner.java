@@ -182,7 +182,7 @@ public class TextRunner
 	 * !!!! trading cards does not work <- we dont trade cards and trading resources does
 	 * method might be changed so that it passes in the parameter Card, which is the selected card so that the method can be used for build wonder as well
 	 * ^dont
-	 * checking for chain cards <----NEED THIS
+	 * checking for chain cards <----NEED THIS: i made a inChain() for this
 	 * have it remove coins when using coins to play card <--NEED THIS: I did this in finishRound()
 	 * 
 	 * 
@@ -198,7 +198,7 @@ public class TextRunner
 		System.out.println("Cost to build " + currentWonder.getSelectedCard().getName() + ": " + currentWonder.getSelectedCard().getCost());
 		
 		// checks if the card actually costs anything to build
-		if (!currentWonder.getSelectedCard().getCost().get(0).equals("null"))
+		if (!currentWonder.getSelectedCard().getCost().get(0).equals("null")&&!OlympiaAbility&&!currentWonder.inChain(currentWonder.getSelectedCard()))
 		{
 			// every resource that a player has
 			String[] allResources = currentWonder.getAllPlayerResources().toArray(new String[0]);
@@ -521,7 +521,6 @@ public class TextRunner
 				}
 			}
 		}
-
 		else
 		{
 			System.out.println("Played card " + currentWonder.getSelectedCard().getName());
