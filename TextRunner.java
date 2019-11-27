@@ -338,10 +338,43 @@ public class TextRunner
 	
 	public static void burn()
 	{
-		System.out.println("Choose index of a card to burn");
-		Card c = currentHand.remove(input.nextInt());
-		currentWonder.burnCard();
-		System.out.println("You burnt " + c.getName() + " and gained 3 coins.\nYour new coin balance: " + currentWonder.getMoney());
+		int playerInput = -1;
+		do
+		{
+			System.out.println("Type 'quit' to quit");
+			System.out.println("Choose index of card to burn: ");
+			
+			// quits out of loop, goes back to option selection
+			String temp = input.next();
+			if (temp.equals("quit"))
+			{
+				hasQuit = true;
+				return;
+			}
+			hasQuit = false;
+			
+			// checks if input is a number
+			try
+			{
+				playerInput = Integer.parseInt(temp);
+			}
+			catch (NumberFormatException e)
+			{
+				System.out.println("Cannot convert from String to int");
+				playerInput = -1;
+			}
+			
+			// checks for out of bounds
+			if (playerInput >= 0 && playerInput <= currentHand.size() - 1)
+				if (!currentWonder.playable(currentHand.get(playerInput)))
+				{
+					System.out.println("Index is out of bounds!");
+					playerInput = -1;
+				}
+		}
+		while (playerInput < 0 || playerInput > currentHand.size() - 1);
+		
+		System.out.println("Chose card " + currentHand.get(playerInput).getName() + " to burn");
 		
 		// sets decision to true to progress game
 		ArrayList<Boolean> decision = state.getDecisionMade();
