@@ -186,10 +186,9 @@ public class TextRunner
 		
 	}
 	
-	/* IMPORTANT: selected card should only be added to played cards if the selected resources are valid
-	 * ^This is wrong
+	/* IMPORTANT: card should only be added to selected cards if the selected resources are valid
 	 * TODO:
-	 * !!!! trading cards does not work <- we dont trade cards and trading resources does
+	 * !!!! trading 'cards' does not work <- we dont trade cards and trading resources does
 	 * method might be changed so that it passes in the parameter Card, which is the selected card so that the method can be used for build wonder as well
 	 * ^dont
 	 * checking for chain cards <----NEED THIS: i made a inChain() for this
@@ -200,7 +199,7 @@ public class TextRunner
 	 * puts the resources in a hashmap<boolean, string>
 	 * player can either select/deselect resource to use, cancel the operation, confirm the operation, or trade with others
 	 * checks if resources are valid to play the card
-	 * plays the card <---DOES NOT FOR THE 1000TH TIME
+	 * selects the card
 	 */
 	public static void resourceSelection()
 	{
@@ -234,9 +233,9 @@ public class TextRunner
 				int RightBrownCost = 2;// cost for trading for a brown card resource to the right
 				int LeftBrownCost = 2;//^*left
 				
+
 				String brownR = "wood stone clay ore";
 				String silverR = "paper cloth glass";
-				
 				
 				ArrayList<Card> crds = new ArrayList<Card>();
 				crds.addAll(currentWonder.getCardsPlayed().get("yellow"));
@@ -260,18 +259,18 @@ public class TextRunner
 				
 				for (int i = 0; i < leftNR.length; i++)
 				{
-					if(brownR.contains(leftNR[i]))
+					if(brownR.contains(leftNR[i].split("\\|\\|")[0]))
 						System.out.println("L"+i + "-" + leftNR[i]+"\tCost: "+LeftBrownCost+" coin");
-					if(silverR.contains(leftNR[i]))
+					if(silverR.contains(leftNR[i].split("\\|\\|")[0]))
 						System.out.println("L"+i + "-" + leftNR[i]+"\tCost: "+SilverCost+" coin");
 				}
 				
 				System.out.println(state.getRightWonder(currentWonder).getName()+"'s Resources: ");
 				for (int i = 0; i < rightNR.length; i++)
 				{
-					if(brownR.contains(rightNR[i]))
+					if(brownR.contains(rightNR[i].split("\\|\\|")[0]))
 						System.out.println("R"+i + "-" + rightNR[i]+"\tCost: "+RightBrownCost+" coin");
-					if(silverR.contains(rightNR[i]))
+					if(silverR.contains(rightNR[i].split("\\|\\|")[0]))
 						System.out.println("R"+i + "-" + rightNR[i]+"\tCost: "+SilverCost+" coin");
 				}
 				
@@ -300,9 +299,22 @@ public class TextRunner
 						if (rightNR[i].contains("-Selected"))
 							selected.add(rightNR[i].substring(0, rightNR[i].indexOf("-Selected")));
 					*/
+					
+					
+					// // selection for || cards is going here temporarily
+					for (int i = 0; i < selected.size(); i++)
+					{
+						// need to do "\\|\\|" since | is a special char, or else it will not read
+						if (selected.get(i).contains("||"))
+						{
+							String[] resources = selected.get(i).split("\\|\\|");
+							System.out.print("Choose either one from :" + Arrays.toString(resources));
+							selected.set(i, input.next());
+						}
+					}
+					
 					state.setSelectedResources(selected);
 					ArrayList<String> needed = new ArrayList<String>(currentWonder.getSelectedCard().getCost());
-					
 					
 					/*// checks if everything in selected and needed match
 					for (int i = 0; i < needed.size(); i++)
@@ -345,6 +357,7 @@ public class TextRunner
 						System.out.println("Played card " + currentWonder.getSelectedCard().getName());
 						//currentWonder.playCard(currentWonder.getSelectedCard());
 						//System.out.println(currentWonder.getAllPlayerResources());
+						
 						// when everything is valid
 						ArrayList<Boolean> decision = state.getDecisionMade();
 						decision.set(state.getCurrentPlayer(), true);
@@ -358,19 +371,22 @@ public class TextRunner
 				{
 					String who = "";
 					// gets player input
-					try {
-					if(temp.contains("R")||temp.contains("L"))
+					try
 					{
-						who = temp.substring(0, 1);
-						temp = temp.substring(1);
+						if(temp.contains("R")||temp.contains("L"))
+						{
+							who = temp.substring(0, 1);
+							temp = temp.substring(1);
+						}
+						playerInput = Integer.parseInt(temp);
 					}
-					playerInput = Integer.parseInt(temp);
-					} catch (NumberFormatException e) {
+					catch (NumberFormatException e)
+					{
 						System.out.println("Cannot convert from String to int");
 						playerInput = -1;
 					}
 					
-
+					// if choosing their own resource
 					if(who.equals(""))
 					{
 						// checks if resources is in the array
