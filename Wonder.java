@@ -274,6 +274,7 @@ public class Wonder {
 		Iterator<Card> tempIter = temp.iterator();
 		ArrayList<Card> crds = new ArrayList<Card>();
 		
+		// starting wonder resource
 		crds.addAll(cardsPlayed.get("wonder"));
 		for (int i = 0; i < crds.size(); i++)
 		{
@@ -283,6 +284,7 @@ public class Wonder {
 			}
 		}
 		
+		// all brown cards played
 		while(tempIter.hasNext())
 		{
 			ArrayList<String> arr = ((ResourceCard)(tempIter.next())).getResource();
@@ -292,6 +294,7 @@ public class Wonder {
 		temp = cardsPlayed.get("silver");
 		tempIter = temp.iterator();
 		
+		// all silver cards played
 		while(tempIter.hasNext())
 		{
 			ArrayList<String> arr = ((ResourceCard)(tempIter.next())).getResource();
