@@ -130,6 +130,10 @@ public class TextRunner
 			currentWonder.setAction("Burn");
 			 burn();
 			break;
+		case "WonderAbility":
+			currentWonder.setAction("Play");
+			freeCardSelection();
+			break;
 		case "display":
 			 display();
 			break;
@@ -312,6 +316,9 @@ public class TextRunner
 		// goes to resource selection of card, will add to cardsPlayed
 		resourceSelection();
 	}
+	public static void freeCardSelection()
+	{
+	}
 	
 	public static void build()
 	{
@@ -321,6 +328,7 @@ public class TextRunner
 		 * -need resource selection
 		 */
 		
+
 		if(currentWonder.getPlayerWonders() < 3)
 		{
 			int playerInput = -1;
@@ -360,6 +368,7 @@ public class TextRunner
 			
 			// removes card since buildWonder() does not take in a card for input to burn
 			Card c = currentHand.remove(playerInput);
+			currentWonder.setSelectedCard(c);
 			System.out.println("You used " + c.getName() + " to build Wonder #"+currentWonder.getPlayerWonders());
 		}
 		else
@@ -409,7 +418,9 @@ public class TextRunner
 		}
 		while (playerInput < 0 || playerInput > currentHand.size() - 1);
 		
-		System.out.println("Chose card " + currentHand.get(playerInput).getName() + " to burn");
+		Card c = currentHand.remove(playerInput);
+		System.out.println("Chose card " + c.getName() + " to burn");
+		state.getGraveyard().add(c);
 		
 		// sets decision to true to progress game
 		ArrayList<Boolean> decision = state.getDecisionMade();
