@@ -36,7 +36,20 @@ coin is the resource for money
 - [ ] Selected card is lowered
 - [ ] Shadows under cards and wonders
 - [ ] Option to deselect resource
-- [ ] 
+
 **general**
 
 # Wonder Names
+The Colossus of Rhodes
+
+The Lighthouse of Alexandria
+
+The Temple of Artemis in Ephesus
+
+The Pyramids of Giza
+
+The Statue of Zeus in Olympia
+
+The Hanging Gardens of Babylon
+
+The Mausoleum of Halicarnassus
