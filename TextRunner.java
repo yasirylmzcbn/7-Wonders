@@ -56,6 +56,15 @@ public class TextRunner
 			}
 			
 			state.finishRound();
+			if(state.isHalic())
+			{
+				currentWonder = state.getWonders().get(state.getCurrentPlayer());
+				currentPlayer = state.getCurrentPlayer();
+				currentHand = state.getPlayerHands().get(currentWonder.getHand());
+				optionSelection();	
+				printOneLine();	
+				state.finishRound();
+			}
 			state.nextRound();
 		}
 	}
@@ -532,11 +541,7 @@ public class TextRunner
 			state.setDecisionMade(decision);
 		}
 	}
-	
-	public static void trade()
-	{
-		
-	}
+
 	
 	public static void handSelection()
 	{
@@ -645,6 +650,10 @@ public class TextRunner
 		
 		// gets resource and sets decision made to true
 		// resourceSelectionForWonderOrSomethingIDontKnow();
+	}
+	public static void wonderResourceSelection()
+	{
+		
 	}
 	
 	public static void burn()
