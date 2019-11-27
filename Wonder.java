@@ -256,12 +256,8 @@ public class Wonder {
 			list.add("gold");
 		
 		//
-		crds.clear();
-		crds.addAll(cardsPlayed.get("wonder"));
-		for (int i = 0; i < crds.size(); i++)
-		{
-			list.addAll(((ResourceCard)(crds.get(i))).getResource());;
-		}
+		//crds.clear();
+		
 
 		return list;
 	}
@@ -271,6 +267,16 @@ public class Wonder {
 		ArrayList<String> list = new ArrayList<String>();
 		HashSet<Card> temp = cardsPlayed.get("brown");
 		Iterator<Card> tempIter = temp.iterator();
+		ArrayList<Card> crds = new ArrayList<Card>();
+		
+		crds.addAll(cardsPlayed.get("wonder"));
+		for (int i = 0; i < crds.size(); i++)
+		{
+			if(crds.get(i).getName().equals(name))
+			{
+				list.addAll(((ResourceCard)(crds.get(i))).getResource());;
+			}
+		}
 		
 		while(tempIter.hasNext())
 		{

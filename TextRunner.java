@@ -18,6 +18,7 @@ public class TextRunner
 	
 	public static void main(String[] args)
 	{
+		//wonder distribution maybe
 		input = new Scanner(System.in);
 		state = new GameState();
 		while (!state.isEndOfGame())
@@ -132,7 +133,7 @@ public class TextRunner
 			break;
 		case "WonderAbility":
 			currentWonder.setAction("Play");
-			freeCardSelection();
+			handSelection();
 			break;
 		case "display":
 			 display();
@@ -173,6 +174,8 @@ public class TextRunner
 		{
 			// every resource that a player has
 			String[] allResources = currentWonder.getAllPlayerResources().toArray(new String[0]);
+			String[] leftNR = state.getLeftWonder(currentWonder).getCardResources().toArray(new String[0]);
+			String[] rightNR = state.getRightWonder(currentWonder).getCardResources().toArray(new String[0]);
 			// resources that the player will be selecting to play
 			ArrayList<String> selected = new ArrayList<String>();
 			
@@ -185,8 +188,17 @@ public class TextRunner
 				System.out.println("Choose index of resource to select/deselect: ");
 				
 				// prints out the resources needed to play a card
+				System.out.println("My Resources: ");
 				for (int i = 0; i < allResources.length; i++)
 					System.out.println(i + "-" + allResources[i]);
+				
+				System.out.println(state.getLeftWonder(currentWonder).getName()+"'s Resources: ");
+				for (int i = 0; i < leftNR.length; i++)
+					System.out.println("L"+i + "-" + leftNR[i]);
+				
+				System.out.println(state.getRightWonder(currentWonder).getName()+"'s Resources: ");
+				for (int i = 0; i < rightNR.length; i++)
+					System.out.println("R"+i + "-" + rightNR[i]);
 				
 				// quits out of the loop and goes back to option selection
 				String temp = input.next();
@@ -313,11 +325,8 @@ public class TextRunner
 			currentWonder.setSelectedCard(currentHand.remove(playerInput));
 		System.out.println("Card '" + currentWonder.getSelectedCard().getName() + "' chosen");
 		
-		// goes to resource selection of card, will add to cardsPlayed
+		// goes to resource selection of card, will add to cardsPlayed <-- SHOULDNT ADD TO CARDSPLAYED - Raymond
 		resourceSelection();
-	}
-	public static void freeCardSelection()
-	{
 	}
 	
 	public static void build()
