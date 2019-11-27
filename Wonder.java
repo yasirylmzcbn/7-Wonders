@@ -332,6 +332,10 @@ public class Wonder {
 		  return false;
 		return true;
 	}
+	public Card nextWonder()
+	{
+		return stages.get(playerWonders);
+	}
 	public boolean playable(Card c) {
 		if(cardsPlayed.get(c.getColor()).contains(c))
 			return false;

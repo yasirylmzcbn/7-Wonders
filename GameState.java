@@ -36,6 +36,7 @@ public class GameState
 	private ArrayList<Boolean> decisionMade; // if all players have made decision for the turn
 	private ArrayList<Card> graveyard; // stores all cards discarded
 	private ArrayList<String> selectedResources; // the player's currently selected resources
+	//^we dont really need this anymore
 	private ArrayList<Wonder> wonders;
 	private ArrayList<ArrayList<Card>> playerHands;
 	private HashMap<Integer, ArrayList<Card>> deck; // Integer=age, ArrayList=Cards themselves
@@ -360,7 +361,7 @@ public class GameState
 			
 			trades.put(getLeftWonder(i).getName(), 0);
 			
-			tradeV = trades.get(getRightWonder(i));
+			tradeV = trades.get(getRightWonder(i).getName());
 			getRightWonder(i).addMoney(tradeV);
 			w.addMoney(-tradeV);
 			
