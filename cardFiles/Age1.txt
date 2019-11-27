@@ -1,9 +1,9 @@
-resourceCard/Lumber Yard/brown/null/null/3/log
+resourceCard/Lumber Yard/brown/null/null/3/wood
 resourceCard/Stone Pit/brown/null/null/3/stone
 resourceCard/Clay Pool/brown/null/null/3/clay
 resourceCard/Ore Vein/brown/null/null/3/ore
 resourceCard/Clay Pit/brown/null/coin/3/clay||ore
-resourceCard/Timber Yard/brown/null/coin/3/stone||log
+resourceCard/Timber Yard/brown/null/coin/3/stone||wood
 resourceCard/Loom/silver/null/null/3/cloth
 resourceCard/Glassworks/silver/null/null/3/glass
 resourceCard/Press/silver/null/null/3/paper
