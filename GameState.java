@@ -302,6 +302,16 @@ public class GameState
 				if(w.getName().equals("The Mausoleum of Halicarnassus")&&w.getPlayerWonders()==2);
 				halic = true;
 			}
+			if(w.getSelectedCard().getCost().contains("coin"))
+			{
+				for(int i = 0; i<w.getSelectedCard().getCost().size();i++)
+				{
+					if(w.getSelectedCard().getCost().get(i).contentEquals("coin"))
+					{
+						w.addMoney(-1);
+					}
+				}
+			}
 			w.setAction("");
 			w.setSelectedCard(null);
 			

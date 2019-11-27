@@ -17,6 +17,7 @@ public class TextRunner
 	public static ArrayList<Card> currentHand;
 	public static boolean endOfRound = false;
 	public static boolean hasQuit = false; // if the player has chosen to click cancel out of play, build, or burn
+	public static boolean OlympiaAbility = false;
 	
 	public static void main(String[] args)
 	{
@@ -154,6 +155,7 @@ public class TextRunner
 			else if (option.equals("WonderAbility"))
 			{
 				currentWonder.setAction("Play");
+				OlympiaAbility = true;
 				handSelection();
 				break;
 			}
@@ -175,18 +177,20 @@ public class TextRunner
 	}
 	
 	/* IMPORTANT: selected card should only be added to played cards if the selected resources are valid
+	 * ^This is wrong
 	 * TODO:
-	 * !!!! trading cards does not work
-	 * method might be changed so that it passes in the paramater Card, which is the selected card so that the method can be used for build wonder as well
-	 * checking for chain cards
-	 * have it remove coins when using coins to play card
+	 * !!!! trading cards does not work <- we dont trade cards and trading resources does
+	 * method might be changed so that it passes in the parameter Card, which is the selected card so that the method can be used for build wonder as well
+	 * ^dont
+	 * checking for chain cards <----NEED THIS
+	 * have it remove coins when using coins to play card <--NEED THIS: I did this in finishRound()
 	 * 
 	 * 
 	 * Gets every resource that player has
 	 * puts the resources in a hashmap<boolean, string>
 	 * player can either select/deselect resource to use, cancel the operation, confirm the operation, or trade with others
 	 * checks if resources are valid to play the card
-	 * plays the card
+	 * plays the card <---DOES NOT FOR THE 1000TH TIME
 	 */
 	public static void resourceSelection()
 	{
@@ -276,11 +280,20 @@ public class TextRunner
 					for (int i = 0; i < allResources.length; i++)
 						if (allResources[i].contains("-Selected"))
 							selected.add(allResources[i].substring(0, allResources[i].indexOf("-Selected")));
+					
+					for (int i = 0; i < leftNR.length; i++)
+						if (leftNR[i].contains("-Selected"))
+							selected.add(leftNR[i].substring(0, leftNR[i].indexOf("-Selected")));
+					
+					for (int i = 0; i < rightNR.length; i++)
+						if (rightNR[i].contains("-Selected"))
+							selected.add(rightNR[i].substring(0, rightNR[i].indexOf("-Selected")));
+					
 					state.setSelectedResources(selected);
 					ArrayList<String> needed = new ArrayList<String>(currentWonder.getSelectedCard().getCost());
 					
 					
-					// checks if everything in selected and needed match
+					/*// checks if everything in selected and needed match
 					for (int i = 0; i < needed.size(); i++)
 					{
 						String str = needed.get(i);
@@ -299,7 +312,25 @@ public class TextRunner
 					if (needed.size() == 0)
 					{
 						System.out.println("Played card " + currentWonder.getSelectedCard().getName());
-						currentWonder.playCard(currentWonder.getSelectedCard());
+						//currentWonder.playCard(currentWonder.getSelectedCard());
+						
+						// when everything is valid
+						ArrayList<Boolean> decision = state.getDecisionMade();
+						decision.set(state.getCurrentPlayer(), true);
+						state.setDecisionMade(decision);
+						break;
+					}
+					else
+						System.out.println("Invalid resources selected");
+						*/
+					//Raymond's version of the code above
+					Collections.sort(needed);
+					Collections.sort(selected);
+					if(needed.equals(selected)) // might need to add &&currentWonder.playable(currentWonder.getSelectedCard())
+					{
+
+						System.out.println("Played card " + currentWonder.getSelectedCard().getName());
+						//currentWonder.playCard(currentWonder.getSelectedCard());
 						
 						// when everything is valid
 						ArrayList<Boolean> decision = state.getDecisionMade();
@@ -494,7 +525,7 @@ public class TextRunner
 		else
 		{
 			System.out.println("Played card " + currentWonder.getSelectedCard().getName());
-			currentWonder.playCard(currentWonder.getSelectedCard());
+			//currentWonder.playCard(currentWonder.getSelectedCard());
 			
 			// when everything is valid
 			ArrayList<Boolean> decision = state.getDecisionMade();
@@ -537,7 +568,7 @@ public class TextRunner
 			
 			// checks if card is playable, else it continues the loop
 			if (playerInput >= 0 && playerInput <= currentHand.size() - 1)
-				if (!currentWonder.playable(currentHand.get(playerInput)))//I THINK THIS IS WRONG - ray
+				if (!currentWonder.playable(currentHand.get(playerInput)))//
 					playerInput = -1;
 			
 			System.out.println();
@@ -646,7 +677,7 @@ public class TextRunner
 			}
 			
 			// checks for out of bounds
-			if (playerInput >= 0 && playerInput <= currentHand.size() - 1) //I THINK THIS IS WRONG - ray
+			if (playerInput <0 || playerInput > currentHand.size() - 1) 
 			{
 				System.out.println("Index is out of bounds!");
 				playerInput = -1;
