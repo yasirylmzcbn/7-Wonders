@@ -13,7 +13,8 @@ public class Wonder {
 	private int militaryPower;
 	private Card selectedCard;
 	private String action;
-	private ArrayList<String> trades;
+	//private ArrayList<String> trades;
+	private TreeMap<String, Integer> trades;
 	private int losses;
 	private int wins;
 	private ArrayList<Card> stages=new ArrayList<Card>();
@@ -29,7 +30,7 @@ public class Wonder {
 		victoryPoints = 0;	
 		militaryPower = 0;
 		action = "";
-		trades = new ArrayList<String>();
+		trades = new TreeMap<String, Integer>();
 		losses = wins = 0;
 		cardsPlayed = new HashMap<String, HashSet<Card>>();
 
@@ -424,11 +425,11 @@ public class Wonder {
 		this.action = action;
 	}
 
-	public ArrayList<String> getTrades() {
+	public TreeMap<String, Integer> getTrades() {
 		return trades;
 	}
 
-	public void setTrades(ArrayList<String> trades) {
+	public void setTrades(TreeMap<String, Integer> trades) {
 		this.trades = trades;
 	}
 

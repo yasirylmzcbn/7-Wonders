@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -79,6 +81,15 @@ public class GameState
 		Iterator<Integer> iter = randomWonder.iterator();
 		for (int i = 0; i < numberOfPlayers; i++)
 			wonders.add(new Wonder(WONDERNAMES[iter.next()], numberOfPlayers));
+		
+		//sets neighbors in trades
+		for(int i = 0 ; i<wonders.size(); i++)
+		{
+			TreeMap<String, Integer> temp = wonders.get(i).getTrades();
+			temp.put(getLeftWonder(i).getName(), 0);
+			temp.put(getRightWonder(i).getName(), 0);
+			
+		}
 		
 		// sets the hand number of each player
 		for (int i = 0; i < numberOfPlayers; i++)
@@ -295,7 +306,7 @@ public class GameState
 			w.setSelectedCard(null);
 			
 		}
-		
+		/*
 		for(int i = 0; i<wonders.size(); i++)
 		{
 			Wonder w = wonders.get(i);
@@ -310,7 +321,7 @@ public class GameState
 						temp = s;
 					}
 				}
-				int tradeV = Integer.parseInt(str.substring(str.length()+1));
+				int tradeV = Integer.parseInt(str.substring(str.length()));
 				if(temp.equals(getLeftWonder(i).getName()))
 				{
 					getLeftWonder(i).addMoney(tradeV);
@@ -323,6 +334,25 @@ public class GameState
 				}
 			}
 			w.getTrades().clear();
+			
+		}*/
+		
+		for(int i = 0; i<wonders.size(); i++)
+		{
+			Wonder w = wonders.get(i);
+			TreeMap<String, Integer> trades = w.getTrades();
+			int tradeV = trades.get(getLeftWonder(i).getName());
+			getLeftWonder(i).addMoney(tradeV);
+			w.addMoney(-tradeV);
+			
+			trades.put(getLeftWonder(i).getName(), 0);
+			
+			tradeV = trades.get(getRightWonder(i));
+			getRightWonder(i).addMoney(tradeV);
+			w.addMoney(-tradeV);
+			
+			trades.put(getRightWonder(i).getName(), 0);
+			
 			
 		}
 		

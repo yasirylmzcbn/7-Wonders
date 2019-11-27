@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.HashSet;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -174,8 +176,8 @@ public class TextRunner
 		{
 			// every resource that a player has
 			String[] allResources = currentWonder.getAllPlayerResources().toArray(new String[0]);
-			String[] leftNR = state.getLeftWonder(currentWonder).getCardResources().toArray(new String[0]);
-			String[] rightNR = state.getRightWonder(currentWonder).getCardResources().toArray(new String[0]);
+			String[] leftNR = state.getLeftWonder(currentWonder).getCardResources().toArray(new String[0]); //Left neighbor's resources
+			String[] rightNR = state.getRightWonder(currentWonder).getCardResources().toArray(new String[0]);//right 
 			// resources that the player will be selecting to play
 			ArrayList<String> selected = new ArrayList<String>();
 			
@@ -192,13 +194,50 @@ public class TextRunner
 				for (int i = 0; i < allResources.length; i++)
 					System.out.println(i + "-" + allResources[i]);
 				
+				int SilverCost = 2; // cost of trading for a silver card resource
+				int RightBrownCost = 2;// cost for trading for a brown card resource to the right
+				int LeftBrownCost = 2;//^*left
+				
+				String brownR = "wood stone clay ore";
+				String silverR = "paper cloth glass";
+				
+				
+				ArrayList<Card> crds = new ArrayList<Card>();
+				crds.addAll(currentWonder.getCardsPlayed().get("yellow"));
+				for(int i = 0; i<crds.size(); i++ )
+				{
+					if(crds.get(i).getName().equals("East Trading Post"))
+					{
+						RightBrownCost = 1;
+					}
+					if(crds.get(i).getName().equals("West Trading Post"))
+					{
+						LeftBrownCost = 1;
+					}
+					if(crds.get(i).getName().equals("Marketplace"))
+					{
+						SilverCost = 1;
+					}
+				}
+				
 				System.out.println(state.getLeftWonder(currentWonder).getName()+"'s Resources: ");
+				
 				for (int i = 0; i < leftNR.length; i++)
-					System.out.println("L"+i + "-" + leftNR[i]);
+				{
+					if(brownR.contains(leftNR[i]))
+						System.out.println("L"+i + "-" + leftNR[i]+"\tCost: "+LeftBrownCost+" gold");
+					if(silverR.contains(leftNR[i]))
+						System.out.println("L"+i + "-" + leftNR[i]+"\tCost: "+SilverCost+" gold");
+				}
 				
 				System.out.println(state.getRightWonder(currentWonder).getName()+"'s Resources: ");
 				for (int i = 0; i < rightNR.length; i++)
-					System.out.println("R"+i + "-" + rightNR[i]);
+				{
+					if(brownR.contains(rightNR[i]))
+						System.out.println("R"+i + "-" + rightNR[i]+"\tCost: "+RightBrownCost+" gold");
+					if(silverR.contains(rightNR[i]))
+						System.out.println("R"+i + "-" + leftNR[i]+"\tCost: "+SilverCost+" gold");
+				}
 				
 				// quits out of the loop and goes back to option selection
 				String temp = input.next();
@@ -251,33 +290,184 @@ public class TextRunner
 				}
 				else
 				{
+					String who = "";
 					// gets player input
 					try {
+					if(temp.contains("R")||temp.contains("L"))
+					{
+						who = temp.substring(0, 1);
+						temp = temp.substring(1);
+					}
 					playerInput = Integer.parseInt(temp);
 					} catch (NumberFormatException e) {
 						System.out.println("Cannot convert from String to int");
 						playerInput = -1;
 					}
 					
-					// checks if card is playable, else it continues the loop
-					if (playerInput < 0 && playerInput > allResources.length - 1)
+					if(who.equals(""))
 					{
-						System.out.println("Index is out of bounds");
-						playerInput = -1;
-					}
-					else
-					{
-						// if it is selected, then deselect it
-						if (allResources[playerInput].contains("-Selected"))
-							allResources[playerInput] = allResources[playerInput].substring(0, allResources[playerInput].indexOf("-Selected"));
+						// checks if resources is in the array
+						if (playerInput < 0 || playerInput > allResources.length - 1)
+						{
+							System.out.println("Index is out of bounds");
+							playerInput = -1;
+						}
 						else
-							allResources[playerInput] = allResources[playerInput] + "-Selected";
+						{
+							// if it is selected, then deselect it
+							if (allResources[playerInput].contains("-Selected"))
+							{
+								allResources[playerInput] = allResources[playerInput].substring(0, allResources[playerInput].indexOf("-Selected"));
+								selected.remove(allResources[playerInput]);
+							}
+							else
+							{
+								selected.add(allResources[playerInput]);
+								allResources[playerInput] = allResources[playerInput] + "-Selected";
+							}
+						}
+					}
+					else if(who.equals("L"))
+					{
+						if (playerInput < 0 || playerInput > leftNR.length - 1)
+						{
+							System.out.println("Index is out of bounds");
+							playerInput = -1;
+						}
+						else
+						{
+							// if it is selected, then deselect it
+							if (leftNR[playerInput].contains("-Selected"))
+							{
+								leftNR[playerInput] = leftNR[playerInput].substring(0, leftNR[playerInput].indexOf("-Selected"));
+								selected.remove(leftNR[playerInput]);/*
+								ArrayList<String> trades = currentWonder.getTrades();
+								String leftName = state.getLeftWonder(currentWonder).getName();
+								for(int i = 0 ; i<trades.size(); i++)
+								{
+									if(trades.get(i).contains(leftName))
+									{
+										int t = Integer.parseInt(trades.get(i).substring(leftName.length()+1));
+										if(brownR.contains(leftNR[playerInput]))
+										{
+											t-=LeftBrownCost;
+											trades.set(i, trades.get(i).substring(0, leftName.length())+t);
+										}
+										if(silverR.contains(leftNR[playerInput]))
+										{
+											t-=SilverCost;
+											trades.set(i, trades.get(i).substring(0, leftName.length())+t);
+										}
+									}
+								}*/
+								TreeMap<String, Integer> trades = currentWonder.getTrades();
+								String leftName = state.getLeftWonder(currentWonder).getName();
+								int t = trades.get(leftName);
+								if(brownR.contains(leftNR[playerInput]))
+								{
+									t-=LeftBrownCost;
+								}
+								if(silverR.contains(leftNR[playerInput]))
+								{
+									t-=SilverCost;
+								}
+								trades.put(leftName,t);
+							}
+							else
+							{
+								selected.add(leftNR[playerInput]);
+								leftNR[playerInput] = leftNR[playerInput] + "-Selected";
+								/*
+								ArrayList<String> trades = currentWonder.getTrades();
+								String leftName = state.getLeftWonder(currentWonder).getName();
+								
+								for(int i = 0 ; i<trades.size(); i++)
+								{
+									if(trades.get(i).contains(leftName))
+									{
+										int t = Integer.parseInt(trades.get(i).substring(leftName.length()+1));
+										if(brownR.contains(leftNR[playerInput]))
+										{
+											t+=LeftBrownCost;
+											trades.set(i, trades.get(i).substring(0, leftName.length())+t);
+										}
+										if(silverR.contains(leftNR[playerInput]))
+										{
+											t+=SilverCost;
+											trades.set(i, trades.get(i).substring(0, leftName.length())+t);
+										}
+									}
+								}
+								*/
+								TreeMap<String, Integer> trades = currentWonder.getTrades();
+								String leftName = state.getLeftWonder(currentWonder).getName();
+								int t = trades.get(leftName);
+								if(brownR.contains(leftNR[playerInput]))
+								{
+									t+=LeftBrownCost;
+								}
+								if(silverR.contains(leftNR[playerInput]))
+								{
+									t+=SilverCost;
+								}
+								trades.put(leftName, t);
+							}
+						}
+					}
+					else if(who.equals("R"))
+					{
+						if (playerInput < 0 || playerInput > rightNR.length - 1)
+						{
+							System.out.println("Index is out of bounds");
+							playerInput = -1;
+						}
+						else
+						{
+							
+							if (rightNR[playerInput].contains("-Selected"))
+							{
+								rightNR[playerInput] = rightNR[playerInput].substring(0, rightNR[playerInput].indexOf("-Selected"));
+								selected.remove(rightNR[playerInput]);
+								TreeMap<String, Integer> trades = currentWonder.getTrades();
+								String rightName = state.getRightWonder(currentWonder).getName();
+								int t = trades.get(rightName);
+								if(brownR.contains(rightNR[playerInput]))
+								{
+									t-=RightBrownCost;
+								}
+								if(silverR.contains(rightNR[playerInput]))
+								{
+									t-=SilverCost;
+								}
+								trades.put(rightName,t);
+							}
+							else
+							{
+								selected.add(rightNR[playerInput]);
+								rightNR[playerInput] = rightNR[playerInput] + "-Selected";
+								TreeMap<String, Integer> trades = currentWonder.getTrades();
+								String rightName = state.getRightWonder(currentWonder).getName();
+								int t = trades.get(rightName);
+								if(brownR.contains(rightNR[playerInput]))
+								{
+									t+=RightBrownCost;
+								}
+								if(silverR.contains(rightNR[playerInput]))
+								{
+									t+=SilverCost;
+								}
+								trades.put(rightName, t);
+							}
+						
+					
+						}
+				
+						System.out.println();
 					}
 				}
-				System.out.println();
 			}
 		}
-	}
+}
 	
 	public static void trade()
 	{
@@ -312,7 +502,7 @@ public class TextRunner
 			
 			// checks if card is playable, else it continues the loop
 			if (playerInput >= 0 && playerInput <= currentHand.size() - 1)
-				if (!currentWonder.playable(currentHand.get(playerInput)))
+				if (!currentWonder.playable(currentHand.get(playerInput)))//I THINK THIS IS WRONG - ray
 					playerInput = -1;
 			
 			System.out.println();
@@ -367,7 +557,7 @@ public class TextRunner
 				}
 				
 				// checks for out of bounds
-				if (playerInput >= 0 && playerInput <= currentHand.size() - 1)
+				if (playerInput >= 0 && playerInput <= currentHand.size() - 1) //I THINK THIS IS WRONG - ray
 				{
 					System.out.println("Index is out of bounds!");
 					playerInput = -1;
@@ -419,7 +609,7 @@ public class TextRunner
 			}
 			
 			// checks for out of bounds
-			if (playerInput >= 0 && playerInput <= currentHand.size() - 1)
+			if (playerInput >= 0 && playerInput <= currentHand.size() - 1) //I THINK THIS IS WRONG - ray
 			{
 				System.out.println("Index is out of bounds!");
 				playerInput = -1;
