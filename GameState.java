@@ -305,10 +305,13 @@ public class GameState
 						}
 					}
 				}
+				
 			}
 			if(w.getAction().contentEquals("Build"))
 			{
+				//add the card construction marker
 				w.getCardsPlayed().get("wonder").add(w.getSelectedCard());
+				
 				if(w.getName().equals("The Mausoleum of Halicarnassus")&&w.getPlayerWonders()==2);
 				halic = true;
 			}
