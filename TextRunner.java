@@ -674,7 +674,7 @@ public class TextRunner
 		}
 		
 		// gets resource and sets decision made to true
-		// resourceSelectionForWonderOrSomethingIDontKnow();
+		wonderResourceSelection();
 	}
 	public static void wonderResourceSelection() // TODO CHECK THIS, im doing this super late and my brain is fried rn
 	{
@@ -730,18 +730,18 @@ public class TextRunner
 						
 						for (int i = 0; i < leftNR.length; i++)
 						{
-							if(brownR.contains(leftNR[i]))
+							if(brownR.contains(leftNR[i].split("\\|\\|")[0]))
 								System.out.println("L"+i + "-" + leftNR[i]+"\tCost: "+LeftBrownCost+" gold");
-							if(silverR.contains(leftNR[i]))
+							if(silverR.contains(leftNR[i].split("\\|\\|")[0]))
 								System.out.println("L"+i + "-" + leftNR[i]+"\tCost: "+SilverCost+" gold");
 						}
 						
 						System.out.println(state.getRightWonder(currentWonder).getName()+"'s Resources: ");
 						for (int i = 0; i < rightNR.length; i++)
 						{
-							if(brownR.contains(rightNR[i]))
+							if(brownR.contains(rightNR[i].split("\\|\\|")[0]))
 								System.out.println("R"+i + "-" + rightNR[i]+"\tCost: "+RightBrownCost+" gold");
-							if(silverR.contains(rightNR[i]))
+							if(silverR.contains(rightNR[i].split("\\|\\|")[0]))
 								System.out.println("R"+i + "-" + leftNR[i]+"\tCost: "+SilverCost+" gold");
 						}
 						
@@ -770,6 +770,18 @@ public class TextRunner
 								if (rightNR[i].contains("-Selected"))
 									selected.add(rightNR[i].substring(0, rightNR[i].indexOf("-Selected")));
 									*/
+							
+							// // selection for || cards is going here temporarily
+							for (int i = 0; i < selected.size(); i++)
+							{
+								// need to do "\\|\\|" since | is a special char, or else it will not read
+								if (selected.get(i).contains("||"))
+								{
+									String[] resources = selected.get(i).split("\\|\\|");
+									System.out.print("Choose either one from :" + Arrays.toString(resources));
+									selected.set(i, input.next());
+								}
+							}
 							
 							state.setSelectedResources(selected);
 							ArrayList<String> needed = new ArrayList<String>(currentWonder.nextWonder().getCost());
