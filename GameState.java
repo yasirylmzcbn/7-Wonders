@@ -574,7 +574,7 @@ public class GameState
 				String type = vals[0];
 				String name = vals[1];
 				String color = vals[2];
-				ArrayList<String> chain = new ArrayList<String>(Arrays.asList(vals[3].split(",")));
+				ArrayList<String> chain = new ArrayList<String>(Arrays.asList(vals[3].split(",")));//holds what can make this card free
 				ArrayList<String> cost = new ArrayList<String> (Arrays.asList(vals[4].split(",")));
 				
 				int players = Integer.parseInt(vals[5]);

@@ -41,7 +41,7 @@ public class Wonder {
 		cardsPlayed.put("green",new HashSet<Card>());
 		cardsPlayed.put("yellow",new HashSet<Card>());
 		cardsPlayed.put("purple",new HashSet<Card>());
-		cardsPlayed.put("wonder",new HashSet<Card>());
+		cardsPlayed.put("wonder",new HashSet<Card>());// initial resources, stages, construction markers
 
 		techCardPoints = new HashMap<String, Integer>();
 		techCardPoints.put("tablet", 0);
@@ -336,6 +336,28 @@ public class Wonder {
 		if(cardsPlayed.get(c.getColor()).contains(c))
 			return false;
 		return true;
+	}
+	public boolean inChain(Card c)
+	{
+		ArrayList<String> temp = c.getChain();
+		
+		ArrayList<Card> crds = new ArrayList<Card>();
+		crds.addAll(cardsPlayed.get("brown"));
+		crds.addAll(cardsPlayed.get("silver"));
+		crds.addAll(cardsPlayed.get("red"));
+		crds.addAll(cardsPlayed.get("blue"));
+		crds.addAll(cardsPlayed.get("green"));
+		crds.addAll(cardsPlayed.get("yellow"));
+		crds.addAll(cardsPlayed.get("purple"));
+		for(int i = 0 ; i<crds.size(); i++)
+		{
+			if(temp.contains(crds.get(i).getName()))
+			{
+				return true;
+			}
+		}
+		
+		return false;
 	}
 	public void addMoney(int i) {
 		money+=i;
