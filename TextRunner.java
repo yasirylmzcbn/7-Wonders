@@ -665,7 +665,7 @@ public class TextRunner
 			// removes card since buildWonder() does not take in a card for input to burn
 			Card c = currentHand.get(playerInput);
 			currentWonder.setSelectedCard(c);
-			System.out.println("You used " + c.getName() + " to build Wonder #"+currentWonder.getPlayerWonders());
+			// System.out.println("You used " + c.getName() + " to build Wonder #"+currentWonder.getPlayerWonders());
 		}
 		else
 		{
@@ -678,269 +678,269 @@ public class TextRunner
 	}
 	public static void wonderResourceSelection() // TODO CHECK THIS, im doing this super late and my brain is fried rn
 	{
-				System.out.println("Cost to build wonder "+(currentWonder.getPlayerWonders()+1)+": " + currentWonder.nextWonder().getCost());
-				//All Wonders cost something
-					// every resource that a player has
-					String[] allResources = currentWonder.getAllPlayerResources().toArray(new String[0]);
-					String[] leftNR = state.getLeftWonder(currentWonder).getCardResources().toArray(new String[0]); //Left neighbor's resources
-					String[] rightNR = state.getRightWonder(currentWonder).getCardResources().toArray(new String[0]);//right 
-					// resources that the player will be selecting to play
-					ArrayList<String> selected = new ArrayList<String>();
+			System.out.println("Cost to build wonder "+(currentWonder.getPlayerWonders()+1)+": " + currentWonder.nextWonder().getCost());
+			//All Wonders cost something
+				// every resource that a player has
+				String[] allResources = currentWonder.getAllPlayerResources().toArray(new String[0]);
+				String[] leftNR = state.getLeftWonder(currentWonder).getCardResources().toArray(new String[0]); //Left neighbor's resources
+				String[] rightNR = state.getRightWonder(currentWonder).getCardResources().toArray(new String[0]);//right 
+				// resources that the player will be selecting to play
+				ArrayList<String> selected = new ArrayList<String>();
+				
+				int playerInput = -1;
+				
+				while (true)
+				{	
+					System.out.println("type 'quit' to quit");
+					System.out.println("type 'confirm' to confirm selection");
+					System.out.println("Choose index of resource to select/deselect: ");
 					
-					int playerInput = -1;
+					// prints out the resources needed to play a card
+					System.out.println("My Resources: ");
+					for (int i = 0; i < allResources.length; i++)
+						System.out.println(i + "-" + allResources[i]);
 					
-					while (true)
-					{	
-						System.out.println("type 'quit' to quit");
-						System.out.println("type 'confirm' to confirm selection");
-						System.out.println("Choose index of resource to select/deselect: ");
-						
-						// prints out the resources needed to play a card
-						System.out.println("My Resources: ");
-						for (int i = 0; i < allResources.length; i++)
-							System.out.println(i + "-" + allResources[i]);
-						
-						int SilverCost = 2; // cost of trading for a silver card resource
-						int RightBrownCost = 2;// cost for trading for a brown card resource to the right
-						int LeftBrownCost = 2;//^*left
-						
-						String brownR = "wood stone clay ore";
-						String silverR = "paper cloth glass";
-						
-						
-						ArrayList<Card> crds = new ArrayList<Card>();
-						crds.addAll(currentWonder.getCardsPlayed().get("yellow"));
-						for(int i = 0; i<crds.size(); i++ )
+					int SilverCost = 2; // cost of trading for a silver card resource
+					int RightBrownCost = 2;// cost for trading for a brown card resource to the right
+					int LeftBrownCost = 2;//^*left
+					
+					String brownR = "wood stone clay ore";
+					String silverR = "paper cloth glass";
+					
+					
+					ArrayList<Card> crds = new ArrayList<Card>();
+					crds.addAll(currentWonder.getCardsPlayed().get("yellow"));
+					for(int i = 0; i<crds.size(); i++ )
+					{
+						if(crds.get(i).getName().equals("East Trading Post"))
 						{
-							if(crds.get(i).getName().equals("East Trading Post"))
-							{
-								RightBrownCost = 1;
-							}
-							if(crds.get(i).getName().equals("West Trading Post"))
-							{
-								LeftBrownCost = 1;
-							}
-							if(crds.get(i).getName().equals("Marketplace"))
-							{
-								SilverCost = 1;
-							}
+							RightBrownCost = 1;
 						}
-						
-						System.out.println(state.getLeftWonder(currentWonder).getName()+"'s Resources: ");
+						if(crds.get(i).getName().equals("West Trading Post"))
+						{
+							LeftBrownCost = 1;
+						}
+						if(crds.get(i).getName().equals("Marketplace"))
+						{
+							SilverCost = 1;
+						}
+					}
+					
+					System.out.println(state.getLeftWonder(currentWonder).getName()+"'s Resources: ");
+					
+					for (int i = 0; i < leftNR.length; i++)
+					{
+						if(brownR.contains(leftNR[i].split("\\|\\|")[0]))
+							System.out.println("L"+i + "-" + leftNR[i]+"\tCost: "+LeftBrownCost+" gold");
+						if(silverR.contains(leftNR[i].split("\\|\\|")[0]))
+							System.out.println("L"+i + "-" + leftNR[i]+"\tCost: "+SilverCost+" gold");
+					}
+					
+					System.out.println(state.getRightWonder(currentWonder).getName()+"'s Resources: ");
+					for (int i = 0; i < rightNR.length; i++)
+					{
+						if(brownR.contains(rightNR[i].split("\\|\\|")[0]))
+							System.out.println("R"+i + "-" + rightNR[i]+"\tCost: "+RightBrownCost+" gold");
+						if(silverR.contains(rightNR[i].split("\\|\\|")[0]))
+							System.out.println("R"+i + "-" + leftNR[i]+"\tCost: "+SilverCost+" gold");
+					}
+					
+					// quits out of the loop and goes back to option selection
+					String temp = input.next();
+					if (temp.equals("quit"))
+					{
+						hasQuit = true;
+						return;
+					}
+					hasQuit = false;
+					
+					// if the player has confirmed their resource selection
+					if (temp.equals("confirm"))
+					{
+						/*
+						for (int i = 0; i < allResources.length; i++)
+							if (allResources[i].contains("-Selected"))
+								selected.add(allResources[i].substring(0, allResources[i].indexOf("-Selected")));
 						
 						for (int i = 0; i < leftNR.length; i++)
-						{
-							if(brownR.contains(leftNR[i].split("\\|\\|")[0]))
-								System.out.println("L"+i + "-" + leftNR[i]+"\tCost: "+LeftBrownCost+" gold");
-							if(silverR.contains(leftNR[i].split("\\|\\|")[0]))
-								System.out.println("L"+i + "-" + leftNR[i]+"\tCost: "+SilverCost+" gold");
-						}
+							if (leftNR[i].contains("-Selected"))
+								selected.add(leftNR[i].substring(0, leftNR[i].indexOf("-Selected")));
 						
-						System.out.println(state.getRightWonder(currentWonder).getName()+"'s Resources: ");
 						for (int i = 0; i < rightNR.length; i++)
+							if (rightNR[i].contains("-Selected"))
+								selected.add(rightNR[i].substring(0, rightNR[i].indexOf("-Selected")));
+								*/
+						
+						// // selection for || cards is going here temporarily
+						for (int i = 0; i < selected.size(); i++)
 						{
-							if(brownR.contains(rightNR[i].split("\\|\\|")[0]))
-								System.out.println("R"+i + "-" + rightNR[i]+"\tCost: "+RightBrownCost+" gold");
-							if(silverR.contains(rightNR[i].split("\\|\\|")[0]))
-								System.out.println("R"+i + "-" + leftNR[i]+"\tCost: "+SilverCost+" gold");
+							// need to do "\\|\\|" since | is a special char, or else it will not read
+							if (selected.get(i).contains("||"))
+							{
+								String[] resources = selected.get(i).split("\\|\\|");
+								System.out.print("Choose either one from :" + Arrays.toString(resources));
+								selected.set(i, input.next());
+							}
 						}
 						
-						// quits out of the loop and goes back to option selection
-						String temp = input.next();
-						if (temp.equals("quit"))
-						{
-							hasQuit = true;
-							return;
-						}
-						hasQuit = false;
-						
-						// if the player has confirmed their resource selection
-						if (temp.equals("confirm"))
-						{
-							/*
-							for (int i = 0; i < allResources.length; i++)
-								if (allResources[i].contains("-Selected"))
-									selected.add(allResources[i].substring(0, allResources[i].indexOf("-Selected")));
-							
-							for (int i = 0; i < leftNR.length; i++)
-								if (leftNR[i].contains("-Selected"))
-									selected.add(leftNR[i].substring(0, leftNR[i].indexOf("-Selected")));
-							
-							for (int i = 0; i < rightNR.length; i++)
-								if (rightNR[i].contains("-Selected"))
-									selected.add(rightNR[i].substring(0, rightNR[i].indexOf("-Selected")));
-									*/
-							
-							// // selection for || cards is going here temporarily
-							for (int i = 0; i < selected.size(); i++)
-							{
-								// need to do "\\|\\|" since | is a special char, or else it will not read
-								if (selected.get(i).contains("||"))
-								{
-									String[] resources = selected.get(i).split("\\|\\|");
-									System.out.print("Choose either one from :" + Arrays.toString(resources));
-									selected.set(i, input.next());
-								}
-							}
-							
-							state.setSelectedResources(selected);
-							ArrayList<String> needed = new ArrayList<String>(currentWonder.nextWonder().getCost());
+						state.setSelectedResources(selected);
+						ArrayList<String> needed = new ArrayList<String>(currentWonder.nextWonder().getCost());
 
-							Collections.sort(needed);
-							Collections.sort(selected);
-							if(needed.equals(selected)) 
-							{
+						Collections.sort(needed);
+						Collections.sort(selected);
+						if(needed.equals(selected)) 
+						{
 
-								System.out.println("Played card " + currentWonder.getSelectedCard().getName());
-								//currentWonder.playCard(currentWonder.getSelectedCard());
-								
-								// when everything is valid
-								ArrayList<Boolean> decision = state.getDecisionMade();
-								decision.set(state.getCurrentPlayer(), true);
-								state.setDecisionMade(decision);
-								break;
-							}
-							else
-								System.out.println("Invalid resources selected");
+							System.out.println("Used card " + currentWonder.getSelectedCard().getName() + " to build wonder " + (currentWonder.getPlayerWonders() + 1));
+							//currentWonder.playCard(currentWonder.getSelectedCard());
+							
+							// when everything is valid
+							ArrayList<Boolean> decision = state.getDecisionMade();
+							decision.set(state.getCurrentPlayer(), true);
+							state.setDecisionMade(decision);
+							break;
 						}
 						else
+							System.out.println("Invalid resources selected");
+					}
+					else
+					{
+						String who = "";
+						// gets player input
+						try {
+						if(temp.contains("R")||temp.contains("L"))
 						{
-							String who = "";
-							// gets player input
-							try {
-							if(temp.contains("R")||temp.contains("L"))
+							who = temp.substring(0, 1);
+							temp = temp.substring(1);
+						}
+						playerInput = Integer.parseInt(temp);
+						} catch (NumberFormatException e) {
+							System.out.println("Cannot convert from String to int");
+							playerInput = -1;
+						}
+						
+
+						if(who.equals(""))
+						{
+							// checks if resources is in the array
+							if (playerInput < 0 || playerInput > allResources.length - 1)
 							{
-								who = temp.substring(0, 1);
-								temp = temp.substring(1);
-							}
-							playerInput = Integer.parseInt(temp);
-							} catch (NumberFormatException e) {
-								System.out.println("Cannot convert from String to int");
+								System.out.println("Index is out of bounds");
 								playerInput = -1;
 							}
-							
-
-							if(who.equals(""))
+							else
 							{
-								// checks if resources is in the array
-								if (playerInput < 0 || playerInput > allResources.length - 1)
+								// if it is selected, then deselect it
+								if (allResources[playerInput].contains("-Selected"))
 								{
-									System.out.println("Index is out of bounds");
-									playerInput = -1;
+									allResources[playerInput] = allResources[playerInput].substring(0, allResources[playerInput].indexOf("-Selected"));
+									selected.remove(allResources[playerInput]);
 								}
 								else
 								{
-									// if it is selected, then deselect it
-									if (allResources[playerInput].contains("-Selected"))
-									{
-										allResources[playerInput] = allResources[playerInput].substring(0, allResources[playerInput].indexOf("-Selected"));
-										selected.remove(allResources[playerInput]);
-									}
-									else
-									{
-										selected.add(allResources[playerInput]);
-										allResources[playerInput] = allResources[playerInput] + "-Selected";
-									}
+									selected.add(allResources[playerInput]);
+									allResources[playerInput] = allResources[playerInput] + "-Selected";
 								}
-							}
-							else if(who.equals("L"))
-							{
-								if (playerInput < 0 || playerInput > leftNR.length - 1)
-								{
-									System.out.println("Index is out of bounds");
-									playerInput = -1;
-								}
-								else
-								{
-									// if it is selected, then deselect it
-									if (leftNR[playerInput].contains("-Selected"))
-									{
-										leftNR[playerInput] = leftNR[playerInput].substring(0, leftNR[playerInput].indexOf("-Selected"));
-										selected.remove(leftNR[playerInput]);
-										TreeMap<String, Integer> trades = currentWonder.getTrades();
-										String leftName = state.getLeftWonder(currentWonder).getName();
-										int t = trades.get(leftName);
-										if(brownR.contains(leftNR[playerInput]))
-										{
-											t-=LeftBrownCost;
-										}
-										if(silverR.contains(leftNR[playerInput]))
-										{
-											t-=SilverCost;
-										}
-										trades.put(leftName,t);
-									}
-									else
-									{
-										selected.add(leftNR[playerInput]);
-										leftNR[playerInput] = leftNR[playerInput] + "-Selected";
-										TreeMap<String, Integer> trades = currentWonder.getTrades();
-										String leftName = state.getLeftWonder(currentWonder).getName();
-										int t = trades.get(leftName);
-										if(brownR.contains(leftNR[playerInput]))
-										{
-											t+=LeftBrownCost;
-										}
-										if(silverR.contains(leftNR[playerInput]))
-										{
-											t+=SilverCost;
-										}
-										trades.put(leftName, t);
-									}
-								}
-							}
-							else if(who.equals("R"))
-							{
-								if (playerInput < 0 || playerInput > rightNR.length - 1)
-								{
-									System.out.println("Index is out of bounds");
-									playerInput = -1;
-								}
-								else
-								{
-									
-									if (rightNR[playerInput].contains("-Selected"))
-									{
-										rightNR[playerInput] = rightNR[playerInput].substring(0, rightNR[playerInput].indexOf("-Selected"));
-										selected.remove(rightNR[playerInput]);
-										TreeMap<String, Integer> trades = currentWonder.getTrades();
-										String rightName = state.getRightWonder(currentWonder).getName();
-										int t = trades.get(rightName);
-										if(brownR.contains(rightNR[playerInput]))
-										{
-											t-=RightBrownCost;
-										}
-										if(silverR.contains(rightNR[playerInput]))
-										{
-											t-=SilverCost;
-										}
-										trades.put(rightName,t);
-									}
-									else
-									{
-										selected.add(rightNR[playerInput]);
-										rightNR[playerInput] = rightNR[playerInput] + "-Selected";
-										TreeMap<String, Integer> trades = currentWonder.getTrades();
-										String rightName = state.getRightWonder(currentWonder).getName();
-										int t = trades.get(rightName);
-										if(brownR.contains(rightNR[playerInput]))
-										{
-											t+=RightBrownCost;
-										}
-										if(silverR.contains(rightNR[playerInput]))
-										{
-											t+=SilverCost;
-										}
-										trades.put(rightName, t);
-									}
-								
-							
-								}
-						
-								System.out.println();
 							}
 						}
-			}
+						else if(who.equals("L"))
+						{
+							if (playerInput < 0 || playerInput > leftNR.length - 1)
+							{
+								System.out.println("Index is out of bounds");
+								playerInput = -1;
+							}
+							else
+							{
+								// if it is selected, then deselect it
+								if (leftNR[playerInput].contains("-Selected"))
+								{
+									leftNR[playerInput] = leftNR[playerInput].substring(0, leftNR[playerInput].indexOf("-Selected"));
+									selected.remove(leftNR[playerInput]);
+									TreeMap<String, Integer> trades = currentWonder.getTrades();
+									String leftName = state.getLeftWonder(currentWonder).getName();
+									int t = trades.get(leftName);
+									if(brownR.contains(leftNR[playerInput]))
+									{
+										t-=LeftBrownCost;
+									}
+									if(silverR.contains(leftNR[playerInput]))
+									{
+										t-=SilverCost;
+									}
+									trades.put(leftName,t);
+								}
+								else
+								{
+									selected.add(leftNR[playerInput]);
+									leftNR[playerInput] = leftNR[playerInput] + "-Selected";
+									TreeMap<String, Integer> trades = currentWonder.getTrades();
+									String leftName = state.getLeftWonder(currentWonder).getName();
+									int t = trades.get(leftName);
+									if(brownR.contains(leftNR[playerInput]))
+									{
+										t+=LeftBrownCost;
+									}
+									if(silverR.contains(leftNR[playerInput]))
+									{
+										t+=SilverCost;
+									}
+									trades.put(leftName, t);
+								}
+							}
+						}
+						else if(who.equals("R"))
+						{
+							if (playerInput < 0 || playerInput > rightNR.length - 1)
+							{
+								System.out.println("Index is out of bounds");
+								playerInput = -1;
+							}
+							else
+							{
+								
+								if (rightNR[playerInput].contains("-Selected"))
+								{
+									rightNR[playerInput] = rightNR[playerInput].substring(0, rightNR[playerInput].indexOf("-Selected"));
+									selected.remove(rightNR[playerInput]);
+									TreeMap<String, Integer> trades = currentWonder.getTrades();
+									String rightName = state.getRightWonder(currentWonder).getName();
+									int t = trades.get(rightName);
+									if(brownR.contains(rightNR[playerInput]))
+									{
+										t-=RightBrownCost;
+									}
+									if(silverR.contains(rightNR[playerInput]))
+									{
+										t-=SilverCost;
+									}
+									trades.put(rightName,t);
+								}
+								else
+								{
+									selected.add(rightNR[playerInput]);
+									rightNR[playerInput] = rightNR[playerInput] + "-Selected";
+									TreeMap<String, Integer> trades = currentWonder.getTrades();
+									String rightName = state.getRightWonder(currentWonder).getName();
+									int t = trades.get(rightName);
+									if(brownR.contains(rightNR[playerInput]))
+									{
+										t+=RightBrownCost;
+									}
+									if(silverR.contains(rightNR[playerInput]))
+									{
+										t+=SilverCost;
+									}
+									trades.put(rightName, t);
+								}
+							
+						
+							}
+					
+							System.out.println();
+						}
+					}
+		}
 	}
 	
 	
