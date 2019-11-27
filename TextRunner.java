@@ -678,7 +678,7 @@ public class TextRunner
 	}
 	public static void wonderResourceSelection() // TODO CHECK THIS, im doing this super late and my brain is fried rn
 	{
-				System.out.println("Cost to build your next wonder+"+(currentWonder.getPlayerWonders()+1)+": " + currentWonder.nextWonder().getCost());
+				System.out.println("Cost to build wonder "+(currentWonder.getPlayerWonders()+1)+": " + currentWonder.nextWonder().getCost());
 				//All Wonders cost something
 					// every resource that a player has
 					String[] allResources = currentWonder.getAllPlayerResources().toArray(new String[0]);
