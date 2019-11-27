@@ -358,6 +358,11 @@ public class TextRunner
 						//currentWonder.playCard(currentWonder.getSelectedCard());
 						//System.out.println(currentWonder.getAllPlayerResources());
 						
+						for (int i = 0; i < currentHand.size(); i++)
+							if (currentHand.get(i).getName().equals(currentWonder.getSelectedCard().getName()))
+								currentHand.remove(i);
+						
+						
 						// when everything is valid
 						ArrayList<Boolean> decision = state.getDecisionMade();
 						decision.set(state.getCurrentPlayer(), true);
@@ -602,7 +607,7 @@ public class TextRunner
 		
 		// sets the selected card to player input, but doesn't add to cardsPlayed yet
 		if (playerInput >= 0 && playerInput <= currentHand.size() - 1)
-			currentWonder.setSelectedCard(currentHand.remove(playerInput));
+			currentWonder.setSelectedCard(currentHand.get(playerInput));
 		System.out.println("Card '" + currentWonder.getSelectedCard().getName() + "' chosen");
 		
 		// goes to resource selection of card, will add to cardsPlayed <-- SHOULDNT ADD TO CARDSPLAYED - Raymond
@@ -658,7 +663,7 @@ public class TextRunner
 			while (playerInput < 0 || playerInput > currentHand.size() - 1);
 			
 			// removes card since buildWonder() does not take in a card for input to burn
-			Card c = currentHand.remove(playerInput);
+			Card c = currentHand.get(playerInput);
 			currentWonder.setSelectedCard(c);
 			System.out.println("You used " + c.getName() + " to build Wonder #"+currentWonder.getPlayerWonders());
 		}
