@@ -284,6 +284,7 @@ public class GameState
 			}
 			if(w.getAction().contentEquals("Build"))
 			{
+				w.getCardsPlayed().get("wonder").add(w.getSelectedCard());
 				if(w.getName().equals("The Mausoleum of Halicarnassus")&&w.getPlayerWonders()==2);
 				halic = true;
 			}
