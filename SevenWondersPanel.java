@@ -16,8 +16,8 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 	public static final int HANDXPOS = 5, HANDYPOS = 5; // where the images of player's hand will start from
 	public static final int CARDWIDTH = 180, CARDHEIGHT = 275;
 	public static final int WONDERXPOS = 1120, WONDERYPOS = 720;
-	public static final int WONDERWIDTH = 756, WONDERHEIGHT = 313; // multiplied by 1.25
-	//public static final int WONDERWIDTH = 605, WONDERHEIGHT = 250; // original
+	public static final int WONDERWIDTH = 756, WONDERHEIGHT = 313; // original image size is 605, 250
+	public static final Color TRANSPARENTBLACK = new Color(0, 0, 0, 150);
 	
 	private boolean GameLobby;
 	private boolean wonderDist;
@@ -127,6 +127,10 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		// draw card images
 		for (int i = 0; i < cards.length; i++)
 		{
+			// draws shadow
+			g.setColor(TRANSPARENTBLACK);
+			g.fillRect(5 + HANDXPOS + (CARDWIDTH + 10) * i, 5 + HANDYPOS, CARDWIDTH, CARDHEIGHT);
+			
 			g.drawImage(cards[i], HANDXPOS + (CARDWIDTH + 10) * i, HANDYPOS, null);
 		}
 	}
@@ -148,14 +152,15 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			System.out.println("Cannot find " + currentWonder.getName());
 		}
 		
+		// draws shadow
+		g.fillRect(WONDERXPOS + 10, WONDERYPOS + 10, WONDERWIDTH, WONDERHEIGHT);
+		// draws wonder
 		g.drawImage(wonder, WONDERXPOS, WONDERYPOS, WONDERWIDTH, WONDERHEIGHT, null);
 		
 		// draws the stats
-		
-		
 		int i = 1;
 		int starting = WONDERYPOS + 70;
-		g.setColor(new Color(0, 0, 0, 100));
+		g.setColor(TRANSPARENTBLACK);
 		g.fillRect(WONDERXPOS, starting, 130, 120);
 		
 		g.setColor(Color.white);

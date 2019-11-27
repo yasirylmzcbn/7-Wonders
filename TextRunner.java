@@ -37,6 +37,8 @@ public class TextRunner
 				currentPlayer = state.getCurrentPlayer();
 				currentHand = state.getPlayerHands().get(currentWonder.getHand());
 	
+				printNextPlayer();
+				
 				printWonderInformation();	
 				printOneLine();	
 					
@@ -65,6 +67,13 @@ public class TextRunner
 		for (int i = 0; i < 25; i++) System.out.print("~~~~~~");
 		System.out.printf("\n%75s %d, %s %d\n", "Age", state.getAge(), "Round", state.getRound());
 		for (int i = 0; i < 25; i++) System.out.print("~~~~~~");
+		System.out.println();
+	}
+	
+	public static void printNextPlayer()
+	{
+		for (int i = 0; i < 25; i++)
+			System.out.print("<>");
 		System.out.println();
 	}
 	
@@ -99,7 +108,7 @@ public class TextRunner
 	
 	public static void printWonderInformation()
 	{
-		System.out.printf("%s; coin:%d, vp:%d, mp:%d, win:%d; loss:%d\n", currentWonder.getName(), currentWonder.getMoney(), currentWonder.getVictoryPoints(),
+		System.out.printf("%s\n coin:%d, vp:%d, mp:%d, win:%d; loss:%d\n", currentWonder.getName(), currentWonder.getMoney(), currentWonder.getVictoryPoints(),
 				currentWonder.getMilitaryPower(), currentWonder.getWins(), currentWonder.getLosses());
 	}
 	
@@ -118,28 +127,41 @@ public class TextRunner
 		{
 			s = " 'WonderAbility'(build a structure of your choice or free), ";
 		}
-		System.out.println("Type 'Play', 'Build' (wonder), 'Burn',"+s+" 'Display' (cards and other info)");
-		String option = input.next().toLowerCase();
-		switch (option) {
-		case "play":
-			currentWonder.setAction("Play");
-			handSelection();
-			break;
-		case "build":
-			currentWonder.setAction("Build");
-			build();
-			break;
-		case "burn":
-			currentWonder.setAction("Burn");
-			 burn();
-			break;
-		case "WonderAbility":
-			currentWonder.setAction("Play");
-			handSelection();
-			break;
-		case "display":
-			 display();
-			break;
+		
+		while (true)
+		{
+			System.out.println("Type 'Play', 'Build' (wonder), 'Burn',"+s+" 'Display' (cards and other info)");
+			String option = input.next().toLowerCase();
+			
+			if (option.equals("play"))
+			{
+				currentWonder.setAction("Play");
+				handSelection();
+				break;
+			}
+			else if (option.equals("build"))
+			{
+				currentWonder.setAction("Build");
+				build();
+				break;
+			}
+			else if (option.equals("burn"))
+			{
+				currentWonder.setAction("Burn");
+				burn();
+				break;
+			}
+			else if (option.equals("WonderAbility"))
+			{
+				currentWonder.setAction("Play");
+				handSelection();
+				break;
+			}
+			else if (option.equals("display"))
+			{
+				display();
+				break;
+			}
 		}
 		
 		/*
@@ -154,7 +176,7 @@ public class TextRunner
 	
 	/* IMPORTANT: selected card should only be added to played cards if the selected resources are valid
 	 * TODO:
-	 * trading cards
+	 * !!!! trading cards does not work
 	 * method might be changed so that it passes in the paramater Card, which is the selected card so that the method can be used for build wonder as well
 	 * checking for chain cards
 	 * have it remove coins when using coins to play card
@@ -276,7 +298,7 @@ public class TextRunner
 					// if it all matches (resources all valid)
 					if (needed.size() == 0)
 					{
-						System.out.println("Played card " + currentWonder.getSelectedCard());
+						System.out.println("Played card " + currentWonder.getSelectedCard().getName());
 						currentWonder.playCard(currentWonder.getSelectedCard());
 						
 						// when everything is valid
@@ -304,6 +326,7 @@ public class TextRunner
 						playerInput = -1;
 					}
 					
+
 					if(who.equals(""))
 					{
 						// checks if resources is in the array
@@ -467,7 +490,18 @@ public class TextRunner
 				}
 			}
 		}
-}
+
+		else
+		{
+			System.out.println("Played card " + currentWonder.getSelectedCard().getName());
+			currentWonder.playCard(currentWonder.getSelectedCard());
+			
+			// when everything is valid
+			ArrayList<Boolean> decision = state.getDecisionMade();
+			decision.set(state.getCurrentPlayer(), true);
+			state.setDecisionMade(decision);
+		}
+	}
 	
 	public static void trade()
 	{
@@ -481,6 +515,7 @@ public class TextRunner
 		// checks if selection is in bounds and is playable (doesn't check for resources)
 		do
 		{
+			printOneLine();
 			System.out.println("type 'quit' to quit");
 			System.out.print("Choose index of card to play: ");
 			
@@ -557,7 +592,9 @@ public class TextRunner
 				}
 				
 				// checks for out of bounds
-				if (playerInput >= 0 && playerInput <= currentHand.size() - 1) //I THINK THIS IS WRONG - ray
+
+				if (playerInput < 0 || playerInput > currentHand.size() - 1)
+
 				{
 					System.out.println("Index is out of bounds!");
 					playerInput = -1;
