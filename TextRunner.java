@@ -313,27 +313,64 @@ public class TextRunner
 		resourceSelection();
 	}
 	
-	/*
-	 * TODO
-	 * Need a resource selection screen to build wonder
-	 */
 	public static void build()
 	{
-		// not done
+		/*
+		 * Unfinished method
+		 * TODO:
+		 * -need resource selection
+		 */
 		
-		if(currentWonder.getPlayerWonders() < 3) {
-			System.out.println("Choose index of the card you want to build a wonder with");
-			Card c = currentHand.remove(input.nextInt());
-			currentWonder.buildWonder();
-			System.out.println("You used " + c.getName() + " to build Wonder #"+currentWonder.getPlayerWonders());
-			 }
-			else {
-				System.out.println("You already have all 3 wonders, please choose again");
-				optionSelection();
+		if(currentWonder.getPlayerWonders() < 3)
+		{
+			int playerInput = -1;
+			do
+			{
+				System.out.println("Type 'quit' to quit");
+				System.out.println("Choose card to build wonder with: ");
+				
+				// quits out of loop, goes back to option selection
+				String temp = input.next();
+				if (temp.equals("quit"))
+				{
+					hasQuit = true;
+					return;
+				}
+				hasQuit = false;
+				
+				// checks if input is a number
+				try
+				{
+					playerInput = Integer.parseInt(temp);
+				}
+				catch (NumberFormatException e)
+				{
+					System.out.println("Cannot convert from String to int");
+					playerInput = -1;
+				}
+				
+				// checks for out of bounds
+				if (playerInput >= 0 && playerInput <= currentHand.size() - 1)
+					if (!currentWonder.playable(currentHand.get(playerInput)))
+					{
+						System.out.println("Index is out of bounds!");
+						playerInput = -1;
+					}
 			}
+			while (playerInput < 0 || playerInput > currentHand.size() - 1);
+			
+			// removes card since buildWonder() does not take in a card for input to burn
+			Card c = currentHand.remove(playerInput);
+			System.out.println("You used " + c.getName() + " to build Wonder #"+currentWonder.getPlayerWonders());
+		}
+		else
+		{
+			System.out.println("You already have all 3 wonders, please choose again");
+			optionSelection();
+		}
 		
 		// gets resource and sets decision made to true
-		resourceSelection();
+		// resourceSelectionForWonderOrSomethingIDontKnow();
 	}
 	
 	public static void burn()
