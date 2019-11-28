@@ -314,7 +314,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				for (int i = 0; i < currentHand.size(); i++)
 				{
 					// this is the bounds for each card of index 'i'
-					// funcion is g(i) = 195x + 5, or g(i) = 5 (initial offset of card) + 10i (space between each card) + 185x (width of each card)
+					// funcion is g(i) = 195x + 5, or g(i) = 5 (initial offset of card) + 10i (space between each card) + 185i (width of each card)
 					if (e.getX() >= 195 * i + 5 && e.getX() <= 195 * i + 185 && e.getY() >= 5 && e.getY() <= 280)
 					{
 						// temporary code for debugging
