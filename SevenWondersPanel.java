@@ -24,7 +24,9 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 	private boolean mainMenu; // shows the start button
 	private boolean wonderDist; // Shows distribution of wonders graphically (What wonders are in the current game)
 	private boolean defaultView; // Shows hand, wonder, and resources
-	private boolean displayAllPlayed;
+	private boolean displayOwnPlayed;
+	private boolean displayLeftPlayed;
+	private boolean displayRightPlayed;
 	private boolean displayHalic; //might become a String later on
 	private boolean displayGraveyard; // for Halicarnassus
 	
@@ -48,8 +50,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		this.height = height;
 		mainMenu = true;
 		wonderDist = false;
-		defaultView = false;
-		
+		defaultView = false;	
 	}
 	
 	public void paint(Graphics g) 
@@ -73,7 +74,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			drawHand(g);
 			drawWonder(g);
 		}
-		if (displayAllPlayed)
+		if (displayOwnPlayed)
 		{
 			
 		}
@@ -314,12 +315,20 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				for (int i = 0; i < currentHand.size(); i++)
 				{
 					// this is the bounds for each card of index 'i'
-					// funcion is g(i) = 195x + 5, or g(i) = 5 (initial offset of card) + 10i (space between each card) + 185i (width of each card)
-					if (e.getX() >= 195 * i + 5 && e.getX() <= 195 * i + 185 && e.getY() >= 5 && e.getY() <= 280)
+					// funcion is g(i) = 190i + 5, or g(i) = 5 (initial offset of card) + 10i (space between each card) + 180i (width of each card)
+					if (e.getX() >= 190 * i + 5 && e.getX() <= 190 * i + 185 && e.getY() >= 5 && e.getY() <= 280)
 					{
-						// temporary code for debugging
-						System.out.println("Chosen card " + currentHand.get(i).getName());
-						current.setSelectedCard(currentHand.get(i));
+						// possible temporary code for debugging
+						if (!currentHand.get(i).equals(current.getSelectedCard()))
+						{
+							System.out.println("Chosen card " + currentHand.get(i).getName());
+							current.setSelectedCard(currentHand.get(i));
+						}
+						else
+						{
+							System.out.println("Deselected card " + currentHand.get(i).getName());
+							current.setSelectedCard(null);
+						}
 					}
 					
 				}
