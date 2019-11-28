@@ -267,6 +267,13 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		g.drawString(currentWonder.getLosses() + " Losses", WONDERXPOS + 5, starting + (i++ * 25));
 	}
 	
+	//draws resource selection
+	//Add check to selected resources
+	public void drawResourceSelection(Graphics g)
+	{
+		
+	}
+	
 	public void mousePressed(MouseEvent e)
 	{
 		System.out.println(e.getX() + ", " + e.getY()); // for debugging and testing
