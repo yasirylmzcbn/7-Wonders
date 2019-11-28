@@ -110,10 +110,10 @@ public class GameState
 	
 	public ArrayList<Integer> finalPoints()
 	{
-		ArrayList<Integer> points = new ArrayList<Integer>(this.numberOfPlayers);
+		ArrayList<Integer> points = new ArrayList<Integer>(wonders.size());
 		int totalPoints;
 		// each player
-		for (int i = 0; i < this.numberOfPlayers; i++)
+		for (int i = 0; i < wonders.size(); i++)
 		{
 			totalPoints = 0;
 			Wonder currentWonder = wonders.get(i);
@@ -137,21 +137,75 @@ public class GameState
 			}
 			
 			// points from scientific structures
-			int each;
-				each = currentWonder.getTechCardPoints().get("tablet");
-					totalPoints += each*each;
-				each = currentWonder.getTechCardPoints().get("gear");
-					totalPoints += each*each;
-				each = currentWonder.getTechCardPoints().get("compass");
-					totalPoints += each*each;
-			
-		if(currentWonder.getTechCardPoints().get("tablet") >= 1
-			&& currentWonder.getTechCardPoints().get("gear") >= 1
-			&& currentWonder.getTechCardPoints().get("compass") >= 1) { 
-		int min = Math.min(currentWonder.getTechCardPoints().get("tablet"), currentWonder.getTechCardPoints().get("gear"));
-		min = Math.min(min, currentWonder.getTechCardPoints().get("compass"));
-			totalPoints += min*7;
+			boolean hasBabylon = wonders.get(i).getName().equals("The Hanging Gardens of Babylon")&&wonders.get(i).getPlayerWonders()>=2;
+			boolean hasScientist = false;
+			ArrayList<Card> cds = new ArrayList<Card>();
+			cds.addAll(wonders.get(i).getCardsPlayed().get("purple"));
+			for(int c = 0; i<cds.size();c++)
+			{
+				if(cds.get(c).getName().equals("Scientists Guild"))
+				{
+					hasScientist = true;
 				}
+			}
+			int sum = 0;
+			int origTab = currentWonder.getTechCardPoints().get("tablet");
+			int origGear = currentWonder.getTechCardPoints().get("gear");
+			int origComp = currentWonder.getTechCardPoints().get("compass");
+			
+			if(hasBabylon&&hasScientist)
+			{
+				
+				
+				if(calcTech(origTab+2,origGear,origComp)>sum)//2 tabs
+				{
+					sum = calcTech(origTab+2,origGear,origComp);
+				}
+				if(calcTech(origTab,origGear+2,origComp)>sum)//2 gears
+				{
+					sum = calcTech(origTab,origGear+2,origComp);
+				}
+				if(calcTech(origTab,origGear,origComp+2)>sum)//2 compass
+				{
+					sum = calcTech(origTab,origGear,origComp+2);
+				}
+				if(calcTech(origTab+1,origGear+1,origComp)>sum)//1 tab + 1 gear
+				{
+					sum = calcTech(origTab+1,origGear+1,origComp);
+				}
+				if(calcTech(origTab+1,origGear,origComp+1)>sum)//1 tab + 1 compass
+				{
+					sum = calcTech(origTab+1,origGear,origComp+1);
+				}
+				if(calcTech(origTab,origGear+1,origComp+1)>sum)//1 compass + 1 gear
+				{
+					sum = calcTech(origTab,origGear+1,origComp+1);
+				}
+				totalPoints+=sum;
+			}
+			else if(hasBabylon||hasScientist)
+			{
+				if(calcTech(origTab+1,origGear,origComp)>sum)//1 tab
+				{
+					sum = calcTech(origTab+1,origGear,origComp);
+				}
+				if(calcTech(origTab,origGear+1,origComp)>sum)//1 gear
+				{
+					sum = calcTech(origTab,origGear+1,origComp);
+				}
+				if(calcTech(origTab,origGear,origComp+1)>sum)//1 compass
+				{
+					sum = calcTech(origTab,origGear,origComp+1);
+				}
+				totalPoints+=sum;
+			}
+			else
+			{
+				totalPoints = calcTech(origTab, origGear, origComp);
+			}
+				
+			
+				
 			// points from commercial structures
 			ArrayList<Card> crds = new ArrayList<Card>();
 			crds.addAll(currentWonder.getCardsPlayed().get("yellow"));
@@ -218,6 +272,26 @@ public class GameState
 			points.add(totalPoints);
 		}
 		return points;
+	}
+	
+	public int calcTech(int tab, int gear, int compass)
+	{
+		int sum = 0;
+		int each;
+			//each = currentWonder.getTechCardPoints().get("tablet");
+		sum += tab*tab;
+			//each = currentWonder.getTechCardPoints().get("gear");
+		sum += gear*gear;
+			//each = currentWonder.getTechCardPoints().get("compass");
+		sum += compass*compass;
+		
+		if(tab >= 1&& gear >= 1&& compass >= 1) 
+		{ 
+			int min = Math.min(tab, gear);
+			min = Math.min(min, compass);
+				sum += min*7;
+		}	
+		return sum;
 	}
 	
 	/*
