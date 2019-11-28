@@ -101,6 +101,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		}
 	}
 	
+	// draws the image in the background
 	public void drawBackground(Graphics g)
 	{
 		try
@@ -139,11 +140,13 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			}
 		}
 		
+		// position of where the wonders will be draws
 		int xpos = 677;
 		int ypos = 180;
 		
 		g.setColor(TRANSPARENTBLACK);
 		
+		// draws the wonders
 		for (int i = 0; i < wonders.length; i++)
 		{
 			// draws shadows for wonder boards
@@ -181,10 +184,17 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		// hand of current player
 		ArrayList<Card> currentHand = game.getPlayerHands().get(game.getWonders().get(game.getCurrentPlayer()).getHand());
 		
+		// selected card will be lowered graphically
+		int selected = -1;
+		
 		// Card names with no spaces and to lower case in order to match image file names
 		ArrayList<String> playerHandNames = new ArrayList<String>();
 		for (int i = 0; i < currentHand.size(); i++)
+		{
+			if (currentHand.get(i).equals(game.getWonders().get(game.getCurrentPlayer()).getSelectedCard()))
+				selected = i;
 			playerHandNames.add(currentHand.get(i).getName().replace(" ", "").toLowerCase());
+		}
 		
 		// assign card images
 		BufferedImage cards[] = new BufferedImage[playerHandNames.size()];
@@ -200,11 +210,24 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		// draw card images
 		for (int i = 0; i < cards.length; i++)
 		{
-			// draws shadow
-			g.setColor(TRANSPARENTBLACK);
-			g.fillRect(5 + HANDXPOS + (CARDWIDTH + 10) * i, 5 + HANDYPOS, CARDWIDTH, CARDHEIGHT);
-			
-			g.drawImage(cards[i], HANDXPOS + (CARDWIDTH + 10) * i, HANDYPOS, null);
+			if (i != selected)
+			{
+				// draws shadow
+				g.setColor(TRANSPARENTBLACK);
+				g.fillRect(5 + HANDXPOS + (CARDWIDTH + 10) * i, 5 + HANDYPOS, CARDWIDTH, CARDHEIGHT);
+				
+				
+				g.drawImage(cards[i], HANDXPOS + (CARDWIDTH + 10) * i, HANDYPOS, null);
+			}
+			else
+			{
+				// draws shadow
+				g.setColor(TRANSPARENTBLACK);
+				g.fillRect(5 + HANDXPOS + (CARDWIDTH + 10) * i, 5 + HANDYPOS + 20, CARDWIDTH, CARDHEIGHT);
+				
+				
+				g.drawImage(cards[i], HANDXPOS + (CARDWIDTH + 10) * i, HANDYPOS + 20, null);
+			}
 		}
 	}
 	
@@ -246,7 +269,8 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 	
 	public void mousePressed(MouseEvent e)
 	{
-		System.out.println(e.getX() + ", " + e.getY());
+		System.out.println(e.getX() + ", " + e.getY()); // for debugging and testing
+		
 		if(mainMenu)
 		{
 			if(e.getX()>=805&&e.getX()<=1060&&e.getY()>=750&&e.getY()<=835) //IF QUIT
@@ -257,7 +281,6 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			{
 				mainMenu = false;
 				wonderDist = true;
-				repaint();
 			}
 		}
 		if (wonderDist)
@@ -270,13 +293,32 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			{
 				wonderDist = true;
 				defaultView = true;
-				repaint();
 			}
 		}
+		
 		if (defaultView)
 		{
-			
+			// if selected a card in hand
+			if (e.getX() >= 5 && e.getX() <= 1325 && e.getY() >= 5 && e.getY() <= 280)
+			{
+				// goes through each card in the hand to check for the click
+				Wonder current = game.getWonders().get(game.getCurrentPlayer());
+				ArrayList<Card> currentHand = game.getPlayerHands().get(current.getHand());
+				for (int i = 0; i < currentHand.size(); i++)
+				{
+					// this is the bounds for each card of index 'i'
+					// funcion is g(i) = 195x + 5, or g(i) = 5 (initial offset of card) + 10i (space between each card) + 185x (width of each card)
+					if (e.getX() >= 195 * i + 5 && e.getX() <= 195 * i + 185 && e.getY() >= 5 && e.getY() <= 280)
+					{
+						// temporary code for debugging
+						System.out.println("Chosen card " + currentHand.get(i).getName());
+						current.setSelectedCard(currentHand.get(i));
+					}
+					
+				}
+			}
 		}
+		repaint();
 	}
 	
 	public void mouseClicked(MouseEvent e) {}
