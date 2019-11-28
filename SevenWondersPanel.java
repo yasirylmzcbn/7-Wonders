@@ -73,6 +73,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			drawBackground(g);
 			drawHand(g);
 			drawWonder(g);
+			drawRoundInfo(g);
 		}
 		if (displayOwnPlayed)
 		{
@@ -274,6 +275,11 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		g.drawString(currentWonder.getMilitaryPower() + " Military Power", WONDERXPOS + 5, starting + (i++ * 25));
 		g.drawString(currentWonder.getWins() + " Wins", WONDERXPOS + 5, starting + (i++ * 25));
 		g.drawString(currentWonder.getLosses() + " Losses", WONDERXPOS + 5, starting + (i++ * 25));
+	}
+	
+	public void drawRoundInfo(Graphics g)
+	{
+		
 	}
 	
 	//draws resource selection
