@@ -1,6 +1,8 @@
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -17,13 +19,14 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 	public static final int CARDWIDTH = 180, CARDHEIGHT = 275;
 	public static final int WONDERXPOS = 1120, WONDERYPOS = 720;
 	public static final int WONDERWIDTH = 756, WONDERHEIGHT = 313; // original image size is 605, 250
-	public static final Color TRANSPARENTBLACK = new Color(0, 0, 0, 150);
+	public static final Color TRANSPARENTBLACK = new Color(0, 0, 0, 150); // used for shadows and to contrast against background for text
 	
-	private boolean GameLobby;
-	private boolean wonderDist;
+	private boolean mainMenu; // shows the start button
+	private boolean wonderDist; // Shows distribution of wonders graphically (What wonders are in the current game)
+	private boolean defaultView; // Shows hand, wonder, and resources
 	private boolean displayAllPlayed;
 	private boolean displayHalic; //might become a String later on
-	private boolean displayGraveyard;
+	private boolean displayGraveyard; // for Halicarnassus
 	
 	private int[] posX;
 	private int width;
@@ -32,8 +35,6 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 	private GameState game;
 	
 	private String displayOtherWonder;
-	
-	
 	
 	public SevenWondersPanel(int width, int height)
 	{
@@ -45,18 +46,28 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		game = new GameState();
 		this.width = width;
 		this.height = height;
-		GameLobby = true;
+		mainMenu = true;
 		wonderDist = false;
+		defaultView = false;
 		
 	}
 	
 	public void paint(Graphics g) 
 	{
-		if(GameLobby)
+		// Anti-aliases text so that it is smooth
+		((Graphics2D) g).setRenderingHint(
+		        RenderingHints.KEY_TEXT_ANTIALIASING,
+		        RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+		
+		if(mainMenu)
 		{
 			drawMainMenu(g);
 		}
 		if(wonderDist)
+		{
+			drawWonderDist(g);
+		}
+		if (defaultView)
 		{
 			drawBackground(g);
 			drawHand(g);
@@ -101,6 +112,68 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		{
 			System.out.println("Cannot find background image!");
 		}
+	}
+	
+	// Draws which wonders will be in the current game, graphically
+	public void drawWonderDist(Graphics g)
+	{
+		drawBackground(g);
+
+		// all chosen wonders
+		Wonder[] chosenWonders = new Wonder[game.getWonders().size()];
+		for (int i = 0; i < chosenWonders.length; i++)
+			chosenWonders[i] = game.getWonders().get(i);
+		
+		BufferedImage wonders[] = new BufferedImage[chosenWonders.length];
+
+		// gets images for all wonders
+		for (int i = 0; i < wonders.length; i++)
+		{
+			try
+			{
+				wonders[i] = ImageIO.read(new File("src/images/wonders/" + chosenWonders[i].getName() + ".png"));
+			}
+			catch (IOException e)
+			{
+				System.out.println("Cannot find " + chosenWonders[i].getName());
+			}
+		}
+		
+		int xpos = 677;
+		int ypos = 180;
+		
+		g.setColor(TRANSPARENTBLACK);
+		
+		for (int i = 0; i < wonders.length; i++)
+		{
+			// draws shadows for wonder boards
+			g.fillRect( xpos + 10, 10 + ypos + (WONDERHEIGHT - 20) * i, (int)(0.75 * WONDERWIDTH), (int)(0.75 * WONDERHEIGHT));
+			// draws wonders themselves
+			g.drawImage(wonders[i], xpos, ypos + (WONDERHEIGHT - 20) * i, (int)(0.75 * WONDERWIDTH), (int)(0.75 * WONDERHEIGHT), null);
+		}
+		
+		// draws text "wonder distribution"
+		g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 64));
+		g.setColor(TRANSPARENTBLACK);
+		g.drawString("WONDER DISTRIBUTION", 633, 123);
+		g.setColor(Color.white);
+		g.drawString("WONDER DISTRIBUTION", 630, 120);
+		
+		// draws text "continue ->"
+		g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 72));
+		g.setColor(TRANSPARENTBLACK);
+		g.drawString("CONTINUE ->", 1333, 618);
+		g.setColor(Color.white);
+		g.drawString("CONTINUE ->", 1330, 615);
+		
+		// draws text "<- quit"
+		g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 72));
+		g.setColor(TRANSPARENTBLACK);
+		g.drawString("<- QUIT", 323, 618);
+		g.setColor(Color.white);
+		g.drawString("<- QUIT", 320, 615);
+		
+		
 	}
 	
 	public void drawHand(Graphics g)
@@ -174,20 +247,35 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 	public void mousePressed(MouseEvent e)
 	{
 		System.out.println(e.getX() + ", " + e.getY());
-		if(GameLobby)
+		if(mainMenu)
 		{
 			if(e.getX()>=805&&e.getX()<=1060&&e.getY()>=750&&e.getY()<=835) //IF QUIT
 			{
-				/*JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
-				frame.dispose();*/
 				System.exit(0);
 			}
 			if(e.getX()>=785&&e.getX()<=1090&&e.getY()>=595&&e.getY()<=685) //IF PLAY
 			{
-				GameLobby = false;
+				mainMenu = false;
 				wonderDist = true;
 				repaint();
 			}
+		}
+		if (wonderDist)
+		{
+			if(e.getX()>=320&&e.getX()<=560&&e.getY()>=550&&e.getY()<=630) //IF QUIT
+			{
+				System.exit(0);
+			}
+			if(e.getX()>=1320&&e.getX()<=1765&&e.getY()>=555&&e.getY()<=625) //IF CONTINUE
+			{
+				wonderDist = true;
+				defaultView = true;
+				repaint();
+			}
+		}
+		if (defaultView)
+		{
+			
 		}
 	}
 	
