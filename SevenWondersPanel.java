@@ -76,7 +76,15 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		}
 		if (displayOwnPlayed)
 		{
-			
+			drawBackground(g);
+		}
+		if (displayLeftPlayed)
+		{
+			drawBackground(g);
+		}
+		if (displayRightPlayed)
+		{
+			drawBackground(g);
 		}
 		if (displayHalic)
 		{
