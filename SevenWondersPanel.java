@@ -279,7 +279,45 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 	
 	public void drawRoundInfo(Graphics g)
 	{
+		// 7wonders logo, card rotation, round num, age card
+		BufferedImage logo = null, rotation = null, age = null;
 		
+		try
+		{
+			logo = ImageIO.read(new File("src/imges/logo.png"));
+		}
+		catch (IOException e)
+		{
+			
+		}
+		/*
+		try
+		{
+			wonder = ImageIO.read(new File("src/images/wonders/" + currentWonder.getName() + ".png"));
+		}
+		catch (IOException e)
+		{
+			System.out.println("Cannot find " + currentWonder.getName());
+		}
+		
+		// draws shadow
+		g.fillRect(WONDERXPOS + 10, WONDERYPOS + 10, WONDERWIDTH, WONDERHEIGHT);
+		// draws wonder
+		g.drawImage(wonder, WONDERXPOS, WONDERYPOS, WONDERWIDTH, WONDERHEIGHT, null);
+		
+		// draws the stats
+		int i = 1;
+		int starting = WONDERYPOS + 70;
+		g.setColor(TRANSPARENTBLACK);
+		g.fillRect(WONDERXPOS, starting, 130, 120);
+		
+		g.setColor(Color.white);
+		g.setFont(new Font("TimesRoman", Font.BOLD, 16));
+		g.drawString(currentWonder.getMoney() + " Coins", WONDERXPOS + 5, starting + (i++ * 25));
+		g.drawString(currentWonder.getMilitaryPower() + " Military Power", WONDERXPOS + 5, starting + (i++ * 25));
+		g.drawString(currentWonder.getWins() + " Wins", WONDERXPOS + 5, starting + (i++ * 25));
+		g.drawString(currentWonder.getLosses() + " Losses", WONDERXPOS + 5, starting + (i++ * 25));
+		*/
 	}
 	
 	//draws resource selection
