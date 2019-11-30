@@ -233,6 +233,12 @@ public class Wonder {
 			int quantity = techCardPoints.get(x.getTechGiven());
 			techCardPoints.put(x.getTechGiven(), quantity++);
 		}
+		if (c.getColor().equals("red"))
+		{
+			MilitaryCard x = (MilitaryCard) c;
+			int power = getMilitaryPower() + x.getMilitaryPower();
+			setMilitaryPower(power);
+		}
 
 	}
 	
@@ -245,7 +251,7 @@ public class Wonder {
 		crds.addAll(cardsPlayed.get("yellow"));
 		for(int i = 0 ; i<crds.size(); i++)
 		{
-			if(crds.get(i).equals("Forum")||crds.get(i).equals("Caravansery"))
+			if(crds.get(i).getName().equals("Forum")||crds.get(i).getName().equals("Caravansery"))
 			{
 				list.add(((CommercialCard)(crds.get(i))).getId());
 			}
