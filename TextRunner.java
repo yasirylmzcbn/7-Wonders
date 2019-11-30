@@ -558,6 +558,10 @@ public class TextRunner
 		else
 		{
 			System.out.println("Played card " + currentWonder.getSelectedCard().getName());
+
+			for (int i = 0; i < currentHand.size(); i++)
+				if (currentHand.get(i).getName().equals(currentWonder.getSelectedCard().getName()))
+					currentHand.remove(i);
 			//currentWonder.playCard(currentWonder.getSelectedCard());
 			
 			// when everything is valid
