@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -19,7 +20,14 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 	public static final int CARDWIDTH = 180, CARDHEIGHT = 275;
 	public static final int WONDERXPOS = 1120, WONDERYPOS = 720;
 	public static final int WONDERWIDTH = 756, WONDERHEIGHT = 313; // original image size is 605, 250
+	
 	public static final Color TRANSPARENTBLACK = new Color(0, 0, 0, 150); // used for shadows and to contrast against background for text
+	public static final Color GREEN = new Color(198, 227, 203),
+			BLUE = new Color(194, 220, 249),
+			GREY = new Color(229, 229, 229), //54, 126, 209
+			YELLOW = new Color(248, 224, 158),
+			RED = new Color(255, 208, 208),
+			BROWN = new Color(207, 178, 172);
 	
 	private boolean mainMenu; // shows the start button
 	private boolean wonderDist; // Shows distribution of wonders graphically (What wonders are in the current game)
@@ -50,7 +58,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		this.height = height;
 		mainMenu = true;
 		wonderDist = false;
-		defaultView = false;	
+		defaultView = false;
 	}
 	
 	public void paint(Graphics g) 
@@ -74,6 +82,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			drawHand(g);
 			drawWonder(g);
 			drawRoundInfo(g);
+			drawResourceSelection(g);
 		}
 		if (displayOwnPlayed)
 		{
@@ -259,6 +268,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		}
 		
 		// draws shadow
+		g.setColor(TRANSPARENTBLACK);
 		g.fillRect(WONDERXPOS + 10, WONDERYPOS + 10, WONDERWIDTH, WONDERHEIGHT);
 		// draws wonder
 		g.drawImage(wonder, WONDERXPOS, WONDERYPOS, WONDERWIDTH, WONDERHEIGHT, null);
@@ -275,6 +285,55 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		g.drawString(currentWonder.getMilitaryPower() + " Military Power", WONDERXPOS + 5, starting + (i++ * 25));
 		g.drawString(currentWonder.getWins() + " Wins", WONDERXPOS + 5, starting + (i++ * 25));
 		g.drawString(currentWonder.getLosses() + " Losses", WONDERXPOS + 5, starting + (i++ * 25));
+	}
+	
+	public void drawResourceSelection(Graphics g)
+	{
+		try
+		{
+			// resource name (including coin) and their images
+			HashMap<String, BufferedImage> resources = new HashMap<String, BufferedImage>();
+			File imageFiles[] = new File("src/images/resources/").listFiles();
+			
+			// imports resource images
+			for (int i = 0; i < imageFiles.length; i++)
+				resources.put(imageFiles[i].getName().substring(0, imageFiles[i].getName().indexOf(".png")), ImageIO.read(imageFiles[i]));
+			
+			
+			// Container that holds the resource images
+			
+			// shadow of container
+			g.setColor(TRANSPARENTBLACK);
+			g.fillRect(40, 460, 1025, 580);
+			
+			// sets colour of container based on the currently selected card's colour
+			Card col = game.getWonders().get(game.getCurrentPlayer()).getSelectedCard();
+			if (col != null)
+			{
+				if (col.getColor().equals("green"))
+					g.setColor(GREEN);
+				else if (col.getColor().equals("blue"))
+					g.setColor(BLUE);
+				else if (col.getColor().equals("silver"))
+					g.setColor(GREY);
+				else if (col.getColor().equals("yellow"))
+					g.setColor(YELLOW);
+				else if (col.getColor().equals("red"))
+					g.setColor(RED);
+				else if (col.getColor().equals("brown"))
+					g.setColor(BROWN);
+				else
+					g.setColor(new Color(255, 245, 222));
+			}
+			else
+				g.setColor(new Color(255, 245, 222));
+			g.fillRect(30, 450, 1025, 580);
+			
+		}
+		catch (IOException e)
+		{
+			System.out.println("Cannot find icons!");
+		}
 	}
 	
 	public void drawRoundInfo(Graphics g)
@@ -318,13 +377,6 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		g.drawString(currentWonder.getWins() + " Wins", WONDERXPOS + 5, starting + (i++ * 25));
 		g.drawString(currentWonder.getLosses() + " Losses", WONDERXPOS + 5, starting + (i++ * 25));
 		*/
-	}
-	
-	//draws resource selection
-	//Add check to selected resources
-	public void drawResourceSelection(Graphics g)
-	{
-		
 	}
 	
 	public void mousePressed(MouseEvent e)
@@ -386,6 +438,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				}
 			}
 		}
+		
 		repaint();
 	}
 	
