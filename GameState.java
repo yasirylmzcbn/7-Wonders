@@ -454,7 +454,7 @@ public class GameState
 	{
 		round++;
 		rotateHands();
-		if(round == 6)
+		if(round == 7)
 		{
 			for(int i = 0; i<playerHands.size();i++)
 			{
