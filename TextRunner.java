@@ -234,8 +234,8 @@ public class TextRunner
 				int LeftBrownCost = 2;//^*left
 				
 
-				String brownR = "wood stone clay ore";
-				String silverR = "paper cloth glass";
+				String brownR = "wood-Selected stone-Selected clay-Selected ore-Selected";
+                String silverR = "paper-Selected cloth-Selected glass-Selected";
 				
 				ArrayList<Card> crds = new ArrayList<Card>();
 				crds.addAll(currentWonder.getCardsPlayed().get("yellow"));
@@ -620,13 +620,6 @@ public class TextRunner
 	
 	public static void build()
 	{
-		/*
-		 * Unfinished method
-		 * TODO:
-		 * -need resource selection
-		 */
-		
-
 		if(currentWonder.getPlayerWonders() < 3)
 		{
 			int playerInput = -1;
@@ -708,8 +701,8 @@ public class TextRunner
 					int RightBrownCost = 2;// cost for trading for a brown card resource to the right
 					int LeftBrownCost = 2;//^*left
 					
-					String brownR = "wood stone clay ore";
-					String silverR = "paper cloth glass";
+					String brownR = "wood-Selected stone-Selected clay-Selected ore-Selected";
+                    String silverR = "paper-Selected cloth-Selected glass-Selected";
 					
 					
 					ArrayList<Card> crds = new ArrayList<Card>();
