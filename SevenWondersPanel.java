@@ -329,6 +329,15 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				g.setColor(new Color(255, 245, 222));
 			g.fillRect(30, 450, 1025, 580);
 			
+			BufferedImage confirm = ImageIO.read(new File("src/images/Confirm.png"));
+			g.drawImage(confirm, 905, 970, 150, 90,null);
+			
+			BufferedImage burn = ImageIO.read(new File("src/images/burn.png"));
+			g.drawImage(burn, 905, 450, 150, 90,null);
+			
+			BufferedImage build = ImageIO.read(new File("src/images/build.png"));
+			g.drawImage(build, 30, 450, 150, 90,null);
+			
 		}
 		catch (IOException e)
 		{
