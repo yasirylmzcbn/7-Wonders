@@ -329,6 +329,25 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				g.setColor(new Color(255, 245, 222));
 			g.fillRect(30, 450, 1025, 580);
 			
+			
+			// left resources
+			int startingX = 35, startingY = 505, space = 25;
+			ArrayList<String> leftResources = game.getLeftWonder(game.getCurrentPlayer()).getCardResources();
+			for (int i = 0; i < leftResources.size(); i++)
+			{
+				
+				/*if (i != selected)
+				{
+					// draws shadow
+					g.setColor(TRANSPARENTBLACK);
+					g.fillRect(5 + HANDXPOS + (CARDWIDTH + 10) * i, 5 + HANDYPOS, CARDWIDTH, CARDHEIGHT);
+					
+					
+					g.drawImage(cards[i], HANDXPOS + (CARDWIDTH + 10) * i, HANDYPOS, null);
+				}*/
+				g.drawImage(resources.get(leftResources.get(i)), startingX, startingY + (space) * i, null);
+			}
+			
 		}
 		catch (IOException e)
 		{
