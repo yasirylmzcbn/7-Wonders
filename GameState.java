@@ -487,15 +487,16 @@ public class GameState
 					for (int i = 0; i < numberOfPlayers + 2; i++)
 						temp.add(guilds.get(i));
 			}
-			else
-			{
-			passOutHands(); //NEED THIS
-			}
+			
 			round = 1; //Resets Round
 			// ends game
 			if(age == 4)
 			{
 				endOfGame = true;
+			}
+			else
+			{
+				passOutHands(); //NEED THIS
 			}
 			
 			usedOlympia = false;
