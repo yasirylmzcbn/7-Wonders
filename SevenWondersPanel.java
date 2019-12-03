@@ -342,6 +342,9 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 	{
 		try
 		{
+			g.setColor(Color.WHITE);
+			g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 48));
+			g.drawString("Resource Selection", 350, 370);
 			// resource name (including coin) and their images
 			HashMap<String, BufferedImage> resources = new HashMap<String, BufferedImage>();
 			File imageFiles[] = new File("src/images/resources/").listFiles();
@@ -407,7 +410,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				}
 			}
 			// left resources
-			int startingX = 75, startingY = 505, space = 50;
+			int startingX = 75, startingY = 470, space = 40;
 			ArrayList<String> leftResources = game.getLeftWonder(game.getCurrentPlayer()).getCardResources();
 			for (int i = 0; i < leftResources.size(); i++)
 			{
@@ -420,8 +423,17 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 						g.drawImage(resources.get("coin"), startingX - 25, startingY + (25) * j, 25, 25, null);
 					
 			}
+			// temporary test
+			/*for (int i = 0; i < 15; i++)
+			{
+				g.drawImage(resources.get("clay"), startingX, startingY + (space + 10) * i, space, space, null);
+				g.drawImage(resources.get("clay"), space + startingX, startingY + (space + 10) * i, space, space, null);
+				g.drawImage(resources.get("clay"), 2*space +startingX, startingY + (space + 10) * i, space, space, null);
+				g.drawImage(resources.get("clay"), 3*space +startingX, startingY + (space + 10) * i, space, space, null);
+					
+			}*/
 			// own resources
-			startingX = 415; startingY = 505;
+			startingX = 415;
 			ArrayList<String> ownResources = game.getWonders().get(game.getCurrentPlayer()).getAllPlayerResources();
 			for (int i = 0; i < ownResources.size(); i++)
 			{
@@ -437,7 +449,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			}
 				
 			// right resources
-			startingX = 750; startingY = 505;
+			startingX = 750;
 			ArrayList<String> rightResources = game.getRightWonder(game.getCurrentPlayer()).getCardResources();
 			for (int i = 0; i < rightResources.size(); i++)
 			{
@@ -451,6 +463,14 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 					
 			}
 			
+			// labels for left, own, right resources
+			g.setColor(Color.WHITE);
+			g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 36));
+			g.drawString("Your resources", 425, 445);
+			g.drawString("Left resources", 30, 445);
+			g.drawString("Right resources", 835, 445);
+			
+			
 			// cancel button
 			g.setColor(new Color(191, 57, 57));
 			g.fillRect(30, 990, 210, 40);
@@ -462,7 +482,6 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			g.setColor(new Color(95, 184, 119));
 			g.fillRect(845, 990, 210, 40);
 			g.setColor(Color.WHITE);
-			g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 32));
 			g.drawString("CONFIRM", 880, 1020);
 			
 		}
@@ -616,7 +635,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			else
 			{
 				// cancel button // TODO what if they have selected a few resources? how would it reset that?
-				if (e.getX() <= 240 && e.getX() >= 30 && e.getY() <= 1030 && e.getY() >= 210)
+				if (e.getX() <= 240 && e.getX() >= 30 && e.getY() <= 1030 && e.getY() >= 990)
 				{
 					optionSelection = true;
 				}
