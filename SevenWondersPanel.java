@@ -433,7 +433,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			for (int i = 0; i < ownResources.size(); i++)
 			{
 				if (ownResources.get(i).equals("coin"))
-					g.drawImage(resources.get(ownResources.get(i)), startingX + 225, startingY + (space + 10) * pos, space, space, null);
+					g.drawImage(resources.get(ownResources.get(i)), startingX + 225, startingY + (space + 2) * pos++, space, space, null);
 			}
 				
 			// right resources
