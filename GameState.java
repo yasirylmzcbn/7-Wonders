@@ -40,7 +40,7 @@ public class GameState
 	private ArrayList<Wonder> wonders;
 	private ArrayList<ArrayList<Card>> playerHands;
 	private HashMap<Integer, ArrayList<Card>> deck; // Integer=age, ArrayList=Cards themselves
-	
+		//0,1,2 not 123
 	private boolean halic;
 	private boolean usedOlympia;
 
