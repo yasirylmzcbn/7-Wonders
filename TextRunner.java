@@ -68,6 +68,7 @@ public class TextRunner
 			}
 			state.nextRound();
 		}
+		System.out.println(state.whoWon());
 	}
 
 	/*
