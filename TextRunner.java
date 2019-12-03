@@ -203,6 +203,8 @@ public class TextRunner
 	 */
 	public static void resourceSelection()
 	{
+		int totalCost = 0;
+		
 		// Shows every resource needed to build the card, including the coins
 		System.out.println("Cost to build " + currentWonder.getSelectedCard().getName() + ": " + currentWonder.getSelectedCard().getCost());
 		
@@ -782,14 +784,20 @@ public class TextRunner
 						
 						state.setSelectedResources(selected);
 						ArrayList<String> needed = new ArrayList<String>(currentWonder.nextWonder().getCost());
-
+						for(int i = 0; i < state.getSelectedResources().size(); i++)
+							
 						Collections.sort(needed);
 						Collections.sort(selected);
 						if(needed.equals(selected)) 
 						{
 
-							System.out.println("Used card " + currentWonder.getSelectedCard().getName() + " to build wonder " + (currentWonder.getPlayerWonders() + 1));
-							//currentWonder.playCard(currentWonder.getSelectedCard());
+							System.out.println("Used card " + currentWonder.getSelectedCard().getName() + " to build wonder #" + (currentWonder.getPlayerWonders() + 1));
+//							currentWonder.playCard(currentWonder.getSelectedCard());
+							
+							// remove the card used to build wonder
+							for (int i = 0; i < currentHand.size(); i++)
+								if (currentHand.get(i).getName().equals(currentWonder.getSelectedCard().getName()))
+									currentHand.remove(i);
 							
 							// when everything is valid
 							ArrayList<Boolean> decision = state.getDecisionMade();
