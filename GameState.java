@@ -469,10 +469,10 @@ public class GameState
 			if (age == 3)
 			{
 				ArrayList<Card> guilds = new ArrayList<Card>();
-				ArrayList<Card> temp = deck.get(age);
+				ArrayList<Card> temp = deck.get(age-1);
 				
 				// puts all purple cards in guilds
-				for (int i = 0; i < deck.get(age).size(); i++)
+				for (int i = 0; i < deck.get(age-1).size(); i++)
 				{
 					Card tempCard = temp.get(i);
 					if (tempCard.getColor().equals("purple"))
