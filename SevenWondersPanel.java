@@ -31,6 +31,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 	
 	private boolean mainMenu; // shows the start button
 	private boolean wonderDist; // Shows distribution of wonders graphically (What wonders are in the current game)
+	private boolean optionSelection; // allows player to choose to play, build, burn, or use wonder ability
 	private boolean defaultView; // Shows hand, wonder, and resources
 	private boolean displayOwnPlayed;
 	private boolean displayLeftPlayed;
@@ -59,6 +60,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		mainMenu = true;
 		wonderDist = false;
 		defaultView = false;
+		optionSelection = false;
 	}
 	
 	public void paint(Graphics g) 
@@ -82,7 +84,10 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			drawHand(g);
 			drawWonder(g);
 			drawRoundInfo(g);
-			drawResourceSelection(g);
+			if (optionSelection)
+				drawOptionSelection(g);
+			else
+				drawResourceSelection(g);
 		}
 		if (displayOwnPlayed)
 		{
@@ -287,6 +292,52 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		g.drawString(currentWonder.getLosses() + " Losses", WONDERXPOS + 5, starting + (i++ * 25));
 	}
 	
+	public void drawOptionSelection(Graphics g)
+	{
+		// Container that holds text
+		
+		// shadow of container
+		g.setColor(TRANSPARENTBLACK);
+		g.fillRect(40, 460, 1025, 580);
+		
+		// sets colour of container based on the currently selected card's colour
+		Card col = game.getWonders().get(game.getCurrentPlayer()).getSelectedCard();
+		if (col != null)
+		{
+			if (col.getColor().equals("green"))
+				g.setColor(GREEN);
+			else if (col.getColor().equals("blue"))
+				g.setColor(BLUE);
+			else if (col.getColor().equals("silver"))
+				g.setColor(GREY);
+			else if (col.getColor().equals("yellow"))
+				g.setColor(YELLOW);
+			else if (col.getColor().equals("red"))
+				g.setColor(RED);
+			else if (col.getColor().equals("brown"))
+				g.setColor(BROWN);
+			else
+				g.setColor(new Color(255, 245, 222));
+		}
+		else
+			g.setColor(new Color(255, 245, 222));
+		g.fillRect(30, 450, 1025, 580);
+		
+		
+		g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 48));
+		g.setColor(Color.BLACK);
+		g.drawString("CHOOSE YOUR ACTION", 280, 590);
+		g.drawString("Play", 495, 660);
+		g.drawString("Build", 485, 740);
+		g.drawString("Burn", 495, 820);
+		if (game.isHalic() || game.canUseOlympia())
+			g.drawString("Ability", 475, 900);
+	}
+	
+	/* TODO
+	 * needs cancel and confirm button
+	 * need to be able to select resource
+	 */
 	public void drawResourceSelection(Graphics g)
 	{
 		try
@@ -329,23 +380,75 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				g.setColor(new Color(255, 245, 222));
 			g.fillRect(30, 450, 1025, 580);
 			
+			// drawing the coins
+			int SilverCost = 2; // cost of trading for a silver card resource
+			int RightBrownCost = 2;// cost for trading for a brown card resource to the right
+			int LeftBrownCost = 2;//^*left
 			
+			// TODO-needed?
+			String brownR = "wood-Selected stone-Selected clay-Selected ore-Selected";
+            String silverR = "paper-Selected cloth-Selected glass-Selected";
+			
+			ArrayList<Card> crds = new ArrayList<Card>();
+			crds.addAll(game.getWonders().get(game.getCurrentPlayer()).getCardsPlayed().get("yellow"));
+			for(int i = 0; i<crds.size(); i++ )
+			{
+				if(crds.get(i).getName().equals("East Trading Post"))
+				{
+					RightBrownCost = 1;
+				}
+				if(crds.get(i).getName().equals("West Trading Post"))
+				{
+					LeftBrownCost = 1;
+				}
+				if(crds.get(i).getName().equals("Marketplace"))
+				{
+					SilverCost = 1;
+				}
+			}
 			// left resources
-			int startingX = 35, startingY = 505, space = 25;
+			int startingX = 75, startingY = 505, space = 50;
 			ArrayList<String> leftResources = game.getLeftWonder(game.getCurrentPlayer()).getCardResources();
 			for (int i = 0; i < leftResources.size(); i++)
 			{
+				g.drawImage(resources.get(leftResources.get(i)), startingX, startingY + (space + 10) * i, space, space, null);
+				if (brownR.contains(leftResources.get(i)))
+					for (int j = 0; j < LeftBrownCost; j++)
+						g.drawImage(resources.get("coin"), startingX - 25, startingY + (25) * j, 25, 25, null);
+				if (silverR.contains(leftResources.get(i)))
+					for (int j = 0; j < SilverCost; j++)
+						g.drawImage(resources.get("coin"), startingX - 25, startingY + (25) * j, 25, 25, null);
+					
+			}
+			// own resources
+			startingX = 415; startingY = 505;
+			ArrayList<String> ownResources = game.getWonders().get(game.getCurrentPlayer()).getAllPlayerResources();
+			for (int i = 0; i < ownResources.size(); i++)
+			{
+				if (!ownResources.get(i).equals("coin"))
+					g.drawImage(resources.get(ownResources.get(i)), startingX, startingY + (space + 10) * i, space, space, null);
+			}
+			// draws coins
+			int pos = 0;
+			for (int i = 0; i < ownResources.size(); i++)
+			{
+				if (ownResources.get(i).equals("coin"))
+					g.drawImage(resources.get(ownResources.get(i)), startingX + 225, startingY + (space + 10) * pos, space, space, null);
+			}
 				
-				/*if (i != selected)
-				{
-					// draws shadow
-					g.setColor(TRANSPARENTBLACK);
-					g.fillRect(5 + HANDXPOS + (CARDWIDTH + 10) * i, 5 + HANDYPOS, CARDWIDTH, CARDHEIGHT);
+			// right resources
+			startingX = 750; startingY = 505;
+			ArrayList<String> rightResources = game.getRightWonder(game.getCurrentPlayer()).getCardResources();
+			for (int i = 0; i < rightResources.size(); i++)
+			{
+				g.drawImage(resources.get(rightResources.get(i)), startingX, startingY + (space + 10) * i, space, space, null);
+				if (brownR.contains(rightResources.get(i)))
+					for (int j = 0; j < LeftBrownCost; j++)
+						g.drawImage(resources.get("coin"), startingX - 25, startingY + (25) * j, 25, 25, null);
+				if (silverR.contains(rightResources.get(i)))
+					for (int j = 0; j < SilverCost; j++)
+						g.drawImage(resources.get("coin"), startingX - 25, startingY + (25) * j, 25, 25, null);
 					
-					
-					g.drawImage(cards[i], HANDXPOS + (CARDWIDTH + 10) * i, HANDYPOS, null);
-				}*/
-				g.drawImage(resources.get(leftResources.get(i)), startingX, startingY + (space) * i, null);
 			}
 			
 		}
@@ -422,13 +525,42 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			}
 			if(e.getX()>=1320&&e.getX()<=1765&&e.getY()>=555&&e.getY()<=625) //IF CONTINUE
 			{
-				wonderDist = true;
+				wonderDist = false;
 				defaultView = true;
+				optionSelection = true;
 			}
 		}
 		
 		if (defaultView)
 		{
+			// choose option of play, build, burn, or ability
+			if (optionSelection)
+			{
+				// play
+				if (e.getX() <= 590 && e.getX() >= 495 && e.getY() <= 665 && e.getY() >= 620)
+				{
+					optionSelection = false;
+					game.getWonders().get(game.getCurrentPlayer()).setAction("play");
+				}
+				// build
+				if (e.getX() <= 590 && e.getX() >= 485 && e.getY() <= 750 && e.getY() >= 700)
+				{
+					optionSelection = false;
+					game.getWonders().get(game.getCurrentPlayer()).setAction("build");
+				}
+				// burn
+				if (e.getX() <= 595 && e.getX() >= 490 && e.getY() <= 820 && e.getY() >= 780)
+				{
+					optionSelection = false;
+					game.getWonders().get(game.getCurrentPlayer()).setAction("burn");
+				}
+				// TODO action
+				/*if (e.getX() <= 610 && e.getX() >= 465 && e.getY() <= 910 && e.getY() >= 860)
+				{
+					optionSelection = false;
+					game.getWonders().get(game.getCurrentPlayer()).setAction("play");
+				}*/
+			}
 			// if selected a card in hand
 			if (e.getX() >= 5 && e.getX() <= 1325 && e.getY() >= 5 && e.getY() <= 280)
 			{
