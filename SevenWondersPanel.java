@@ -500,6 +500,43 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		g.drawString(currentWonder.getLosses() + " Losses", WONDERXPOS + 5, starting + (i++ * 25));
 		*/
 	}
+	public void drawAllPlayed(Graphics g)
+	{
+		//Berlin Sans SB
+		Wonder CurrentPlayer = game.getWonders().get(game.getCurrentPlayer());
+		
+		ArrayList<Card> yellow = new ArrayList<Card>();
+		yellow.addAll(CurrentPlayer.getCardsPlayed().get("yellow"));
+		
+		ArrayList<Card> brown = new ArrayList<Card>();
+		brown.addAll(CurrentPlayer.getCardsPlayed().get("brown"));
+		
+		ArrayList<Card> blue = new ArrayList<Card>();
+		blue.addAll(CurrentPlayer.getCardsPlayed().get("blue"));
+		
+		ArrayList<Card> green = new ArrayList<Card>();
+		green.addAll(CurrentPlayer.getCardsPlayed().get("green"));
+		
+		ArrayList<Card> purple = new ArrayList<Card>();
+		purple.addAll(CurrentPlayer.getCardsPlayed().get("purple"));
+		
+		ArrayList<Card> silver = new ArrayList<Card>();
+		silver.addAll(CurrentPlayer.getCardsPlayed().get("silver"));
+		
+		ArrayList<Card> red = new ArrayList<Card>();
+		red.addAll(CurrentPlayer.getCardsPlayed().get("red"));
+		
+		int startX = 30;
+		int startY = 50;
+		int vertSpace;
+		int horizSpace;
+		
+		g.setFont(new Font("Berlin Sans SB", Font.BOLD, 32));
+		
+		//g.drawString("brown", , );
+		
+		
+	}
 	
 	public void mousePressed(MouseEvent e)
 	{
