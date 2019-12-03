@@ -451,6 +451,20 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 					
 			}
 			
+			// cancel button
+			g.setColor(new Color(191, 57, 57));
+			g.fillRect(30, 990, 210, 40);
+			g.setColor(Color.WHITE);
+			g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 32));
+			g.drawString("CANCEL", 75, 1020);
+			
+			// confirm button
+			g.setColor(new Color(95, 184, 119));
+			g.fillRect(845, 990, 210, 40);
+			g.setColor(Color.WHITE);
+			g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 32));
+			g.drawString("CONFIRM", 880, 1020);
+			
 		}
 		catch (IOException e)
 		{
@@ -560,6 +574,20 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 					optionSelection = false;
 					game.getWonders().get(game.getCurrentPlayer()).setAction("play");
 				}*/
+			}
+			// if resource selection
+			else
+			{
+				// cancel button // TODO what if they have selected a few resources? how would it reset that?
+				if (e.getX() <= 240 && e.getX() >= 30 && e.getY() <= 1030 && e.getY() >= 210)
+				{
+					optionSelection = true;
+				}
+				// confirm button
+				if (e.getX() <= 1055 && e.getX() >= 855 && e.getY() <= 1030 && e.getY() >= 210)
+				{
+					
+				}
 			}
 			// if selected a card in hand
 			if (e.getX() >= 5 && e.getX() <= 1325 && e.getY() >= 5 && e.getY() <= 280)
