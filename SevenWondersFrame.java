@@ -15,8 +15,7 @@ public class SevenWondersFrame extends JFrame
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(WIDTH,HEIGHT);
 		add(new SevenWondersPanel(WIDTH, HEIGHT));
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
-		setUndecorated(true);
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		
 		try {
 			setIconImage(ImageIO.read(new File("src/images/icon.png")));
