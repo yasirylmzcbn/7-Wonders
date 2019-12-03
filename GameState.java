@@ -40,7 +40,7 @@ public class GameState
 	private ArrayList<Wonder> wonders;
 	private ArrayList<ArrayList<Card>> playerHands;
 	private HashMap<Integer, ArrayList<Card>> deck; // Integer=age, ArrayList=Cards themselves
-	
+		//0,1,2 not 123
 	private boolean halic;
 	private boolean usedOlympia;
 
@@ -469,10 +469,10 @@ public class GameState
 			if (age == 3)
 			{
 				ArrayList<Card> guilds = new ArrayList<Card>();
-				ArrayList<Card> temp = deck.get(age);
+				ArrayList<Card> temp = deck.get(age-1);
 				
 				// puts all purple cards in guilds
-				for (int i = 0; i < deck.get(age).size(); i++)
+				for (int i = 0; i < deck.get(age-1).size(); i++)
 				{
 					Card tempCard = temp.get(i);
 					if (tempCard.getColor().equals("purple"))
@@ -487,12 +487,16 @@ public class GameState
 					for (int i = 0; i < numberOfPlayers + 2; i++)
 						temp.add(guilds.get(i));
 			}
-			passOutHands(); //NEED THIS
+			
 			round = 1; //Resets Round
 			// ends game
 			if(age == 4)
 			{
 				endOfGame = true;
+			}
+			else
+			{
+				passOutHands(); //NEED THIS
 			}
 			
 			usedOlympia = false;
