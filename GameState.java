@@ -94,7 +94,6 @@ public class GameState
 			temp.put(getRightWonder(i).getName(), 0);
 			
 		}
-		
 		// sets the hand number of each player
 		for (int i = 0; i < numberOfPlayers; i++)
 			wonders.get(i).setHand(i);
@@ -116,8 +115,29 @@ public class GameState
 	public void initSelection()
 	{
 		ownSelected = wonders.get(currentPlayer).getAllPlayerResources().toArray(new String[0]);
-		leftSelected = wonders.get(currentPlayer).getCardResources().toArray(new String[0]);
-		rightSelected = wonders.get(currentPlayer).getCardResources().toArray(new String[0]);
+		leftSelected = wonders.get(leftPlayer(currentPlayer)).getCardResources().toArray(new String[0]);
+		rightSelected = wonders.get(rightPlayer(currentPlayer)).getCardResources().toArray(new String[0]);
+	}
+	
+	public int leftPlayer(int num)
+	{
+		int next = num - 1;
+		if (next < 0)
+			next = numberOfPlayers - 1;
+		return next;
+	}
+	
+	public int rightPlayer(int num)
+	{
+		int next = num + 1;
+		if (next >= numberOfPlayers)
+			next = 0;
+		return next;
+	}
+	
+	public Wonder getCurrentWonder()
+	{
+		return wonders.get(currentPlayer);
 	}
 	
 	public ArrayList<Integer> finalPoints()
