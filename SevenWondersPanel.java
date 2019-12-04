@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.TreeMap;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -209,7 +210,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 	public void drawHand(Graphics g)
 	{
 		// hand of current player
-		ArrayList<Card> currentHand = game.getPlayerHands().get(game.getWonders().get(game.getCurrentPlayer()).getHand());
+		ArrayList<Card> currentHand = game.getPlayerHands().get(game.getCurrentWonder().getHand());
 		
 		// selected card will be lowered graphically
 		int selected = -1;
@@ -218,7 +219,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		ArrayList<String> playerHandNames = new ArrayList<String>();
 		for (int i = 0; i < currentHand.size(); i++)
 		{
-			if (currentHand.get(i).equals(game.getWonders().get(game.getCurrentPlayer()).getSelectedCard()))
+			if (currentHand.get(i).equals(game.getCurrentWonder().getSelectedCard()))
 				selected = i;
 			playerHandNames.add(currentHand.get(i).getName().replace(" ", "").toLowerCase());
 		}
@@ -262,7 +263,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 	public void drawWonder(Graphics g)
 	{
 		// wonder of current player
-		Wonder currentWonder = game.getWonders().get(game.getCurrentPlayer());
+		Wonder currentWonder = game.getCurrentWonder();
 		
 		// assigns image to wonder
 		BufferedImage wonder = null;
@@ -311,7 +312,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		g.fillRect(40, 460, 1025, 580);
 		
 		// sets colour of container based on the currently selected card's colour
-		Card col = game.getWonders().get(game.getCurrentPlayer()).getSelectedCard();
+		Card col = game.getCurrentWonder().getSelectedCard();
 		if (col != null)
 		{
 			if (col.getColor().equals("green"))
@@ -359,7 +360,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			g.fillRect(40, 460, 1025, 580);
 			
 			// sets colour of container based on the currently selected card's colour
-			Card col = game.getWonders().get(game.getCurrentPlayer()).getSelectedCard();
+			Card col = game.getCurrentWonder().getSelectedCard();
 			if (col != null)
 			{
 				if (col.getColor().equals("green"))
@@ -399,12 +400,12 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			int RightBrownCost = 2;// cost for trading for a brown card resource to the right
 			int LeftBrownCost = 2;//^*left
 			
-			// TODO-needed?
+			// TODO-needed? yes it is needed fool
 			String brownR = "wood-Selected stone-Selected clay-Selected ore-Selected";
             String silverR = "paper-Selected cloth-Selected glass-Selected";
 			
 			ArrayList<Card> crds = new ArrayList<Card>();
-			crds.addAll(game.getWonders().get(game.getCurrentPlayer()).getCardsPlayed().get("yellow"));
+			crds.addAll(game.getCurrentWonder().getCardsPlayed().get("yellow"));
 			for(int i = 0; i<crds.size(); i++ )
 			{
 				if(crds.get(i).getName().equals("East Trading Post"))
@@ -426,7 +427,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			String[] leftResources = game.getLeftSelected();
 			for (int i = 0; i < leftResources.length; i++)
 			{
-				g.drawImage(resources.get(leftResources[i]), startingX, startingY + (space + 10) * i, space, space, null);
+				g.drawImage(resources.get(leftResources[i].split("-Selected")[0]), startingX, startingY + (space + 10) * i, space, space, null);
 				if (leftResources[i].contains("-Selected"))
 					g.drawImage(selected, startingX, startingY + (space + 10) * i, space, space, null);
 				if (brownR.contains(leftResources[i]))
@@ -453,9 +454,9 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			String[] ownResources = game.getOwnSelected();
 			for (int i = 0; i < ownResources.length; i++)
 			{
-				if (!ownResources[i].equals("coin"))
+				if (!ownResources[i].contains("coin"))
 				{
-					g.drawImage(resources.get(ownResources[i]), startingX, startingY + (space + 10) * i, space, space, null);
+					g.drawImage(resources.get(ownResources[i].split("-Selected")[0]), startingX, startingY + (space + 10) * i, space, space, null);
 					if (ownResources[i].contains("-Selected"))
 						g.drawImage(selected, startingX, startingY + (space + 10) * i, space, space, null);
 				}
@@ -464,11 +465,12 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			int pos = 0;
 			for (int i = 0; i < ownResources.length; i++)
 			{
-				if (ownResources[i].equals("coin"))
+				if (ownResources[i].contains("coin"))
 				{
-					g.drawImage(resources.get(ownResources[i]), startingX + 225, startingY + (space + 2) * pos++, space, space, null);
+					g.drawImage(resources.get(ownResources[i].split("-Selected")[0]), startingX + 225, startingY + (space + 2) * pos, space, space, null);
 					if (ownResources[i].contains("-Selected"))
-						g.drawImage(selected, startingX + 225, startingY + (space + 2) * pos++, space, space, null);
+						g.drawImage(selected, startingX + 225, startingY + (space + 2) * pos, space, space, null);
+					pos++;
 				}
 			}
 				
@@ -477,7 +479,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			String[] rightResources = game.getRightSelected();
 			for (int i = 0; i < rightResources.length; i++)
 			{
-				g.drawImage(resources.get(rightResources[i]), startingX, startingY + (space + 10) * i, space, space, null);
+				g.drawImage(resources.get(rightResources[i].split("-Selected")[0]), startingX, startingY + (space + 10) * i, space, space, null);
 				if (rightResources[i].contains("-Selected"))
 					g.drawImage(selected, startingX, startingY + (space + 10) * i, space, space, null);
 				if (brownR.contains(rightResources[i]))
@@ -563,9 +565,9 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 	{
 		//Berlin Sans SB
 		
-		if(displayView.contentEquals(game.getWonders().get(game.getCurrentPlayer()).getName()))
+		if(displayView.contentEquals(game.getCurrentWonder().getName()))
 		{
-		Wonder CurrentPlayer = game.getWonders().get(game.getCurrentPlayer());
+		Wonder CurrentPlayer = game.getCurrentWonder();
 		
 		ArrayList<Card> yellow = new ArrayList<Card>();
 		yellow.addAll(CurrentPlayer.getCardsPlayed().get("yellow"));
@@ -607,6 +609,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		game.setDecisionMade(decision);
 		
 		game.nextPlayer();
+		game.getSelectedResources().clear();
 		optionSelection = true;
 		
 		if (game.allDecisionsMade())
@@ -699,7 +702,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			if(e.getX()>=1425&&e.getX()<=1581&&e.getY()>=684&&e.getY()<=734) // if displayAllPlayedCards
 			{
 				defaultView = false;
-				displayView = game.getWonders().get(game.getCurrentPlayer()).getName();
+				displayView = game.getCurrentWonder().getName();
 				
 			}
 			// choose option of play, build, burn, or ability
@@ -709,25 +712,25 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				if (e.getX() <= 590 && e.getX() >= 495 && e.getY() <= 665 && e.getY() >= 620)
 				{
 					optionSelection = false;
-					game.getWonders().get(game.getCurrentPlayer()).setAction("play");
+					game.getCurrentWonder().setAction("play");
 				}
 				// build
 				else if (e.getX() <= 590 && e.getX() >= 485 && e.getY() <= 750 && e.getY() >= 700)
 				{
 					optionSelection = false;
-					game.getWonders().get(game.getCurrentPlayer()).setAction("build");
+					game.getCurrentWonder().setAction("build");
 				}
 				// burn
 				else if (e.getX() <= 595 && e.getX() >= 490 && e.getY() <= 820 && e.getY() >= 780)
 				{
 					optionSelection = false;
-					game.getWonders().get(game.getCurrentPlayer()).setAction("burn");
+					game.getCurrentWonder().setAction("burn");
 				}
 				// TODO action
 				/*else if (e.getX() <= 610 && e.getX() >= 465 && e.getY() <= 910 && e.getY() >= 860)
 				{
 					optionSelection = false;
-					game.getWonders().get(game.getCurrentPlayer()).setAction("play");
+					game.getCurrentWonder().setAction("play");
 				}*/
 			}
 			// if resource selection
@@ -745,10 +748,10 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				// confirm button
 				else if (e.getX() <= 1055 && e.getX() >= 855 && e.getY() <= 1030 && e.getY() >= 210)
 				{
-					if (game.getWonders().get(game.getCurrentPlayer()).getAction().equals("play") &&
-							game.getWonders().get(game.getCurrentPlayer()).getSelectedCard() != null)
+					if (game.getCurrentWonder().getAction().equals("play") &&
+							game.getCurrentWonder().getSelectedCard() != null)
 					{
-						ArrayList<String> needed = new ArrayList<String>(game.getWonders().get(game.getCurrentPlayer()).getSelectedCard().getCost());
+						ArrayList<String> needed = new ArrayList<String>(game.getCurrentWonder().getSelectedCard().getCost());
 						ArrayList<String> selected = game.getSelectedResources();
 						
 						System.out.println(needed);
@@ -760,7 +763,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 						{
 							ArrayList<Card> currentHand = game.getPlayerHands().get(game.getCurrentPlayer());
 							for (int i = 0; i < currentHand.size(); i++)
-								if (currentHand.get(i).getName().equals(game.getWonders().get(game.getCurrentPlayer()).getSelectedCard().getName()))
+								if (currentHand.get(i).getName().equals(game.getCurrentWonder().getSelectedCard().getName()))
 									currentHand.remove(i);
 							nextTurn();
 						}
@@ -771,6 +774,22 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				// resourses selected
 				else if (e.getX() <= 1055 && e.getX() >= 30 && e.getY() <= 990 && e.getY() >= 450)
 				{
+					int SilverCost = 2, RightBrownCost = 2, LeftBrownCost = 2;
+					String brownR = "wood-Selected stone-Selected clay-Selected ore-Selected";
+		            String silverR = "paper-Selected cloth-Selected glass-Selected";
+		            
+					ArrayList<Card> crds = new ArrayList<Card>();
+					crds.addAll(game.getCurrentWonder().getCardsPlayed().get("yellow"));
+					for(int i = 0; i<crds.size(); i++ )
+					{
+						if(crds.get(i).getName().equals("East Trading Post"))
+							RightBrownCost = 1;
+						if(crds.get(i).getName().equals("West Trading Post"))
+							LeftBrownCost = 1;
+						if(crds.get(i).getName().equals("Marketplace"))
+							SilverCost = 1;
+					}
+		            
 					// for left resources
 					int startingX = 75, startingY = 470, space = 40, coinSize = 20;
 					String[] leftResources = game.getLeftSelected();
@@ -785,11 +804,37 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 							{
 								leftResources[i] = leftResources[i].substring(0, leftResources[i].indexOf("-Selected"));
 								game.getSelectedResources().remove(leftResources[i]);
+								
+								TreeMap<String, Integer> trades = game.getCurrentWonder().getTrades();
+								String leftName = game.getLeftWonder(game.getCurrentWonder()).getName();
+								int t = trades.get(leftName);
+								if(brownR.contains(leftResources[i]))
+								{
+									t-=LeftBrownCost;
+								}
+								if(silverR.contains(leftResources[i]))
+								{
+									t-=SilverCost;
+								}
+								trades.put(leftName,t);
 							}
 							else
 							{
 								game.getSelectedResources().add(leftResources[i]);
 								leftResources[i] = leftResources[i] + "-Selected";
+								
+								TreeMap<String, Integer> trades = game.getCurrentWonder().getTrades();
+								String leftName = game.getLeftWonder(game.getCurrentWonder()).getName();
+								int t = trades.get(leftName);
+								if(brownR.contains(leftResources[i]))
+								{
+									t+=LeftBrownCost;
+								}
+								if(silverR.contains(leftResources[i]))
+								{
+									t+=SilverCost;
+								}
+								trades.put(leftName, t);
 							}
 						}
 					}
@@ -808,11 +853,37 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 							{
 								rightResources[i] = rightResources[i].substring(0, rightResources[i].indexOf("-Selected"));
 								game.getSelectedResources().remove(rightResources[i]);
+								
+								TreeMap<String, Integer> trades = game.getCurrentWonder().getTrades();
+								String rightName = game.getRightWonder(game.getCurrentWonder()).getName();
+								int t = trades.get(rightName);
+								if(brownR.contains(rightResources[i]))
+								{
+									t-=RightBrownCost;
+								}
+								if(silverR.contains(rightResources[i]))
+								{
+									t-=SilverCost;
+								}
+								trades.put(rightName,t);
 							}
 							else
 							{
 								game.getSelectedResources().add(rightResources[i]);
 								rightResources[i] = rightResources[i] + "-Selected";
+								
+								TreeMap<String, Integer> trades = game.getCurrentWonder().getTrades();
+								String rightName = game.getRightWonder(game.getCurrentWonder()).getName();
+								int t = trades.get(rightName);
+								if(brownR.contains(rightResources[i]))
+								{
+									t+=RightBrownCost;
+								}
+								if(silverR.contains(rightResources[i]))
+								{
+									t+=SilverCost;
+								}
+								trades.put(rightName, t);
 							}
 						}
 					}
@@ -820,7 +891,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 					String[] ownResources = game.getOwnSelected();
 					for (int i = 0; i < ownResources.length; i++)
 					{
-						if (!ownResources[i].equals("coin"))
+						if (!ownResources[i].contains("coin"))
 						{
 							if (e.getX() <= startingX + space && e.getX() >= startingX &&
 									e.getY() <= startingY + (space + 10) * i + space && e.getY() >= startingY + (space + 10) * i)
@@ -840,17 +911,10 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 							}
 						}
 					}
-					// the coins
-					// TODO
-					// can't deselect coins lol
-					// TODO
-					// TODO
-					// TODO
-					// TODO
 					int pos = 0;
 					for (int i = 0; i < ownResources.length; i++)
 					{
-						if (ownResources[i].equals("coin"))
+						if (ownResources[i].contains("coin"))
 						{
 							if (e.getX() <= startingX + space + 225 && e.getX() >= startingX + 225 &&
 									e.getY() <= startingY + (space + 10) * pos + space && e.getY() >= startingY + (space + 10) * pos)
@@ -877,7 +941,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			if (e.getX() >= 5 && e.getX() <= 1325 && e.getY() >= 5 && e.getY() <= 280)
 			{
 				// goes through each card in the hand to check for the click
-				Wonder current = game.getWonders().get(game.getCurrentPlayer());
+				Wonder current = game.getCurrentWonder();
 				ArrayList<Card> currentHand = game.getPlayerHands().get(current.getHand());
 				for (int i = 0; i < currentHand.size(); i++)
 				{
