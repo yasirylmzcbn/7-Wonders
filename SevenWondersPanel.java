@@ -295,8 +295,11 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		g.drawString(currentWonder.getLosses() + " Losses", WONDERXPOS + 5, starting + (i++ * 25));
 		
 		g.setColor(GREEN);
-		g.fillRect(1425, 684, 156, 50);
+		g.fillRect(1425, 684, 156, 50); // displayAllCurrent
 		
+		//1707, 28 startx,y
+		//1888, 92 endx,y
+		g.setColor(Color.GREEN);
 	}
 	
 	public void drawOptionSelection(Graphics g)
@@ -693,7 +696,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		else if (defaultView)
 		{
 			//1425, 684, 156, 50 rect of displayPlayer
-			if(e.getX()>=1425&&e.getX()<=1581&&e.getY()>=684&&e.getY()<=734)
+			if(e.getX()>=1425&&e.getX()<=1581&&e.getY()>=684&&e.getY()<=734) // if displayAllPlayedCards
 			{
 				defaultView = false;
 				displayView = game.getWonders().get(game.getCurrentPlayer()).getName();
