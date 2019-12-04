@@ -35,9 +35,9 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 	private boolean wonderDist; // Shows distribution of wonders graphically (What wonders are in the current game)
 	private boolean optionSelection; // allows player to choose to play, build, burn, or use wonder ability
 	private boolean defaultView; // Shows hand, wonder, and resources
-	private boolean displayOwnPlayed;
-	private boolean displayLeftPlayed;
-	private boolean displayRightPlayed;
+	private String displayView;
+	//private boolean displayLeftPlayed;
+	//private boolean displayRightPlayed;
 	private boolean displayHalic; //might become a String later on
 	private boolean displayGraveyard; // for Halicarnassus
 	
@@ -47,7 +47,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 	
 	private GameState game;
 	
-	private String displayOtherWonder;
+	//private String displayOtherWonder;
 	
 	public SevenWondersPanel(int width, int height)
 	{
@@ -63,6 +63,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		wonderDist = false;
 		defaultView = false;
 		optionSelection = false;
+		displayView = "";
 	}
 	
 	public void paint(Graphics g) 
@@ -91,10 +92,10 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			else
 				drawResourceSelection(g);
 		}
-		if (displayOwnPlayed)
+		if (displayView!="")
 		{
 			drawBackground(g);
-		}
+		}/*
 		if (displayLeftPlayed)
 		{
 			drawBackground(g);
@@ -102,7 +103,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		if (displayRightPlayed)
 		{
 			drawBackground(g);
-		}
+		}*/
 		if (displayHalic)
 		{
 			
@@ -292,6 +293,10 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		g.drawString(currentWonder.getMilitaryPower() + " Military Power", WONDERXPOS + 5, starting + (i++ * 25));
 		g.drawString(currentWonder.getWins() + " Wins", WONDERXPOS + 5, starting + (i++ * 25));
 		g.drawString(currentWonder.getLosses() + " Losses", WONDERXPOS + 5, starting + (i++ * 25));
+		
+		g.setColor(GREEN);
+		g.fillRect(1425, 684, 156, 50);
+		
 	}
 	
 	public void drawOptionSelection(Graphics g)
@@ -551,9 +556,12 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		g.drawString(currentWonder.getLosses() + " Losses", WONDERXPOS + 5, starting + (i++ * 25));
 		*/
 	}
-	public void drawAllPlayed(Graphics g)
+	public void drawAWonder(Graphics g)
 	{
 		//Berlin Sans SB
+		
+		if(displayView.contentEquals(game.getWonders().get(game.getCurrentPlayer()).getName()))
+		{
 		Wonder CurrentPlayer = game.getWonders().get(game.getCurrentPlayer());
 		
 		ArrayList<Card> yellow = new ArrayList<Card>();
@@ -579,13 +587,13 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		
 		int startX = 30;
 		int startY = 50;
-		int vertSpace;
-		int horizSpace;
+		int vertSpace = 5;
+		int horizSpace= 5;
 		
 		g.setFont(new Font("Berlin Sans SB", Font.BOLD, 32));
 		
-		//g.drawString("brown", , );
-		
+		g.drawString("brown", startX, startY );
+		}
 		
 	}
 	
@@ -684,6 +692,13 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		
 		else if (defaultView)
 		{
+			//1425, 684, 156, 50 rect of displayPlayer
+			if(e.getX()>=1425&&e.getX()<=1581&&e.getY()>=684&&e.getY()<=734)
+			{
+				defaultView = false;
+				displayView = game.getWonders().get(game.getCurrentPlayer()).getName();
+				
+			}
 			// choose option of play, build, burn, or ability
 			if (optionSelection)
 			{
