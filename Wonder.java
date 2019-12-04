@@ -20,8 +20,9 @@ public class Wonder {
 	private ArrayList<Card> stages=new ArrayList<Card>();
 	private String wonderAbility;
 	private HashMap<String, Integer> techCardPoints;
-
 	
+	// for resource selection
+
 	public Wonder(String n, int i) {
 		name = n;
 		numOfPlayers = i;

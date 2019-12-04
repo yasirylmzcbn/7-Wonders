@@ -423,16 +423,16 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			
 			// left resources
 			int startingX = 75, startingY = 470, space = 40, coinSize = 20;
-			ArrayList<String> leftResources = game.getLeftWonder(game.getCurrentPlayer()).getCardResources();
-			for (int i = 0; i < leftResources.size(); i++)
+			String[] leftResources = game.getLeftSelected();
+			for (int i = 0; i < leftResources.length; i++)
 			{
-				g.drawImage(resources.get(leftResources.get(i)), startingX, startingY + (space + 10) * i, space, space, null);
-				//if (leftResources.get(i).contains("-Selected"))
-					//g.drawImage(selected, startingX, startingY + (space + 10) * i, space, space, null);
-				if (brownR.contains(leftResources.get(i)))
+				g.drawImage(resources.get(leftResources[i]), startingX, startingY + (space + 10) * i, space, space, null);
+				if (leftResources[i].contains("-Selected"))
+					g.drawImage(selected, startingX, startingY + (space + 10) * i, space, space, null);
+				if (brownR.contains(leftResources[i]))
 					for (int j = 0; j < LeftBrownCost; j++)
 						g.drawImage(resources.get("coin"), startingX - coinSize, startingY + (coinSize) * j, coinSize, coinSize, null);
-				if (silverR.contains(leftResources.get(i)))
+				if (silverR.contains(leftResources[i]))
 					for (int j = 0; j < SilverCost; j++)
 						g.drawImage(resources.get("coin"), startingX - coinSize, startingY + (coinSize) * j, coinSize, coinSize, null);
 					
@@ -450,40 +450,40 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			
 			// own resources
 			startingX = 415;
-			ArrayList<String> ownResources = game.getWonders().get(game.getCurrentPlayer()).getAllPlayerResources();
-			for (int i = 0; i < ownResources.size(); i++)
+			String[] ownResources = game.getOwnSelected();
+			for (int i = 0; i < ownResources.length; i++)
 			{
-				if (!ownResources.get(i).equals("coin"))
+				if (!ownResources[i].equals("coin"))
 				{
-					g.drawImage(resources.get(ownResources.get(i)), startingX, startingY + (space + 10) * i, space, space, null);
-					//if (ownResources.get(i).contains("-Selected"))
-						//g.drawImage(selected, startingX, startingY + (space + 10) * i, space, space, null);
+					g.drawImage(resources.get(ownResources[i]), startingX, startingY + (space + 10) * i, space, space, null);
+					if (ownResources[i].contains("-Selected"))
+						g.drawImage(selected, startingX, startingY + (space + 10) * i, space, space, null);
 				}
 			}
 			// draws coins
 			int pos = 0;
-			for (int i = 0; i < ownResources.size(); i++)
+			for (int i = 0; i < ownResources.length; i++)
 			{
-				if (ownResources.get(i).equals("coin"))
+				if (ownResources[i].equals("coin"))
 				{
-					g.drawImage(resources.get(ownResources.get(i)), startingX + 225, startingY + (space + 2) * pos++, space, space, null);
-					//if (ownResources.get(i).contains("-Selected"))
-						//g.drawImage(selected, startingX + 225, startingY + (space + 2) * pos++, space, space, null);
+					g.drawImage(resources.get(ownResources[i]), startingX + 225, startingY + (space + 2) * pos++, space, space, null);
+					if (ownResources[i].contains("-Selected"))
+						g.drawImage(selected, startingX + 225, startingY + (space + 2) * pos++, space, space, null);
 				}
 			}
 				
 			// right resources
 			startingX = 750;
-			ArrayList<String> rightResources = game.getRightWonder(game.getCurrentPlayer()).getCardResources();
-			for (int i = 0; i < rightResources.size(); i++)
+			String[] rightResources = game.getRightSelected();
+			for (int i = 0; i < rightResources.length; i++)
 			{
-				g.drawImage(resources.get(rightResources.get(i)), startingX, startingY + (space + 10) * i, space, space, null);
-				//if (rightResources.get(i).contains("-Selected"))
-					//g.drawImage(selected, startingX, startingY + (space + 10) * i, space, space, null);
-				if (brownR.contains(rightResources.get(i)))
+				g.drawImage(resources.get(rightResources[i]), startingX, startingY + (space + 10) * i, space, space, null);
+				if (rightResources[i].contains("-Selected"))
+					g.drawImage(selected, startingX, startingY + (space + 10) * i, space, space, null);
+				if (brownR.contains(rightResources[i]))
 					for (int j = 0; j < LeftBrownCost; j++)
 						g.drawImage(resources.get("coin"), startingX - coinSize, startingY + (coinSize) * j, coinSize, coinSize, null);
-				if (silverR.contains(rightResources.get(i)))
+				if (silverR.contains(rightResources[i]))
 					for (int j = 0; j < SilverCost; j++)
 						g.drawImage(resources.get("coin"), startingX - coinSize, startingY + (coinSize) * j, coinSize, coinSize, null);
 					
@@ -773,69 +773,69 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				{
 					// for left resources
 					int startingX = 75, startingY = 470, space = 40, coinSize = 20;
-					ArrayList<String> leftResources = game.getLeftWonder(game.getCurrentPlayer()).getCardResources();
-					for (int i = 0; i < leftResources.size(); i++)
+					String[] leftResources = game.getLeftSelected();
+					for (int i = 0; i < leftResources.length; i++)
 					{
 						if (e.getX() <= startingX + space && e.getX() >= startingX &&
 								e.getY() <= startingY + (space + 10) * i + space && e.getY() >= startingY + (space + 10) * i)
 						{
-							System.out.println(leftResources.get(i)); // debugging
+							System.out.println(leftResources[i]); // debugging
 							
-							if (leftResources.get(i).contains("-Selected"))
+							if (leftResources[i].contains("-Selected"))
 							{
-								leftResources.set(i, leftResources.get(i).substring(0, leftResources.indexOf("-Selected")));
-								game.getSelectedResources().remove(leftResources.get(i));
+								leftResources[i] = leftResources[i].substring(0, leftResources[i].indexOf("-Selected"));
+								game.getSelectedResources().remove(leftResources[i]);
 							}
 							else
 							{
-								game.getSelectedResources().add(leftResources.get(i));
-								leftResources.set(i, leftResources.get(i) + "-Selected");
+								game.getSelectedResources().add(leftResources[i]);
+								leftResources[i] = leftResources[i] + "-Selected";
 							}
 						}
 					}
 					
 					// right resources
 					startingX = 750;
-					ArrayList<String> rightResources = game.getRightWonder(game.getCurrentPlayer()).getCardResources();
-					for (int i = 0; i < rightResources.size(); i++)
+					String[] rightResources = game.getRightSelected();
+					for (int i = 0; i < rightResources.length; i++)
 					{
 						if (e.getX() <= startingX + space && e.getX() >= startingX &&
 								e.getY() <= startingY + (space + 10) * i + space && e.getY() >= startingY + (space + 10) * i)
 						{
-							System.out.println(rightResources.get(i)); // debugging
+							System.out.println(rightResources[i]); // debugging
 							
-							if (rightResources.get(i).contains("-Selected"))
+							if (rightResources[i].contains("-Selected"))
 							{
-								rightResources.set(i, rightResources.get(i).substring(0, rightResources.indexOf("-Selected")));
-								game.getSelectedResources().remove(leftResources.get(i));
+								rightResources[i] = rightResources[i].substring(0, rightResources[i].indexOf("-Selected"));
+								game.getSelectedResources().remove(rightResources[i]);
 							}
 							else
 							{
-								game.getSelectedResources().add(rightResources.get(i));
-								rightResources.set(i, rightResources.get(i) + "-Selected");
+								game.getSelectedResources().add(rightResources[i]);
+								rightResources[i] = rightResources[i] + "-Selected";
 							}
 						}
 					}
 					startingX = 415;
-					ArrayList<String> ownResources = game.getWonders().get(game.getCurrentPlayer()).getAllPlayerResources();
-					for (int i = 0; i < ownResources.size(); i++)
+					String[] ownResources = game.getOwnSelected();
+					for (int i = 0; i < ownResources.length; i++)
 					{
-						if (!ownResources.get(i).equals("coin"))
+						if (!ownResources[i].equals("coin"))
 						{
 							if (e.getX() <= startingX + space && e.getX() >= startingX &&
 									e.getY() <= startingY + (space + 10) * i + space && e.getY() >= startingY + (space + 10) * i)
 							{
-								System.out.println(ownResources.get(i)); // debugging
+								System.out.println(ownResources[i]); // debugging
 								
-								if (ownResources.get(i).contains("-Selected"))
+								if (ownResources[i].contains("-Selected"))
 								{
-									ownResources.set(i, ownResources.get(i).substring(0, ownResources.indexOf("-Selected")));
-									game.getSelectedResources().remove(leftResources.get(i));
+									ownResources[i] = ownResources[i].substring(0, ownResources[i].indexOf("-Selected"));
+									game.getSelectedResources().remove(ownResources[i]);
 								}
 								else
 								{
-									game.getSelectedResources().add(ownResources.get(i));
-									ownResources.set(i, ownResources.get(i) + "-Selected");
+									game.getSelectedResources().add(ownResources[i]);
+									ownResources[i] =ownResources[i] + "-Selected";
 								}
 							}
 						}
@@ -848,24 +848,24 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 					// TODO
 					// TODO
 					int pos = 0;
-					for (int i = 0; i < ownResources.size(); i++)
+					for (int i = 0; i < ownResources.length; i++)
 					{
-						if (ownResources.get(i).equals("coin"))
+						if (ownResources[i].equals("coin"))
 						{
 							if (e.getX() <= startingX + space + 225 && e.getX() >= startingX + 225 &&
 									e.getY() <= startingY + (space + 10) * pos + space && e.getY() >= startingY + (space + 10) * pos)
 							{
-								System.out.println(ownResources.get(i)); // debugging
+								System.out.println(ownResources[i]); // debugging
 								
-								if (ownResources.get(i).contains("-Selected"))
+								if (ownResources[i].contains("-Selected"))
 								{
-									ownResources.set(i, ownResources.get(i).substring(0, ownResources.indexOf("-Selected")));
-									game.getSelectedResources().remove(leftResources.get(i));
+									ownResources[i] = ownResources[i].substring(0, ownResources[i].indexOf("-Selected"));
+									game.getSelectedResources().remove(ownResources[i]);
 								}
 								else
 								{
-									game.getSelectedResources().add(ownResources.get(i));
-									ownResources.set(i, ownResources.get(i) + "-Selected");
+									game.getSelectedResources().add(ownResources[i]);
+									ownResources[i] = ownResources[i] + "-Selected";
 								}
 							}
 							pos++;

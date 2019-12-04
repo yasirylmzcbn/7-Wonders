@@ -43,6 +43,9 @@ public class GameState
 		//0,1,2 not 123
 	private boolean halic;
 	private boolean usedOlympia;
+	
+	// for resource selection
+	private String[] ownSelected, leftSelected, rightSelected;
 
 	
 	private Scanner input; // parses through card files
@@ -106,6 +109,15 @@ public class GameState
 		
 		// passes out the card for each player
 		passOutHands();
+		
+		initSelection();
+	}
+	
+	public void initSelection()
+	{
+		ownSelected = wonders.get(currentPlayer).getAllPlayerResources().toArray(new String[0]);
+		leftSelected = wonders.get(currentPlayer).getCardResources().toArray(new String[0]);
+		rightSelected = wonders.get(currentPlayer).getCardResources().toArray(new String[0]);
 	}
 	
 	public ArrayList<Integer> finalPoints()
@@ -297,14 +309,14 @@ public class GameState
 	/*
 	 * Returns index of player who is in first place
 	 */
-	public int whoWon()
+	public String whoWon()
 	{
 		int winner = 0;
 		ArrayList<Integer> finalPoints = finalPoints();
 		for (int i = 0; i < finalPoints.size(); i++)
 			if (finalPoints.get(i) > finalPoints.get(winner))
 				winner = i;
-		return winner;
+		return winner+""+finalPoints.get(winner);
 	}
 	public void rotateHands()
 	{
@@ -511,6 +523,8 @@ public class GameState
 		{
 			currentPlayer = 0;
 		}
+		
+		initSelection();
 	}
 	
 	public boolean canUseOlympia()
@@ -861,5 +875,31 @@ public class GameState
 	public static String[] getWondernames() {
 		return WONDERNAMES;
 	}
+
+	public String[] getOwnSelected() {
+		return ownSelected;
+	}
+
+	public void setOwnSelected(String[] ownSelected) {
+		this.ownSelected = ownSelected;
+	}
+
+	public String[] getLeftSelected() {
+		return leftSelected;
+	}
+
+	public void setLeftSelected(String[] leftSelected) {
+		this.leftSelected = leftSelected;
+	}
+
+	public String[] getRightSelected() {
+		return rightSelected;
+	}
+
+	public void setRightSelected(String[] rightSelected) {
+		this.rightSelected = rightSelected;
+	}
+	
+	
 	
 }
