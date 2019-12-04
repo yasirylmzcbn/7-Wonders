@@ -297,14 +297,14 @@ public class GameState
 	/*
 	 * Returns index of player who is in first place
 	 */
-	public int whoWon()
+	public String whoWon()
 	{
 		int winner = 0;
 		ArrayList<Integer> finalPoints = finalPoints();
 		for (int i = 0; i < finalPoints.size(); i++)
 			if (finalPoints.get(i) > finalPoints.get(winner))
 				winner = i;
-		return winner;
+		return winner+""+finalPoints.get(winner);
 	}
 	public void rotateHands()
 	{
