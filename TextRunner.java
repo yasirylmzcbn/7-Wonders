@@ -204,12 +204,16 @@ public class TextRunner
 	 */
 	public static void resourceSelection()
 	{
+		int startingMoney = currentWonder.getMoney();
+		int rightStartingMoney = state.getRightWonder(currentWonder).getMoney();
+		int leftStartingMoney = state.getLeftWonder(currentWonder).getMoney();
 		// Shows every resource needed to build the card, including the coins
 		System.out.println("Cost to build " + currentWonder.getSelectedCard().getName() + ": " + currentWonder.getSelectedCard().getCost());
 		
 		// checks if the card actually costs anything to build
 		if (!currentWonder.getSelectedCard().getCost().get(0).equals("null")&&!OlympiaAbility&&!currentWonder.inChain(currentWonder.getSelectedCard()))
 		{
+			int totalCost = 0;
 			// every resource that a player has
 			String[] allResources = currentWonder.getAllPlayerResources().toArray(new String[0]);
 			String[] leftNR = state.getLeftWonder(currentWonder).getCardResources().toArray(new String[0]); //Left neighbor's resources
@@ -224,7 +228,7 @@ public class TextRunner
 				System.out.println("type 'quit' to quit");
 				System.out.println("type 'confirm' to confirm selection");
 				System.out.println("Choose index of resource to select/deselect: ");
-				
+				System.out.println("Total cost is: " + totalCost + " coins");
 				// prints out the resources needed to play a card
 				System.out.println("My Resources: ");
 				for (int i = 0; i < allResources.length; i++)
@@ -279,6 +283,9 @@ public class TextRunner
 				String temp = input.next();
 				if (temp.equals("quit"))
 				{
+					currentWonder.setMoney(startingMoney);
+					state.getRightWonder(currentWonder).setMoney(rightStartingMoney);
+					state.getLeftWonder(currentWonder).setMoney(leftStartingMoney);
 					hasQuit = true;
 					return;
 				}
@@ -350,6 +357,12 @@ public class TextRunner
 					//Raymond's version of the code above
 					Collections.sort(needed);
 					Collections.sort(selected);
+					
+					if(currentWonder.getMoney() < totalCost) {
+						System.out.println("You don't have money");
+						break;
+					}
+					if(currentWonder.getMoney() >= 1)
 					//System.out.println(""+needed+selected);
 					if(needed.equals(selected)) // might need to add &&currentWonder.playable(currentWonder.getSelectedCard())
 						//but I think Mustafa's way of checking when they select the card also works
@@ -429,7 +442,12 @@ public class TextRunner
 							if (leftNR[playerInput].contains("-Selected"))
 							{
 								leftNR[playerInput] = leftNR[playerInput].substring(0, leftNR[playerInput].indexOf("-Selected"));
-								selected.remove(leftNR[playerInput]);/*
+								selected.remove(leftNR[playerInput]);
+								
+								if(brownR.contains(leftNR[playerInput]))
+									totalCost -= LeftBrownCost;
+								else totalCost -= SilverCost;
+								/*
 								ArrayList<String> trades = currentWonder.getTrades();
 								String leftName = state.getLeftWonder(currentWonder).getName();
 								for(int i = 0 ; i<trades.size(); i++)
@@ -465,6 +483,10 @@ public class TextRunner
 							else
 							{
 								selected.add(leftNR[playerInput]);
+								if(brownR.contains(leftNR[playerInput]))
+									totalCost += LeftBrownCost;
+								else totalCost += SilverCost;
+									
 								leftNR[playerInput] = leftNR[playerInput] + "-Selected";
 								/*
 								ArrayList<String> trades = currentWonder.getTrades();
@@ -517,6 +539,9 @@ public class TextRunner
 							{
 								rightNR[playerInput] = rightNR[playerInput].substring(0, rightNR[playerInput].indexOf("-Selected"));
 								selected.remove(rightNR[playerInput]);
+								if(brownR.contains(rightNR[playerInput]))
+									totalCost -= RightBrownCost;
+								else totalCost -= SilverCost;
 								TreeMap<String, Integer> trades = currentWonder.getTrades();
 								String rightName = state.getRightWonder(currentWonder).getName();
 								int t = trades.get(rightName);
@@ -533,6 +558,10 @@ public class TextRunner
 							else
 							{
 								selected.add(rightNR[playerInput]);
+								if(brownR.contains(rightNR[playerInput]))
+									totalCost += RightBrownCost;
+								else totalCost += SilverCost;
+								
 								rightNR[playerInput] = rightNR[playerInput] + "-Selected";
 								TreeMap<String, Integer> trades = currentWonder.getTrades();
 								String rightName = state.getRightWonder(currentWonder).getName();
@@ -588,6 +617,10 @@ public class TextRunner
 			String temp = input.next();
 			if (temp.equals("quit"))
 			{
+				
+				
+				
+				
 				hasQuit = true;
 				return;
 			}
