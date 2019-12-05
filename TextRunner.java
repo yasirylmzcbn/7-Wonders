@@ -97,6 +97,7 @@ public class TextRunner
 		
 		ArrayList<Card> playerHand = state.getPlayerHands().get(currentWonder.getHand());
 		
+
 		for (int i = 0; i < playerHand.size(); i++)
 			System.out.println(i + " " + playerHand.get(i));
 		
