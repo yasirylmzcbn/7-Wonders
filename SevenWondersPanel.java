@@ -897,19 +897,19 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				if (e.getX() <= 590 && e.getX() >= 495 && e.getY() <= 665 && e.getY() >= 620)
 				{
 					optionSelection = false;
-					game.getCurrentWonder().setAction("play");
+					game.getCurrentWonder().setAction("Play");
 				}
 				// build
 				else if (e.getX() <= 590 && e.getX() >= 485 && e.getY() <= 750 && e.getY() >= 700)
 				{
 					optionSelection = false;
-					game.getCurrentWonder().setAction("build");
+					game.getCurrentWonder().setAction("Build");
 				}
 				// burn
 				else if (e.getX() <= 595 && e.getX() >= 490 && e.getY() <= 820 && e.getY() >= 780)
 				{
 					optionSelection = false;
-					game.getCurrentWonder().setAction("burn");
+					game.getCurrentWonder().setAction("Burn");
 				}
 				// TODO action
 				/*else if (e.getX() <= 610 && e.getX() >= 465 && e.getY() <= 910 && e.getY() >= 860)
@@ -933,7 +933,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				// confirm button
 				else if (e.getX() <= 1055 && e.getX() >= 855 && e.getY() <= 1030 && e.getY() >= 210)
 				{
-					if (game.getCurrentWonder().getAction().equals("play") &&
+					if (game.getCurrentWonder().getAction().equals("Play") &&
 							game.getCurrentWonder().getSelectedCard() != null)
 					{
 						ArrayList<String> needed = new ArrayList<String>(game.getCurrentWonder().getSelectedCard().getCost());
