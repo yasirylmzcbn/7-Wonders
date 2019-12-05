@@ -640,35 +640,6 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			g.drawString(displayWonder.getLosses() + " Losses", WONDERXPOS2 + 5, starting + (i++ * 25));
 		//Berlin Sans SB
 		
-		ArrayList<Card> yellow = new ArrayList<Card>();
-		yellow.addAll(displayWonder.getCardsPlayed().get("yellow"));
-		
-		ArrayList<Card> brown = new ArrayList<Card>();
-		brown.addAll(displayWonder.getCardsPlayed().get("brown"));
-		
-		ArrayList<Card> blue = new ArrayList<Card>();
-		blue.addAll(displayWonder.getCardsPlayed().get("blue"));
-		
-		ArrayList<Card> green = new ArrayList<Card>();
-		green.addAll(displayWonder.getCardsPlayed().get("green"));
-		
-		ArrayList<Card> purple = new ArrayList<Card>();
-		purple.addAll(displayWonder.getCardsPlayed().get("purple"));
-		
-		ArrayList<Card> silver = new ArrayList<Card>();
-		silver.addAll(displayWonder.getCardsPlayed().get("silver"));
-		
-		ArrayList<Card> red = new ArrayList<Card>();
-		red.addAll(displayWonder.getCardsPlayed().get("red"));
-		
-		int startX = 30;
-		int startY = 50;
-		int vertSpace = 5;
-		int horizSpace= 5;
-		if(displayColor!="") //NOT FINISHED TODO ADD CARDS TO VIEW
-		{
-			
-		}
 		
 		int count = 0;
 		int buttonWidth = 275;
