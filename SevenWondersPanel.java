@@ -695,41 +695,48 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		ArrayList<String> cardNames = new ArrayList<String>();
 		if(displayColor!="")
 		{
-			System.out.print(displayColor);
+			//System.out.print(displayColor);
 			if(displayColor.equals("brown"))
 			{
+				System.out.println("brown"+displayWonder.getCardsPlayed().get("brown"));
 				tempCards.addAll(displayWonder.getCardsPlayed().get("brown"));
 			}
 			else if(displayColor.equals("silver"))
 			{
+				System.out.println(displayWonder.getCardsPlayed().get("silver"));
 				tempCards.addAll(displayWonder.getCardsPlayed().get("silver"));
 			}
 			else if(displayColor.equals("purple"))
 			{
+				System.out.println(displayWonder.getCardsPlayed().get("silver"));
 				tempCards.addAll(displayWonder.getCardsPlayed().get("purple"));
 			}
 			else if(displayColor.equals("blue"))
 			{
+				System.out.println(displayWonder.getCardsPlayed().get("blue"));
 				tempCards.addAll(displayWonder.getCardsPlayed().get("blue"));
 			}
 			else if(displayColor.equals("green"))
 			{
+				System.out.println(displayWonder.getCardsPlayed().get("green"));
 				tempCards.addAll(displayWonder.getCardsPlayed().get("green"));
 			}
 			else if(displayColor.equals("yellow"))
 			{
+				System.out.println(displayWonder.getCardsPlayed().get("yellow"));
 				tempCards.addAll(displayWonder.getCardsPlayed().get("yellow"));
 			}
 			else if(displayColor.equals("red"))
 			{
+				System.out.println(displayWonder.getCardsPlayed().get("red"));
 				tempCards.addAll(displayWonder.getCardsPlayed().get("red"));
 			}
-			System.out.println(tempCards);
+			System.out.println("tempCards:"+tempCards);
 			for(int x = 0; x<tempCards.size();x++)
 			{
 				//playerHandNames.add(currentHand.get(i).getName().replace(" ", "").toLowerCase());
 				cardNames.add(tempCards.get(x).getName().replace(" ", "").toLowerCase());
-				System.out.println(cardNames);
+				//System.out.println(cardNames);
 			}
 			BufferedImage cards[] = new BufferedImage[cardNames.size()];
 			for (int c = 0; c < cards.length; c++)
