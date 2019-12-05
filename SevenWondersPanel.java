@@ -30,13 +30,15 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			GREY = new Color(229, 229, 229), //54, 126, 209
 			YELLOW = new Color(248, 224, 158),
 			RED = new Color(255, 208, 208),
-			BROWN = new Color(207, 178, 172);
+			//BROWN = new Color(207, 178, 172); 
+			BROWN = new Color(101, 67, 33); // I found a better brown
 	
 	private boolean mainMenu; // shows the start button
 	private boolean wonderDist; // Shows distribution of wonders graphically (What wonders are in the current game)
 	private boolean optionSelection; // allows player to choose to play, build, burn, or use wonder ability
 	private boolean defaultView; // Shows hand, wonder, and resources
 	private String displayView;
+	private String displayColor;
 	//private boolean displayLeftPlayed;
 	//private boolean displayRightPlayed;
 	private boolean displayHalic; //might become a String later on
@@ -65,6 +67,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		defaultView = false;
 		optionSelection = false;
 		displayView = "";
+		displayColor = "";
 	}
 	
 	public void paint(Graphics g) 
@@ -96,6 +99,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		if (displayView!="")
 		{
 			drawBackground(g);
+			drawOtherWonder(g);
 		}/*
 		if (displayLeftPlayed)
 		{
@@ -295,12 +299,27 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		g.drawString(currentWonder.getWins() + " Wins", WONDERXPOS + 5, starting + (i++ * 25));
 		g.drawString(currentWonder.getLosses() + " Losses", WONDERXPOS + 5, starting + (i++ * 25));
 		
-		g.setColor(GREEN);
-		g.fillRect(1425, 684, 156, 50); // displayAllCurrent
 		
-		//1707, 28 startx,y
-		//1888, 92 endx,y
+		g.setFont(new Font("Berlin Sans SB", Font.BOLD, 14));
 		g.setColor(Color.GREEN);
+		g.fillRect(1375, 684, 238, 67); // displayAllCurrent
+		g.setColor(Color.white);
+		g.drawString("Display All of Your Played Cards", 1376 , 717);
+		
+		
+		
+		g.setColor(Color.GREEN);
+		g.fillRect(1738, 40, 149, 125); // displayLeftWonder 
+		g.setColor(Color.white);
+		//g.setFont(new Font("Berlin Sans SB", Font.BOLD, 14));
+		g.drawString("Left Neighbor's", 1755 , 100);
+		g.drawString("Situation", 1785 , 120);
+		
+		g.setColor(Color.GREEN);
+		g.fillRect(1738, 190, 149, 125); // displayRightWonder(40+125+25(space) = 190)
+		g.setColor(Color.white);
+		g.drawString("Right Neighbor's", 1755 , 250);
+		g.drawString("Situation", 1785 , 270);
 	}
 	
 	public void drawOptionSelection(Graphics g)
@@ -561,44 +580,144 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		g.drawString(currentWonder.getLosses() + " Losses", WONDERXPOS + 5, starting + (i++ * 25));
 		*/
 	}
-	public void drawAWonder(Graphics g)
+	public void drawOtherWonder(Graphics g)
 	{
+		
+			// wonder of current player
+			Wonder displayWonder = null;
+			for(Wonder w: game.getWonders())
+			{
+				if(w.getName().contentEquals(displayView))
+				{
+					displayWonder = w;
+				}
+			}
+			
+			// assigns image to wonder
+			BufferedImage wonder = null;
+			try
+			{
+				wonder = ImageIO.read(new File("src/images/wonders/" + displayWonder.getName() + ".png"));
+			}
+			catch (IOException e)
+			{
+				System.out.println("Cannot find " + displayWonder.getName());
+			}
+			/*
+			 * public static final int WONDERXPOS = 1120, WONDERYPOS = 720;
+				public static final int WONDERWIDTH = 756, WONDERHEIGHT = 313; // original image size is 605, 250
+			 */
+			int WONDERXPOS2 = 615; //since I want it to be centered
+			int WONDERYPOS2 = 720;
+			//int WONDERWIDTH2 = 1800;
+			//int WONDERHEIGHT2 = 1800;
+			
+			
+			// draws shadow
+			g.setColor(TRANSPARENTBLACK);
+			g.fillRect(WONDERXPOS2 + 10, WONDERYPOS2 + 10, WONDERWIDTH, WONDERHEIGHT);
+			// draws wonder
+			g.drawImage(wonder, WONDERXPOS2, WONDERYPOS2, WONDERWIDTH, WONDERHEIGHT, null);
+			
+			// draws the stats
+			int i = 1;
+			int starting = WONDERYPOS2 + 70;
+			g.setColor(TRANSPARENTBLACK);
+			g.fillRect(WONDERXPOS2, starting, 130, 120);
+			
+			g.setColor(Color.white);
+			g.setFont(new Font("TimesRoman", Font.BOLD, 16));
+			g.drawString(displayWonder.getMoney() + " Coins", WONDERXPOS2 + 5, starting + (i++ * 25));
+			g.drawString(displayWonder.getMilitaryPower() + " Military Power", WONDERXPOS2 + 5, starting + (i++ * 25));
+			g.drawString(displayWonder.getWins() + " Wins", WONDERXPOS2 + 5, starting + (i++ * 25));
+			g.drawString(displayWonder.getLosses() + " Losses", WONDERXPOS2 + 5, starting + (i++ * 25));
 		//Berlin Sans SB
 		
-		if(displayView.contentEquals(game.getCurrentWonder().getName()))
-		{
-		Wonder CurrentPlayer = game.getCurrentWonder();
-		
 		ArrayList<Card> yellow = new ArrayList<Card>();
-		yellow.addAll(CurrentPlayer.getCardsPlayed().get("yellow"));
+		yellow.addAll(displayWonder.getCardsPlayed().get("yellow"));
 		
 		ArrayList<Card> brown = new ArrayList<Card>();
-		brown.addAll(CurrentPlayer.getCardsPlayed().get("brown"));
+		brown.addAll(displayWonder.getCardsPlayed().get("brown"));
 		
 		ArrayList<Card> blue = new ArrayList<Card>();
-		blue.addAll(CurrentPlayer.getCardsPlayed().get("blue"));
+		blue.addAll(displayWonder.getCardsPlayed().get("blue"));
 		
 		ArrayList<Card> green = new ArrayList<Card>();
-		green.addAll(CurrentPlayer.getCardsPlayed().get("green"));
+		green.addAll(displayWonder.getCardsPlayed().get("green"));
 		
 		ArrayList<Card> purple = new ArrayList<Card>();
-		purple.addAll(CurrentPlayer.getCardsPlayed().get("purple"));
+		purple.addAll(displayWonder.getCardsPlayed().get("purple"));
 		
 		ArrayList<Card> silver = new ArrayList<Card>();
-		silver.addAll(CurrentPlayer.getCardsPlayed().get("silver"));
+		silver.addAll(displayWonder.getCardsPlayed().get("silver"));
 		
 		ArrayList<Card> red = new ArrayList<Card>();
-		red.addAll(CurrentPlayer.getCardsPlayed().get("red"));
+		red.addAll(displayWonder.getCardsPlayed().get("red"));
 		
 		int startX = 30;
 		int startY = 50;
 		int vertSpace = 5;
 		int horizSpace= 5;
-		
-		g.setFont(new Font("Berlin Sans SB", Font.BOLD, 32));
-		
-		g.drawString("brown", startX, startY );
+		if(displayColor!="") //NOT FINISHED TODO ADD CARDS TO VIEW
+		{
+			
 		}
+		
+		int count = 0;
+		int buttonWidth = 275;
+		
+		int textY = 45;
+		int textX = 30;
+		
+		g.setColor(BROWN);
+		g.fillRect(count*buttonWidth, 0, buttonWidth, 80);
+		g.setFont(new Font("Berlin Sans SB", Font.BOLD, 13));
+		g.setColor(Color.BLACK);
+		g.drawString("Raw Materials(Brown)", count*buttonWidth+textX , textY);
+		count++;
+		
+		g.setColor(Color.GRAY);
+		g.fillRect(count*buttonWidth, 0, buttonWidth, 80);
+		g.setColor(Color.BLACK);
+		g.drawString("Manufactured Materials(Silver)", count*buttonWidth+textX , textY);
+		count++;
+		
+		g.setColor(Color.MAGENTA);
+		g.fillRect(count*buttonWidth, 0, buttonWidth, 80);
+		g.setColor(Color.BLACK);
+		g.drawString("Guilds(Purple)",  count*buttonWidth+textX , textY);
+		count++;
+		
+		g.setColor(Color.cyan);
+		g.fillRect(count*buttonWidth, 0, buttonWidth, 80);
+		g.setColor(Color.BLACK);
+		g.drawString("Civilian Structures(Blue)",  count*buttonWidth+textX , textY);
+		count++;
+		
+		g.setColor(Color.GREEN);
+		g.fillRect(count*buttonWidth, 0, buttonWidth, 80);
+		g.setColor(Color.BLACK);
+		g.drawString("Scientific Structures(Green)",  count*buttonWidth+textX , textY);
+		count++;
+		
+		g.setColor(Color.YELLOW);
+		g.fillRect(count*buttonWidth, 0, buttonWidth, 80);
+		g.setColor(Color.BLACK);
+		g.drawString("Commercial Structures(Green)",  count*buttonWidth+textX , textY);
+		count++;
+		
+		g.setColor(Color.RED);
+		g.fillRect(count*buttonWidth, 0, buttonWidth, 80);
+		g.setColor(Color.BLACK);
+		g.drawString("Military Structures(Red)",  count*buttonWidth+textX , textY);
+		count++;
+		
+		g.setColor(Color.red);
+		g.fillRect(1720, 980, 200, 100);
+		g.setColor(Color.white);
+		g.drawString("Close Window", 1776, 1016);
+		
+		
 		
 	}
 	
@@ -698,13 +817,30 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		
 		else if (defaultView)
 		{
-			//1425, 684, 156, 50 rect of displayPlayer
-			if(e.getX()>=1425&&e.getX()<=1581&&e.getY()>=684&&e.getY()<=734) // if displayAllPlayedCards
+			//1375, 684, 238, 67
+			if(e.getX()>=1375&&e.getX()<=1613&&e.getY()>=684&&e.getY()<=751) // if displayAllPlayedCards
 			{
 				defaultView = false;
 				displayView = game.getCurrentWonder().getName();
 				
 			}
+			//g.fillRect(1738, 40, 149, 125); // displayLeftWonder 
+			//g.fillRect(1738, 190, 149, 125); // displayRightWonder(40+125+25(space) = 190)
+			else if(e.getX()>=1738&&e.getX()<=1887)
+			{
+				if(e.getY()>=40&&e.getY()<=165)
+				{
+					defaultView = false;
+					displayView = game.getLeftWonder(game.getCurrentPlayer()).getName();
+				}
+				if(e.getY()>=190&&e.getY()<=315)
+				{
+					defaultView = false;
+					displayView = game.getRightWonder(game.getCurrentPlayer()).getName();
+				}
+				
+			}
+			
 			// choose option of play, build, burn, or ability
 			if (optionSelection)
 			{
@@ -964,6 +1100,30 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 					
 				}
 			}
+		}
+		
+		else if(displayView!="")
+		{
+			String[] temp = {"brown", "silver", "purple", "blue", "green", "yellow", "red"};
+			int buttonWidth = 275;
+			
+			for(int i = 0; i<temp.length; i++)
+			{
+				if(e.getX()>=buttonWidth*i&&e.getX()<=(buttonWidth*i)+buttonWidth&&e.getY()>=0&&e.getY()<=80)
+				{
+					displayColor = temp[i];
+				}
+			}
+			//g.fillRect(1720, 980, 200, 100);
+			//closeWindow should set displayColor to "" and defaultView to true
+			if(e.getX()>=1720&&e.getY()<=1920&&e.getY()>=980&&e.getY()<=1080)
+			{
+				displayView = "";
+				displayColor = "";
+				defaultView = true;
+			}
+			
+			
 		}
 		
 		repaint();
