@@ -221,10 +221,6 @@ public class Wonder {
 		}
 	}
 
-	/*
-	 * TODO:
-	 * -needs to remove coins if card requires coins to build
-	 */
 
 	public void playCard(Card c) {
 		HashSet<Card> l = cardsPlayed.get(c.getColor());
