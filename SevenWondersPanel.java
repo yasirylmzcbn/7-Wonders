@@ -90,11 +90,11 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			drawBackground(g);
 			drawHand(g);
 			drawWonder(g);
-			drawRoundInfo(g);
 			if (optionSelection)
 				drawOptionSelection(g);
 			else
 				drawResourceSelection(g);
+			drawRoundInfo(g);
 		}
 		if (displayView!="")
 		{
@@ -540,16 +540,23 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 	
 	public void drawRoundInfo(Graphics g)
 	{
-		// 7wonders logo, card rotation, round num, age card
-		BufferedImage logo = null, rotation = null, age = null;
-		
 		try
 		{
-			logo = ImageIO.read(new File("src/imges/logo.png"));
+			BufferedImage logo = ImageIO.read(new File("src/images/logo.png"));
+			BufferedImage rotation = null;
+			if (game.getOrder() == 1)
+				rotation = ImageIO.read(new File("src/images/rotationcc.png"));
+			else
+				rotation = ImageIO.read(new File("src/images/rotationac.png"));
+			BufferedImage card = ImageIO.read(new File("src/images/cards/age" + game.getAge() + ".png"));
+			
+			g.drawImage(logo, 1310, 320, logo.getWidth() / 3, logo.getHeight() / 3, null);
+			g.drawImage(rotation, 1280, 440, rotation.getWidth()/15, rotation.getHeight()/15, null);
+			// g.drawString("Round " + , x, y);
 		}
 		catch (IOException e)
 		{
-			
+			e.printStackTrace();
 		}
 		/*
 		try
@@ -592,7 +599,6 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 					displayWonder = w;
 				}
 			}
-			//System.out.println(displayWonder.getName());
 			
 			// assigns image to wonder
 			BufferedImage wonder = null;
@@ -634,6 +640,35 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			g.drawString(displayWonder.getLosses() + " Losses", WONDERXPOS2 + 5, starting + (i++ * 25));
 		//Berlin Sans SB
 		
+		ArrayList<Card> yellow = new ArrayList<Card>();
+		yellow.addAll(displayWonder.getCardsPlayed().get("yellow"));
+		
+		ArrayList<Card> brown = new ArrayList<Card>();
+		brown.addAll(displayWonder.getCardsPlayed().get("brown"));
+		
+		ArrayList<Card> blue = new ArrayList<Card>();
+		blue.addAll(displayWonder.getCardsPlayed().get("blue"));
+		
+		ArrayList<Card> green = new ArrayList<Card>();
+		green.addAll(displayWonder.getCardsPlayed().get("green"));
+		
+		ArrayList<Card> purple = new ArrayList<Card>();
+		purple.addAll(displayWonder.getCardsPlayed().get("purple"));
+		
+		ArrayList<Card> silver = new ArrayList<Card>();
+		silver.addAll(displayWonder.getCardsPlayed().get("silver"));
+		
+		ArrayList<Card> red = new ArrayList<Card>();
+		red.addAll(displayWonder.getCardsPlayed().get("red"));
+		
+		int startX = 30;
+		int startY = 50;
+		int vertSpace = 5;
+		int horizSpace= 5;
+		if(displayColor!="") //NOT FINISHED TODO ADD CARDS TO VIEW
+		{
+			
+		}
 		
 		int count = 0;
 		int buttonWidth = 275;
@@ -689,8 +724,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		g.setColor(Color.white);
 		g.drawString("Close Window", 1776, 1016);
 		
-		//drawing cards
-		
+
 		ArrayList<Card> tempCards = new ArrayList<Card>();
 		ArrayList<String> cardNames = new ArrayList<String>();
 		if(displayColor!="")
@@ -761,6 +795,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			}
 		}
 			
+
 		
 	}
 	
@@ -1155,7 +1190,6 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				if(e.getX()>=buttonWidth*i&&e.getX()<=(buttonWidth*i)+buttonWidth&&e.getY()>=0&&e.getY()<=80)
 				{
 					displayColor = temp[i];
-					//System.out.print(temp[i]);
 				}
 			}
 			//g.fillRect(1720, 980, 200, 100);
