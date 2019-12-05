@@ -816,7 +816,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		}
 		
 		/*
-		 * while (!state.isEndOfGame())
+		 while (!state.isEndOfGame())
 		{
 			printNewRound();
 			while (!state.allDecisionsMade())
