@@ -599,6 +599,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 					displayWonder = w;
 				}
 			}
+			//System.out.println(displayWonder.getName());
 			
 			// assigns image to wonder
 			BufferedImage wonder = null;
@@ -640,35 +641,6 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			g.drawString(displayWonder.getLosses() + " Losses", WONDERXPOS2 + 5, starting + (i++ * 25));
 		//Berlin Sans SB
 		
-		ArrayList<Card> yellow = new ArrayList<Card>();
-		yellow.addAll(displayWonder.getCardsPlayed().get("yellow"));
-		
-		ArrayList<Card> brown = new ArrayList<Card>();
-		brown.addAll(displayWonder.getCardsPlayed().get("brown"));
-		
-		ArrayList<Card> blue = new ArrayList<Card>();
-		blue.addAll(displayWonder.getCardsPlayed().get("blue"));
-		
-		ArrayList<Card> green = new ArrayList<Card>();
-		green.addAll(displayWonder.getCardsPlayed().get("green"));
-		
-		ArrayList<Card> purple = new ArrayList<Card>();
-		purple.addAll(displayWonder.getCardsPlayed().get("purple"));
-		
-		ArrayList<Card> silver = new ArrayList<Card>();
-		silver.addAll(displayWonder.getCardsPlayed().get("silver"));
-		
-		ArrayList<Card> red = new ArrayList<Card>();
-		red.addAll(displayWonder.getCardsPlayed().get("red"));
-		
-		int startX = 30;
-		int startY = 50;
-		int vertSpace = 5;
-		int horizSpace= 5;
-		if(displayColor!="") //NOT FINISHED TODO ADD CARDS TO VIEW
-		{
-			
-		}
 		
 		int count = 0;
 		int buttonWidth = 275;
@@ -724,7 +696,71 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		g.setColor(Color.white);
 		g.drawString("Close Window", 1776, 1016);
 		
+		//drawing cards
 		
+		ArrayList<Card> tempCards = new ArrayList<Card>();
+		ArrayList<String> cardNames = new ArrayList<String>();
+		if(displayColor!="")
+		{
+			System.out.print(displayColor);
+			if(displayColor.equals("brown"))
+			{
+				tempCards.addAll(displayWonder.getCardsPlayed().get("brown"));
+			}
+			else if(displayColor.equals("silver"))
+			{
+				tempCards.addAll(displayWonder.getCardsPlayed().get("silver"));
+			}
+			else if(displayColor.equals("purple"))
+			{
+				tempCards.addAll(displayWonder.getCardsPlayed().get("purple"));
+			}
+			else if(displayColor.equals("blue"))
+			{
+				tempCards.addAll(displayWonder.getCardsPlayed().get("blue"));
+			}
+			else if(displayColor.equals("green"))
+			{
+				tempCards.addAll(displayWonder.getCardsPlayed().get("green"));
+			}
+			else if(displayColor.equals("yellow"))
+			{
+				tempCards.addAll(displayWonder.getCardsPlayed().get("yellow"));
+			}
+			else if(displayColor.equals("red"))
+			{
+				tempCards.addAll(displayWonder.getCardsPlayed().get("red"));
+			}
+			System.out.println(tempCards);
+			for(int x = 0; x<tempCards.size();x++)
+			{
+				//playerHandNames.add(currentHand.get(i).getName().replace(" ", "").toLowerCase());
+				cardNames.add(tempCards.get(x).getName().replace(" ", "").toLowerCase());
+				System.out.println(cardNames);
+			}
+			BufferedImage cards[] = new BufferedImage[cardNames.size()];
+			for (int c = 0; c < cards.length; c++)
+			{
+				try {
+					cards[c] = ImageIO.read(new File("src/images/cards/" + cardNames.get(c) + ".png"));
+				} catch (IOException e) {
+					System.out.println("Cannot find file " + cardNames.get(i));
+				}
+			}
+			int HANDXPOS2 = 200;
+			int HANDYPOS2 = 200;
+			for (int v = 0; v < cards.length; v++)
+			{
+					// draws shadow
+					g.setColor(TRANSPARENTBLACK);
+					g.fillRect(5 + HANDXPOS2 + (CARDWIDTH + 10) * v, 5 + HANDYPOS2 + 20, CARDWIDTH, CARDHEIGHT);
+					
+					
+					g.drawImage(cards[v], HANDXPOS2 + (CARDWIDTH + 10) * v, HANDYPOS2 + 20, null);
+				
+			}
+		}
+			
 		
 	}
 	
@@ -1119,6 +1155,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				if(e.getX()>=buttonWidth*i&&e.getX()<=(buttonWidth*i)+buttonWidth&&e.getY()>=0&&e.getY()<=80)
 				{
 					displayColor = temp[i];
+					//System.out.print(temp[i]);
 				}
 			}
 			//g.fillRect(1720, 980, 200, 100);
