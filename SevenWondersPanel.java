@@ -552,7 +552,8 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			
 			g.drawImage(logo, 1310, 320, logo.getWidth() / 3, logo.getHeight() / 3, null);
 			g.drawImage(rotation, 1280, 440, rotation.getWidth()/15, rotation.getHeight()/15, null);
-			// g.drawString("Round " + , x, y);
+			g.drawString("Round " + game.getRound(), 1360, 490);
+			g.drawString("age " + game.getAge(), 1360, 565);
 		}
 		catch (IOException e)
 		{
