@@ -90,11 +90,11 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			drawBackground(g);
 			drawHand(g);
 			drawWonder(g);
-			drawRoundInfo(g);
 			if (optionSelection)
 				drawOptionSelection(g);
 			else
 				drawResourceSelection(g);
+			drawRoundInfo(g);
 		}
 		if (displayView!="")
 		{
@@ -540,16 +540,23 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 	
 	public void drawRoundInfo(Graphics g)
 	{
-		// 7wonders logo, card rotation, round num, age card
-		BufferedImage logo = null, rotation = null, age = null;
-		
 		try
 		{
-			logo = ImageIO.read(new File("src/imges/logo.png"));
+			BufferedImage logo = ImageIO.read(new File("src/images/logo.png"));
+			BufferedImage rotation = null;
+			if (game.getOrder() == 1)
+				rotation = ImageIO.read(new File("src/images/rotationcc.png"));
+			else
+				rotation = ImageIO.read(new File("src/images/rotationac.png"));
+			BufferedImage card = ImageIO.read(new File("src/images/cards/age" + game.getAge() + ".png"));
+			
+			g.drawImage(logo, 1310, 320, logo.getWidth() / 3, logo.getHeight() / 3, null);
+			g.drawImage(rotation, 1280, 440, rotation.getWidth()/15, rotation.getHeight()/15, null);
+			g.drawString("Round " + , x, y);
 		}
 		catch (IOException e)
 		{
-			
+			e.printStackTrace();
 		}
 		/*
 		try
