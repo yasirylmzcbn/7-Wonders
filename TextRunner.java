@@ -217,6 +217,8 @@ public class TextRunner
 			String[] allResources = currentWonder.getAllPlayerResources().toArray(new String[0]);
 			String[] leftNR = state.getLeftWonder(currentWonder).getCardResources().toArray(new String[0]); //Left neighbor's resources
 			String[] rightNR = state.getRightWonder(currentWonder).getCardResources().toArray(new String[0]);//right 
+			HashMap<String, Integer> resFromLeft = new HashMap<String, Integer>();
+			HashMap<String, Integer> resFromRight = new HashMap<String, Integer>();
 			// resources that the player will be selecting to play
 			ArrayList<String> selected = new ArrayList<String>();
 			
@@ -359,7 +361,7 @@ public class TextRunner
 					
 					if(currentWonder.getMoney() < totalCost) {
 						System.out.println("You don't have money");
-						break;
+						return;
 					}
 					if(currentWonder.getMoney() >= 1)
 					//System.out.println(""+needed+selected);
