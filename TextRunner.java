@@ -206,7 +206,7 @@ public class TextRunner
 	{
 		// Shows every resource needed to build the card, including the coins
 		System.out.println("Cost to build " + currentWonder.getSelectedCard().getName() + ": " + currentWonder.getSelectedCard().getCost());
-		
+		int totalCost = 0;
 		// checks if the card actually costs anything to build
 		if (!currentWonder.getSelectedCard().getCost().get(0).equals("null")&&!OlympiaAbility&&!currentWonder.inChain(currentWonder.getSelectedCard()))
 		{
@@ -454,11 +454,11 @@ public class TextRunner
 								int t = trades.get(leftName);
 								if(brownR.contains(leftNR[playerInput]))
 								{
-									t-=LeftBrownCost;
+									t-=99999;
 								}
 								if(silverR.contains(leftNR[playerInput]))
 								{
-									t-=SilverCost;
+									t-=99999;
 								}
 								trades.put(leftName,t);
 							}
@@ -493,11 +493,11 @@ public class TextRunner
 								int t = trades.get(leftName);
 								if(brownR.contains(leftNR[playerInput]))
 								{
-									t+=LeftBrownCost;
+									t+=9999999;
 								}
 								if(silverR.contains(leftNR[playerInput]))
 								{
-									t+=SilverCost;
+									t+=9999999;
 								}
 								trades.put(leftName, t);
 							}
@@ -522,11 +522,11 @@ public class TextRunner
 								int t = trades.get(rightName);
 								if(brownR.contains(rightNR[playerInput]))
 								{
-									t-=RightBrownCost;
+									t-=9999999;
 								}
 								if(silverR.contains(rightNR[playerInput]))
 								{
-									t-=SilverCost;
+									t-=9999999;
 								}
 								trades.put(rightName,t);
 							}
@@ -539,11 +539,11 @@ public class TextRunner
 								int t = trades.get(rightName);
 								if(brownR.contains(rightNR[playerInput]))
 								{
-									t+=RightBrownCost;
+									t+=99999999;
 								}
 								if(silverR.contains(rightNR[playerInput]))
 								{
-									t+=SilverCost;
+									t+=99999999;
 								}
 								trades.put(rightName, t);
 							}
