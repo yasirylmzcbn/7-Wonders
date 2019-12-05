@@ -88,7 +88,6 @@ public class TextRunner
 			System.out.print("<>");
 		System.out.println();
 	}
-	
 	public static void printPlayerHand()
 	{
 		System.out.println("Your hand:");
@@ -96,7 +95,6 @@ public class TextRunner
 		for (int i = 0; i < 25; i++) System.out.print("="); System.out.println();
 		
 		ArrayList<Card> playerHand = state.getPlayerHands().get(currentWonder.getHand());
-		
 
 		for (int i = 0; i < playerHand.size(); i++)
 			System.out.println(i + " " + playerHand.get(i));
