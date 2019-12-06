@@ -32,10 +32,10 @@ coin is the resource for money
 
 ## Possible To do
 **graphics**
-- [ ] Dynamic screen resolution, getActualPosition(positionOnScreen) = (int)((ScreenWidth/1920)(positionOnScreen))
-- [ ] Selected card is lowered
-- [ ] Shadows under cards and wonders
-- [ ] Option to deselect resource
+- [ ] ~~Dynamic screen resolution, getActualPosition(positionOnScreen) = (int)((ScreenWidth/1920)(positionOnScreen))~~
+- [x] Selected card is lowered
+- [x] Shadows under cards and wonders
+- [x] Option to deselect resource
 
 **general**
 
