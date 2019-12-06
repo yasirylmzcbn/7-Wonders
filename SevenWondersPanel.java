@@ -304,7 +304,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		g.setColor(Color.GREEN);
 		g.fillRect(1375, 684, 238, 67); // displayAllCurrent
 		g.setColor(Color.white);
-		g.drawString("Display All of Your Played Cards", 1376 , 717);
+		g.drawString("Display All of Your Played Cards", 1385 , 720);
 		
 		
 		
@@ -550,10 +550,13 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				rotation = ImageIO.read(new File("src/images/rotationac.png"));
 			BufferedImage card = ImageIO.read(new File("src/images/cards/age" + game.getAge() + ".png"));
 			
-			g.drawImage(logo, 1310, 320, logo.getWidth() / 3, logo.getHeight() / 3, null);
-			g.drawImage(rotation, 1280, 440, rotation.getWidth()/15, rotation.getHeight()/15, null);
-			g.drawString("Round " + game.getRound(), 1360, 490);
-			g.drawString("age " + game.getAge(), 1360, 565);
+			g.drawImage(logo, 1270, 320, logo.getWidth() * 3 / 7, logo.getHeight() * 3 / 7, null);
+			g.drawImage(rotation, 1400, 515, rotation.getWidth()/12, rotation.getHeight()/12, null);
+			g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 56));
+			g.setColor(Color.WHITE);
+			g.drawString("Round " + game.getRound(), 1340, 495);
+			g.drawImage(card, 1550, 450, card.getWidth() * 3 / 4, card.getHeight() * 3 / 4, null);
+			// g.drawString("age " + game.getAge(), 1360, 565);
 		}
 		catch (IOException e)
 		{
@@ -786,53 +789,6 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			game.finishRound();
 			game.nextRound();
 		}
-		
-		/*
-		 while (!state.isEndOfGame())
-		{
-			printNewRound();
-			while (!state.allDecisionsMade())
-			{
-				/* debugging
-				for (int i = 0; i < state.getPlayerHands().size(); i++)
-					System.out.println(i + " " + state.getPlayerHands().get(i)); // debugging
-				System.out.println();
-				
-				currentWonder = state.getWonders().get(state.getCurrentPlayer());
-				currentPlayer = state.getCurrentPlayer();
-				currentHand = state.getPlayerHands().get(currentWonder.getHand());
-	
-				printNextPlayer();
-				
-				printWonderInformation();	
-				printOneLine();	
-					
-				printPlayedCards();	
-				printOneLine();	
-					
-				printPlayerHand();	
-				printOneLine();	
-					
-				optionSelection();	
-				printOneLine();	
-				
-				state.nextPlayer();
-			}
-			
-			state.finishRound();
-			if(state.isHalic())
-			{
-				currentWonder = state.getWonders().get(state.getCurrentPlayer());
-				currentPlayer = state.getCurrentPlayer();
-				currentHand = state.getPlayerHands().get(currentWonder.getHand());
-				optionSelection();	
-				printOneLine();	
-				state.finishRound();
-			}
-			state.nextRound();
-		}
-		System.out.println(state.whoWon());
-		 */
 	}
 	
 	public void mousePressed(MouseEvent e)
@@ -947,17 +903,26 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 						
 						if(needed.equals(selected) || needed.contains("null"))
 						{
-							ArrayList<Card> currentHand = game.getPlayerHands().get(game.getCurrentPlayer());
+							ArrayList<Card> currentHand = game.getPlayerHands().get(game.getCurrentWonder().getHand());
 							for (int i = 0; i < currentHand.size(); i++)
-								if (currentHand.get(i).getName().equals(game.getCurrentWonder().getSelectedCard().getName()))
+							{
+								System.out.println("[ ]" + currentHand.get(i).getName());
+								System.out.println(">>>>" + game.getCurrentWonder().getSelectedCard().getName());
+								
+								if (currentHand.get(i).equals(game.getCurrentWonder().getSelectedCard()))
+								{
+									System.out.println("Removing " + currentHand.get(i).getName());
 									currentHand.remove(i);
+									break;
+								}
+							}
 							nextTurn();
 						}
 						
 						
 					}
 				}
-				// resourses selected
+				// resources selected
 				else if (e.getX() <= 1055 && e.getX() >= 30 && e.getY() <= 990 && e.getY() >= 450)
 				{
 					int SilverCost = 2, RightBrownCost = 2, LeftBrownCost = 2;
