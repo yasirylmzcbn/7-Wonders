@@ -904,7 +904,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 					game.getCurrentWonder().setAction("Play");
 				}
 				// build
-				else if (e.getX() <= 590 && e.getX() >= 485 && e.getY() <= 750 && e.getY() >= 700)
+				else if (e.getX() <= 704 && e.getX() >= 397 && e.getY() <= 750 && e.getY() >= 700)
 				{
 					optionSelection = false;
 					game.getCurrentWonder().setAction("Build");
@@ -986,9 +986,27 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 						nextTurn();
 						
 					}
+					else if(game.getCurrentWonder().getAction().equals("Build") && game.getCurrentWonder().getSelectedCard() != null&&game.getCurrentWonder().canBuildWonder())
+					{
+						Card stage = game.getCurrentWonder().nextWonder();
+						System.out.println("Building "+stage.getName());
+						
+						ArrayList<String> needed = new ArrayList<String>(stage.getCost());
+						ArrayList<String> selected = game.getSelectedResources();
+						
+						System.out.println(needed);
+						System.out.println(selected);
+						Collections.sort(needed);
+						Collections.sort(selected);
+						if(needed.equals(selected) || needed.contains("null"))
+						{
+							nextTurn();
+						}
+						
+					}
 				}
 				// resources selected
-				else if (e.getX() <= 1055 && e.getX() >= 30 && e.getY() <= 990 && e.getY() >= 450&&game.getCurrentWonder().getAction().equals("Play"))
+				else if (e.getX() <= 1055 && e.getX() >= 30 && e.getY() <= 990 && e.getY() >= 450&&(game.getCurrentWonder().getAction().equals("Play")||game.getCurrentWonder().getAction().equals("Build")))
 				{
 					int SilverCost = 2, RightBrownCost = 2, LeftBrownCost = 2;
 					String brownR = "wood-Selected stone-Selected clay-Selected ore-Selected";
