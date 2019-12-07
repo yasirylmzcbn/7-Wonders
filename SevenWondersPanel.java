@@ -44,6 +44,8 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 	private boolean displayHalic; //might become a String later on
 	private boolean displayGraveyard; // for Halicarnassus
 	
+	public static boolean OlympiaAbility = false;
+	
 	private int[] posX;
 	private int width;
 	private int height;
@@ -68,6 +70,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		optionSelection = false;
 		displayView = "";
 		displayColor = "";
+		OlympiaAbility = false;
 	}
 	
 	public void paint(Graphics g) 
@@ -438,7 +441,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				g.setColor(new Color(255, 245, 222));
 			g.fillRect(30, 450, 1025, 580);
 			
-			if(game.getCurrentWonder().getAction().contentEquals("Play")||game.getCurrentWonder().getAction().contentEquals("Build"))
+			if(game.getCurrentWonder().getAction().contentEquals("Play")||game.getCurrentWonder().getAction().contentEquals("Build")&&!game.isHalic()&&!OlympiaAbility)
 			{
 				g.setColor(Color.WHITE);
 				g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 48));
@@ -602,14 +605,15 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				g.drawString("BURN", 500, 370);
 			}
 			
-			
-			// cancel button
-			g.setColor(new Color(191, 57, 57));
-			g.fillRect(30, 990, 210, 40);
-			g.setColor(Color.WHITE);
-			g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 32));
-			g.drawString("CANCEL", 75, 1020);
-			
+			if(!game.isHalic())
+			{
+				// cancel button
+				g.setColor(new Color(191, 57, 57));
+				g.fillRect(30, 990, 210, 40);
+				g.setColor(Color.WHITE);
+				g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 32));
+				g.drawString("CANCEL", 75, 1020);
+			}
 			// confirm button
 			g.setColor(new Color(95, 184, 119));
 			g.fillRect(845, 990, 210, 40);
@@ -894,6 +898,21 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		if (game.allDecisionsMade())
 		{
 			game.finishRound();
+			if(game.isHalic())
+			{
+				int p = 0;
+				for(int i = 0; i<game.getWonders().size(); i++)
+				{
+					if(game.getWonders().get(i).getName().equals("The Mausoleum of Halicarnassus"))
+					{
+						p = i;
+					}
+				}
+				game.setCurrentPlayer(p);
+				game.getCurrentWonder().setAction("Play");
+				game.finishRound();
+				optionSelection = false;
+			}
 			game.nextRound();
 			game.initSelection();
 		}
@@ -976,7 +995,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 					optionSelection = false;
 					game.getCurrentWonder().setAction("Burn");
 				}
-				// TODO action
+				// TODO 
 				/*else if (e.getX() <= 610 && e.getX() >= 465 && e.getY() <= 910 && e.getY() >= 860)
 				{
 					optionSelection = false;
@@ -991,13 +1010,13 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			else
 			{
 				// cancel button // TODO what if they have selected a few resources? how would it reset that?
-				if (e.getX() <= 240 && e.getX() >= 30 && e.getY() <= 1030 && e.getY() >= 990)
+				if (e.getX() <= 240 && e.getX() >= 30 && e.getY() <= 1030 && e.getY() >= 990&&!game.isHalic()&&!OlympiaAbility)
 				{
 					optionSelection = true;
 				}
 				
 				// confirm button
-				else if (e.getX() <= 1055 && e.getX() >= 855 && e.getY() <= 1030 && e.getY() >= 990)//i fixed the hitbox the height was 210 lol
+				else if (e.getX() <= 1055 && e.getX() >= 855 && e.getY() <= 1030 && e.getY() >= 990&&!game.isHalic())//i fixed the hitbox the height was 210 lol
 				{
 					if (game.getCurrentWonder().getAction().equals("Play") &&
 							game.getCurrentWonder().getSelectedCard() != null && game.getCurrentWonder().playable(game.getCurrentWonder().getSelectedCard()))
@@ -1010,7 +1029,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 						Collections.sort(needed);
 						Collections.sort(selected);
 						
-						if(needed.equals(selected) || needed.contains("null"))
+						if(needed.equals(selected) || needed.contains("null")||OlympiaAbility)
 						{
 							ArrayList<Card> currentHand = game.getPlayerHands().get(game.getCurrentWonder().getHand());
 							for (int i = 0; i < currentHand.size(); i++)
@@ -1072,7 +1091,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				}
 
 				// resources selected
-				else if (e.getX() <= 1055 && e.getX() >= 30 && e.getY() <= 990 && e.getY() >= 450&&(game.getCurrentWonder().getAction().equals("Play")||game.getCurrentWonder().getAction().equals("Build")))
+				else if (e.getX() <= 1055 && e.getX() >= 30 && e.getY() <= 990 && e.getY() >= 450&&!game.isHalic()&&!OlympiaAbility&&(game.getCurrentWonder().getAction().equals("Play")||game.getCurrentWonder().getAction().equals("Build")))
 				{
 					int SilverCost = 2, RightBrownCost = 2, LeftBrownCost = 2;
 					String brownR = "wood-Selected stone-Selected clay-Selected ore-Selected";
