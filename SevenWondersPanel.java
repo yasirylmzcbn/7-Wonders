@@ -446,15 +446,30 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			String[] leftResources = game.getLeftSelected();
 			for (int i = 0; i < leftResources.length; i++)
 			{
-				g.drawImage(resources.get(leftResources[i].split("-Selected")[0]), startingX, startingY + (space + 10) * i, space, space, null);
-				if (leftResources[i].contains("-Selected"))
-					g.drawImage(selected, startingX, startingY + (space + 10) * i, space, space, null);
+				// if || card
+				if (leftResources[i].contains("||"))
+				{
+					String[] split = leftResources[i].split("-Selected")[0].split("\\|\\|");
+					for (int s = 0; s < split.length; s++)
+					{
+						System.out.print(split[s] + " and ");
+						g.drawImage(resources.get(split[s]), startingX + (space + 5) * s, startingY + (space + 10) * i, space, space, null);
+					}
+					System.out.println();
+					// add a selected check mark
+				}
+				else
+				{
+					g.drawImage(resources.get(leftResources[i].split("-Selected")[0]), startingX, startingY + (space + 10) * i, space, space, null);
+					if (leftResources[i].contains("-Selected"))
+						g.drawImage(selected, startingX, startingY + (space + 10) * i, space, space, null);
+				}
 				if (brownR.contains(leftResources[i]))
 					for (int j = 0; j < LeftBrownCost; j++)
-						g.drawImage(resources.get("coin"), startingX - coinSize, startingY + (coinSize) * j, coinSize, coinSize, null);
+						g.drawImage(resources.get("coin"), startingX - coinSize, startingY + (space + 10) * i + (coinSize) * j, coinSize, coinSize, null);
 				if (silverR.contains(leftResources[i]))
 					for (int j = 0; j < SilverCost; j++)
-						g.drawImage(resources.get("coin"), startingX - coinSize, startingY + (coinSize) * j, coinSize, coinSize, null);
+						g.drawImage(resources.get("coin"), startingX - coinSize, startingY + (space + 10) * i + (coinSize) * j, coinSize, coinSize, null);
 					
 			}
 			// temporary test
@@ -473,7 +488,17 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			String[] ownResources = game.getOwnSelected();
 			for (int i = 0; i < ownResources.length; i++)
 			{
-				if (!ownResources[i].contains("coin"))
+				// if || card
+				if (ownResources[i].split("-Selected")[0].contains("||"))
+				{
+					String[] split = ownResources[i].split("-Selected")[0].split("\\|\\|");
+					for (int s = 0; s < split.length; s++)
+					{
+						g.drawImage(resources.get(split[s]), startingX + (space + 5) * s, startingY + (space + 10) * i, space, space, null);
+					}
+					// add a selected check mark
+				}
+				else if (!ownResources[i].contains("coin"))
 				{
 					g.drawImage(resources.get(ownResources[i].split("-Selected")[0]), startingX, startingY + (space + 10) * i, space, space, null);
 					if (ownResources[i].contains("-Selected"))
@@ -498,15 +523,28 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			String[] rightResources = game.getRightSelected();
 			for (int i = 0; i < rightResources.length; i++)
 			{
-				g.drawImage(resources.get(rightResources[i].split("-Selected")[0]), startingX, startingY + (space + 10) * i, space, space, null);
-				if (rightResources[i].contains("-Selected"))
-					g.drawImage(selected, startingX, startingY + (space + 10) * i, space, space, null);
+				// if || card
+				if (rightResources[i].split("-Selected")[0].contains("||"))
+				{
+					String[] split = rightResources[i].split("-Selected")[0].split("\\|\\|");
+					for (int s = 0; s < split.length; s++)
+					{
+						g.drawImage(resources.get(split[s]), startingX + (space + 5) * s, startingY + (space + 10) * i, space, space, null);
+					}
+					// add a selected check mark
+				}
+				else
+				{
+					g.drawImage(resources.get(rightResources[i].split("-Selected")[0]), startingX, startingY + (space + 10) * i, space, space, null);
+					if (rightResources[i].contains("-Selected"))
+						g.drawImage(selected, startingX, startingY + (space + 10) * i, space, space, null);
+				}
 				if (brownR.contains(rightResources[i]))
 					for (int j = 0; j < LeftBrownCost; j++)
-						g.drawImage(resources.get("coin"), startingX - coinSize, startingY + (coinSize) * j, coinSize, coinSize, null);
+						g.drawImage(resources.get("coin"), startingX - coinSize, startingY + (space + 10) * i + (coinSize) * j, coinSize, coinSize, null);
 				if (silverR.contains(rightResources[i]))
 					for (int j = 0; j < SilverCost; j++)
-						g.drawImage(resources.get("coin"), startingX - coinSize, startingY + (coinSize) * j, coinSize, coinSize, null);
+						g.drawImage(resources.get("coin"), startingX - coinSize, startingY + (space + 10) * i + (coinSize) * j, coinSize, coinSize, null);
 					
 			}
 			
@@ -784,10 +822,16 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		game.getSelectedResources().clear();
 		optionSelection = true;
 		
+		for (int i = 0; i < game.getDecisionMade().size(); i++)
+			System.out.println("Decision " + i + ": " +  game.getDecisionMade().get(i));
+		
+		System.out.println("all made: " + game.allDecisionsMade());
+		
 		if (game.allDecisionsMade())
 		{
 			game.finishRound();
 			game.nextRound();
+			game.initSelection();
 		}
 	}
 	
@@ -906,8 +950,8 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 							ArrayList<Card> currentHand = game.getPlayerHands().get(game.getCurrentWonder().getHand());
 							for (int i = 0; i < currentHand.size(); i++)
 							{
-								System.out.println("[ ]" + currentHand.get(i).getName());
-								System.out.println(">>>>" + game.getCurrentWonder().getSelectedCard().getName());
+								// System.out.println("[ ]" + currentHand.get(i).getName());
+								// System.out.println(">>>>" + game.getCurrentWonder().getSelectedCard().getName());
 								
 								if (currentHand.get(i).equals(game.getCurrentWonder().getSelectedCard()))
 								{

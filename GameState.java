@@ -352,7 +352,6 @@ public class GameState
 	 */
 	public void finishRound()
 	{
-		
 		for(Wonder w: wonders)
 		{
 			if(w.getAction().contentEquals("Burn"))
