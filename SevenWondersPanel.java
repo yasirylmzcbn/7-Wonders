@@ -381,7 +381,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		g.drawString("Play", 495, 660);
 		g.drawString("Build Wonder", 395, 740); // I changed to Build Wonder for clarification also it was 485, 740
 		g.drawString("Burn", 495, 820);
-		if (game.isHalic() || game.canUseOlympia())
+		if (game.canUseOlympia()) // should be Olympia only bc Halic is automatic
 			g.drawString("Ability", 475, 900);
 	}
 	
@@ -422,121 +422,130 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				g.setColor(new Color(255, 245, 222));
 			g.fillRect(30, 450, 1025, 580);
 			
-
-			g.setColor(Color.WHITE);
-			g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 48));
-			g.drawString("Resource Selection", 350, 370);
-			// resource name (including coin) and their images
-			HashMap<String, BufferedImage> resources = new HashMap<String, BufferedImage>();
-			File imageFiles[] = new File("src/images/resources/").listFiles();
-			BufferedImage selected = ImageIO.read(new File("src/images/selected.png"));
-			
-			// imports resource images
-			for (int i = 0; i < imageFiles.length; i++)
-				resources.put(imageFiles[i].getName().substring(0, imageFiles[i].getName().indexOf(".png")), ImageIO.read(imageFiles[i]));
-			
-			// drawing the coins
-			int SilverCost = 2; // cost of trading for a silver card resource
-			int RightBrownCost = 2;// cost for trading for a brown card resource to the right
-			int LeftBrownCost = 2;//^*left
-			
-			// TODO-needed? yes it is needed fool
-			String brownR = "wood-Selected stone-Selected clay-Selected ore-Selected";
-            String silverR = "paper-Selected cloth-Selected glass-Selected";
-			
-			ArrayList<Card> crds = new ArrayList<Card>();
-			crds.addAll(game.getCurrentWonder().getCardsPlayed().get("yellow"));
-			for(int i = 0; i<crds.size(); i++ )
+			if(game.getCurrentWonder().getAction().contentEquals("Play")||game.getCurrentWonder().getAction().contentEquals("Build"))
 			{
-				if(crds.get(i).getName().equals("East Trading Post"))
-				{
-					RightBrownCost = 1;
-				}
-				if(crds.get(i).getName().equals("West Trading Post"))
-				{
-					LeftBrownCost = 1;
-				}
-				if(crds.get(i).getName().equals("Marketplace"))
-				{
-					SilverCost = 1;
-				}
-			}
-			
-			// left resources
-			int startingX = 75, startingY = 470, space = 40, coinSize = 20;
-			String[] leftResources = game.getLeftSelected();
-			for (int i = 0; i < leftResources.length; i++)
-			{
-				g.drawImage(resources.get(leftResources[i].split("-Selected")[0]), startingX, startingY + (space + 10) * i, space, space, null);
-				if (leftResources[i].contains("-Selected"))
-					g.drawImage(selected, startingX, startingY + (space + 10) * i, space, space, null);
-				if (brownR.contains(leftResources[i]))
-					for (int j = 0; j < LeftBrownCost; j++)
-						g.drawImage(resources.get("coin"), startingX - coinSize, startingY + (coinSize) * j, coinSize, coinSize, null);
-				if (silverR.contains(leftResources[i]))
-					for (int j = 0; j < SilverCost; j++)
-						g.drawImage(resources.get("coin"), startingX - coinSize, startingY + (coinSize) * j, coinSize, coinSize, null);
-					
-			}
-			// temporary test
-			/*for (int i = 0; i < 15; i++)
-			{
-				g.drawImage(resources.get("clay"), startingX, startingY + (space + 10) * i, space, space, null);
-				g.drawImage(resources.get("clay"), space + startingX, startingY + (space + 10) * i, space, space, null);
-				g.drawImage(resources.get("clay"), 2*space +startingX, startingY + (space + 10) * i, space, space, null);
-				g.drawImage(resources.get("clay"), 3*space +startingX, startingY + (space + 10) * i, space, space, null);
-					
-			}*/
-			
-			
-			// own resources
-			startingX = 415;
-			String[] ownResources = game.getOwnSelected();
-			for (int i = 0; i < ownResources.length; i++)
-			{
-				if (!ownResources[i].contains("coin"))
-				{
-					g.drawImage(resources.get(ownResources[i].split("-Selected")[0]), startingX, startingY + (space + 10) * i, space, space, null);
-					if (ownResources[i].contains("-Selected"))
-						g.drawImage(selected, startingX, startingY + (space + 10) * i, space, space, null);
-				}
-			}
-			// draws coins
-			int pos = 0;
-			for (int i = 0; i < ownResources.length; i++)
-			{
-				if (ownResources[i].contains("coin"))
-				{
-					g.drawImage(resources.get(ownResources[i].split("-Selected")[0]), startingX + 225, startingY + (space + 2) * pos, space, space, null);
-					if (ownResources[i].contains("-Selected"))
-						g.drawImage(selected, startingX + 225, startingY + (space + 2) * pos, space, space, null);
-					pos++;
-				}
-			}
+				g.setColor(Color.WHITE);
+				g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 48));
+				g.drawString("Resource Selection", 350, 370);
+				// resource name (including coin) and their images
+				HashMap<String, BufferedImage> resources = new HashMap<String, BufferedImage>();
+				File imageFiles[] = new File("src/images/resources/").listFiles();
+				BufferedImage selected = ImageIO.read(new File("src/images/selected.png"));
 				
-			// right resources
-			startingX = 750;
-			String[] rightResources = game.getRightSelected();
-			for (int i = 0; i < rightResources.length; i++)
-			{
-				g.drawImage(resources.get(rightResources[i].split("-Selected")[0]), startingX, startingY + (space + 10) * i, space, space, null);
-				if (rightResources[i].contains("-Selected"))
-					g.drawImage(selected, startingX, startingY + (space + 10) * i, space, space, null);
-				if (brownR.contains(rightResources[i]))
-					for (int j = 0; j < LeftBrownCost; j++)
-						g.drawImage(resources.get("coin"), startingX - coinSize, startingY + (coinSize) * j, coinSize, coinSize, null);
-				if (silverR.contains(rightResources[i]))
-					for (int j = 0; j < SilverCost; j++)
-						g.drawImage(resources.get("coin"), startingX - coinSize, startingY + (coinSize) * j, coinSize, coinSize, null);
+				// imports resource images
+				for (int i = 0; i < imageFiles.length; i++)
+					resources.put(imageFiles[i].getName().substring(0, imageFiles[i].getName().indexOf(".png")), ImageIO.read(imageFiles[i]));
+				
+				// drawing the coins
+				int SilverCost = 2; // cost of trading for a silver card resource
+				int RightBrownCost = 2;// cost for trading for a brown card resource to the right
+				int LeftBrownCost = 2;//^*left
+				
+				// TODO-needed? yes it is needed fool
+				String brownR = "wood-Selected stone-Selected clay-Selected ore-Selected";
+	            String silverR = "paper-Selected cloth-Selected glass-Selected";
+				
+				ArrayList<Card> crds = new ArrayList<Card>();
+				crds.addAll(game.getCurrentWonder().getCardsPlayed().get("yellow"));
+				for(int i = 0; i<crds.size(); i++ )
+				{
+					if(crds.get(i).getName().equals("East Trading Post"))
+					{
+						RightBrownCost = 1;
+					}
+					if(crds.get(i).getName().equals("West Trading Post"))
+					{
+						LeftBrownCost = 1;
+					}
+					if(crds.get(i).getName().equals("Marketplace"))
+					{
+						SilverCost = 1;
+					}
+				}
+				
+				// left resources
+				int startingX = 75, startingY = 470, space = 40, coinSize = 20;
+				String[] leftResources = game.getLeftSelected();
+				for (int i = 0; i < leftResources.length; i++)
+				{
+					g.drawImage(resources.get(leftResources[i].split("-Selected")[0]), startingX, startingY + (space + 10) * i, space, space, null);
+					if (leftResources[i].contains("-Selected"))
+						g.drawImage(selected, startingX, startingY + (space + 10) * i, space, space, null);
+					if (brownR.contains(leftResources[i]))
+						for (int j = 0; j < LeftBrownCost; j++)
+							g.drawImage(resources.get("coin"), startingX - coinSize, startingY + (coinSize) * j, coinSize, coinSize, null);
+					if (silverR.contains(leftResources[i]))
+						for (int j = 0; j < SilverCost; j++)
+							g.drawImage(resources.get("coin"), startingX - coinSize, startingY + (coinSize) * j, coinSize, coinSize, null);
+						
+				}
+				// temporary test
+				/*for (int i = 0; i < 15; i++)
+				{
+					g.drawImage(resources.get("clay"), startingX, startingY + (space + 10) * i, space, space, null);
+					g.drawImage(resources.get("clay"), space + startingX, startingY + (space + 10) * i, space, space, null);
+					g.drawImage(resources.get("clay"), 2*space +startingX, startingY + (space + 10) * i, space, space, null);
+					g.drawImage(resources.get("clay"), 3*space +startingX, startingY + (space + 10) * i, space, space, null);
+						
+				}*/
+				
+				
+				// own resources
+				startingX = 415;
+				String[] ownResources = game.getOwnSelected();
+				for (int i = 0; i < ownResources.length; i++)
+				{
+					if (!ownResources[i].contains("coin"))
+					{
+						g.drawImage(resources.get(ownResources[i].split("-Selected")[0]), startingX, startingY + (space + 10) * i, space, space, null);
+						if (ownResources[i].contains("-Selected"))
+							g.drawImage(selected, startingX, startingY + (space + 10) * i, space, space, null);
+					}
+				}
+				// draws coins
+				int pos = 0;
+				for (int i = 0; i < ownResources.length; i++)
+				{
+					if (ownResources[i].contains("coin"))
+					{
+						g.drawImage(resources.get(ownResources[i].split("-Selected")[0]), startingX + 225, startingY + (space + 2) * pos, space, space, null);
+						if (ownResources[i].contains("-Selected"))
+							g.drawImage(selected, startingX + 225, startingY + (space + 2) * pos, space, space, null);
+						pos++;
+					}
+				}
 					
+				// right resources
+				startingX = 750;
+				String[] rightResources = game.getRightSelected();
+				for (int i = 0; i < rightResources.length; i++)
+				{
+					g.drawImage(resources.get(rightResources[i].split("-Selected")[0]), startingX, startingY + (space + 10) * i, space, space, null);
+					if (rightResources[i].contains("-Selected"))
+						g.drawImage(selected, startingX, startingY + (space + 10) * i, space, space, null);
+					if (brownR.contains(rightResources[i]))
+						for (int j = 0; j < LeftBrownCost; j++)
+							g.drawImage(resources.get("coin"), startingX - coinSize, startingY + (coinSize) * j, coinSize, coinSize, null);
+					if (silverR.contains(rightResources[i]))
+						for (int j = 0; j < SilverCost; j++)
+							g.drawImage(resources.get("coin"), startingX - coinSize, startingY + (coinSize) * j, coinSize, coinSize, null);
+						
+				}
+				
+				// labels for left, own, right resources
+				g.setColor(Color.WHITE);
+				g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 36));
+				g.drawString("Your resources", 425, 445);
+				g.drawString("Left resources", 30, 445);
+				g.drawString("Right resources", 835, 445);
 			}
-			
-			// labels for left, own, right resources
-			g.setColor(Color.WHITE);
-			g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 36));
-			g.drawString("Your resources", 425, 445);
-			g.drawString("Left resources", 30, 445);
-			g.drawString("Right resources", 835, 445);
+			else if(game.getCurrentWonder().getAction().contentEquals("Burn"))
+			{
+				g.setColor(Color.RED);
+				g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 48));
+				g.drawString("BURN", 500, 370);
+				
+			}
 			
 			
 			// cancel button
@@ -926,7 +935,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 					optionSelection = true;
 				}
 				// confirm button
-				else if (e.getX() <= 1055 && e.getX() >= 855 && e.getY() <= 1030 && e.getY() >= 210)
+				else if (e.getX() <= 1055 && e.getX() >= 855 && e.getY() <= 1030 && e.getY() >= 990)//i fixed the hitbox the height was 210 lol
 				{
 					if (game.getCurrentWonder().getAction().equals("Play") &&
 							game.getCurrentWonder().getSelectedCard() != null && game.getCurrentWonder().playable(game.getCurrentWonder().getSelectedCard()))
@@ -979,7 +988,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 					}
 				}
 				// resources selected
-				else if (e.getX() <= 1055 && e.getX() >= 30 && e.getY() <= 990 && e.getY() >= 450)
+				else if (e.getX() <= 1055 && e.getX() >= 30 && e.getY() <= 990 && e.getY() >= 450&&game.getCurrentWonder().getAction().equals("Play"))
 				{
 					int SilverCost = 2, RightBrownCost = 2, LeftBrownCost = 2;
 					String brownR = "wood-Selected stone-Selected clay-Selected ore-Selected";
