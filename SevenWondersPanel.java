@@ -921,6 +921,24 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 						
 						
 					}
+					else if(game.getCurrentWonder().getAction().equals("Burn") && game.getCurrentWonder().getSelectedCard() != null)
+					{
+						ArrayList<Card> currentHand = game.getPlayerHands().get(game.getCurrentWonder().getHand());
+						for (int i = 0; i < currentHand.size(); i++)
+						{
+							System.out.println("[ ]" + currentHand.get(i).getName());
+							System.out.println(">>>>" + game.getCurrentWonder().getSelectedCard().getName());
+							
+							if (currentHand.get(i).equals(game.getCurrentWonder().getSelectedCard()))
+							{
+								System.out.println("Removing " + currentHand.get(i).getName());
+								currentHand.remove(i);
+								break;
+							}
+						}
+						nextTurn();
+						
+					}
 				}
 				// resources selected
 				else if (e.getX() <= 1055 && e.getX() >= 30 && e.getY() <= 990 && e.getY() >= 450)
