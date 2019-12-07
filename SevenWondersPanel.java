@@ -94,6 +94,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				drawOptionSelection(g);
 			else
 			{
+				/*
 				if (game.getCurrentWonder().getAction().equalsIgnoreCase("play"))
 					drawResourceSelection(g);
 				else if (game.getCurrentWonder().getAction().equalsIgnoreCase("build"))
@@ -101,7 +102,8 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				else if (game.getCurrentWonder().getAction().equalsIgnoreCase("burn"))
 					System.out.println("ok");
 				else if (game.getCurrentWonder().getAction().equalsIgnoreCase("ability"))
-					System.out.println("ok");
+					System.out.println("ok");*/
+				drawResourceSelection(g);
 			}
 			drawRoundInfo(g);
 		}
