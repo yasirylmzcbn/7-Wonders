@@ -286,6 +286,27 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		// draws wonder
 		g.drawImage(wonder, WONDERXPOS, WONDERYPOS, WONDERWIDTH, WONDERHEIGHT, null);
 		
+		//draws the check marks that show which wonder has been built
+		try
+		{
+			BufferedImage check = ImageIO.read(new File("src/images/selected.png"));
+			int checkw = 50;
+			int checkh = 50;
+			if(currentWonder.getPlayerWonders()>=1)
+				g.drawImage(check, 1314, 994, checkw, checkh, null);
+			if(currentWonder.getPlayerWonders()>=2)
+				g.drawImage(check, 1534, 994, checkw, checkh, null);
+			if(currentWonder.getPlayerWonders()>=3)
+				g.drawImage(check, 1763, 994, checkw, checkh, null);
+		}
+		catch (IOException e)
+		{
+			System.out.println("Cannot find check");
+		}
+		
+		
+		
+		
 		// draws the stats
 		int i = 1;
 		int starting = WONDERYPOS + 70;
@@ -629,6 +650,23 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			g.fillRect(WONDERXPOS2 + 10, WONDERYPOS2 + 10, WONDERWIDTH, WONDERHEIGHT);
 			// draws wonder
 			g.drawImage(wonder, WONDERXPOS2, WONDERYPOS2, WONDERWIDTH, WONDERHEIGHT, null);
+			
+			try
+			{
+				BufferedImage check = ImageIO.read(new File("src/images/selected.png"));
+				int checkw = 50;
+				int checkh = 50;
+				if(displayWonder.getPlayerWonders()>=1)
+					g.drawImage(check, 809, 994, checkw, checkh, null);
+				if(displayWonder.getPlayerWonders()>=2)
+					g.drawImage(check, 1017, 994, checkw, checkh, null);
+				if(displayWonder.getPlayerWonders()>=3)
+					g.drawImage(check, 1258, 994, checkw, checkh, null);
+			}
+			catch (IOException e)
+			{
+				System.out.println("Cannot find check");
+			}
 			
 			// draws the stats
 			int i = 1;
