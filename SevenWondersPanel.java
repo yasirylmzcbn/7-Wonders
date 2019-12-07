@@ -990,53 +990,33 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			 */
 			else
 			{
-				if (game.getCurrentWonder().getAction().equalsIgnoreCase("play") || game.getCurrentWonder().getAction().equalsIgnoreCase("build"))
+				// cancel button // TODO what if they have selected a few resources? how would it reset that?
+				if (e.getX() <= 240 && e.getX() >= 30 && e.getY() <= 1030 && e.getY() >= 990)
 				{
-					// cancel button // TODO what if they have selected a few resources? how would it reset that?
-					if (e.getX() <= 240 && e.getX() >= 30 && e.getY() <= 1030 && e.getY() >= 990)
+					optionSelection = true;
+				}
+				
+				// confirm button
+				else if (e.getX() <= 1055 && e.getX() >= 855 && e.getY() <= 1030 && e.getY() >= 990)//i fixed the hitbox the height was 210 lol
+				{
+					if (game.getCurrentWonder().getAction().equals("Play") &&
+							game.getCurrentWonder().getSelectedCard() != null && game.getCurrentWonder().playable(game.getCurrentWonder().getSelectedCard()))
 					{
-						optionSelection = true;
-					}
-					
-					// confirm button
-					else if (e.getX() <= 1055 && e.getX() >= 855 && e.getY() <= 1030 && e.getY() >= 990)//i fixed the hitbox the height was 210 lol
-					{
-						if (game.getCurrentWonder().getAction().equals("Play") &&
-								game.getCurrentWonder().getSelectedCard() != null && game.getCurrentWonder().playable(game.getCurrentWonder().getSelectedCard()))
-						{
-							ArrayList<String> needed = new ArrayList<String>(game.getCurrentWonder().getSelectedCard().getCost());
-							ArrayList<String> selected = game.getSelectedResources();
-							
-							System.out.println(needed);
-							System.out.println(selected);
-							Collections.sort(needed);
-							Collections.sort(selected);
-							
-							if(needed.equals(selected) || needed.contains("null"))
-							{
-								ArrayList<Card> currentHand = game.getPlayerHands().get(game.getCurrentWonder().getHand());
-								for (int i = 0; i < currentHand.size(); i++)
-								{
-									// System.out.println("[ ]" + currentHand.get(i).getName());
-									// System.out.println(">>>>" + game.getCurrentWonder().getSelectedCard().getName());
-									
-									if (currentHand.get(i).equals(game.getCurrentWonder().getSelectedCard()))
-									{
-										System.out.println("Removing " + currentHand.get(i).getName());
-										currentHand.remove(i);
-										break;
-									}
-								}
-								nextTurn();
-							}
-						}
-						else if(game.getCurrentWonder().getAction().equals("Burn") && game.getCurrentWonder().getSelectedCard() != null)
+						ArrayList<String> needed = new ArrayList<String>(game.getCurrentWonder().getSelectedCard().getCost());
+						ArrayList<String> selected = game.getSelectedResources();
+						
+						System.out.println(needed);
+						System.out.println(selected);
+						Collections.sort(needed);
+						Collections.sort(selected);
+						
+						if(needed.equals(selected) || needed.contains("null"))
 						{
 							ArrayList<Card> currentHand = game.getPlayerHands().get(game.getCurrentWonder().getHand());
 							for (int i = 0; i < currentHand.size(); i++)
 							{
-								System.out.println("[ ]" + currentHand.get(i).getName());
-								System.out.println(">>>>" + game.getCurrentWonder().getSelectedCard().getName());
+								// System.out.println("[ ]" + currentHand.get(i).getName());
+								// System.out.println(">>>>" + game.getCurrentWonder().getSelectedCard().getName());
 								
 								if (currentHand.get(i).equals(game.getCurrentWonder().getSelectedCard()))
 								{
@@ -1046,204 +1026,217 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 								}
 							}
 							nextTurn();
-							
 						}
-						else if(game.getCurrentWonder().getAction().equals("Build") && game.getCurrentWonder().getSelectedCard() != null&&game.getCurrentWonder().canBuildWonder())
-						{
-							Card stage = game.getCurrentWonder().nextWonder();
-							System.out.println("Building "+stage.getName());
-							
-							ArrayList<String> needed = new ArrayList<String>(stage.getCost());
-							ArrayList<String> selected = game.getSelectedResources();
-							
-							System.out.println(needed);
-							System.out.println(selected);
-							Collections.sort(needed);
-							Collections.sort(selected);
-							if(needed.equals(selected) || needed.contains("null"))
-							{
-								nextTurn();
-							}
-							
-						}
-						
-						// Wonder cu = game.getCurrentWonder();
-						// System.out.println(cu.canBuildWonder());
-						// System.out.println(game.getCurrentWonder().getAction().equalsIgnoreCase("build"));
-						// System.out.println(game.getCurrentWonder().getSelectedCard() != null);
 					}
-
-					// resources selected
-					else if (e.getX() <= 1055 && e.getX() >= 30 && e.getY() <= 990 && e.getY() >= 450&&(game.getCurrentWonder().getAction().equals("Play")||game.getCurrentWonder().getAction().equals("Build")))
+					else if(game.getCurrentWonder().getAction().equals("Burn") && game.getCurrentWonder().getSelectedCard() != null)
 					{
-						int SilverCost = 2, RightBrownCost = 2, LeftBrownCost = 2;
-						String brownR = "wood-Selected stone-Selected clay-Selected ore-Selected";
-						String silverR = "paper-Selected cloth-Selected glass-Selected";
-						
-						ArrayList<Card> crds = new ArrayList<Card>();
-						crds.addAll(game.getCurrentWonder().getCardsPlayed().get("yellow"));
-						for(int i = 0; i<crds.size(); i++ )
+						ArrayList<Card> currentHand = game.getPlayerHands().get(game.getCurrentWonder().getHand());
+						for (int i = 0; i < currentHand.size(); i++)
 						{
-							if(crds.get(i).getName().equals("East Trading Post"))
-								RightBrownCost = 1;
-							if(crds.get(i).getName().equals("West Trading Post"))
-								LeftBrownCost = 1;
-							if(crds.get(i).getName().equals("Marketplace"))
-								SilverCost = 1;
-						}
-			            
-						// for left resources
-						int startingX = 75, startingY = 470, space = 40, coinSize = 20;
-						String[] leftResources = game.getLeftSelected();
-						for (int i = 0; i < leftResources.length; i++)
-						{
-							if (e.getX() <= startingX + space && e.getX() >= startingX &&
-									e.getY() <= startingY + (space + 10) * i + space && e.getY() >= startingY + (space + 10) * i)
+							System.out.println("[ ]" + currentHand.get(i).getName());
+							System.out.println(">>>>" + game.getCurrentWonder().getSelectedCard().getName());
+							
+							if (currentHand.get(i).equals(game.getCurrentWonder().getSelectedCard()))
 							{
-								System.out.println(leftResources[i]); // debugging
-								
-								if (leftResources[i].contains("-Selected"))
-								{
-									leftResources[i] = leftResources[i].substring(0, leftResources[i].indexOf("-Selected"));
-									game.getSelectedResources().remove(leftResources[i]);
-									
-									TreeMap<String, Integer> trades = game.getCurrentWonder().getTrades();
-									String leftName = game.getLeftWonder(game.getCurrentWonder()).getName();
-									int t = trades.get(leftName);
-									if(brownR.contains(leftResources[i]))
-									{
-										t-=LeftBrownCost;
-									}
-									if(silverR.contains(leftResources[i]))
-									{
-										t-=SilverCost;
-									}
-									trades.put(leftName,t);
-								}
-								else
-								{
-									game.getSelectedResources().add(leftResources[i]);
-									leftResources[i] = leftResources[i] + "-Selected";
-									
-									TreeMap<String, Integer> trades = game.getCurrentWonder().getTrades();
-									String leftName = game.getLeftWonder(game.getCurrentWonder()).getName();
-									int t = trades.get(leftName);
-									if(brownR.contains(leftResources[i]))
-									{
-										t+=LeftBrownCost;
-									}
-									if(silverR.contains(leftResources[i]))
-									{
-										t+=SilverCost;
-									}
-									trades.put(leftName, t);
-								}
+								System.out.println("Removing " + currentHand.get(i).getName());
+								currentHand.remove(i);
+								break;
 							}
+						}
+						nextTurn();
+						
+					}
+					else if(game.getCurrentWonder().getAction().equals("Build") && game.getCurrentWonder().getSelectedCard() != null&&game.getCurrentWonder().canBuildWonder())
+					{
+						Card stage = game.getCurrentWonder().nextWonder();
+						System.out.println("Building "+stage.getName());
+						
+						ArrayList<String> needed = new ArrayList<String>(stage.getCost());
+						ArrayList<String> selected = game.getSelectedResources();
+						
+						System.out.println(needed);
+						System.out.println(selected);
+						Collections.sort(needed);
+						Collections.sort(selected);
+						if(needed.equals(selected) || needed.contains("null"))
+						{
+							nextTurn();
 						}
 						
-						// right resources
-						startingX = 750;
-						String[] rightResources = game.getRightSelected();
-						for (int i = 0; i < rightResources.length; i++)
+					}
+					
+					// Wonder cu = game.getCurrentWonder();
+					// System.out.println(cu.canBuildWonder());
+					// System.out.println(game.getCurrentWonder().getAction().equalsIgnoreCase("build"));
+					// System.out.println(game.getCurrentWonder().getSelectedCard() != null);
+				}
+
+				// resources selected
+				else if (e.getX() <= 1055 && e.getX() >= 30 && e.getY() <= 990 && e.getY() >= 450&&(game.getCurrentWonder().getAction().equals("Play")||game.getCurrentWonder().getAction().equals("Build")))
+				{
+					int SilverCost = 2, RightBrownCost = 2, LeftBrownCost = 2;
+					String brownR = "wood-Selected stone-Selected clay-Selected ore-Selected";
+					String silverR = "paper-Selected cloth-Selected glass-Selected";
+					
+					ArrayList<Card> crds = new ArrayList<Card>();
+					crds.addAll(game.getCurrentWonder().getCardsPlayed().get("yellow"));
+					for(int i = 0; i<crds.size(); i++ )
+					{
+						if(crds.get(i).getName().equals("East Trading Post"))
+							RightBrownCost = 1;
+						if(crds.get(i).getName().equals("West Trading Post"))
+							LeftBrownCost = 1;
+						if(crds.get(i).getName().equals("Marketplace"))
+							SilverCost = 1;
+					}
+		            
+					// for left resources
+					int startingX = 75, startingY = 470, space = 40, coinSize = 20;
+					String[] leftResources = game.getLeftSelected();
+					for (int i = 0; i < leftResources.length; i++)
+					{
+						if (e.getX() <= startingX + space && e.getX() >= startingX &&
+								e.getY() <= startingY + (space + 10) * i + space && e.getY() >= startingY + (space + 10) * i)
 						{
-							if (e.getX() <= startingX + space && e.getX() >= startingX &&
-									e.getY() <= startingY + (space + 10) * i + space && e.getY() >= startingY + (space + 10) * i)
+							System.out.println(leftResources[i]); // debugging
+							
+							if (leftResources[i].contains("-Selected"))
 							{
-								System.out.println(rightResources[i]); // debugging
+								leftResources[i] = leftResources[i].substring(0, leftResources[i].indexOf("-Selected"));
+								game.getSelectedResources().remove(leftResources[i]);
 								
-								if (rightResources[i].contains("-Selected"))
+								TreeMap<String, Integer> trades = game.getCurrentWonder().getTrades();
+								String leftName = game.getLeftWonder(game.getCurrentWonder()).getName();
+								int t = trades.get(leftName);
+								if(brownR.contains(leftResources[i]))
 								{
-									rightResources[i] = rightResources[i].substring(0, rightResources[i].indexOf("-Selected"));
-									game.getSelectedResources().remove(rightResources[i]);
-									
-									TreeMap<String, Integer> trades = game.getCurrentWonder().getTrades();
-									String rightName = game.getRightWonder(game.getCurrentWonder()).getName();
-									int t = trades.get(rightName);
-									if(brownR.contains(rightResources[i]))
-									{
-										t-=RightBrownCost;
-									}
-									if(silverR.contains(rightResources[i]))
-									{
-										t-=SilverCost;
-									}
-									trades.put(rightName,t);
+									t-=LeftBrownCost;
 								}
-								else
+								if(silverR.contains(leftResources[i]))
 								{
-									game.getSelectedResources().add(rightResources[i]);
-									rightResources[i] = rightResources[i] + "-Selected";
-									
-									TreeMap<String, Integer> trades = game.getCurrentWonder().getTrades();
-									String rightName = game.getRightWonder(game.getCurrentWonder()).getName();
-									int t = trades.get(rightName);
-									if(brownR.contains(rightResources[i]))
-									{
-										t+=RightBrownCost;
-									}
-									if(silverR.contains(rightResources[i]))
-									{
-										t+=SilverCost;
-									}
-									trades.put(rightName, t);
+									t-=SilverCost;
 								}
+								trades.put(leftName,t);
 							}
-						}
-						startingX = 415;
-						String[] ownResources = game.getOwnSelected();
-						for (int i = 0; i < ownResources.length; i++)
-						{
-							if (!ownResources[i].contains("coin"))
+							else
 							{
-								if (e.getX() <= startingX + space && e.getX() >= startingX &&
-										e.getY() <= startingY + (space + 10) * i + space && e.getY() >= startingY + (space + 10) * i)
+								game.getSelectedResources().add(leftResources[i]);
+								leftResources[i] = leftResources[i] + "-Selected";
+								
+								TreeMap<String, Integer> trades = game.getCurrentWonder().getTrades();
+								String leftName = game.getLeftWonder(game.getCurrentWonder()).getName();
+								int t = trades.get(leftName);
+								if(brownR.contains(leftResources[i]))
 								{
-									System.out.println(ownResources[i]); // debugging
-									
-									if (ownResources[i].contains("-Selected"))
-									{
-										ownResources[i] = ownResources[i].substring(0, ownResources[i].indexOf("-Selected"));
-										game.getSelectedResources().remove(ownResources[i]);
-									}
-									else
-									{
-										game.getSelectedResources().add(ownResources[i]);
-										ownResources[i] =ownResources[i] + "-Selected";
-									}
+									t+=LeftBrownCost;
 								}
-							}
-						}
-						int pos = 0;
-						for (int i = 0; i < ownResources.length; i++)
-						{
-							if (ownResources[i].contains("coin"))
-							{
-								if (e.getX() <= startingX + space + 225 && e.getX() >= startingX + 225 &&
-										e.getY() <= startingY + (space + 10) * pos + space && e.getY() >= startingY + (space + 10) * pos)
+								if(silverR.contains(leftResources[i]))
 								{
-									System.out.println(ownResources[i]); // debugging
-									
-									if (ownResources[i].contains("-Selected"))
-									{
-										ownResources[i] = ownResources[i].substring(0, ownResources[i].indexOf("-Selected"));
-										game.getSelectedResources().remove(ownResources[i]);
-									}
-									else
-									{
-										game.getSelectedResources().add(ownResources[i]);
-										ownResources[i] = ownResources[i] + "-Selected";
-									}
+									t+=SilverCost;
 								}
-								pos++;
+								trades.put(leftName, t);
 							}
 						}
 					}
-				}
-				else if (game.getCurrentWonder().getAction().equalsIgnoreCase("Burn"))
-				{
 					
+					// right resources
+					startingX = 750;
+					String[] rightResources = game.getRightSelected();
+					for (int i = 0; i < rightResources.length; i++)
+					{
+						if (e.getX() <= startingX + space && e.getX() >= startingX &&
+								e.getY() <= startingY + (space + 10) * i + space && e.getY() >= startingY + (space + 10) * i)
+						{
+							System.out.println(rightResources[i]); // debugging
+							
+							if (rightResources[i].contains("-Selected"))
+							{
+								rightResources[i] = rightResources[i].substring(0, rightResources[i].indexOf("-Selected"));
+								game.getSelectedResources().remove(rightResources[i]);
+								
+								TreeMap<String, Integer> trades = game.getCurrentWonder().getTrades();
+								String rightName = game.getRightWonder(game.getCurrentWonder()).getName();
+								int t = trades.get(rightName);
+								if(brownR.contains(rightResources[i]))
+								{
+									t-=RightBrownCost;
+								}
+								if(silverR.contains(rightResources[i]))
+								{
+									t-=SilverCost;
+								}
+								trades.put(rightName,t);
+							}
+							else
+							{
+								game.getSelectedResources().add(rightResources[i]);
+								rightResources[i] = rightResources[i] + "-Selected";
+								
+								TreeMap<String, Integer> trades = game.getCurrentWonder().getTrades();
+								String rightName = game.getRightWonder(game.getCurrentWonder()).getName();
+								int t = trades.get(rightName);
+								if(brownR.contains(rightResources[i]))
+								{
+									t+=RightBrownCost;
+								}
+								if(silverR.contains(rightResources[i]))
+								{
+									t+=SilverCost;
+								}
+								trades.put(rightName, t);
+							}
+						}
+					}
+					startingX = 415;
+					String[] ownResources = game.getOwnSelected();
+					for (int i = 0; i < ownResources.length; i++)
+					{
+						if (!ownResources[i].contains("coin"))
+						{
+							if (e.getX() <= startingX + space && e.getX() >= startingX &&
+									e.getY() <= startingY + (space + 10) * i + space && e.getY() >= startingY + (space + 10) * i)
+							{
+								System.out.println(ownResources[i]); // debugging
+								
+								if (ownResources[i].contains("-Selected"))
+								{
+									ownResources[i] = ownResources[i].substring(0, ownResources[i].indexOf("-Selected"));
+									game.getSelectedResources().remove(ownResources[i]);
+								}
+								else
+								{
+									game.getSelectedResources().add(ownResources[i]);
+									ownResources[i] =ownResources[i] + "-Selected";
+								}
+							}
+						}
+					}
+					int pos = 0;
+					for (int i = 0; i < ownResources.length; i++)
+					{
+						if (ownResources[i].contains("coin"))
+						{
+							if (e.getX() <= startingX + space + 225 && e.getX() >= startingX + 225 &&
+									e.getY() <= startingY + (space + 10) * pos + space && e.getY() >= startingY + (space + 10) * pos)
+							{
+								System.out.println(ownResources[i]); // debugging
+								
+								if (ownResources[i].contains("-Selected"))
+								{
+									ownResources[i] = ownResources[i].substring(0, ownResources[i].indexOf("-Selected"));
+									game.getSelectedResources().remove(ownResources[i]);
+								}
+								else
+								{
+									game.getSelectedResources().add(ownResources[i]);
+									ownResources[i] = ownResources[i] + "-Selected";
+								}
+							}
+							pos++;
+						}
+					}
 				}
-			}
+		}
 			// if selected a card in hand
 			if (e.getX() >= 5 && e.getX() <= 1325 && e.getY() >= 5 && e.getY() <= 280)
 			{
