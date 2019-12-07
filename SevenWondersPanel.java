@@ -304,7 +304,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		g.setColor(Color.GREEN);
 		g.fillRect(1375, 684, 238, 67); // displayAllCurrent
 		g.setColor(Color.white);
-		g.drawString("Display All of Your Played Cards", 1385 , 720);
+		g.drawString("Display All of Your Played Cards", 1377 , 720);
 		
 		
 		
@@ -878,7 +878,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			// if resource selection
 			/* TODO
 			 * || cards
-			 * taking away coins when trading? maybe not idk
+			 * taking away coins when trading? maybe not idk <-- finishRound() does that
 			 */
 			else
 			{
