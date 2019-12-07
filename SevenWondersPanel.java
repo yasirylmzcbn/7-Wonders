@@ -300,6 +300,27 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		// draws wonder
 		g.drawImage(wonder, WONDERXPOS, WONDERYPOS, WONDERWIDTH, WONDERHEIGHT, null);
 		
+		//draws the check marks that show which wonder has been built
+		try
+		{
+			BufferedImage check = ImageIO.read(new File("src/images/selected.png"));
+			int checkw = 50;
+			int checkh = 50;
+			if(currentWonder.getPlayerWonders()>=1)
+				g.drawImage(check, 1314, 994, checkw, checkh, null);
+			if(currentWonder.getPlayerWonders()>=2)
+				g.drawImage(check, 1534, 994, checkw, checkh, null);
+			if(currentWonder.getPlayerWonders()>=3)
+				g.drawImage(check, 1763, 994, checkw, checkh, null);
+		}
+		catch (IOException e)
+		{
+			System.out.println("Cannot find check");
+		}
+		
+		
+		
+		
 		// draws the stats
 		int i = 1;
 		int starting = WONDERYPOS + 70;
@@ -318,7 +339,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		g.setColor(Color.GREEN);
 		g.fillRect(1375, 684, 238, 67); // displayAllCurrent
 		g.setColor(Color.white);
-		g.drawString("Display All of Your Played Cards", 1385 , 720);
+		g.drawString("Display All of Your Played Cards", 1377 , 720);
 		
 		
 		
@@ -372,9 +393,9 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		g.setColor(Color.BLACK);
 		g.drawString("CHOOSE YOUR ACTION", 280, 590);
 		g.drawString("Play", 495, 660);
-		g.drawString("Build", 485, 740);
+		g.drawString("Build Wonder", 395, 740); // I changed to Build Wonder for clarification also it was 485, 740
 		g.drawString("Burn", 495, 820);
-		if (game.isHalic() || game.canUseOlympia())
+		if (game.canUseOlympia()) // should be Olympia only bc Halic is automatic
 			g.drawString("Ability", 475, 900);
 	}
 	
@@ -415,159 +436,165 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				g.setColor(new Color(255, 245, 222));
 			g.fillRect(30, 450, 1025, 580);
 			
-
-			g.setColor(Color.WHITE);
-			g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 48));
-			g.drawString("Resource Selection", 350, 370);
-			// resource name (including coin) and their images
-			HashMap<String, BufferedImage> resources = new HashMap<String, BufferedImage>();
-			File imageFiles[] = new File("src/images/resources/").listFiles();
-			BufferedImage selected = ImageIO.read(new File("src/images/selected.png"));
-			
-			// imports resource images
-			for (int i = 0; i < imageFiles.length; i++)
-				resources.put(imageFiles[i].getName().substring(0, imageFiles[i].getName().indexOf(".png")), ImageIO.read(imageFiles[i]));
-			
-			// drawing the coins
-			int SilverCost = 2; // cost of trading for a silver card resource
-			int RightBrownCost = 2;// cost for trading for a brown card resource to the right
-			int LeftBrownCost = 2;//^*left
-			
-			// TODO-needed? yes it is needed fool
-			String brownR = "wood-Selected stone-Selected clay-Selected ore-Selected";
-            String silverR = "paper-Selected cloth-Selected glass-Selected";
-			
-			ArrayList<Card> crds = new ArrayList<Card>();
-			crds.addAll(game.getCurrentWonder().getCardsPlayed().get("yellow"));
-			for(int i = 0; i<crds.size(); i++ )
+			if(game.getCurrentWonder().getAction().contentEquals("Play")||game.getCurrentWonder().getAction().contentEquals("Build"))
 			{
-				if(crds.get(i).getName().equals("East Trading Post"))
-				{
-					RightBrownCost = 1;
-				}
-				if(crds.get(i).getName().equals("West Trading Post"))
-				{
-					LeftBrownCost = 1;
-				}
-				if(crds.get(i).getName().equals("Marketplace"))
-				{
-					SilverCost = 1;
-				}
-			}
-			
-			// left resources
-			int startingX = 75, startingY = 470, space = 40, coinSize = 20;
-			String[] leftResources = game.getLeftSelected();
-			for (int i = 0; i < leftResources.length; i++)
-			{
-				// if || card
-				if (leftResources[i].contains("||"))
-				{
-					String[] split = leftResources[i].split("-Selected")[0].split("\\|\\|");
-					for (int s = 0; s < split.length; s++)
-					{
-						System.out.print(split[s] + " and ");
-						g.drawImage(resources.get(split[s]), startingX + (space + 5) * s, startingY + (space + 10) * i, space, space, null);
-					}
-					System.out.println();
-					// add a selected check mark
-				}
-				else
-				{
-					g.drawImage(resources.get(leftResources[i].split("-Selected")[0]), startingX, startingY + (space + 10) * i, space, space, null);
-					if (leftResources[i].contains("-Selected"))
-						g.drawImage(selected, startingX, startingY + (space + 10) * i, space, space, null);
-				}
-				if (brownR.contains(leftResources[i]))
-					for (int j = 0; j < LeftBrownCost; j++)
-						g.drawImage(resources.get("coin"), startingX - coinSize, startingY + (space + 10) * i + (coinSize) * j, coinSize, coinSize, null);
-				if (silverR.contains(leftResources[i]))
-					for (int j = 0; j < SilverCost; j++)
-						g.drawImage(resources.get("coin"), startingX - coinSize, startingY + (space + 10) * i + (coinSize) * j, coinSize, coinSize, null);
-					
-			}
-			// temporary test
-			/*for (int i = 0; i < 15; i++)
-			{
-				g.drawImage(resources.get("clay"), startingX, startingY + (space + 10) * i, space, space, null);
-				g.drawImage(resources.get("clay"), space + startingX, startingY + (space + 10) * i, space, space, null);
-				g.drawImage(resources.get("clay"), 2*space +startingX, startingY + (space + 10) * i, space, space, null);
-				g.drawImage(resources.get("clay"), 3*space +startingX, startingY + (space + 10) * i, space, space, null);
-					
-			}*/
-			
-			
-			// own resources
-			startingX = 415;
-			String[] ownResources = game.getOwnSelected();
-			for (int i = 0; i < ownResources.length; i++)
-			{
-				// if || card
-				if (ownResources[i].split("-Selected")[0].contains("||"))
-				{
-					String[] split = ownResources[i].split("-Selected")[0].split("\\|\\|");
-					for (int s = 0; s < split.length; s++)
-					{
-						g.drawImage(resources.get(split[s]), startingX + (space + 5) * s, startingY + (space + 10) * i, space, space, null);
-					}
-					// add a selected check mark
-				}
-				else if (!ownResources[i].contains("coin"))
-				{
-					g.drawImage(resources.get(ownResources[i].split("-Selected")[0]), startingX, startingY + (space + 10) * i, space, space, null);
-					if (ownResources[i].contains("-Selected"))
-						g.drawImage(selected, startingX, startingY + (space + 10) * i, space, space, null);
-				}
-			}
-			// draws coins
-			int pos = 0;
-			for (int i = 0; i < ownResources.length; i++)
-			{
-				if (ownResources[i].contains("coin") && i < 15)
-				{
-					g.drawImage(resources.get(ownResources[i].split("-Selected")[0]), startingX + 225, startingY + (space + 2) * pos, space, space, null);
-					if (ownResources[i].contains("-Selected"))
-						g.drawImage(selected, startingX + 225, startingY + (space + 2) * pos, space, space, null);
-					pos++;
-				}
-			}
+				g.setColor(Color.WHITE);
+				g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 48));
+				g.drawString("Resource Selection", 350, 370);
+				// resource name (including coin) and their images
+				HashMap<String, BufferedImage> resources = new HashMap<String, BufferedImage>();
+				File imageFiles[] = new File("src/images/resources/").listFiles();
+				BufferedImage selected = ImageIO.read(new File("src/images/selected.png"));
 				
-			// right resources
-			startingX = 750;
-			String[] rightResources = game.getRightSelected();
-			for (int i = 0; i < rightResources.length; i++)
-			{
-				// if || card
-				if (rightResources[i].split("-Selected")[0].contains("||"))
+				// imports resource images
+				for (int i = 0; i < imageFiles.length; i++)
+					resources.put(imageFiles[i].getName().substring(0, imageFiles[i].getName().indexOf(".png")), ImageIO.read(imageFiles[i]));
+				
+				// drawing the coins
+				int SilverCost = 2; // cost of trading for a silver card resource
+				int RightBrownCost = 2;// cost for trading for a brown card resource to the right
+				int LeftBrownCost = 2;//^*left
+				
+				// TODO-needed? yes it is needed fool
+				String brownR = "wood-Selected stone-Selected clay-Selected ore-Selected";
+	            String silverR = "paper-Selected cloth-Selected glass-Selected";
+				
+				ArrayList<Card> crds = new ArrayList<Card>();
+				crds.addAll(game.getCurrentWonder().getCardsPlayed().get("yellow"));
+				for(int i = 0; i<crds.size(); i++ )
 				{
-					String[] split = rightResources[i].split("-Selected")[0].split("\\|\\|");
-					for (int s = 0; s < split.length; s++)
+					if(crds.get(i).getName().equals("East Trading Post"))
 					{
-						g.drawImage(resources.get(split[s]), startingX + (space + 5) * s, startingY + (space + 10) * i, space, space, null);
+						RightBrownCost = 1;
 					}
-					// add a selected check mark
+					if(crds.get(i).getName().equals("West Trading Post"))
+					{
+						LeftBrownCost = 1;
+					}
+					if(crds.get(i).getName().equals("Marketplace"))
+					{
+						SilverCost = 1;
+					}
 				}
-				else
+				
+				// left resources
+				int startingX = 75, startingY = 470, space = 40, coinSize = 20;
+				String[] leftResources = game.getLeftSelected();
+				for (int i = 0; i < leftResources.length; i++)
 				{
-					g.drawImage(resources.get(rightResources[i].split("-Selected")[0]), startingX, startingY + (space + 10) * i, space, space, null);
-					if (rightResources[i].contains("-Selected"))
-						g.drawImage(selected, startingX, startingY + (space + 10) * i, space, space, null);
+					// if || card
+					if (leftResources[i].contains("||"))
+					{
+						String[] split = leftResources[i].split("-Selected")[0].split("\\|\\|");
+						for (int s = 0; s < split.length; s++)
+						{
+							System.out.print(split[s] + " and ");
+							g.drawImage(resources.get(split[s]), startingX + (space + 5) * s, startingY + (space + 10) * i, space, space, null);
+						}
+						System.out.println();
+						// add a selected check mark
+					}
+					else
+					{
+						g.drawImage(resources.get(leftResources[i].split("-Selected")[0]), startingX, startingY + (space + 10) * i, space, space, null);
+						if (leftResources[i].contains("-Selected"))
+							g.drawImage(selected, startingX, startingY + (space + 10) * i, space, space, null);
+					}
+					if (brownR.contains(leftResources[i]))
+						for (int j = 0; j < LeftBrownCost; j++)
+							g.drawImage(resources.get("coin"), startingX - coinSize, startingY + (space + 10) * i + (coinSize) * j, coinSize, coinSize, null);
+					if (silverR.contains(leftResources[i]))
+						for (int j = 0; j < SilverCost; j++)
+							g.drawImage(resources.get("coin"), startingX - coinSize, startingY + (space + 10) * i + (coinSize) * j, coinSize, coinSize, null);
+						
 				}
-				if (brownR.contains(rightResources[i]))
-					for (int j = 0; j < LeftBrownCost; j++)
-						g.drawImage(resources.get("coin"), startingX - coinSize, startingY + (space + 10) * i + (coinSize) * j, coinSize, coinSize, null);
-				if (silverR.contains(rightResources[i]))
-					for (int j = 0; j < SilverCost; j++)
-						g.drawImage(resources.get("coin"), startingX - coinSize, startingY + (space + 10) * i + (coinSize) * j, coinSize, coinSize, null);
-					
+				// temporary test
+				/*for (int i = 0; i < 15; i++)
+				{
+					g.drawImage(resources.get("clay"), startingX, startingY + (space + 10) * i, space, space, null);
+					g.drawImage(resources.get("clay"), space + startingX, startingY + (space + 10) * i, space, space, null);
+					g.drawImage(resources.get("clay"), 2*space +startingX, startingY + (space + 10) * i, space, space, null);
+					g.drawImage(resources.get("clay"), 3*space +startingX, startingY + (space + 10) * i, space, space, null);
+						
+				}*/
+				
+				
+				// own resources
+				startingX = 415;
+				String[] ownResources = game.getOwnSelected();
+				for (int i = 0; i < ownResources.length; i++)
+				{
+					// if || card
+					if (ownResources[i].split("-Selected")[0].contains("||"))
+					{
+						String[] split = ownResources[i].split("-Selected")[0].split("\\|\\|");
+						for (int s = 0; s < split.length; s++)
+						{
+							g.drawImage(resources.get(split[s]), startingX + (space + 5) * s, startingY + (space + 10) * i, space, space, null);
+						}
+						// add a selected check mark
+					}
+					else if (!ownResources[i].contains("coin"))
+					{
+						g.drawImage(resources.get(ownResources[i].split("-Selected")[0]), startingX, startingY + (space + 10) * i, space, space, null);
+						if (ownResources[i].contains("-Selected"))
+							g.drawImage(selected, startingX, startingY + (space + 10) * i, space, space, null);
+					}
+				}
+				// draws coins
+				int pos = 0;
+				for (int i = 0; i < ownResources.length; i++)
+				{
+					if (ownResources[i].contains("coin"))
+					{
+						g.drawImage(resources.get(ownResources[i].split("-Selected")[0]), startingX + 225, startingY + (space + 2) * pos, space, space, null);
+						if (ownResources[i].contains("-Selected"))
+							g.drawImage(selected, startingX + 225, startingY + (space + 2) * pos, space, space, null);
+						pos++;
+					}
+				}		
+				// right resources
+				startingX = 750;
+				String[] rightResources = game.getRightSelected();
+				for (int i = 0; i < rightResources.length; i++)
+				{
+					// if || card
+					if (rightResources[i].split("-Selected")[0].contains("||"))
+					{
+						String[] split = rightResources[i].split("-Selected")[0].split("\\|\\|");
+						for (int s = 0; s < split.length; s++)
+						{
+							g.drawImage(resources.get(split[s]), startingX + (space + 5) * s, startingY + (space + 10) * i, space, space, null);
+						}
+						// add a selected check mark
+					}
+					else
+					{
+						g.drawImage(resources.get(rightResources[i].split("-Selected")[0]), startingX, startingY + (space + 10) * i, space, space, null);
+						if (rightResources[i].contains("-Selected"))
+							g.drawImage(selected, startingX, startingY + (space + 10) * i, space, space, null);
+					}
+					if (brownR.contains(rightResources[i]))
+						for (int j = 0; j < LeftBrownCost; j++)
+							g.drawImage(resources.get("coin"), startingX - coinSize, startingY + (space + 10) * i + (coinSize) * j, coinSize, coinSize, null);
+					if (silverR.contains(rightResources[i]))
+						for (int j = 0; j < SilverCost; j++)
+							g.drawImage(resources.get("coin"), startingX - coinSize, startingY + (space + 10) * i + (coinSize) * j, coinSize, coinSize, null);
+				}
+				
+				// labels for left, own, right resources
+				g.setColor(Color.WHITE);
+				g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 36));
+				g.drawString("Your resources", 425, 445);
+				g.drawString("Left resources", 30, 445);
+				g.drawString("Right resources", 835, 445);
 			}
-			
-			// labels for left, own, right resources
-			g.setColor(Color.WHITE);
-			g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 36));
-			g.drawString("Your resources", 425, 445);
-			g.drawString("Left resources", 30, 445);
-			g.drawString("Right resources", 835, 445);
+			else if(game.getCurrentWonder().getAction().contentEquals("Burn"))
+			{
+				g.setColor(Color.RED);
+				g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 48));
+				g.drawString("BURN", 500, 370);
+			}
 			
 			
 			// cancel button
@@ -603,10 +630,10 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			BufferedImage card = ImageIO.read(new File("src/images/cards/age" + game.getAge() + ".png"));
 			
 			g.drawImage(logo, 1270, 320, logo.getWidth() * 3 / 7, logo.getHeight() * 3 / 7, null);
-			g.drawImage(rotation, 1400, 515, rotation.getWidth()/12, rotation.getHeight()/12, null);
-			g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 56));
-			g.setColor(Color.WHITE);
-			g.drawString("Round " + game.getRound(), 1340, 495);
+			g.drawImage(rotation, 1400, 525, rotation.getWidth()/12, rotation.getHeight()/12, null); //y was 515
+			g.setFont(new Font("Times New Roman", Font.PLAIN, 56));
+			g.setColor(Color.BLACK);// was white
+			g.drawString("ROUND " + game.getRound(), 1300, 510);//was 1340, 495 but was being covered
 			g.drawImage(card, 1550, 450, card.getWidth() * 3 / 4, card.getHeight() * 3 / 4, null);
 			// g.drawString("age " + game.getAge(), 1360, 565);
 		}
@@ -681,6 +708,23 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			g.fillRect(WONDERXPOS2 + 10, WONDERYPOS2 + 10, WONDERWIDTH, WONDERHEIGHT);
 			// draws wonder
 			g.drawImage(wonder, WONDERXPOS2, WONDERYPOS2, WONDERWIDTH, WONDERHEIGHT, null);
+			
+			try
+			{
+				BufferedImage check = ImageIO.read(new File("src/images/selected.png"));
+				int checkw = 50;
+				int checkh = 50;
+				if(displayWonder.getPlayerWonders()>=1)
+					g.drawImage(check, 809, 994, checkw, checkh, null);
+				if(displayWonder.getPlayerWonders()>=2)
+					g.drawImage(check, 1017, 994, checkw, checkh, null);
+				if(displayWonder.getPlayerWonders()>=3)
+					g.drawImage(check, 1258, 994, checkw, checkh, null);
+			}
+			catch (IOException e)
+			{
+				System.out.println("Cannot find check");
+			}
 			
 			// draws the stats
 			int i = 1;
@@ -915,7 +959,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 					game.getCurrentWonder().setAction("Play");
 				}
 				// build
-				else if (e.getX() <= 590 && e.getX() >= 485 && e.getY() <= 750 && e.getY() >= 700)
+				else if (e.getX() <= 704 && e.getX() >= 397 && e.getY() <= 750 && e.getY() >= 700)
 				{
 					optionSelection = false;
 					game.getCurrentWonder().setAction("Build");
@@ -936,7 +980,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			// if resource selection
 			/* TODO
 			 * || cards
-			 * taking away coins when trading? maybe not idk
+			 * taking away coins when trading? maybe not idk <-- finishRound() does that
 			 */
 			else
 			{
@@ -947,8 +991,9 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 					{
 						optionSelection = true;
 					}
+					
 					// confirm button
-					else if (e.getX() <= 1055 && e.getX() >= 855 && e.getY() <= 1030 && e.getY() >= 210)
+					else if (e.getX() <= 1055 && e.getX() >= 855 && e.getY() <= 1030 && e.getY() >= 990)//i fixed the hitbox the height was 210 lol
 					{
 						if (game.getCurrentWonder().getAction().equals("Play") &&
 								game.getCurrentWonder().getSelectedCard() != null && game.getCurrentWonder().playable(game.getCurrentWonder().getSelectedCard()))
@@ -979,21 +1024,41 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 								nextTurn();
 							}
 						}
-						else if (game.getCurrentWonder().getAction().equalsIgnoreCase("build") && game.getCurrentWonder().canBuildWonder() && 
-								game.getCurrentWonder().getSelectedCard() != null)
+						else if(game.getCurrentWonder().getAction().equals("Burn") && game.getCurrentWonder().getSelectedCard() != null)
 						{
-							ArrayList<String> needed = game.getCurrentWonder().getStages().get(game.getCurrentWonder().getPlayerWonders()).getCost();
+							ArrayList<Card> currentHand = game.getPlayerHands().get(game.getCurrentWonder().getHand());
+							for (int i = 0; i < currentHand.size(); i++)
+							{
+								System.out.println("[ ]" + currentHand.get(i).getName());
+								System.out.println(">>>>" + game.getCurrentWonder().getSelectedCard().getName());
+								
+								if (currentHand.get(i).equals(game.getCurrentWonder().getSelectedCard()))
+								{
+									System.out.println("Removing " + currentHand.get(i).getName());
+									currentHand.remove(i);
+									break;
+								}
+							}
+							nextTurn();
+							
+						}
+						else if(game.getCurrentWonder().getAction().equals("Build") && game.getCurrentWonder().getSelectedCard() != null&&game.getCurrentWonder().canBuildWonder())
+						{
+							Card stage = game.getCurrentWonder().nextWonder();
+							System.out.println("Building "+stage.getName());
+							
+							ArrayList<String> needed = new ArrayList<String>(stage.getCost());
 							ArrayList<String> selected = game.getSelectedResources();
 							
 							System.out.println(needed);
 							System.out.println(selected);
 							Collections.sort(needed);
 							Collections.sort(selected);
-							
-							if(needed.equals(selected))
+							if(needed.equals(selected) || needed.contains("null"))
 							{
 								nextTurn();
 							}
+							
 						}
 						
 						// Wonder cu = game.getCurrentWonder();
@@ -1001,14 +1066,14 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 						// System.out.println(game.getCurrentWonder().getAction().equalsIgnoreCase("build"));
 						// System.out.println(game.getCurrentWonder().getSelectedCard() != null);
 					}
+
 					// resources selected
-						
-					if (e.getX() <= 1055 && e.getX() >= 30 && e.getY() <= 990 && e.getY() >= 450)
+					else if (e.getX() <= 1055 && e.getX() >= 30 && e.getY() <= 990 && e.getY() >= 450&&(game.getCurrentWonder().getAction().equals("Play")||game.getCurrentWonder().getAction().equals("Build")))
 					{
 						int SilverCost = 2, RightBrownCost = 2, LeftBrownCost = 2;
 						String brownR = "wood-Selected stone-Selected clay-Selected ore-Selected";
-			            String silverR = "paper-Selected cloth-Selected glass-Selected";
-			            
+						String silverR = "paper-Selected cloth-Selected glass-Selected";
+						
 						ArrayList<Card> crds = new ArrayList<Card>();
 						crds.addAll(game.getCurrentWonder().getCardsPlayed().get("yellow"));
 						for(int i = 0; i<crds.size(); i++ )
