@@ -995,6 +995,12 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 					optionSelection = false;
 					game.getCurrentWonder().setAction("Burn");
 				}
+				else if (game.canUseOlympia()&&e.getX() <= 625 && e.getX() >= 466 && e.getY() <= 908 && e.getY() >= 864)
+				{
+					optionSelection = false;
+					game.getCurrentWonder().setAction("Play");
+					OlympiaAbility = true;
+				}
 				// TODO 
 				/*else if (e.getX() <= 610 && e.getX() >= 465 && e.getY() <= 910 && e.getY() >= 860)
 				{
