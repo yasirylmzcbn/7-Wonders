@@ -434,7 +434,11 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				
 				// imports resource images
 				for (int i = 0; i < imageFiles.length; i++)
-					resources.put(imageFiles[i].getName().substring(0, imageFiles[i].getName().indexOf(".png")), ImageIO.read(imageFiles[i]));
+				{
+					//System.out.println(imageFiles[i].getName());
+					if(imageFiles[i].getName().contains(".png"))
+						resources.put(imageFiles[i].getName().substring(0, imageFiles[i].getName().indexOf(".png")), ImageIO.read(imageFiles[i]));
+				}
 				
 				// drawing the coins
 				int SilverCost = 2; // cost of trading for a silver card resource
