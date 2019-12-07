@@ -204,6 +204,7 @@ public class TextRunner
 	 */
 	public static void resourceSelection()
 	{
+		int tradingCost = 0;
 		// Shows every resource needed to build the card, including the coins
 		System.out.println("Cost to build " + currentWonder.getSelectedCard().getName() + ": " + currentWonder.getSelectedCard().getCost());
 		
@@ -351,7 +352,9 @@ public class TextRunner
 					Collections.sort(needed);
 					Collections.sort(selected);
 					//System.out.println(""+needed+selected);
-					if(needed.equals(selected)) // might need to add &&currentWonder.playable(currentWonder.getSelectedCard())
+					System.out.println("!!!!final tradingcost: " +tradingCost);
+					System.out.println("!!!!final your: " + state.getCurrentWonder().getMoney());
+					if(needed.equals(selected) && state.getCurrentWonder().getMoney() >= tradingCost) // might need to add &&currentWonder.playable(currentWonder.getSelectedCard())
 						//but I think Mustafa's way of checking when they select the card also works
 					{
 
@@ -372,6 +375,8 @@ public class TextRunner
 					}
 					else
 						System.out.println("Invalid resources selected");
+					if (state.getCurrentWonder().getMoney() < tradingCost)
+						System.out.println("Not enough money to play");
 				}
 				else
 				{
@@ -406,11 +411,15 @@ public class TextRunner
 							// if it is selected, then deselect it
 							if (allResources[playerInput].contains("-Selected"))
 							{
+								if (allResources[playerInput].contains("coin"))
+									tradingCost -= 1;
 								allResources[playerInput] = allResources[playerInput].substring(0, allResources[playerInput].indexOf("-Selected"));
 								selected.remove(allResources[playerInput]);
 							}
 							else
 							{
+								if (allResources[playerInput].contains("coin"))
+									tradingCost += 1;
 								selected.add(allResources[playerInput]);
 								allResources[playerInput] = allResources[playerInput] + "-Selected";
 							}
@@ -455,14 +464,16 @@ public class TextRunner
 								if(brownR.contains(leftNR[playerInput]))
 								{
 									t-=LeftBrownCost;
+									tradingCost -= LeftBrownCost;
 								}
 								if(silverR.contains(leftNR[playerInput]))
 								{
 									t-=SilverCost;
+									tradingCost -= SilverCost;
 								}
 								trades.put(leftName,t);
 							}
-							else
+							else if (state.getCurrentWonder().getMoney() >= tradingCost)
 							{
 								selected.add(leftNR[playerInput]);
 								leftNR[playerInput] = leftNR[playerInput] + "-Selected";
@@ -494,10 +505,12 @@ public class TextRunner
 								if(brownR.contains(leftNR[playerInput]))
 								{
 									t+=LeftBrownCost;
+									tradingCost+=LeftBrownCost;
 								}
 								if(silverR.contains(leftNR[playerInput]))
 								{
 									t+=SilverCost;
+									tradingCost+=SilverCost;
 								}
 								trades.put(leftName, t);
 							}
@@ -523,14 +536,16 @@ public class TextRunner
 								if(brownR.contains(rightNR[playerInput]))
 								{
 									t-=RightBrownCost;
+									tradingCost -= RightBrownCost;
 								}
 								if(silverR.contains(rightNR[playerInput]))
 								{
 									t-=SilverCost;
+									tradingCost -= SilverCost;
 								}
 								trades.put(rightName,t);
 							}
-							else
+							else if (state.getCurrentWonder().getMoney() >= tradingCost)
 							{
 								selected.add(rightNR[playerInput]);
 								rightNR[playerInput] = rightNR[playerInput] + "-Selected";
@@ -540,10 +555,12 @@ public class TextRunner
 								if(brownR.contains(rightNR[playerInput]))
 								{
 									t+=RightBrownCost;
+									tradingCost+=RightBrownCost;
 								}
 								if(silverR.contains(rightNR[playerInput]))
 								{
 									t+=SilverCost;
+									tradingCost+=SilverCost;
 								}
 								trades.put(rightName, t);
 							}
@@ -553,6 +570,8 @@ public class TextRunner
 				
 						System.out.println();
 					}
+					System.out.println("!!!!tradingcost: " +tradingCost);
+					System.out.println("!!!!your: " + state.getCurrentWonder().getMoney());
 				}
 			}
 		}
@@ -676,6 +695,7 @@ public class TextRunner
 	}
 	public static void wonderResourceSelection() // TODO CHECK THIS, im doing this super late and my brain is fried rn
 	{
+		int tradingCost = 0;
 			System.out.println("Cost to build wonder "+(currentWonder.getPlayerWonders()+1)+": " + currentWonder.nextWonder().getCost());
 			//All Wonders cost something
 				// every resource that a player has
@@ -786,7 +806,7 @@ public class TextRunner
 
 						Collections.sort(needed);
 						Collections.sort(selected);
-						if(needed.equals(selected)) 
+						if(needed.equals(selected) && state.getCurrentWonder().getMoney() >= tradingCost)
 						{
 
 							System.out.println("Used card " + currentWonder.getSelectedCard().getName() + " to build wonder " + (currentWonder.getPlayerWonders() + 1));
@@ -800,6 +820,8 @@ public class TextRunner
 						}
 						else
 							System.out.println("Invalid resources selected");
+						if (state.getCurrentWonder().getMoney() < tradingCost)
+							System.out.println("Not enough money to play");
 					}
 					else
 					{
@@ -831,11 +853,15 @@ public class TextRunner
 								// if it is selected, then deselect it
 								if (allResources[playerInput].contains("-Selected"))
 								{
+									if (allResources[playerInput].contains("coin"))
+										tradingCost -= 1;
 									allResources[playerInput] = allResources[playerInput].substring(0, allResources[playerInput].indexOf("-Selected"));
 									selected.remove(allResources[playerInput]);
 								}
 								else
 								{
+									if (allResources[playerInput].contains("coin"))
+										tradingCost += 1;
 									selected.add(allResources[playerInput]);
 									allResources[playerInput] = allResources[playerInput] + "-Selected";
 								}
@@ -861,14 +887,16 @@ public class TextRunner
 									if(brownR.contains(leftNR[playerInput]))
 									{
 										t-=LeftBrownCost;
+										tradingCost -= LeftBrownCost;
 									}
 									if(silverR.contains(leftNR[playerInput]))
 									{
 										t-=SilverCost;
+										tradingCost -= SilverCost;
 									}
 									trades.put(leftName,t);
 								}
-								else
+								else if (state.getCurrentWonder().getMoney() >= tradingCost)
 								{
 									selected.add(leftNR[playerInput]);
 									leftNR[playerInput] = leftNR[playerInput] + "-Selected";
@@ -878,10 +906,12 @@ public class TextRunner
 									if(brownR.contains(leftNR[playerInput]))
 									{
 										t+=LeftBrownCost;
+										tradingCost+=LeftBrownCost;
 									}
 									if(silverR.contains(leftNR[playerInput]))
 									{
 										t+=SilverCost;
+										tradingCost+=SilverCost;
 									}
 									trades.put(leftName, t);
 								}
@@ -907,10 +937,12 @@ public class TextRunner
 									if(brownR.contains(rightNR[playerInput]))
 									{
 										t-=RightBrownCost;
+										tradingCost -= RightBrownCost;
 									}
 									if(silverR.contains(rightNR[playerInput]))
 									{
 										t-=SilverCost;
+										tradingCost -= SilverCost;
 									}
 									trades.put(rightName,t);
 								}
@@ -924,10 +956,12 @@ public class TextRunner
 									if(brownR.contains(rightNR[playerInput]))
 									{
 										t+=RightBrownCost;
+										tradingCost+=RightBrownCost;
 									}
 									if(silverR.contains(rightNR[playerInput]))
 									{
 										t+=SilverCost;
+										tradingCost+=SilverCost;
 									}
 									trades.put(rightName, t);
 								}
