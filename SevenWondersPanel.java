@@ -525,10 +525,6 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 					if (silverR.contains(leftResources[i].split("\\|\\|")[0]))
 						for (int j = 0; j < SilverCost; j++)
 							g.drawImage(resources.get("coin"), startingX - coinSize, startingY + (space + 10) * i + (coinSize) * j, coinSize, coinSize, null);
-					System.out.println("Left brown cost: " + LeftBrownCost);
-					System.out.println("Right brown cost: " + RightBrownCost);
-					System.out.println("Silver cost: " + SilverCost);
-						
 				}
 				// temporary test
 				/*for (int i = 0; i < 15; i++)
@@ -1249,8 +1245,24 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 						ArrayList<String> needed = new ArrayList<String>(stage.getCost());
 						ArrayList<String> selected = game.getSelectedResources();
 						
-						System.out.println(needed);
-						System.out.println(selected);
+						for (int index = 0; index < selected.size(); index++)
+						{
+							if (selected.get(index).contains("||"))
+							{
+								String[] orResources = selected.get(index).split("\\|\\|");
+								System.out.println("or: " + Arrays.toString(orResources));
+								for (int h = 0; h < orResources.length; h++)
+								{
+									if (orResources[h].contains("-Selected"))
+									{
+										String theResource = orResources[h].split("-Selected")[0];
+										selected.set(index, theResource);
+										break;
+									}
+								}
+							}
+						}
+						
 						Collections.sort(needed);
 						Collections.sort(selected);
 						if(needed.equals(selected) || needed.contains("null"))
