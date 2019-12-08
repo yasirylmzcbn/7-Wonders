@@ -134,6 +134,10 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		{
 			drawGraveyard(g);
 		}
+		if(game.isEndOfGame())
+		{
+			drawFinalPoints(g);
+		}
 	}
 	
 	// draws start and quit buttons
@@ -1056,6 +1060,71 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			}
 		}
 		
+	}
+	public void drawFinalPoints(Graphics g)
+	{
+		drawBackground(g);
+		int FP = 0;
+		int SP = 0;
+		int TP = 0;
+		ArrayList<String> stand = new ArrayList<String>();
+		ArrayList<Integer> finalPoints = game.finalPoints();
+		
+		for (int i = 0; i < finalPoints.size(); i++)
+			if (finalPoints.get(i) > finalPoints.get(FP))
+			{
+				FP = finalPoints.get(i);
+				 stand.add(game.getWonders().get(i).getName());
+				finalPoints.remove(i);
+			}
+		for (int i = 0; i < finalPoints.size(); i++)
+			if (finalPoints.get(i) > finalPoints.get(SP))
+			{
+				SP = finalPoints.get(i);
+				stand.add(game.getWonders().get(SP).getName());
+				finalPoints.remove(i);
+			}
+		for (int i = 0; i < finalPoints.size(); i++)
+			if (finalPoints.get(i) > finalPoints.get(TP))
+			{
+				TP = finalPoints.get(i);
+				stand.add(game.getWonders().get(TP).getName());
+				finalPoints.remove(i);
+			}
+		
+		// assigns image to wonder
+		BufferedImage podium[] = new BufferedImage[3];
+		BufferedImage crown = null;
+		try
+		{
+			crown= ImageIO.read(new File("src/images/crown.png"));
+			for(int i = 0; i <stand.size();i++ )
+			{
+				podium[i] = ImageIO.read(new File("src/images/"+stand.get(i)+".png"));
+			}
+			
+		}
+		catch (IOException e)
+		{
+			System.out.println("Cannot find finalPoints images");
+		}
+		/*
+		 * public static final int WONDERXPOS = 1120, WONDERYPOS = 720;
+			public static final int WONDERWIDTH = 756, WONDERHEIGHT = 313; // original image size is 605, 250
+		 */
+		int WONDERXPOS2 = 615;
+		int WONDERYPOS2 = 300;
+		
+		// draws shadow
+		g.setColor(TRANSPARENTBLACK);
+		g.fillRect(WONDERXPOS2 + 10, WONDERYPOS2 + 10, WONDERWIDTH, WONDERHEIGHT);
+		// draws wonder
+		g.drawImage(podium[0], WONDERXPOS2, WONDERYPOS2, WONDERWIDTH, WONDERHEIGHT, null);
+		
+		
+		
+		
+	
 	}
 	
 	public void nextTurn()

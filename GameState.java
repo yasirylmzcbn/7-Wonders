@@ -344,6 +344,23 @@ public class GameState
 				winner = i;
 		return winner+""+finalPoints.get(winner);
 	}
+	public TreeMap<String, Integer> standings()
+	{
+		TreeMap<String, Integer> stand = new TreeMap<String, Integer>();
+		ArrayList<Integer> finalPoints = finalPoints();
+		int size = finalPoints().size();
+		for(int i = 0; i<size;i++)
+		{
+			int winner = 0;
+			int winnerP = 0;
+			for (int j = 0; j < finalPoints.size(); j++)
+				if (finalPoints.get(i) > finalPoints.get(winner))
+					winner = i;
+			finalPoints.remove(winner);
+			stand.put(wonders.get(winner).getName(),winnerP);
+		}
+		return stand;
+	}
 	public void rotateHands()
 	{
 		for(Wonder w: wonders)
