@@ -1032,7 +1032,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				 stand[0] = game.getWonders().get(i).getName();
 				ind = i;
 			}
-		finalPoints.remove(ind);
+		finalPoints.set(ind, -1);
 		ind = 0;
 		
 		for (int i = 0; i < finalPoints.size(); i++)
@@ -1042,7 +1042,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				stand[1] = game.getWonders().get(i).getName();
 				ind = i;
 			}
-		finalPoints.remove(ind);
+		finalPoints.set(ind, -1);
 		ind = 0;
 		
 		
@@ -1053,7 +1053,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				stand[2] = game.getWonders().get(i).getName();
 				ind = i;
 			}
-		finalPoints.remove(ind);
+		finalPoints.set(ind, -1);
 		ind = 0;
 		
 		/*
