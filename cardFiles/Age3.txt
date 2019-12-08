@@ -18,7 +18,7 @@ civicsCard/Palace/blue/null/glass,paper,cloth,clay,wood,ore,stone/3/8
 civicsCard/Senate/blue/Library/ore,stone,wood,wood/3/6
 techCard/Lodge/green/Dispensary/clay,clay,cloth,paper/3/compass
 techCard/Observatory/green/Laboratory/ore,ore,glass,cloth/3/gear
-techCard/Universtiy/green/Library/wood,wood,paper,glass/3/tablet
+techCard/University/green/Library/wood,wood,paper,glass/3/tablet
 techCard/Academy/green/School/stone,stone,stone,glass/3/compass
 techCard/Study/green/School/wood,paper,cloth/3/gear
 commercialCard/Haven/yellow/Forum/cloth,ore,wood/3/coin*brown*down*VP
