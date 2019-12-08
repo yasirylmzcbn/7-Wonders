@@ -485,6 +485,9 @@ public class GameState
 			TreeMap<String, Integer> trades = w.getTrades();
 			int tradeV = trades.get(getLeftWonder(i).getName());
 			getLeftWonder(i).addMoney(tradeV);
+			
+			System.out.println(w.getName() + " had " + w.getMoney() + " coins and now has " + (w.getMoney() - tradeV));// debugging
+			
 			w.addMoney(-tradeV);
 			
 			trades.put(getLeftWonder(i).getName(), 0);
