@@ -451,6 +451,8 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 					g.setColor(RED);
 				else if (col.getColor().equals("brown"))
 					g.setColor(BROWN);
+				else if (col.getColor().equals("purple"))
+					g.setColor(PURPLE);
 				else
 					g.setColor(new Color(255, 245, 222));
 			}
@@ -1030,7 +1032,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				 stand[0] = game.getWonders().get(i).getName();
 				ind = i;
 			}
-		finalPoints.remove(ind);
+		finalPoints.set(ind, -1);
 		ind = 0;
 		
 		for (int i = 0; i < finalPoints.size(); i++)
@@ -1040,7 +1042,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				stand[1] = game.getWonders().get(i).getName();
 				ind = i;
 			}
-		finalPoints.remove(ind);
+		finalPoints.set(ind, -1);
 		ind = 0;
 		
 		
@@ -1051,7 +1053,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				stand[2] = game.getWonders().get(i).getName();
 				ind = i;
 			}
-		finalPoints.remove(ind);
+		finalPoints.set(ind, -1);
 		ind = 0;
 		
 		/*
