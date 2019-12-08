@@ -625,12 +625,18 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				g.drawString("Your resources", 425, 445);
 				g.drawString("Left resources", 30, 445);
 				g.drawString("Right resources", 780, 445);
+				g.setColor(Color.WHITE);
+				g.drawLine(711, 451, 711, 1030);
+				g.drawLine(342, 451, 342, 1030);
 			}
 			else if(game.getCurrentWonder().getAction().contentEquals("Burn"))
 			{
 				g.setColor(new Color(250, 60, 0));
 				g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 48));
 				g.drawString("BURN", 500, 390);
+				BufferedImage flame = ImageIO.read(new File("src/images/flames.png"));
+				g.drawImage(flame, 340, 566, 456, 458, null);
+				
 			}
 			
 			//if(!game.isHalic())
@@ -648,6 +654,9 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				g.setColor(Color.WHITE);
 				g.drawString("CONFIRM", 880, 1020);
 			//}
+			
+				
+				
 			
 		}
 		catch (IOException e)
