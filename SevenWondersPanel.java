@@ -451,6 +451,8 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 					g.setColor(RED);
 				else if (col.getColor().equals("brown"))
 					g.setColor(BROWN);
+				else if (col.getColor().equals("purple"))
+					g.setColor(PURPLE);
 				else
 					g.setColor(new Color(255, 245, 222));
 			}
