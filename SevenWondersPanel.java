@@ -65,7 +65,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		game = new GameState();
 		this.width = width;
 		this.height = height;
-		mainMenu = true;
+		mainMenu = false;
 		wonderDist = false;
 		defaultView = false;
 		optionSelection = false;
@@ -951,7 +951,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		}
 		
 		
-		System.out.println("size"+playerHandNames.size());
+		//System.out.println("size"+playerHandNames.size());
 				
 				// assign card images
 		BufferedImage cards1[] = new BufferedImage[playerHand1.size()];
@@ -1736,6 +1736,102 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				defaultView = true;
 			}
 			
+			
+		}
+		else if(displayGraveyard)
+		{
+				// goes through each card in the hand to check for the click
+				Wonder current = game.getCurrentWonder();
+				ArrayList<Card> graveyard = game.getGraveyard();
+				ArrayList<Card> grave1 = new ArrayList<Card>();
+				ArrayList<Card> grave2 = new ArrayList<Card>();
+				ArrayList<Card> grave3 = new ArrayList<Card>();
+				for(int i = 0; i<graveyard.size();i++)
+				{
+					if(i<=9)
+					{
+						grave1.add(graveyard.get(i));
+					}
+					else if(i<=19)
+					{
+						grave2.add(graveyard.get(i));
+					}
+					else if(i<=29)
+					{
+						grave3.add(graveyard.get(i));
+					}
+				}
+				//int HANDYPOS2 = 5+CARDHEIGHT+20;
+				//int HANDYPOS3 = 5+HANDYPOS2+CARDHEIGHT+20;
+				if(e.getY() >= 5 && e.getY() <= 280)
+				{
+					for (int i = 0; i < grave1.size(); i++)
+					{
+						// this is the bounds for each card of index 'i'
+						// funcion is g(i) = 190i + 5, or g(i) = 5 (initial offset of card) + 10i (space between each card) + 180i (width of each card)
+						if (e.getX() >= 190 * i + 5 && e.getX() <= 190 * i + 185 && e.getY() >= 5 && e.getY() <= 280)
+						{
+							// possible temporary code for debugging
+							if (!grave1.get(i).equals(current.getSelectedCard()))
+							{
+								System.out.println("Chosen card " + grave1.get(i).getName());
+								current.setSelectedCard(grave1.get(i));
+							}
+							else
+							{
+								System.out.println("Deselected card " + grave1.get(i).getName());
+								current.setSelectedCard(null);
+							}
+						}
+						
+					}
+				}
+				if(e.getY() >= 300 && e.getY() <= 575)
+				{
+				for (int i = 0; i < grave2.size(); i++)
+				{
+					// this is the bounds for each card of index 'i'
+					// funcion is g(i) = 190i + 5, or g(i) = 5 (initial offset of card) + 10i (space between each card) + 180i (width of each card)
+					if (e.getX() >= 190 * i + 5 && e.getX() <= 190 * i + 185 && e.getY() >= 300 && e.getY() <= 575)
+					{
+						// possible temporary code for debugging
+						if (!grave2.get(i).equals(current.getSelectedCard()))
+						{
+							System.out.println("Chosen card " + grave1.get(i).getName());
+							current.setSelectedCard(grave2.get(i));
+						}
+						else
+						{
+							System.out.println("Deselected card " + grave2.get(i).getName());
+							current.setSelectedCard(null);
+						}
+					}
+					
+				}
+				}
+				if(e.getY() >= 600 && e.getY() <= 875)
+				{
+				for (int i = 0; i < grave3.size(); i++)
+				{
+					// this is the bounds for each card of index 'i'
+					// funcion is g(i) = 190i + 5, or g(i) = 5 (initial offset of card) + 10i (space between each card) + 180i (width of each card)
+					if (e.getX() >= 190 * i + 5 && e.getX() <= 190 * i + 185 && e.getY() >= 600 && e.getY() <= 875)
+					{
+						// possible temporary code for debugging
+						if (!grave3.get(i).equals(current.getSelectedCard()))
+						{
+							System.out.println("Chosen card " + grave3.get(i).getName());
+							current.setSelectedCard(grave3.get(i));
+						}
+						else
+						{
+							System.out.println("Deselected card " + grave3.get(i).getName());
+							current.setSelectedCard(null);
+						}
+					}
+					
+				}
+				}
 			
 		}
 		

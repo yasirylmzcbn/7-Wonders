@@ -114,6 +114,7 @@ public class GameState
 		passOutHands();
 		
 		initSelection();
+		graveyard.addAll(deck.get(1));
 	}
 	
 	public void initSelection()
