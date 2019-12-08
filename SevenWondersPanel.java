@@ -1019,6 +1019,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				if (e.getX() <= 240 && e.getX() >= 30 && e.getY() <= 1030 && e.getY() >= 990&&!game.isHalic()&&!OlympiaAbility)
 				{
 					optionSelection = true;
+					game.getSelectedResources().clear();
 				}
 				
 				// confirm button
