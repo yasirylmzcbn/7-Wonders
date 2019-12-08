@@ -1769,7 +1769,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			
 			
 		}
-		else if(displayGraveyard)
+		else if(displayGraveyard) // need confirm and cancel as well as use playable(Card c) method
 		{
 			Wonder current = game.getCurrentWonder();
 			ArrayList<Card> graveyard = game.getGraveyard();
