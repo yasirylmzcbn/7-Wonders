@@ -72,7 +72,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		displayColor = "";
 		OlympiaAbility = false;
 		
-		displayGraveyard = true;
+		displayGraveyard = false;
 	}
 	
 	public void paint(Graphics g) 
@@ -884,19 +884,77 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 	}
 	public void drawGraveyard(Graphics g)
 	{
+		ArrayList<Card> graveyard = game.getGraveyard();
+		
+		//DELETE THIS LATER
+		for(Wonder w: game.getWonders())
+		{
+			game.getPlayerHands().get(w.getHand());
+		}
+		
 		drawBackground(g);
 		// cancel button
 		g.setColor(new Color(191, 57, 57));
-		g.fillRect(0, 1030, 210, 40);
+		g.fillRect(0, 1010, 210, 40);
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 32));
-		g.drawString("CANCEL", 35, 1060);
+		g.drawString("CANCEL", 35, 1040);
 	
 		// confirm button
 		g.setColor(new Color(95, 184, 119));
-		g.fillRect(1710, 1030, 210, 40);
+		g.fillRect(1710, 1010, 210, 40);
 		g.setColor(Color.WHITE);
-		g.drawString("CONFIRM", 1745, 1060);
+		g.drawString("CONFIRM", 1745, 1040);
+		
+		int rowX;
+		int rowY;
+		// selected card will be lowered graphically
+		int selected = -1;
+		ArrayList<String> playerHandNames = new ArrayList<String>();
+		for (int i = 0; i < graveyard.size(); i++)
+		{
+			if (graveyard.get(i).equals(game.getCurrentWonder().getSelectedCard()))
+				selected = i;
+			playerHandNames.add(graveyard.get(i).getName().replace(" ", "").toLowerCase());
+		}
+				
+				// assign card images
+		BufferedImage cards[] = new BufferedImage[playerHandNames.size()];
+		for (int i = 0; i < cards.length; i++)
+		{
+			try {
+				cards[i] = ImageIO.read(new File("src/images/cards/" + playerHandNames.get(i) + ".png"));
+			} catch (IOException e) {
+				System.out.println("Cannot find file " + playerHandNames.get(i));
+			}
+		}
+		int HANDPOX2 = 5;
+		int HANDPOY2 = 5;
+		
+		//draw card images
+		for (int i = 0; i < cards.length; i++)
+		{
+			if (i != selected)
+			{
+				// draws shadow
+				g.setColor(TRANSPARENTBLACK);
+				g.fillRect(5 + HANDXPOS + (CARDWIDTH + 10) * i, 5 + HANDYPOS, CARDWIDTH, CARDHEIGHT);
+				
+				
+				g.drawImage(cards[i], HANDXPOS + (CARDWIDTH + 10) * i, HANDYPOS, null);
+			}
+			else
+			{
+				// draws shadow
+				g.setColor(TRANSPARENTBLACK);
+				g.fillRect(5 + HANDXPOS + (CARDWIDTH + 10) * i, 5 + HANDYPOS + 20, CARDWIDTH, CARDHEIGHT);
+				
+				
+				g.drawImage(cards[i], HANDXPOS + (CARDWIDTH + 10) * i, HANDYPOS + 20, null);
+			}
+		}
+	
+		
 	
 	}
 	
@@ -1056,7 +1114,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 						Collections.sort(needed);
 						Collections.sort(selected);
 						
-						if(needed.equals(selected) || needed.contains("null")||OlympiaAbility)
+						if(needed.equals(selected) || needed.contains("null")||OlympiaAbility||game.getCurrentWonder().inChain(game.getCurrentWonder().getSelectedCard()))
 						{
 							if (needed.contains("null") && !selected.isEmpty())
 							{
