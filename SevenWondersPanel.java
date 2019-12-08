@@ -1081,15 +1081,15 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				System.out.println("wonder"+stand[i]);
 				if(i == 0)
 				{
-					System.out.println("points"+F);
+					System.out.println("points"+FP);
 				}
 				else if(i == 1)
 				{
-					System.out.println("points"+S);
+					System.out.println("points"+SP);
 				}
 				else if(i == 2)
 				{
-					System.out.println("points"+T);
+					System.out.println("points"+TP);
 				}
 				
 				podium[i] = ImageIO.read(new File("src/images/wonders/"+stand[i]+".png"));
@@ -1120,7 +1120,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		g.drawImage(crown, 876, 22,126,100,null);
 		g.setFont(new Font("Times New Roman", Font.BOLD, 100));
 		g.setColor(Color.BLACK);
-		g.drawString(""+finalPoints.get(0), 890, 500);
+		g.drawString(""+FP, 890, 500);
 		g.drawImage(F, 1195, 220, 150 ,225, null);
 		
 		int WONDERXPOS2 = 50;
@@ -1134,7 +1134,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		g.drawImage(podium[1], WONDERXPOS2, WONDERYPOS2, WONDERWIDTH, WONDERHEIGHT, null);
 		g.setFont(new Font("Times New Roman", Font.BOLD, 100));
 		g.setColor(Color.BLACK);
-		g.drawString(""+finalPoints.get(1), 370, 950);
+		g.drawString(""+SP, 370, 950);
 		g.drawImage(S, 676, 688, 150 ,225, null);
 		
 		g.setColor(TRANSPARENTBLACK);
@@ -1143,7 +1143,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		g.drawImage(podium[1], WONDERXPOS3, WONDERYPOS2, WONDERWIDTH, WONDERHEIGHT, null);
 		g.setFont(new Font("Times New Roman", Font.BOLD, 100));
 		g.setColor(Color.BLACK);
-		g.drawString(""+finalPoints.get(2), 1387, 950);
+		g.drawString(""+TP, 1387, 950);
 		g.drawImage(T, 1702, 686, 150 ,225, null);
 		
 		
