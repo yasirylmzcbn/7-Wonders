@@ -6,7 +6,7 @@ guildCard/Spies Guild/purple/null/clay,clay,clay,glass/3/VP*red*left&&right
 guildCard/Strategists Guild/purple/null/ore,ore,stone,cloth/3/VP*loss*left&&right
 guildCard/Shipowners Guild/purple/null/wood,wood,wood,paper,glass/3/VP*brown&&silver&&purple*left&&right
 guildCard/Scientists Guild/purple/null/wood,wood,ore,ore,paper/3/math||gear||tablet
-guildCard/Magistrates Guild/purple/null/wood,wood,wood,stone,paper/3/VP*blue*left&&right
+guildCard/Magistrates Guild/purple/null/wood,wood,wood,stone,cloth/3/VP*blue*left&&right
 guildCard/Builders Guild/purple/null/stone,stone,clay,clay,glass/3/VP*wonder*left&&right&&down
 militaryCard/Fortifications/red/Walls/stone,ore,ore,ore/3/3
 militaryCard/Arsenal/red/null/ore,wood,wood,cloth/3/3
