@@ -316,7 +316,7 @@ public class Wonder {
 	}
 	public int buildWonder() 
 	{
-		++playerWonders;
+		playerWonders++;
 		if(playerWonders == 1)
 			victoryPoints += 3;
 		else if(playerWonders == 2)
