@@ -519,6 +519,9 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 					if (silverR.contains(leftResources[i].split("\\|\\|")[0]))
 						for (int j = 0; j < SilverCost; j++)
 							g.drawImage(resources.get("coin"), startingX - coinSize, startingY + (space + 10) * i + (coinSize) * j, coinSize, coinSize, null);
+					System.out.println("Left brown cost: " + LeftBrownCost);
+					System.out.println("Right brown cost: " + RightBrownCost);
+					System.out.println("Silver cost: " + SilverCost);
 						
 				}
 				// temporary test
@@ -596,7 +599,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 							g.drawImage(selected, startingX, startingY + (space + 10) * i, space, space, null);
 					}
 					if (brownR.contains(rightResources[i].split("\\|\\|")[0]))
-						for (int j = 0; j < LeftBrownCost; j++)
+						for (int j = 0; j < RightBrownCost; j++)
 							g.drawImage(resources.get("coin"), startingX - coinSize, startingY + (space + 10) * i + (coinSize) * j, coinSize, coinSize, null);
 					if (silverR.contains(rightResources[i].split("\\|\\|")[0]))
 						for (int j = 0; j < SilverCost; j++)
@@ -1344,9 +1347,6 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 											leftResources[i] = merged;
 											
 											game.getSelectedResources().add(leftResources[i]);
-											
-											game.getSelectedResources().add(leftResources[i]);
-											leftResources[i] = leftResources[i] + "-Selected";
 											
 											TreeMap<String, Integer> trades = game.getCurrentWonder().getTrades();
 											String leftName = game.getLeftWonder(game.getCurrentWonder()).getName();
