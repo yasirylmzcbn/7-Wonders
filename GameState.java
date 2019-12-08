@@ -418,8 +418,8 @@ public class GameState
 				//add the card construction marker
 				w.getCardsPlayed().get("wonder").add(w.getSelectedCard());
 				
-				if(w.getName().equals("The Mausoleum of Halicarnassus")&&w.getPlayerWonders()==2);
-				halic = true;
+				if(w.getName().equals("The Mausoleum of Halicarnassus")&&w.getPlayerWonders()==2)
+					halic = true;
 			}
 			w.setAction("");
 			w.setSelectedCard(null);
