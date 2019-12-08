@@ -29,7 +29,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			BLUE = new Color(194, 220, 249),
 			GREY = new Color(229, 229, 229), //54, 126, 209
 			YELLOW = new Color(248, 224, 158),
-			RED = new Color(255, 208, 208),
+			RED = new Color(248, 147, 144),
 			//BROWN = new Color(207, 178, 172); 
 			BROWN = new Color(101, 67, 33), // I found a better brown
 			PURPLE = new Color(255, 50, 100);
@@ -347,22 +347,24 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		g.drawString(currentWonder.getLosses() + " Losses", WONDERXPOS + 5, starting + (i++ * 25));
 		
 		
+		Color altgreen = new Color(50, 170, 140);
+		
 		g.setFont(new Font("Berlin Sans SB", Font.BOLD, 14));
-		g.setColor(Color.GREEN);
+		g.setColor(altgreen);
 		g.fillRect(1375, 684, 238, 67); // displayAllCurrent
 		g.setColor(Color.white);
-		g.drawString("Display All of Your Played Cards", 1377 , 720);
+		g.drawString("Display All of Your Played Cards", 1383 , 720);
 		
 		
 		
-		g.setColor(Color.GREEN);
+		g.setColor(altgreen);
 		g.fillRect(1738, 40, 149, 125); // displayLeftWonder 
 		g.setColor(Color.white);
 		//g.setFont(new Font("Berlin Sans SB", Font.BOLD, 14));
 		g.drawString("Left Neighbor's", 1755 , 100);
 		g.drawString("Situation", 1785 , 120);
 		
-		g.setColor(Color.GREEN);
+		g.setColor(altgreen);
 		g.fillRect(1738, 190, 149, 125); // displayRightWonder(40+125+25(space) = 190)
 		g.setColor(Color.white);
 		g.drawString("Right Neighbor's", 1755 , 250);
@@ -458,6 +460,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				HashMap<String, BufferedImage> resources = new HashMap<String, BufferedImage>();
 				File imageFiles[] = new File("src/images/resources/").listFiles();
 				BufferedImage selected = ImageIO.read(new File("src/images/selected.png"));
+				BufferedImage OR = ImageIO.read(new File("src/images/OR.png"));
 				
 				// imports resource images
 				for (int i = 0; i < imageFiles.length; i++)
@@ -509,6 +512,9 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 							g.drawImage(resources.get(split[s].split("-Selected")[0].split("\\|\\|")[0]), startingX + (space + 5) * s, startingY + (space + 10) * i, space, space, null);
 							if (split[s].split("\\|\\|")[0].contains("-Selected"))
 								g.drawImage(selected, startingX + (space + 5) * s, startingY + (space + 10) * i, space, space, null);
+							// draws the slash between resource
+							if (s < split.length - 1)
+								g.drawImage(OR, startingX + 35 + (space + 5) * s, startingY + 2 + (space + 10) * i, 16, 35, null);
 						}
 						System.out.println();
 						// add a selected check mark
@@ -518,6 +524,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 						g.drawImage(resources.get(leftResources[i].split("-Selected")[0]), startingX, startingY + (space + 10) * i, space, space, null);
 						if (leftResources[i].contains("-Selected"))
 							g.drawImage(selected, startingX, startingY + (space + 10) * i, space, space, null);
+						
 					}
 					if (brownR.contains(leftResources[i].split("\\|\\|")[0]))
 						for (int j = 0; j < LeftBrownCost; j++)
@@ -552,6 +559,8 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 							g.drawImage(resources.get(split[s].split("-Selected")[0].split("\\|\\|")[0]), startingX + (space + 5) * s, startingY + (space + 10) * i, space, space, null);
 							if (split[s].split("\\|\\|")[0].contains("-Selected"))
 								g.drawImage(selected, startingX + (space + 5) * s, startingY + (space + 10) * i, space, space, null);
+							if (s < split.length - 1)
+								g.drawImage(OR, startingX + 35 + (space + 5) * s, startingY + 2 + (space + 10) * i, 16, 35, null);
 						}
 						System.out.println();
 						// add a selected check mark
@@ -590,6 +599,8 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 							g.drawImage(resources.get(split[s].split("-Selected")[0].split("\\|\\|")[0]), startingX + (space + 5) * s, startingY + (space + 10) * i, space, space, null);
 							if (split[s].split("\\|\\|")[0].contains("-Selected"))
 								g.drawImage(selected, startingX + (space + 5) * s, startingY + (space + 10) * i, space, space, null);
+							if (s < split.length - 1)
+								g.drawImage(OR, startingX + 35 + (space + 5) * s, startingY + 2 + (space + 10) * i, 16, 35, null);
 						}
 						System.out.println();
 						// add a selected check mark
@@ -617,9 +628,9 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			}
 			else if(game.getCurrentWonder().getAction().contentEquals("Burn"))
 			{
-				g.setColor(Color.RED);
+				g.setColor(new Color(250, 60, 0));
 				g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 48));
-				g.drawString("BURN", 500, 370);
+				g.drawString("BURN", 500, 390);
 			}
 			
 			//if(!game.isHalic())
@@ -775,53 +786,74 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		int textY = 45;
 		int textX = 30;
 		
-		g.setColor(BROWN);
-		g.fillRect(count*buttonWidth, 0, buttonWidth, 80);
+		g.setColor(new Color(128, 56, 28));
+		if (displayColor.contentEquals("brown"))
+			g.fillRect(count*buttonWidth, 0, buttonWidth, 80 + 10);
+		else
+			g.fillRect(count*buttonWidth, 0, buttonWidth, 80);
 		g.setFont(new Font("Berlin Sans SB", Font.BOLD, 13));
-		g.setColor(Color.BLACK);
+		g.setColor(Color.WHITE);
 		g.drawString("Raw Materials(Brown)", count*buttonWidth+textX , textY);
 		count++;
 		
-		g.setColor(Color.GRAY);
-		g.fillRect(count*buttonWidth, 0, buttonWidth, 80);
-		g.setColor(Color.BLACK);
+		g.setColor(new Color(108, 111, 128));
+		if (displayColor.contentEquals("silver"))
+			g.fillRect(count*buttonWidth, 0, buttonWidth, 80 + 10);
+		else
+			g.fillRect(count*buttonWidth, 0, buttonWidth, 80);
+		g.setColor(Color.WHITE);
 		g.drawString("Manufactured Materials(Silver)", count*buttonWidth+textX , textY);
 		count++;
 		
-		g.setColor(Color.MAGENTA);
-		g.fillRect(count*buttonWidth, 0, buttonWidth, 80);
-		g.setColor(Color.BLACK);
+		g.setColor(new Color(120, 0, 212));
+		if (displayColor.contentEquals("purple"))
+			g.fillRect(count*buttonWidth, 0, buttonWidth, 80 + 10);
+		else
+			g.fillRect(count*buttonWidth, 0, buttonWidth, 80);
+		g.setColor(Color.WHITE);
 		g.drawString("Guilds(Purple)",  count*buttonWidth+textX , textY);
 		count++;
 		
-		g.setColor(Color.cyan);
-		g.fillRect(count*buttonWidth, 0, buttonWidth, 80);
-		g.setColor(Color.BLACK);
+		g.setColor(new Color(33, 109, 222));
+		if (displayColor.contentEquals("blue"))
+			g.fillRect(count*buttonWidth, 0, buttonWidth, 80 + 10);
+		else
+			g.fillRect(count*buttonWidth, 0, buttonWidth, 80);
+		g.setColor(Color.WHITE);
 		g.drawString("Civilian Structures(Blue)",  count*buttonWidth+textX , textY);
 		count++;
 		
-		g.setColor(Color.GREEN);
-		g.fillRect(count*buttonWidth, 0, buttonWidth, 80);
-		g.setColor(Color.BLACK);
+		g.setColor(new Color(31, 184, 54));
+		if (displayColor.contentEquals("green"))
+			g.fillRect(count*buttonWidth, 0, buttonWidth, 80 + 10);
+		else
+			g.fillRect(count*buttonWidth, 0, buttonWidth, 80);
+		g.setColor(Color.WHITE);
 		g.drawString("Scientific Structures(Green)",  count*buttonWidth+textX , textY);
 		count++;
 		
-		g.setColor(Color.YELLOW);
-		g.fillRect(count*buttonWidth, 0, buttonWidth, 80);
-		g.setColor(Color.BLACK);
-		g.drawString("Commercial Structures(Green)",  count*buttonWidth+textX , textY);
+		g.setColor(new Color(255, 186, 0));
+		if (displayColor.contentEquals("yellow"))
+			g.fillRect(count*buttonWidth, 0, buttonWidth, 80 + 10);
+		else
+			g.fillRect(count*buttonWidth, 0, buttonWidth, 80);
+		g.setColor(Color.WHITE);
+		g.drawString("Commercial Structures(Yellow)",  count*buttonWidth+textX , textY);
 		count++;
 		
-		g.setColor(Color.RED);
-		g.fillRect(count*buttonWidth, 0, buttonWidth, 80);
-		g.setColor(Color.BLACK);
+		g.setColor(new Color(191, 0, 3));
+		if (displayColor.contentEquals("red"))
+			g.fillRect(count*buttonWidth, 0, buttonWidth, 80 + 10);
+		else
+			g.fillRect(count*buttonWidth, 0, buttonWidth, 80);
+		g.setColor(Color.WHITE);
 		g.drawString("Military Structures(Red)",  count*buttonWidth+textX , textY);
 		count++;
 		
-		g.setColor(Color.red);
+		g.setColor(new Color(191, 0, 3));
 		g.fillRect(1720, 980, 200, 100);
 		g.setColor(Color.white);
-		g.drawString("Close Window", 1776, 1016);
+		g.drawString("Close Window", 1775, 1035);
 		
 
 		ArrayList<Card> tempCards = new ArrayList<Card>();
