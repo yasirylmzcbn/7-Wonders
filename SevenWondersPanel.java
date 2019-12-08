@@ -73,7 +73,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		displayColor = "";
 		OlympiaAbility = false;
 		
-		displayGraveyard = true;
+		displayGraveyard = false;
 	}
 	
 	public void paint(Graphics g) 
@@ -1335,6 +1335,11 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 					String[] leftResources = game.getLeftSelected();
 					for (int i = 0; i < leftResources.length; i++)
 					{
+						int cardCost = 0;
+						if (brownR.contains(leftResources[i].split("||")[0]))
+							cardCost = LeftBrownCost;
+						else if (silverR.contains(leftResources[i].split("||")[0]))
+							cardCost = SilverCost;
 						if (!leftResources[i].contains("||"))
 						{
 							if (e.getX() <= startingX + space && e.getX() >= startingX &&
@@ -1362,7 +1367,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 									}
 									trades.put(leftName,t);
 								}
-								else if (game.getCurrentWonder().getMoney() >= game.getTradingCost())
+								else if (game.getCurrentWonder().getMoney() >= game.getTradingCost() + cardCost)
 								{
 									game.getSelectedResources().add(leftResources[i]);
 									leftResources[i] = leftResources[i] + "-Selected";
@@ -1421,7 +1426,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 										
 										System.out.println("All selected: " + game.getSelectedResources());
 									}
-									else if (game.getCurrentWonder().getMoney() >= game.getTradingCost())
+									else if (game.getCurrentWonder().getMoney() >= game.getTradingCost() + cardCost)
 									{
 										boolean canSelect = true;
 										for (int index = 0; index < orResources.length; index++)
@@ -1467,6 +1472,11 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 					String[] rightResources = game.getRightSelected();
 					for (int i = 0; i < rightResources.length; i++)
 					{
+						int cardCost = 0;
+						if (brownR.contains(rightResources[i].split("||")[0]))
+							cardCost = LeftBrownCost;
+						else if (silverR.contains(rightResources[i].split("||")[0]))
+							cardCost = SilverCost;
 						if (!rightResources[i].contains("||"))
 						{
 							if (e.getX() <= startingX + space && e.getX() >= startingX &&
@@ -1485,14 +1495,16 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 									if(brownR.contains(rightResources[i]))
 									{
 										t-=RightBrownCost;
+										game.minusCost(RightBrownCost);
 									}
 									if(silverR.contains(rightResources[i]))
 									{
 										t-=SilverCost;
+										game.minusCost(SilverCost);
 									}
 									trades.put(rightName,t);
 								}
-								else
+								else if (game.getCurrentWonder().getMoney() >= game.getTradingCost() + cardCost)
 								{
 									game.getSelectedResources().add(rightResources[i]);
 									rightResources[i] = rightResources[i] + "-Selected";
@@ -1503,10 +1515,12 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 									if(brownR.contains(rightResources[i]))
 									{
 										t+=RightBrownCost;
+										game.plusCost(RightBrownCost);
 									}
 									if(silverR.contains(rightResources[i]))
 									{
 										t+=SilverCost;
+										game.plusCost(SilverCost);
 									}
 									trades.put(rightName, t);
 								}
@@ -1538,16 +1552,18 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 										if(brownR.contains(rightResources[i].split("\\|\\|")[0]))
 										{
 											t-=RightBrownCost;
+											game.minusCost(RightBrownCost);
 										}
 										if(silverR.contains(rightResources[i].split("\\|\\|")[0]))
 										{
 											t-=SilverCost;
+											game.minusCost(SilverCost);
 										}
 										trades.put(rightName,t);
 										
 										System.out.println("All selected: " + game.getSelectedResources());
 									}
-									else
+									else if (game.getCurrentWonder().getMoney() >= game.getTradingCost() + cardCost)
 									{
 										boolean canSelect = true;
 										for (int index = 0; index < orResources.length; index++)
@@ -1571,10 +1587,12 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 											if(brownR.contains(rightResources[i].split("\\|\\|")[0]))
 											{
 												t+=RightBrownCost;
+												game.plusCost(RightBrownCost);
 											}
 											if(silverR.contains(rightResources[i].split("\\|\\|")[0]))
 											{
 												t+=SilverCost;
+												game.plusCost(RightBrownCost);
 											}
 											trades.put(rightName, t);
 											
@@ -1672,11 +1690,14 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 								{
 									ownResources[i] = ownResources[i].substring(0, ownResources[i].indexOf("-Selected"));
 									game.getSelectedResources().remove(ownResources[i]);
+									game.minusCost(1);
 								}
 								else
 								{
 									game.getSelectedResources().add(ownResources[i]);
 									ownResources[i] = ownResources[i] + "-Selected";
+									game.plusCost(1);
+									
 								}
 							}
 							pos++;
