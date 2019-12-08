@@ -493,9 +493,6 @@ public class GameState
 				graveyard.add(temp.remove(0));
 			}
 			//playerHands.clear();
-			wonders.get(0).setMoney(wonders.get(0).getMoney()+3);
-			wonders.get(1).setMoney(wonders.get(1).getMoney()+3);
-			wonders.get(2).setMoney(wonders.get(2).getMoney()+3);
 			warTime();
 			age++;
 			
