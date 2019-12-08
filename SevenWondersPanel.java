@@ -130,7 +130,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		//{
 			
 		//}
-		if (displayGraveyard)
+		if (game.isHalic())
 		{
 			drawGraveyard(g);
 		}
