@@ -31,7 +31,8 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			YELLOW = new Color(248, 224, 158),
 			RED = new Color(255, 208, 208),
 			//BROWN = new Color(207, 178, 172); 
-			BROWN = new Color(101, 67, 33); // I found a better brown
+			BROWN = new Color(101, 67, 33), // I found a better brown
+			PURPLE = new Color(260, 50, 100);
 	
 	private boolean mainMenu; // shows the start button
 	private boolean wonderDist; // Shows distribution of wonders graphically (What wonders are in the current game)
@@ -388,7 +389,8 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				g.setColor(RED);
 			else if (col.getColor().equals("brown"))
 				g.setColor(BROWN);
-			else
+			else if (col.getColor().equals("purple"))
+				g.setColor(PURPLE);
 				g.setColor(new Color(255, 245, 222));
 		}
 		else
@@ -966,9 +968,6 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				g.drawImage(cards[i], HANDXPOS + (CARDWIDTH + 10) * i, HANDYPOS + 20, null);
 			}
 		}
-	
-		
-	
 	}
 	
 	public void nextTurn()
