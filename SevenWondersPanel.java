@@ -42,6 +42,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 	private String displayColor;
 	//private boolean displayLeftPlayed;
 	//private boolean displayRightPlayed;
+
 	//private boolean displayHalic; //might become a String later on
 	private boolean displayGraveyard; // for Halicarnassus
 	
@@ -75,6 +76,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		
 		//displayGraveyard = false;;
 		//game.setEndOfGame(true);
+
 	}
 	
 	public void paint(Graphics g) 
@@ -131,7 +133,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		//{
 			
 		//}
-		if (game.isHalic())
+		if (displayHalic)
 		{
 			drawGraveyard(g);
 		}
@@ -957,9 +959,16 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		
 		// Card names with no spaces and to lower case in order to match image file names
 		ArrayList<String> graveyardNames = new ArrayList<String>();
+		
+		
+		Wonder current = null;
+		for (int s = 0; s < game.getWonders().size(); s++)
+			if (game.getWonders().get(s).getName().equals("The Mausoleum of Halicarnassus"))
+				current = game.getWonders().get(s);
+		
 		for (int i = 0; i < graveyard.size(); i++)
 		{
-			if (graveyard.get(i).equals(game.getCurrentWonder().getSelectedCard()))
+			if (graveyard.get(i).equals(current.getSelectedCard()))
 				selected = i;
 			graveyardNames.add(graveyard.get(i).getName().replace(" ", "").toLowerCase());
 		}
@@ -978,9 +987,13 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		
 		// draws confirm button
 		g.setColor(new Color(95, 184, 119));
-		g.fillRect(1710, 1010, 210, 40);
+		g.fillRect(1710, 1010, 210, 70);
+		g.setColor(TRANSPARENTBLACK);
+		g.fillRect(730, 1010, 420, 70);
 		g.setColor(Color.WHITE);
-		g.drawString("CONFIRM", 1745, 1040);
+		g.setFont(new Font("Times New Roman", Font.BOLD, 24));
+		g.drawString("CONFIRM", 1745, 1050);
+		g.drawString("Halicarnassus: Play A Card For Free", 750, 1050);
 		
 		// draws card images
 		for (int i = 0; i < graveyard.size(); i++)
@@ -1114,7 +1127,6 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		
 		
 		
-	
 	}
 	
 	public void nextTurn()
@@ -1132,7 +1144,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		
 		System.out.println("all made: " + game.allDecisionsMade());
 		
-		if (game.allDecisionsMade())
+		/*if (game.allDecisionsMade())
 		{
 			game.finishRound();
 			if(game.isHalic())
@@ -1147,11 +1159,25 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				}
 				game.setCurrentPlayer(p);
 				game.getCurrentWonder().setAction("Play");
-				game.finishRound();
+				game.finishRound(game.getWonders().get(p));
 				optionSelection = false;
 			}
 			game.nextRound();
 			game.initSelection();
+		}*/
+		if (game.allDecisionsMade())
+		{
+			game.finishRound();
+			if(game.isHalic())
+			{
+				defaultView = false;
+				displayHalic = true;
+			}
+			else
+			{
+				game.nextRound();
+				game.initSelection();
+			}
 		}
 	}
 	
@@ -1834,9 +1860,13 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			
 			
 		}
-		else if(displayGraveyard) // need confirm and cancel as well as use playable(Card c) method
+		else if(displayHalic) // need confirm and cancel as well as use playable(Card c) method
 		{
-			Wonder current = game.getCurrentWonder();
+			Wonder current = null;
+			for (int s = 0; s < game.getWonders().size(); s++)
+				if (game.getWonders().get(s).getName().equals("The Mausoleum of Halicarnassus"))
+					current = game.getWonders().get(s);
+			
 			ArrayList<Card> graveyard = game.getGraveyard();
 			
 			int startingX = 5, startingY = 5;
@@ -1849,8 +1879,8 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				{
 					if (!graveyard.get(i).equals(current.getSelectedCard()))
 					{
-						System.out.println("Chosen card " + current.getSelectedCard());
 						current.setSelectedCard(graveyard.get(i));
+						System.out.println("Chosen card " + current.getSelectedCard());
 					}
 					else
 					{
@@ -1859,6 +1889,32 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 					}
 					
 				}
+			}
+			// confirm button
+			if (e.getX() <= 1920 && e.getX() >= 1710 && e.getY() <= 1080 && e.getY() >= 1010 && current.getSelectedCard() != null && current.playable(current.getSelectedCard()))
+			{
+				int otherPlayer = game.getCurrentPlayer();
+				int p = 0;
+				for(int i = 0; i<game.getWonders().size(); i++)
+				{
+					if(game.getWonders().get(i).getName().equals("The Mausoleum of Halicarnassus"))
+					{
+						p = i;
+					}
+				}
+				game.setCurrentPlayer(p);
+				game.getCurrentWonder().setAction("Play");
+				game.finishRound(game.getCurrentWonder());
+				optionSelection = false;
+				
+				game.setCurrentPlayer(otherPlayer);
+				
+				displayHalic = false;
+				defaultView = true;
+				optionSelection = true;
+				
+				game.nextRound();
+				game.initSelection();
 			}
 		}
 		

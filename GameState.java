@@ -114,7 +114,6 @@ public class GameState
 		passOutHands();
 		
 		initSelection();
-		graveyard.addAll(deck.get(1));
 	}
 	
 	public void initSelection()
@@ -380,6 +379,7 @@ public class GameState
 			if(w.getAction().contentEquals("Burn"))
 			{
 				w.burnCard();
+				graveyard.add(w.getSelectedCard());
 			}
 			else if(w.getAction().contentEquals("Build"))
 			{
@@ -497,13 +497,105 @@ public class GameState
 			w.addMoney(-tradeV);
 			
 			trades.put(getRightWonder(i).getName(), 0);
-			
-			
 		}
 		
 		for (int i = 0; i < decisionMade.size(); i++)
 			decisionMade.set(i, false);
 		
+	}
+	
+	public void finishRound(Wonder w)
+	{
+		if(w.getAction().contentEquals("Burn"))
+		{
+			w.burnCard();
+		}
+		else if(w.getAction().contentEquals("Build"))
+		{
+			w.buildWonder();
+		}
+		else if(w.getAction().contentEquals("Play"))
+		{
+			w.playCard(w.getSelectedCard());
+		}
+		if(w.getAction().contentEquals("Play"))
+		{
+			// points from commercial structures
+			Card temp = w.getSelectedCard();
+			int numOfSilverCards = w.getCardsPlayed().get("silver").size();
+			int numOfBrownCards = w.getCardsPlayed().get("brown").size();
+			int numOfYellowCards = w.getCardsPlayed().get("yellow").size();
+			
+			
+			if(temp.getName().equals("Chamber Of Commerce")) 
+				w.addMoney(numOfSilverCards*2);
+			
+			if(temp.getName().equals("Haven"))
+				 w.addMoney(numOfBrownCards);
+				
+			if(temp.getName().equals("Lighthouse"))
+				w.addMoney(numOfYellowCards);
+			
+			if(temp.getName().equals("Arena"))
+			{
+				w.addMoney(3*w.getPlayerWonders());
+			}
+				
+			//For neighbors and themselves 
+			if(temp.getName().equals("Vineyard"))
+			{
+				int rightBrown = getRightWonder(w).getCardsPlayed().get("brown").size();
+				int leftBrown = getLeftWonder(w).getCardsPlayed().get("brown").size();
+				w.addMoney(numOfBrownCards+rightBrown+leftBrown);
+			}
+			if(w.getSelectedCard().getCost().contains("coin"))
+			{
+				for(int i = 0; i<w.getSelectedCard().getCost().size();i++)
+				{
+					if(w.getSelectedCard().getCost().get(i).contentEquals("coin"))
+					{
+						w.addMoney(-1);
+					}
+				}
+			}
+			
+		}
+		if(w.getAction().contentEquals("Build"))
+		{
+			//add the card construction marker
+			w.getCardsPlayed().get("wonder").add(w.getSelectedCard());
+			
+			if(w.getName().equals("The Mausoleum of Halicarnassus")&&w.getPlayerWonders()==2)
+				halic = false;
+		}
+		w.setAction("");
+		w.setSelectedCard(null);
+		
+		for(int i = 0; i<wonders.size(); i++)
+		{
+			if (wonders.get(i).getName().contentEquals(w.getName()))
+			{
+				Wonder we = wonders.get(i);
+				TreeMap<String, Integer> trades = we.getTrades();
+				int tradeV = trades.get(getLeftWonder(i).getName());
+				getLeftWonder(i).addMoney(tradeV);
+				
+				System.out.println(we.getName() + " had " + we.getMoney() + " coins and now has " + (we.getMoney() - tradeV));// debugging
+				
+				we.addMoney(-tradeV);
+				
+				trades.put(getLeftWonder(i).getName(), 0);
+				
+				tradeV = trades.get(getRightWonder(i).getName());
+				getRightWonder(i).addMoney(tradeV);
+				we.addMoney(-tradeV);
+				
+				trades.put(getRightWonder(i).getName(), 0);
+			}
+		}
+		
+		for (int i = 0; i < decisionMade.size(); i++)
+			decisionMade.set(i, false);
 	}
 
 
