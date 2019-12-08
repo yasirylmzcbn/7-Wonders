@@ -71,6 +71,8 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		displayView = "";
 		displayColor = "";
 		OlympiaAbility = false;
+		
+		displayGraveyard = true;
 	}
 	
 	public void paint(Graphics g) 
@@ -129,7 +131,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		//}
 		if (displayGraveyard)
 		{
-			
+			drawGraveyard(g);
 		}
 	}
 	
@@ -613,12 +615,13 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				g.setColor(Color.WHITE);
 				g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 32));
 				g.drawString("CANCEL", 75, 1020);
+			
+				// confirm button
+				g.setColor(new Color(95, 184, 119));
+				g.fillRect(845, 990, 210, 40);
+				g.setColor(Color.WHITE);
+				g.drawString("CONFIRM", 880, 1020);
 			}
-			// confirm button
-			g.setColor(new Color(95, 184, 119));
-			g.fillRect(845, 990, 210, 40);
-			g.setColor(Color.WHITE);
-			g.drawString("CONFIRM", 880, 1020);
 			
 		}
 		catch (IOException e)
@@ -881,7 +884,19 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 	}
 	public void drawGraveyard(Graphics g)
 	{
-		
+		drawBackground(g);
+		// cancel button
+		g.setColor(new Color(191, 57, 57));
+		g.fillRect(0, 1030, 210, 40);
+		g.setColor(Color.WHITE);
+		g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 32));
+		g.drawString("CANCEL", 35, 1060);
+	
+		// confirm button
+		g.setColor(new Color(95, 184, 119));
+		g.fillRect(1710, 1030, 210, 40);
+		g.setColor(Color.WHITE);
+		g.drawString("CONFIRM", 1745, 1060);
 	
 	}
 	
