@@ -65,7 +65,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		game = new GameState();
 		this.width = width;
 		this.height = height;
-		mainMenu = true;
+		mainMenu = ;
 		wonderDist = false;
 		defaultView = false;
 		optionSelection = false;
@@ -73,7 +73,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		displayColor = "";
 		OlympiaAbility = false;
 		
-		displayGraveyard = false;
+		displayGraveyard = false;;
 	}
 	
 	public void paint(Graphics g) 
@@ -903,163 +903,60 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 	}
 	public void drawGraveyard(Graphics g)
 	{
+		// cards that have been discarded
 		ArrayList<Card> graveyard = game.getGraveyard();
 		
+		// images of discarded cards
+		BufferedImage cardImages[] = new BufferedImage[graveyard.size()];
 		
+		// selected card will be lowered
+		int selected = -1;
 		
-		//DELETE THIS LATER
-		//graveyard.addAll(game.getDeck().get(1));
+		int startingX = 5, startingY = 5;
 		
+		// Card names with no spaces and to lower case in order to match image file names
+		ArrayList<String> graveyardNames = new ArrayList<String>();
+		for (int i = 0; i < graveyard.size(); i++)
+		{
+			if (graveyard.get(i).equals(game.getCurrentWonder().getSelectedCard()))
+				selected = i;
+			graveyardNames.add(graveyard.get(i).getName().replace(" ", "").toLowerCase());
+		}
+		try
+		{
+			for (int i = 0; i < cardImages.length; i++)
+				cardImages[i] = ImageIO.read(new File("src/images/cards/" + graveyardNames.get(i) + ".png"));
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		
+		// draws background paper image
 		drawBackground(g);
-		// cancel button
-		g.setColor(new Color(191, 57, 57));
-		g.fillRect(0, 1010, 210, 40);
-		g.setColor(Color.WHITE);
-		g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 32));
-		g.drawString("CANCEL", 35, 1040);
-	
-		// confirm button
+		
+		// draws confirm button
 		g.setColor(new Color(95, 184, 119));
 		g.fillRect(1710, 1010, 210, 40);
 		g.setColor(Color.WHITE);
 		g.drawString("CONFIRM", 1745, 1040);
 		
-		int rowX;
-		int rowY;
-		// selected card will be lowered graphically
-		int selected = -1;
-		ArrayList<String> playerHandNames = new ArrayList<String>();
+		// draws card images
 		for (int i = 0; i < graveyard.size(); i++)
 		{
-			if (graveyard.get(i).equals(game.getCurrentWonder().getSelectedCard()))
-				selected = i;
-			playerHandNames.add(graveyard.get(i).getName().replace(" ", "").toLowerCase());
-		}
-		ArrayList<String> playerHand1 = new ArrayList<String>();
-		ArrayList<String> playerHand2 = new ArrayList<String>();
-		ArrayList<String> playerHand3 = new ArrayList<String>();
-		for(int i = 0; i<playerHandNames.size();i++)
-		{
-			if(i<=9)
+			if (i == selected)
 			{
-				playerHand1.add(playerHandNames.get(i));
-			}
-			else if(i<=19)
-			{
-				playerHand2.add(playerHandNames.get(i));
-			}
-			else if(i<=29)
-			{
-				playerHand3.add(playerHandNames.get(i));
-			}
-		}
-		
-		
-		//System.out.println("size"+playerHandNames.size());
-				
-				// assign card images
-		BufferedImage cards1[] = new BufferedImage[playerHand1.size()];
-		for (int i = 0; i < cards1.length; i++)
-		{
-			try {
-				cards1[i] = ImageIO.read(new File("src/images/cards/" + playerHand1.get(i) + ".png"));
-			} catch (IOException e) {
-				System.out.println("Cannot find file " + playerHand1.get(i));
-			}
-		}
-		BufferedImage cards2[] = new BufferedImage[playerHand2.size()];
-		for (int i = 0; i < cards2.length; i++)
-		{
-			try {
-				cards2[i] = ImageIO.read(new File("src/images/cards/" + playerHand2.get(i) + ".png"));
-			} catch (IOException e) {
-				System.out.println("Cannot find file " + playerHand2.get(i));
-			}
-		}
-		BufferedImage cards3[] = new BufferedImage[playerHand3.size()];
-		for (int i = 0; i < cards3.length; i++)
-		{
-			try {
-				cards3[i] = ImageIO.read(new File("src/images/cards/" + playerHand3.get(i) + ".png"));
-			} catch (IOException e) {
-				System.out.println("Cannot find file " + playerHand3.get(i));
-			}
-		}
-		
-		
-		int HANDYPOS2 = 5+CARDHEIGHT+20;
-		int HANDYPOS3 = 5+HANDYPOS2+CARDHEIGHT+20;
-		
-		
-		//draw card images
-		for (int i = 0; i < cards1.length; i++)
-		{
-			
-			if (i != selected)
-			{
-				// draws shadow
 				g.setColor(TRANSPARENTBLACK);
-				g.fillRect(5 + HANDXPOS + (CARDWIDTH + 10) * i, 5 + HANDYPOS, CARDWIDTH, CARDHEIGHT);
-				
-				
-				g.drawImage(cards1[i], HANDXPOS + (CARDWIDTH + 10) * i, HANDYPOS, null);
+				g.fillRect(5 + startingX + (CARDWIDTH + 10) * (i % 9), 15 + startingY + (CARDHEIGHT + 30) * (i / 9), CARDWIDTH, CARDHEIGHT);
+				g.drawImage(cardImages[i], startingX + (CARDWIDTH + 10) * (i % 9), 10 + startingY + (CARDHEIGHT + 30) * (i / 9), CARDWIDTH, CARDHEIGHT, null);
 			}
 			else
-			{
-				// draws shadow
-				g.setColor(TRANSPARENTBLACK);
-				g.fillRect(5 + HANDXPOS + (CARDWIDTH + 10) * i, 5 + HANDYPOS + 20, CARDWIDTH, CARDHEIGHT);
-				
-				
-				g.drawImage(cards1[i], HANDXPOS + (CARDWIDTH + 10) * i, HANDYPOS + 20, null);
+			{	g.setColor(TRANSPARENTBLACK);
+				g.fillRect(5 + startingX + (CARDWIDTH + 10) * (i % 9), 5 + startingY + (CARDHEIGHT + 30) * (i / 9), CARDWIDTH, CARDHEIGHT);
+				g.drawImage(cardImages[i], startingX + (CARDWIDTH + 10) * (i % 9), startingY + (CARDHEIGHT + 30) * (i / 9), CARDWIDTH, CARDHEIGHT, null);
 			}
-		}
-		for (int i = 0; i < cards2.length; i++)
-		{
 			
-			if (i != selected)
-			{
-				// draws shadow
-				g.setColor(TRANSPARENTBLACK);
-				g.fillRect(5 + HANDXPOS + (CARDWIDTH + 10) * i, 5 + HANDYPOS2, CARDWIDTH, CARDHEIGHT);
-				
-				
-				g.drawImage(cards2[i], HANDXPOS + (CARDWIDTH + 10) * i, HANDYPOS2, null);
-			}
-			else
-			{
-				// draws shadow
-				g.setColor(TRANSPARENTBLACK);
-				g.fillRect(5 + HANDXPOS + (CARDWIDTH + 10) * i, 5 + HANDYPOS2 + 20, CARDWIDTH, CARDHEIGHT);
-				
-				
-				g.drawImage(cards2[i], HANDXPOS + (CARDWIDTH + 10) * i, HANDYPOS2 + 20, null);
-			}
 		}
-
-		for (int i = 0; i < cards3.length; i++)
-		{
-			
-			if (i != selected)
-			{
-				// draws shadow
-				g.setColor(TRANSPARENTBLACK);
-				g.fillRect(5 + HANDXPOS + (CARDWIDTH + 10) * i, 5 + HANDYPOS3, CARDWIDTH, CARDHEIGHT);
-				
-				
-				g.drawImage(cards3[i], HANDXPOS + (CARDWIDTH + 10) * i, HANDYPOS3, null);
-			}
-			else
-			{
-				// draws shadow
-				g.setColor(TRANSPARENTBLACK);
-				g.fillRect(5 + HANDXPOS + (CARDWIDTH + 10) * i, 5 + HANDYPOS3 + 20, CARDWIDTH, CARDHEIGHT);
-				
-				
-				g.drawImage(cards3[i], HANDXPOS + (CARDWIDTH + 10) * i, HANDYPOS3 + 20, null);
-			}
-		}
-		
 	}
 	public void drawFinalPoints(Graphics g)
 	{
@@ -1830,95 +1727,30 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		}
 		else if(displayGraveyard)
 		{
-				// goes through each card in the hand to check for the click
-				Wonder current = game.getCurrentWonder();
-				ArrayList<Card> graveyard = game.getGraveyard();
-				ArrayList<Card> grave1 = new ArrayList<Card>();
-				ArrayList<Card> grave2 = new ArrayList<Card>();
-				ArrayList<Card> grave3 = new ArrayList<Card>();
-				for(int i = 0; i<graveyard.size();i++)
-				{
-					if(i<=9)
-					{
-						grave1.add(graveyard.get(i));
-					}
-					else if(i<=19)
-					{
-						grave2.add(graveyard.get(i));
-					}
-					else if(i<=29)
-					{
-						grave3.add(graveyard.get(i));
-					}
-				}
-				//int HANDYPOS2 = 5+CARDHEIGHT+20;
-				//int HANDYPOS3 = 5+HANDYPOS2+CARDHEIGHT+20;
-					for (int i = 0; i < grave1.size(); i++)
-					{
-						// this is the bounds for each card of index 'i'
-						// funcion is g(i) = 190i + 5, or g(i) = 5 (initial offset of card) + 10i (space between each card) + 180i (width of each card)
-						if (e.getX() >= 190 * i + 5 && e.getX() <= 190 * i + 185 && e.getY() >= 5 && e.getY() <= 280)
-						{
-							// possible temporary code for debugging
-							if (!grave1.get(i).equals(current.getSelectedCard()))
-							{
-								System.out.println("Chosen card " + grave1.get(i).getName());
-								current.setSelectedCard(grave1.get(i));
-							}
-							else
-							{
-								System.out.println("Deselected card " + grave1.get(i).getName());
-								current.setSelectedCard(null);
-							}
-						}
-						
-					}
-				
-				
-				for (int i = 0; i < grave2.size(); i++)
-				{
-					// this is the bounds for each card of index 'i'
-					// funcion is g(i) = 190i + 5, or g(i) = 5 (initial offset of card) + 10i (space between each card) + 180i (width of each card)
-					if (e.getX() >= 190 * i + 5 && e.getX() <= 190 * i + 185 && e.getY() >= 300 && e.getY() <= 575)
-					{
-						// possible temporary code for debugging
-						if (!grave2.get(i).equals(current.getSelectedCard()))
-						{
-							System.out.println("Chosen card " + grave1.get(i).getName());
-							current.setSelectedCard(grave2.get(i));
-						}
-						else
-						{
-							System.out.println("Deselected card " + grave2.get(i).getName());
-							current.setSelectedCard(null);
-						}
-					}
-					
-				}
-				
-				
-				for (int i = 0; i < grave3.size(); i++)
-				{
-					// this is the bounds for each card of index 'i'
-					// funcion is g(i) = 190i + 5, or g(i) = 5 (initial offset of card) + 10i (space between each card) + 180i (width of each card)
-					if (e.getX() >= 190 * i + 5 && e.getX() <= 190 * i + 185 && e.getY() >= 600 && e.getY() <= 875)
-					{
-						// possible temporary code for debugging
-						if (!grave3.get(i).equals(current.getSelectedCard()))
-						{
-							System.out.println("Chosen card " + grave3.get(i).getName());
-							current.setSelectedCard(grave3.get(i));
-						}
-						else
-						{
-							System.out.println("Deselected card " + grave3.get(i).getName());
-							current.setSelectedCard(null);
-						}
-					}
-					
-				}
-				
+			Wonder current = game.getCurrentWonder();
+			ArrayList<Card> graveyard = game.getGraveyard();
 			
+			int startingX = 5, startingY = 5;
+			
+			// goes through each card in the hand to check for the click
+			for (int i = 0; i < graveyard.size(); i++)
+			{
+				if (e.getX() >= startingX + (CARDWIDTH + 10) * (i % 9) && e.getX() <= startingX + (CARDWIDTH + 10) * (i % 9) + CARDWIDTH
+						&& e.getY() >= startingY + (CARDHEIGHT + 30) * (i / 9) && e.getY() <= startingY + (CARDHEIGHT + 30) * (i / 9) + CARDHEIGHT)
+				{
+					if (!graveyard.get(i).equals(current.getSelectedCard()))
+					{
+						System.out.println("Chosen card " + current.getSelectedCard());
+						current.setSelectedCard(graveyard.get(i));
+					}
+					else
+					{
+						System.out.println("Deselected card " + graveyard.get(i).getName());
+						current.setSelectedCard(null);
+					}
+					
+				}
+			}
 		}
 		
 		repaint();
