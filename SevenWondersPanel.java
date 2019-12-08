@@ -494,11 +494,13 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 					// if || card
 					if (leftResources[i].contains("||"))
 					{
-						String[] split = leftResources[i].split("-Selected")[0].split("\\|\\|");
+						String[] split = leftResources[i].split("\\|\\|");
 						for (int s = 0; s < split.length; s++)
 						{
 							// System.out.print(split[s] + " and ");
-							g.drawImage(resources.get(split[s]), startingX + (space + 5) * s, startingY + (space + 10) * i, space, space, null);
+							g.drawImage(resources.get(split[s].split("-Selected")[0].split("\\|\\|")[0]), startingX + (space + 5) * s, startingY + (space + 10) * i, space, space, null);
+							if (split[s].split("\\|\\|")[0].contains("-Selected"))
+								g.drawImage(selected, startingX + (space + 5) * s, startingY + (space + 10) * i, space, space, null);
 						}
 						System.out.println();
 						// add a selected check mark
@@ -509,10 +511,10 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 						if (leftResources[i].contains("-Selected"))
 							g.drawImage(selected, startingX, startingY + (space + 10) * i, space, space, null);
 					}
-					if (brownR.contains(leftResources[i]))
+					if (brownR.contains(leftResources[i].split("\\|\\|")[0]))
 						for (int j = 0; j < LeftBrownCost; j++)
 							g.drawImage(resources.get("coin"), startingX - coinSize, startingY + (space + 10) * i + (coinSize) * j, coinSize, coinSize, null);
-					if (silverR.contains(leftResources[i]))
+					if (silverR.contains(leftResources[i].split("\\|\\|")[0]))
 						for (int j = 0; j < SilverCost; j++)
 							g.drawImage(resources.get("coin"), startingX - coinSize, startingY + (space + 10) * i + (coinSize) * j, coinSize, coinSize, null);
 						
@@ -534,13 +536,17 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				for (int i = 0; i < ownResources.length; i++)
 				{
 					// if || card
-					if (ownResources[i].split("-Selected")[0].contains("||"))
+					if (ownResources[i].contains("||"))
 					{
-						String[] split = ownResources[i].split("-Selected")[0].split("\\|\\|");
+						String[] split = ownResources[i].split("\\|\\|");
 						for (int s = 0; s < split.length; s++)
 						{
-							g.drawImage(resources.get(split[s]), startingX + (space + 5) * s, startingY + (space + 10) * i, space, space, null);
+							// System.out.print(split[s] + " and ");
+							g.drawImage(resources.get(split[s].split("-Selected")[0].split("\\|\\|")[0]), startingX + (space + 5) * s, startingY + (space + 10) * i, space, space, null);
+							if (split[s].split("\\|\\|")[0].contains("-Selected"))
+								g.drawImage(selected, startingX + (space + 5) * s, startingY + (space + 10) * i, space, space, null);
 						}
+						System.out.println();
 						// add a selected check mark
 					}
 					else if (!ownResources[i].contains("coin"))
@@ -568,13 +574,17 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				for (int i = 0; i < rightResources.length; i++)
 				{
 					// if || card
-					if (rightResources[i].split("-Selected")[0].contains("||"))
+					if (rightResources[i].contains("||"))
 					{
-						String[] split = rightResources[i].split("-Selected")[0].split("\\|\\|");
+						String[] split = rightResources[i].split("\\|\\|");
 						for (int s = 0; s < split.length; s++)
 						{
-							g.drawImage(resources.get(split[s]), startingX + (space + 5) * s, startingY + (space + 10) * i, space, space, null);
+							// System.out.print(split[s] + " and ");
+							g.drawImage(resources.get(split[s].split("-Selected")[0].split("\\|\\|")[0]), startingX + (space + 5) * s, startingY + (space + 10) * i, space, space, null);
+							if (split[s].split("\\|\\|")[0].contains("-Selected"))
+								g.drawImage(selected, startingX + (space + 5) * s, startingY + (space + 10) * i, space, space, null);
 						}
+						System.out.println();
 						// add a selected check mark
 					}
 					else
@@ -583,10 +593,10 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 						if (rightResources[i].contains("-Selected"))
 							g.drawImage(selected, startingX, startingY + (space + 10) * i, space, space, null);
 					}
-					if (brownR.contains(rightResources[i]))
+					if (brownR.contains(rightResources[i].split("\\|\\|")[0]))
 						for (int j = 0; j < LeftBrownCost; j++)
 							g.drawImage(resources.get("coin"), startingX - coinSize, startingY + (space + 10) * i + (coinSize) * j, coinSize, coinSize, null);
-					if (silverR.contains(rightResources[i]))
+					if (silverR.contains(rightResources[i].split("\\|\\|")[0]))
 						for (int j = 0; j < SilverCost; j++)
 							g.drawImage(resources.get("coin"), startingX - coinSize, startingY + (space + 10) * i + (coinSize) * j, coinSize, coinSize, null);
 				}
@@ -1036,6 +1046,24 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 						ArrayList<String> needed = new ArrayList<String>(game.getCurrentWonder().getSelectedCard().getCost());
 						ArrayList<String> selected = game.getSelectedResources();
 						
+						for (int index = 0; index < selected.size(); index++)
+						{
+							if (selected.get(index).contains("||"))
+							{
+								String[] orResources = selected.get(index).split("\\|\\|");
+								System.out.println("or: " + Arrays.toString(orResources));
+								for (int h = 0; h < orResources.length; h++)
+								{
+									if (orResources[h].contains("-Selected"))
+									{
+										String theResource = orResources[h].split("-Selected")[0];
+										selected.set(index, theResource);
+										break;
+									}
+								}
+							}
+						}
+						
 						System.out.println(needed);
 						System.out.println(selected);
 						Collections.sort(needed);
@@ -1142,7 +1170,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 					}
 		            
 					// for left resources
-					int startingX = 75, startingY = 470, space = 40, coinSize = 20;
+					int startingX = 75, startingY = 470, space = 40;
 					String[] leftResources = game.getLeftSelected();
 					for (int i = 0; i < leftResources.length; i++)
 					{
@@ -1194,12 +1222,75 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 						else
 						{
 							String[] orResources = leftResources[i].split("\\|\\|");
+							String merged;
 							for (int r = 0; r < orResources.length; r++)
 							{
 								if (e.getX() <= startingX + (space) * (r + 1) && e.getX() >= startingX + (space + 5) * r &&
 										e.getY() <= startingY + (space + 10) * i + space && e.getY() >= startingY + (space + 10) * i)
 								{
-									// System.out.println("r is " + r);
+									if (orResources[r].contains("-Selected"))
+									{
+										game.getSelectedResources().remove(leftResources[i]);
+										orResources[r] = orResources[r].split("-Selected")[0];
+										
+										merged = "";
+										for (int h = 0; h < orResources.length; h++) // h for heck
+											merged += orResources[h] + "||";
+										merged = merged.substring(0, merged.lastIndexOf("||"));
+										leftResources[i] = merged;
+										
+										TreeMap<String, Integer> trades = game.getCurrentWonder().getTrades();
+										String leftName = game.getLeftWonder(game.getCurrentWonder()).getName();
+										int t = trades.get(leftName);
+										if(brownR.contains(leftResources[i].split("\\|\\|")[0]))
+										{
+											t-=LeftBrownCost;
+										}
+										if(silverR.contains(leftResources[i].split("\\|\\|")[0]))
+										{
+											t-=SilverCost;
+										}
+										trades.put(leftName,t);
+										
+										System.out.println("All selected: " + game.getSelectedResources());
+									}
+									else
+									{
+										boolean canSelect = true;
+										for (int index = 0; index < orResources.length; index++)
+											if (orResources[index].contains("-Selected"))
+												canSelect = false;
+										if (canSelect)
+										{
+											orResources[r] = orResources[r] + "-Selected";
+											
+											merged = "";
+											for (int h = 0; h < orResources.length; h++) // h for heck
+												merged += orResources[h] + "||";
+											merged = merged.substring(0, merged.lastIndexOf("||"));
+											leftResources[i] = merged;
+											
+											game.getSelectedResources().add(leftResources[i]);
+											
+											game.getSelectedResources().add(leftResources[i]);
+											leftResources[i] = leftResources[i] + "-Selected";
+											
+											TreeMap<String, Integer> trades = game.getCurrentWonder().getTrades();
+											String leftName = game.getLeftWonder(game.getCurrentWonder()).getName();
+											int t = trades.get(leftName);
+											if(brownR.contains(leftResources[i].split("\\|\\|")[0]))
+											{
+												t+=LeftBrownCost;
+											}
+											if(silverR.contains(leftResources[i].split("\\|\\|")[0]))
+											{
+												t+=SilverCost;
+											}
+											trades.put(leftName, t);
+											
+											System.out.println("All selected: " + game.getSelectedResources());
+										}
+									}
 								}
 							}
 						}
@@ -1210,46 +1301,121 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 					String[] rightResources = game.getRightSelected();
 					for (int i = 0; i < rightResources.length; i++)
 					{
-						if (e.getX() <= startingX + space && e.getX() >= startingX &&
-								e.getY() <= startingY + (space + 10) * i + space && e.getY() >= startingY + (space + 10) * i)
+						if (!rightResources[i].contains("||"))
 						{
-							System.out.println(rightResources[i]); // debugging
-							
-							if (rightResources[i].contains("-Selected"))
+							if (e.getX() <= startingX + space && e.getX() >= startingX &&
+									e.getY() <= startingY + (space + 10) * i + space && e.getY() >= startingY + (space + 10) * i)
 							{
-								rightResources[i] = rightResources[i].substring(0, rightResources[i].indexOf("-Selected"));
-								game.getSelectedResources().remove(rightResources[i]);
+								System.out.println(rightResources[i]); // debugging
 								
-								TreeMap<String, Integer> trades = game.getCurrentWonder().getTrades();
-								String rightName = game.getRightWonder(game.getCurrentWonder()).getName();
-								int t = trades.get(rightName);
-								if(brownR.contains(rightResources[i]))
+								if (rightResources[i].contains("-Selected"))
 								{
-									t-=RightBrownCost;
+									rightResources[i] = rightResources[i].substring(0, rightResources[i].indexOf("-Selected"));
+									game.getSelectedResources().remove(rightResources[i]);
+									
+									TreeMap<String, Integer> trades = game.getCurrentWonder().getTrades();
+									String rightName = game.getRightWonder(game.getCurrentWonder()).getName();
+									int t = trades.get(rightName);
+									if(brownR.contains(rightResources[i]))
+									{
+										t-=RightBrownCost;
+									}
+									if(silverR.contains(rightResources[i]))
+									{
+										t-=SilverCost;
+									}
+									trades.put(rightName,t);
 								}
-								if(silverR.contains(rightResources[i]))
+								else
 								{
-									t-=SilverCost;
+									game.getSelectedResources().add(rightResources[i]);
+									rightResources[i] = rightResources[i] + "-Selected";
+									
+									TreeMap<String, Integer> trades = game.getCurrentWonder().getTrades();
+									String rightName = game.getRightWonder(game.getCurrentWonder()).getName();
+									int t = trades.get(rightName);
+									if(brownR.contains(rightResources[i]))
+									{
+										t+=RightBrownCost;
+									}
+									if(silverR.contains(rightResources[i]))
+									{
+										t+=SilverCost;
+									}
+									trades.put(rightName, t);
 								}
-								trades.put(rightName,t);
 							}
-							else
+						}
+						else
+						{
+							String[] orResources = rightResources[i].split("\\|\\|");
+							String merged;
+							for (int r = 0; r < orResources.length; r++)
 							{
-								game.getSelectedResources().add(rightResources[i]);
-								rightResources[i] = rightResources[i] + "-Selected";
-								
-								TreeMap<String, Integer> trades = game.getCurrentWonder().getTrades();
-								String rightName = game.getRightWonder(game.getCurrentWonder()).getName();
-								int t = trades.get(rightName);
-								if(brownR.contains(rightResources[i]))
+								if (e.getX() <= startingX + (space) * (r + 1) && e.getX() >= startingX + (space + 5) * r &&
+										e.getY() <= startingY + (space + 10) * i + space && e.getY() >= startingY + (space + 10) * i)
 								{
-									t+=RightBrownCost;
+									if (orResources[r].contains("-Selected"))
+									{
+										game.getSelectedResources().remove(rightResources[i]);
+										orResources[r] = orResources[r].split("-Selected")[0];
+										
+										merged = "";
+										for (int h = 0; h < orResources.length; h++) // h for heck
+											merged += orResources[h] + "||";
+										merged = merged.substring(0, merged.lastIndexOf("||"));
+										rightResources[i] = merged;
+										
+										TreeMap<String, Integer> trades = game.getCurrentWonder().getTrades();
+										String rightName = game.getRightWonder(game.getCurrentWonder()).getName();
+										int t = trades.get(rightName);
+										if(brownR.contains(rightResources[i].split("\\|\\|")[0]))
+										{
+											t-=RightBrownCost;
+										}
+										if(silverR.contains(rightResources[i].split("\\|\\|")[0]))
+										{
+											t-=SilverCost;
+										}
+										trades.put(rightName,t);
+										
+										System.out.println("All selected: " + game.getSelectedResources());
+									}
+									else
+									{
+										boolean canSelect = true;
+										for (int index = 0; index < orResources.length; index++)
+											if (orResources[index].contains("-Selected"))
+												canSelect = false;
+										if (canSelect)
+										{
+											orResources[r] = orResources[r] + "-Selected";
+											
+											merged = "";
+											for (int h = 0; h < orResources.length; h++) // h for heck
+												merged += orResources[h] + "||";
+											merged = merged.substring(0, merged.lastIndexOf("||"));
+											rightResources[i] = merged;
+											
+											game.getSelectedResources().add(rightResources[i]);
+											
+											TreeMap<String, Integer> trades = game.getCurrentWonder().getTrades();
+											String rightName = game.getRightWonder(game.getCurrentWonder()).getName();
+											int t = trades.get(rightName);
+											if(brownR.contains(rightResources[i].split("\\|\\|")[0]))
+											{
+												t+=RightBrownCost;
+											}
+											if(silverR.contains(rightResources[i].split("\\|\\|")[0]))
+											{
+												t+=SilverCost;
+											}
+											trades.put(rightName, t);
+											
+											System.out.println("All selected: " + game.getSelectedResources());
+										}
+									}
 								}
-								if(silverR.contains(rightResources[i]))
-								{
-									t+=SilverCost;
-								}
-								trades.put(rightName, t);
 							}
 						}
 					}
@@ -1259,20 +1425,69 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 					{
 						if (!ownResources[i].contains("coin"))
 						{
-							if (e.getX() <= startingX + space && e.getX() >= startingX &&
-									e.getY() <= startingY + (space + 10) * i + space && e.getY() >= startingY + (space + 10) * i)
+							if (!ownResources[i].contains("||"))
 							{
-								System.out.println(ownResources[i]); // debugging
-								
-								if (ownResources[i].contains("-Selected"))
+								if (e.getX() <= startingX + space && e.getX() >= startingX &&
+										e.getY() <= startingY + (space + 10) * i + space && e.getY() >= startingY + (space + 10) * i)
 								{
-									ownResources[i] = ownResources[i].substring(0, ownResources[i].indexOf("-Selected"));
-									game.getSelectedResources().remove(ownResources[i]);
+									System.out.println(ownResources[i]); // debugging
+									
+									if (ownResources[i].contains("-Selected"))
+									{
+										ownResources[i] = ownResources[i].substring(0, ownResources[i].indexOf("-Selected"));
+										game.getSelectedResources().remove(ownResources[i]);
+									}
+									else
+									{
+										game.getSelectedResources().add(ownResources[i]);
+										ownResources[i] =ownResources[i] + "-Selected";
+									}
 								}
-								else
+							}
+							else
+							{
+								String[] orResources = ownResources[i].split("\\|\\|");
+								String merged;
+								for (int r = 0; r < orResources.length; r++)
 								{
-									game.getSelectedResources().add(ownResources[i]);
-									ownResources[i] =ownResources[i] + "-Selected";
+									if (e.getX() <= startingX + (space) * (r + 1) && e.getX() >= startingX + (space + 5) * r &&
+											e.getY() <= startingY + (space + 10) * i + space && e.getY() >= startingY + (space + 10) * i)
+									{
+										if (orResources[r].contains("-Selected"))
+										{
+											game.getSelectedResources().remove(ownResources[i]);
+											orResources[r] = orResources[r].split("-Selected")[0];
+											
+											merged = "";
+											for (int h = 0; h < orResources.length; h++) // h for heck
+												merged += orResources[h] + "||";
+											merged = merged.substring(0, merged.lastIndexOf("||"));
+											ownResources[i] = merged;
+											
+											System.out.println("All selected: " + game.getSelectedResources());
+										}
+										else
+										{
+											boolean canSelect = true;
+											for (int index = 0; index < orResources.length; index++)
+												if (orResources[index].contains("-Selected"))
+													canSelect = false;
+											if (canSelect)
+											{
+												orResources[r] = orResources[r] + "-Selected";
+												
+												merged = "";
+												for (int h = 0; h < orResources.length; h++) // h for heck
+													merged += orResources[h] + "||";
+												merged = merged.substring(0, merged.lastIndexOf("||"));
+												ownResources[i] = merged;
+												
+												game.getSelectedResources().add(ownResources[i]);
+												
+												System.out.println("All selected: " + game.getSelectedResources());
+											}
+										}
+									}
 								}
 							}
 						}
