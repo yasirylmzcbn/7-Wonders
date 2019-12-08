@@ -1037,20 +1037,25 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 						
 						if(needed.equals(selected) || needed.contains("null")||OlympiaAbility)
 						{
-							ArrayList<Card> currentHand = game.getPlayerHands().get(game.getCurrentWonder().getHand());
-							for (int i = 0; i < currentHand.size(); i++)
+							if (needed.contains("null") && selected.isEmpty())
 							{
-								// System.out.println("[ ]" + currentHand.get(i).getName());
-								// System.out.println(">>>>" + game.getCurrentWonder().getSelectedCard().getName());
-								
-								if (currentHand.get(i).equals(game.getCurrentWonder().getSelectedCard()))
+								ArrayList<Card> currentHand = game.getPlayerHands().get(game.getCurrentWonder().getHand());
+								for (int i = 0; i < currentHand.size(); i++)
 								{
-									System.out.println("Removing " + currentHand.get(i).getName());
-									currentHand.remove(i);
-									break;
+									// System.out.println("[ ]" + currentHand.get(i).getName());
+									// System.out.println(">>>>" + game.getCurrentWonder().getSelectedCard().getName());
+									
+									if (currentHand.get(i).equals(game.getCurrentWonder().getSelectedCard()))
+									{
+										System.out.println("Removing " + currentHand.get(i).getName());
+										currentHand.remove(i);
+										break;
+									}
 								}
+								nextTurn();
 							}
-							nextTurn();
+							else
+								System.out.println("You're actually paying for a free card? You actual fool. I actually cannot believe you");
 						}
 					}
 					else if(game.getCurrentWonder().getAction().equals("Burn") && game.getCurrentWonder().getSelectedCard() != null)
