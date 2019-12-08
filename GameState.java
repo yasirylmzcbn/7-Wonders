@@ -492,6 +492,8 @@ public class GameState
 		rotateHands();
 		if(round == 7)
 		{
+			order = -1;
+			
 			for(int i = 0; i<playerHands.size();i++)
 			{
 				ArrayList<Card> temp = playerHands.get(i);
@@ -504,6 +506,8 @@ public class GameState
 			// configures guild cards
 			if (age == 3)
 			{
+				order = 1;
+				
 				ArrayList<Card> guilds = new ArrayList<Card>();
 				ArrayList<Card> temp = deck.get(age-1);
 				
