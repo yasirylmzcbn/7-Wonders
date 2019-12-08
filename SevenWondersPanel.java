@@ -497,7 +497,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 						String[] split = leftResources[i].split("-Selected")[0].split("\\|\\|");
 						for (int s = 0; s < split.length; s++)
 						{
-							System.out.print(split[s] + " and ");
+							// System.out.print(split[s] + " and ");
 							g.drawImage(resources.get(split[s]), startingX + (space + 5) * s, startingY + (space + 10) * i, space, space, null);
 						}
 						System.out.println();
@@ -1098,6 +1098,19 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 						Collections.sort(selected);
 						if(needed.equals(selected) || needed.contains("null"))
 						{
+							ArrayList<Card> currentHand = game.getPlayerHands().get(game.getCurrentWonder().getHand());
+							for (int i = 0; i < currentHand.size(); i++)
+							{
+								// System.out.println("[ ]" + currentHand.get(i).getName());
+								// System.out.println(">>>>" + game.getCurrentWonder().getSelectedCard().getName());
+								
+								if (currentHand.get(i).equals(game.getCurrentWonder().getSelectedCard()))
+								{
+									System.out.println("Removing " + currentHand.get(i).getName() + " to build wonder");
+									currentHand.remove(i);
+									break;
+								}
+							}
 							nextTurn();
 						}
 						
@@ -1183,10 +1196,10 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 							String[] orResources = leftResources[i].split("\\|\\|");
 							for (int r = 0; r < orResources.length; r++)
 							{
-								if (e.getX() <= (startingX + space) && e.getX() >= startingX &&
+								if (e.getX() <= startingX + (space) * (r + 1) && e.getX() >= startingX + (space + 5) * r &&
 										e.getY() <= startingY + (space + 10) * i + space && e.getY() >= startingY + (space + 10) * i)
 								{
-									
+									// System.out.println("r is " + r);
 								}
 							}
 						}
