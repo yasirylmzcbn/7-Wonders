@@ -445,7 +445,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				g.setColor(new Color(255, 245, 222));
 			g.fillRect(30, 450, 1025, 580);
 			
-			if(game.getCurrentWonder().getAction().contentEquals("Play")||game.getCurrentWonder().getAction().contentEquals("Build")&&!game.isHalic()&&!OlympiaAbility)
+			if(game.getCurrentWonder().getAction().contentEquals("Play")||game.getCurrentWonder().getAction().contentEquals("Build")&&!OlympiaAbility)//&&!game.isHalic()
 			{
 				g.setColor(Color.WHITE);
 				g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 48));
@@ -622,8 +622,8 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				g.drawString("BURN", 500, 370);
 			}
 			
-			if(!game.isHalic())
-			{
+			//if(!game.isHalic())
+			//{
 				// cancel button
 				g.setColor(new Color(191, 57, 57));
 				g.fillRect(30, 990, 210, 40);
@@ -636,7 +636,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				g.fillRect(845, 990, 210, 40);
 				g.setColor(Color.WHITE);
 				g.drawString("CONFIRM", 880, 1020);
-			}
+			//}
 			
 		}
 		catch (IOException e)
@@ -1193,7 +1193,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			else
 			{
 				// cancel button // TODO what if they have selected a few resources? how would it reset that?
-				if (e.getX() <= 240 && e.getX() >= 30 && e.getY() <= 1030 && e.getY() >= 990&&!game.isHalic()&&!OlympiaAbility)
+				if (e.getX() <= 240 && e.getX() >= 30 && e.getY() <= 1030 && e.getY() >= 990&&!OlympiaAbility)//&&!game.isHalic()
 				{
 					optionSelection = true;
 					game.getSelectedResources().clear();
@@ -1201,7 +1201,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				}
 				
 				// confirm button
-				else if (e.getX() <= 1055 && e.getX() >= 855 && e.getY() <= 1030 && e.getY() >= 990&&!game.isHalic())//i fixed the hitbox the height was 210 lol
+				else if (e.getX() <= 1055 && e.getX() >= 855 && e.getY() <= 1030 && e.getY() >= 990)//i fixed the hitbox the height was 210 lol + &&!game.isHalic()
 				{
 					if (game.getCurrentWonder().getAction().equals("Play") &&
 							game.getCurrentWonder().getSelectedCard() != null && game.getCurrentWonder().playable(game.getCurrentWonder().getSelectedCard()))
@@ -1314,7 +1314,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				}
 
 				// resources selected
-				else if (e.getX() <= 1055 && e.getX() >= 30 && e.getY() <= 990 && e.getY() >= 450&&!game.isHalic()&&!OlympiaAbility&&(game.getCurrentWonder().getAction().equals("Play")||game.getCurrentWonder().getAction().equals("Build")))
+				else if (e.getX() <= 1055 && e.getX() >= 30 && e.getY() <= 990 && e.getY() >= 450&&!OlympiaAbility&&(game.getCurrentWonder().getAction().equals("Play")||game.getCurrentWonder().getAction().equals("Build")))//&&!game.isHalic()
 				{
 					int SilverCost = 2, RightBrownCost = 2, LeftBrownCost = 2;
 					String brownR = "wood-Selected stone-Selected clay-Selected ore-Selected";
