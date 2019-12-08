@@ -1140,7 +1140,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		g.setColor(TRANSPARENTBLACK);
 		g.fillRect(WONDERXPOS3 + 10, WONDERYPOS2 + 10, WONDERWIDTH, WONDERHEIGHT);
 		// draws wonder
-		g.drawImage(podium[1], WONDERXPOS3, WONDERYPOS2, WONDERWIDTH, WONDERHEIGHT, null);
+		g.drawImage(podium[2], WONDERXPOS3, WONDERYPOS2, WONDERWIDTH, WONDERHEIGHT, null);
 		g.setFont(new Font("Times New Roman", Font.BOLD, 100));
 		g.setColor(Color.BLACK);
 		g.drawString(""+TP, 1387, 950);
