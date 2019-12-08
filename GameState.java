@@ -32,6 +32,7 @@ public class GameState
 	private int numberOfPlayers;
 	private int order; // 1 if clockwise, -1 if anticlockwise
 	private int round; // rounds 1 through 6 (since last card is burned)
+	private int tradingCost; // cost of trading with other players PLUS coins you have selected
 
 	private ArrayList<Boolean> decisionMade; // if all players have made decision for the turn
 	private ArrayList<Card> graveyard; // stores all cards discarded
@@ -46,6 +47,8 @@ public class GameState
 	
 	// for resource selection
 	private String[] ownSelected, leftSelected, rightSelected;
+	
+	
 
 	
 	private Scanner input; // parses through card files
@@ -64,6 +67,7 @@ public class GameState
 		order = 1;
 		round = 1;
 		currentPlayer = (int)(Math.random() * numberOfPlayers);
+		tradingCost = 0;
 		
 		// sets all decisionsMade to false for the start of the game
 		decisionMade = new ArrayList<Boolean>();
@@ -114,6 +118,7 @@ public class GameState
 	
 	public void initSelection()
 	{
+		tradingCost = 0;
 		ownSelected = wonders.get(currentPlayer).getAllPlayerResources().toArray(new String[0]);
 		leftSelected = wonders.get(leftPlayer(currentPlayer)).getCardResources().toArray(new String[0]);
 		rightSelected = wonders.get(rightPlayer(currentPlayer)).getCardResources().toArray(new String[0]);
@@ -918,7 +923,22 @@ public class GameState
 	public void setRightSelected(String[] rightSelected) {
 		this.rightSelected = rightSelected;
 	}
+
+	public int getTradingCost() {
+		return tradingCost;
+	}
+
+	public void setTradingCost(int tradingCost) {
+		this.tradingCost = tradingCost;
+	}
 	
+	public void plusCost(int cost)
+	{
+		this.tradingCost += cost;
+	}
 	
-	
+	public void minusCost(int cost)
+	{
+		this.tradingCost -= cost;
+	}
 }
