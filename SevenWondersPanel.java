@@ -1023,21 +1023,21 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		ArrayList<Integer> finalPoints = game.finalPoints();
 		
 		for (int i = 0; i < finalPoints.size(); i++)
-			if (finalPoints.get(i) > finalPoints.get(FP))
+			if (finalPoints.get(i) > FP)
 			{
 				FP = finalPoints.get(i);
 				 stand.add(game.getWonders().get(i).getName());
 				finalPoints.remove(i);
 			}
 		for (int i = 0; i < finalPoints.size(); i++)
-			if (finalPoints.get(i) > finalPoints.get(SP))
+			if (finalPoints.get(i) > SP)
 			{
 				SP = finalPoints.get(i);
 				stand.add(game.getWonders().get(SP).getName());
 				finalPoints.remove(i);
 			}
 		for (int i = 0; i < finalPoints.size(); i++)
-			if (finalPoints.get(i) > finalPoints.get(TP))
+			if (finalPoints.get(i) > TP)
 			{
 				TP = finalPoints.get(i);
 				stand.add(game.getWonders().get(TP).getName());
