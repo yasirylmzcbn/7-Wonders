@@ -316,16 +316,18 @@ public class Wonder {
 	}
 	public int buildWonder() 
 	{
+		playCard(stages.get(playerWonders));
+		
 		playerWonders++;
 		if(playerWonders == 1)
 			victoryPoints += 3;
 		else if(playerWonders == 2)
 			victoryPoints += 7;
 		
-		playCard(stages.get(playerWonders-1));
 		
-		HashSet<Card> x = cardsPlayed.get("wonder");
-		x.add(stages.get(playerWonders-1));
+		
+		/*HashSet<Card> x = cardsPlayed.get("wonder");
+		x.add(stages.get(playerWonders-1));*/
 		
 		
 		if(playerWonders == 2 && name.contentEquals("The Temple of Artemis in Ephesus"))
