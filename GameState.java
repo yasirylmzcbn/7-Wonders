@@ -419,7 +419,7 @@ public class GameState
 				w.getCardsPlayed().get("wonder").add(w.getSelectedCard());
 				
 				if(w.getName().equals("The Mausoleum of Halicarnassus")&&w.getPlayerWonders()==2);
-				halic = true;
+					halic = true;
 			}
 			w.setAction("");
 			w.setSelectedCard(null);
