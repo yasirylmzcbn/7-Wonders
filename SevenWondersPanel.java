@@ -658,10 +658,10 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			BufferedImage card = ImageIO.read(new File("src/images/cards/age" + game.getAge() + ".png"));
 			
 			g.drawImage(logo, 1270, 320, logo.getWidth() * 3 / 7, logo.getHeight() * 3 / 7, null);
-			g.drawImage(rotation, 1400, 525, rotation.getWidth()/12, rotation.getHeight()/12, null); //y was 515
-			g.setFont(new Font("Times New Roman", Font.PLAIN, 56));
+			g.drawImage(rotation, 1370, 525, rotation.getWidth()/12, rotation.getHeight()/12, null); //y was 515
+			g.setFont(new Font("Times New Roman", Font.BOLD, 56));
 			g.setColor(Color.BLACK);// was white
-			g.drawString("ROUND " + game.getRound(), 1300, 510);//was 1340, 495 but was being covered
+			g.drawString("ROUND " + game.getRound(), 1285, 510);//was 1340, 495 but was being covered
 			g.drawImage(card, 1550, 450, card.getWidth() * 3 / 4, card.getHeight() * 3 / 4, null);
 			// g.drawString("age " + game.getAge(), 1360, 565);
 		}
