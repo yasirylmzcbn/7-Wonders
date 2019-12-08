@@ -554,11 +554,11 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				int pos = 0;
 				for (int i = 0; i < ownResources.length; i++)
 				{
-					if (ownResources[i].contains("coin"))
+					if (ownResources[i].contains("coin") && pos < 11)
 					{
-						g.drawImage(resources.get(ownResources[i].split("-Selected")[0]), startingX + 225, startingY + (space + 2) * pos, space, space, null);
+						g.drawImage(resources.get(ownResources[i].split("-Selected")[0]), startingX + 225, startingY + (space + 10) * pos, space, space, null);
 						if (ownResources[i].contains("-Selected"))
-							g.drawImage(selected, startingX + 225, startingY + (space + 2) * pos, space, space, null);
+							g.drawImage(selected, startingX + 225, startingY + (space + 10) * pos, space, space, null);
 						pos++;
 					}
 				}		
@@ -955,7 +955,6 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			{
 				defaultView = false;
 				displayView = game.getCurrentWonder().getName();
-				
 			}
 			//g.fillRect(1738, 40, 149, 125); // displayLeftWonder 
 			//g.fillRect(1738, 190, 149, 125); // displayRightWonder(40+125+25(space) = 190)
@@ -1020,6 +1019,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				{
 					optionSelection = true;
 					game.getSelectedResources().clear();
+					game.initSelection();
 				}
 				
 				// confirm button
