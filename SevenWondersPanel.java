@@ -65,7 +65,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		game = new GameState();
 		this.width = width;
 		this.height = height;
-		mainMenu = false;
+		mainMenu = true;
 		wonderDist = false;
 		defaultView = false;
 		optionSelection = false;
@@ -73,7 +73,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		displayColor = "";
 		OlympiaAbility = false;
 		
-		displayGraveyard = true;
+		displayGraveyard = false;
 	}
 	
 	public void paint(Graphics g) 
