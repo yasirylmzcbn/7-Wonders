@@ -73,7 +73,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		displayColor = "";
 		OlympiaAbility = false;
 		
-		displayGraveyard = false;
+		displayGraveyard = true;
 	}
 	
 	public void paint(Graphics g) 
@@ -1784,8 +1784,6 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				}
 				//int HANDYPOS2 = 5+CARDHEIGHT+20;
 				//int HANDYPOS3 = 5+HANDYPOS2+CARDHEIGHT+20;
-				if(e.getY() >= 5 && e.getY() <= 280)
-				{
 					for (int i = 0; i < grave1.size(); i++)
 					{
 						// this is the bounds for each card of index 'i'
@@ -1806,9 +1804,8 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 						}
 						
 					}
-				}
-				if(e.getY() >= 300 && e.getY() <= 575)
-				{
+				
+				
 				for (int i = 0; i < grave2.size(); i++)
 				{
 					// this is the bounds for each card of index 'i'
@@ -1829,9 +1826,8 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 					}
 					
 				}
-				}
-				if(e.getY() >= 600 && e.getY() <= 875)
-				{
+				
+				
 				for (int i = 0; i < grave3.size(); i++)
 				{
 					// this is the bounds for each card of index 'i'
@@ -1852,7 +1848,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 					}
 					
 				}
-				}
+				
 			
 		}
 		
