@@ -1078,7 +1078,19 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			crown= ImageIO.read(new File("src/images/winner.png"));
 			for(int i = 0; i <stand.length;i++ )
 			{
-				System.out.println("wonder"+stand[i]+finalPoints.get(i));
+				System.out.println("wonder"+stand[i]);
+				if(i == 0)
+				{
+					System.out.println("points"+F);
+				}
+				else if(i == 1)
+				{
+					System.out.println("points"+S);
+				}
+				else if(i == 2)
+				{
+					System.out.println("points"+T);
+				}
 				
 				podium[i] = ImageIO.read(new File("src/images/wonders/"+stand[i]+".png"));
 			}
