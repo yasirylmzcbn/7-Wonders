@@ -901,8 +901,10 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 	{
 		ArrayList<Card> graveyard = game.getGraveyard();
 		
+		
+		
 		//DELETE THIS LATER
-		graveyard.addAll(game.getDeck().get(1));
+		//graveyard.addAll(game.getDeck().get(1));
 		
 		drawBackground(g);
 		// cancel button
