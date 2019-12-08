@@ -624,7 +624,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 36));
 				g.drawString("Your resources", 425, 445);
 				g.drawString("Left resources", 30, 445);
-				g.drawString("Right resources", 835, 445);
+				g.drawString("Right resources", 780, 445);
 			}
 			else if(game.getCurrentWonder().getAction().contentEquals("Burn"))
 			{
