@@ -1267,14 +1267,16 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 									if(brownR.contains(leftResources[i]))
 									{
 										t-=LeftBrownCost;
+										game.minusCost(LeftBrownCost);
 									}
 									if(silverR.contains(leftResources[i]))
 									{
 										t-=SilverCost;
+										game.minusCost(LeftBrownCost);
 									}
 									trades.put(leftName,t);
 								}
-								else
+								else if (game.getCurrentWonder().getMoney() >= game.getTradingCost())
 								{
 									game.getSelectedResources().add(leftResources[i]);
 									leftResources[i] = leftResources[i] + "-Selected";
@@ -1285,10 +1287,12 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 									if(brownR.contains(leftResources[i]))
 									{
 										t+=LeftBrownCost;
+										game.plusCost(LeftBrownCost);
 									}
 									if(silverR.contains(leftResources[i]))
 									{
 										t+=SilverCost;
+										game.plusCost(SilverCost);
 									}
 									trades.put(leftName, t);
 								}
@@ -1320,16 +1324,18 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 										if(brownR.contains(leftResources[i].split("\\|\\|")[0]))
 										{
 											t-=LeftBrownCost;
+											game.minusCost(LeftBrownCost);
 										}
 										if(silverR.contains(leftResources[i].split("\\|\\|")[0]))
 										{
 											t-=SilverCost;
+											game.minusCost(SilverCost);
 										}
 										trades.put(leftName,t);
 										
 										System.out.println("All selected: " + game.getSelectedResources());
 									}
-									else
+									else if (game.getCurrentWonder().getMoney() >= game.getTradingCost())
 									{
 										boolean canSelect = true;
 										for (int index = 0; index < orResources.length; index++)
@@ -1353,10 +1359,12 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 											if(brownR.contains(leftResources[i].split("\\|\\|")[0]))
 											{
 												t+=LeftBrownCost;
+												game.plusCost(LeftBrownCost);
 											}
 											if(silverR.contains(leftResources[i].split("\\|\\|")[0]))
 											{
 												t+=SilverCost;
+												game.minusCost(SilverCost);
 											}
 											trades.put(leftName, t);
 											
