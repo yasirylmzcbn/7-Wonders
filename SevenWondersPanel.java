@@ -793,7 +793,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			g.fillRect(count*buttonWidth, 0, buttonWidth, 80);
 		g.setFont(new Font("Berlin Sans SB", Font.BOLD, 13));
 		g.setColor(Color.WHITE);
-		g.drawString("Raw Materials(Brown)", count*buttonWidth+textX , textY);
+		g.drawString("Raw Materials(Brown): " + displayWonder.getCardsPlayed().get("brown").size(), count*buttonWidth+textX , textY);
 		count++;
 		
 		g.setColor(new Color(108, 111, 128));
@@ -802,7 +802,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		else
 			g.fillRect(count*buttonWidth, 0, buttonWidth, 80);
 		g.setColor(Color.WHITE);
-		g.drawString("Manufactured Materials(Silver)", count*buttonWidth+textX , textY);
+		g.drawString("Manufactured Materials(Silver): " + displayWonder.getCardsPlayed().get("silver").size(), count*buttonWidth+textX , textY);
 		count++;
 		
 		g.setColor(new Color(120, 0, 212));
@@ -811,7 +811,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		else
 			g.fillRect(count*buttonWidth, 0, buttonWidth, 80);
 		g.setColor(Color.WHITE);
-		g.drawString("Guilds(Purple)",  count*buttonWidth+textX , textY);
+		g.drawString("Guilds(Purple): " + displayWonder.getCardsPlayed().get("purple").size(),  count*buttonWidth+textX , textY);
 		count++;
 		
 		g.setColor(new Color(33, 109, 222));
@@ -820,7 +820,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		else
 			g.fillRect(count*buttonWidth, 0, buttonWidth, 80);
 		g.setColor(Color.WHITE);
-		g.drawString("Civilian Structures(Blue)",  count*buttonWidth+textX , textY);
+		g.drawString("Civilian Structures(Blue): " + displayWonder.getCardsPlayed().get("blue").size(),  count*buttonWidth+textX , textY);
 		count++;
 		
 		g.setColor(new Color(31, 184, 54));
@@ -829,7 +829,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		else
 			g.fillRect(count*buttonWidth, 0, buttonWidth, 80);
 		g.setColor(Color.WHITE);
-		g.drawString("Scientific Structures(Green)",  count*buttonWidth+textX , textY);
+		g.drawString("Scientific Structures(Green): " + displayWonder.getCardsPlayed().get("green").size(),  count*buttonWidth+textX , textY);
 		count++;
 		
 		g.setColor(new Color(255, 186, 0));
@@ -838,7 +838,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		else
 			g.fillRect(count*buttonWidth, 0, buttonWidth, 80);
 		g.setColor(Color.WHITE);
-		g.drawString("Commercial Structures(Yellow)",  count*buttonWidth+textX , textY);
+		g.drawString("Commercial Structures(Yellow): " + displayWonder.getCardsPlayed().get("yellow").size(),  count*buttonWidth+textX , textY);
 		count++;
 		
 		g.setColor(new Color(191, 0, 3));
@@ -847,7 +847,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		else
 			g.fillRect(count*buttonWidth, 0, buttonWidth, 80);
 		g.setColor(Color.WHITE);
-		g.drawString("Military Structures(Red)",  count*buttonWidth+textX , textY);
+		g.drawString("Military Structures(Red): " + displayWonder.getCardsPlayed().get("red").size(),  count*buttonWidth+textX , textY);
 		count++;
 		
 		g.setColor(new Color(191, 0, 3));
