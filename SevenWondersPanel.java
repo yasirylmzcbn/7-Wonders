@@ -1180,6 +1180,12 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				game.initSelection();
 			}
 		}
+		if(game.isEndOfGame())
+		{
+			defaultView= false;
+			displayView = "";
+			wonderDist = false;
+		}
 	}
 	
 	public void mousePressed(MouseEvent e)
