@@ -43,7 +43,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 	//private boolean displayLeftPlayed;
 	//private boolean displayRightPlayed;
 
-	//private boolean displayHalic; //might become a String later on
+	private boolean displayHalic; //might become a String later on
 	private boolean displayGraveyard; // for Halicarnassus
 	
 	public static boolean OlympiaAbility = false;
@@ -73,6 +73,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		displayView = "";
 		displayColor = "";
 		OlympiaAbility = false;
+		displayHalic = false;
 		
 		//displayGraveyard = false;;
 		//game.setEndOfGame(true);
