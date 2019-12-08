@@ -1038,7 +1038,11 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 						
 						if(needed.equals(selected) || needed.contains("null")||OlympiaAbility)
 						{
-							if (needed.contains("null") && selected.isEmpty())
+							if (needed.contains("null") && !selected.isEmpty())
+							{
+								System.out.println("You're actually paying for a free card? You actual fool. I actually cannot believe you");
+							}
+							else
 							{
 								ArrayList<Card> currentHand = game.getPlayerHands().get(game.getCurrentWonder().getHand());
 								for (int i = 0; i < currentHand.size(); i++)
@@ -1055,8 +1059,6 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 								}
 								nextTurn();
 							}
-							else
-								System.out.println("You're actually paying for a free card? You actual fool. I actually cannot believe you");
 						}
 					}
 					else if(game.getCurrentWonder().getAction().equals("Burn") && game.getCurrentWonder().getSelectedCard() != null)
@@ -1126,46 +1128,61 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 					String[] leftResources = game.getLeftSelected();
 					for (int i = 0; i < leftResources.length; i++)
 					{
-						if (e.getX() <= startingX + space && e.getX() >= startingX &&
-								e.getY() <= startingY + (space + 10) * i + space && e.getY() >= startingY + (space + 10) * i)
+						if (!leftResources[i].contains("||"))
 						{
-							System.out.println(leftResources[i]); // debugging
-							
-							if (leftResources[i].contains("-Selected"))
+							if (e.getX() <= startingX + space && e.getX() >= startingX &&
+									e.getY() <= startingY + (space + 10) * i + space && e.getY() >= startingY + (space + 10) * i)
 							{
-								leftResources[i] = leftResources[i].substring(0, leftResources[i].indexOf("-Selected"));
-								game.getSelectedResources().remove(leftResources[i]);
+								System.out.println(leftResources[i]); // debugging
 								
-								TreeMap<String, Integer> trades = game.getCurrentWonder().getTrades();
-								String leftName = game.getLeftWonder(game.getCurrentWonder()).getName();
-								int t = trades.get(leftName);
-								if(brownR.contains(leftResources[i]))
+								if (leftResources[i].contains("-Selected"))
 								{
-									t-=LeftBrownCost;
+									leftResources[i] = leftResources[i].substring(0, leftResources[i].indexOf("-Selected"));
+									game.getSelectedResources().remove(leftResources[i]);
+									
+									TreeMap<String, Integer> trades = game.getCurrentWonder().getTrades();
+									String leftName = game.getLeftWonder(game.getCurrentWonder()).getName();
+									int t = trades.get(leftName);
+									if(brownR.contains(leftResources[i]))
+									{
+										t-=LeftBrownCost;
+									}
+									if(silverR.contains(leftResources[i]))
+									{
+										t-=SilverCost;
+									}
+									trades.put(leftName,t);
 								}
-								if(silverR.contains(leftResources[i]))
+								else
 								{
-									t-=SilverCost;
+									game.getSelectedResources().add(leftResources[i]);
+									leftResources[i] = leftResources[i] + "-Selected";
+									
+									TreeMap<String, Integer> trades = game.getCurrentWonder().getTrades();
+									String leftName = game.getLeftWonder(game.getCurrentWonder()).getName();
+									int t = trades.get(leftName);
+									if(brownR.contains(leftResources[i]))
+									{
+										t+=LeftBrownCost;
+									}
+									if(silverR.contains(leftResources[i]))
+									{
+										t+=SilverCost;
+									}
+									trades.put(leftName, t);
 								}
-								trades.put(leftName,t);
 							}
-							else
+						}
+						else
+						{
+							String[] orResources = leftResources[i].split("\\|\\|");
+							for (int r = 0; r < orResources.length; r++)
 							{
-								game.getSelectedResources().add(leftResources[i]);
-								leftResources[i] = leftResources[i] + "-Selected";
-								
-								TreeMap<String, Integer> trades = game.getCurrentWonder().getTrades();
-								String leftName = game.getLeftWonder(game.getCurrentWonder()).getName();
-								int t = trades.get(leftName);
-								if(brownR.contains(leftResources[i]))
+								if (e.getX() <= (startingX + space) && e.getX() >= startingX &&
+										e.getY() <= startingY + (space + 10) * i + space && e.getY() >= startingY + (space + 10) * i)
 								{
-									t+=LeftBrownCost;
+									
 								}
-								if(silverR.contains(leftResources[i]))
-								{
-									t+=SilverCost;
-								}
-								trades.put(leftName, t);
 							}
 						}
 					}
