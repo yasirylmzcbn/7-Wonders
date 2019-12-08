@@ -123,10 +123,10 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		{
 			drawBackground(g);
 		}*/
-		if (displayHalic)
-		{
+		//if (displayHalic)
+		//{
 			
-		}
+		//}
 		if (displayGraveyard)
 		{
 			
@@ -878,6 +878,11 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			
 
 		
+	}
+	public void drawGraveyard(Graphics g)
+	{
+		
+	
 	}
 	
 	public void nextTurn()
