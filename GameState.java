@@ -114,7 +114,6 @@ public class GameState
 		passOutHands();
 		
 		initSelection();
-		graveyard.addAll(deck.get(1));
 	}
 	
 	public void initSelection()
@@ -380,6 +379,7 @@ public class GameState
 			if(w.getAction().contentEquals("Burn"))
 			{
 				w.burnCard();
+				graveyard.add(w.getSelectedCard());
 			}
 			else if(w.getAction().contentEquals("Build"))
 			{
@@ -497,8 +497,6 @@ public class GameState
 			w.addMoney(-tradeV);
 			
 			trades.put(getRightWonder(i).getName(), 0);
-			
-			
 		}
 		
 		for (int i = 0; i < decisionMade.size(); i++)

@@ -71,7 +71,8 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		displayView = "";
 		displayColor = "";
 		OlympiaAbility = false;
-		game.setHalic(true);
+		
+		// game.setHalic(true);
 		displayHalic = false;
 	}
 	
@@ -129,9 +130,8 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		//{
 			
 		//}
-		if (game.isHalic())
+		if (displayHalic)
 		{
-			displayHalic = true;
 			drawGraveyard(g);
 		}
 		if(game.isEndOfGame())
@@ -953,9 +953,16 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		
 		// Card names with no spaces and to lower case in order to match image file names
 		ArrayList<String> graveyardNames = new ArrayList<String>();
+		
+		
+		Wonder current = null;
+		for (int s = 0; s < game.getWonders().size(); s++)
+			if (game.getWonders().get(s).getName().equals("The Mausoleum of Halicarnassus"))
+				current = game.getWonders().get(s);
+		
 		for (int i = 0; i < graveyard.size(); i++)
 		{
-			if (graveyard.get(i).equals(game.getCurrentWonder().getSelectedCard()))
+			if (graveyard.get(i).equals(current.getSelectedCard()))
 				selected = i;
 			graveyardNames.add(graveyard.get(i).getName().replace(" ", "").toLowerCase());
 		}
@@ -1097,6 +1104,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			game.finishRound();
 			if(game.isHalic())
 			{
+				defaultView = false;
 				displayHalic = true;
 			}
 			else
@@ -1788,7 +1796,11 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		}
 		else if(displayHalic) // need confirm and cancel as well as use playable(Card c) method
 		{
-			Wonder current = game.getCurrentWonder();
+			Wonder current = null;
+			for (int s = 0; s < game.getWonders().size(); s++)
+				if (game.getWonders().get(s).getName().equals("The Mausoleum of Halicarnassus"))
+					current = game.getWonders().get(s);
+			
 			ArrayList<Card> graveyard = game.getGraveyard();
 			
 			int startingX = 5, startingY = 5;
@@ -1801,8 +1813,8 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				{
 					if (!graveyard.get(i).equals(current.getSelectedCard()))
 					{
-						System.out.println("Chosen card " + current.getSelectedCard());
 						current.setSelectedCard(graveyard.get(i));
+						System.out.println("Chosen card " + current.getSelectedCard());
 					}
 					else
 					{
@@ -1815,6 +1827,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			// confirm button
 			if (e.getX() <= 1920 && e.getX() >= 1710 && e.getY() <= 1050 && e.getY() >= 1010 && current.getSelectedCard() != null && current.playable(current.getSelectedCard()))
 			{
+				int otherPlayer = game.getCurrentPlayer();
 				int p = 0;
 				for(int i = 0; i<game.getWonders().size(); i++)
 				{
@@ -1825,8 +1838,14 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				}
 				game.setCurrentPlayer(p);
 				game.getCurrentWonder().setAction("Play");
-				game.finishRound(game.getWonders().get(p));
+				game.finishRound(game.getCurrentWonder());
 				optionSelection = false;
+				
+				game.setCurrentPlayer(otherPlayer);
+				
+				displayHalic = false;
+				defaultView = true;
+				optionSelection = true;
 				
 				game.nextRound();
 				game.initSelection();
