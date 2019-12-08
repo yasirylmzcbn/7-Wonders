@@ -42,12 +42,12 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 	private String displayColor;
 	//private boolean displayLeftPlayed;
 	//private boolean displayRightPlayed;
-	private boolean displayHalic; //might become a String later on
+	//private boolean displayHalic; //might become a String later on
 	private boolean displayGraveyard; // for Halicarnassus
 	
 	public static boolean OlympiaAbility = false;
 	
-	private int[] posX;
+	//private int[] posX;
 	private int width;
 	private int height;
 	
@@ -73,7 +73,8 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		displayColor = "";
 		OlympiaAbility = false;
 		
-		displayGraveyard = false;;
+		//displayGraveyard = false;;
+		//game.setEndOfGame(true);
 	}
 	
 	public void paint(Graphics g) 
@@ -136,6 +137,9 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		}
 		if(game.isEndOfGame())
 		{
+			defaultView= false;
+			displayView = "";
+			wonderDist = false;
 			drawFinalPoints(g);
 		}
 	}
@@ -1026,16 +1030,37 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				finalPoints.remove(i);
 			}
 		
+		/*
+		finalPoints.clear();
+		//DELETE
+		stand.add("The Statue of Zeus in Olympia");
+		finalPoints.add(48);
+		stand.add("The Hanging Gardens of Babylon");  
+		finalPoints.add(36);
+		stand.add("The Mausoleum of Halicarnassus");
+		finalPoints.add(24);
+		*/
+		
+		
 		// assigns image to wonder
 		BufferedImage podium[] = new BufferedImage[3];
 		BufferedImage crown = null;
+		BufferedImage F = null;
+		BufferedImage S = null;
+		BufferedImage T = null;
+		
 		try
 		{
-			crown= ImageIO.read(new File("src/images/crown.png"));
+			crown= ImageIO.read(new File("src/images/winner.png"));
 			for(int i = 0; i <stand.size();i++ )
 			{
-				podium[i] = ImageIO.read(new File("src/images/"+stand.get(i)+".png"));
+				//System.out.println("wonder"+stand.get(i));
+				
+				podium[i] = ImageIO.read(new File("src/images/wonders/"+stand.get(i)+".png"));
 			}
+			F = ImageIO.read(new File("src/images/gold.png"));
+			S = ImageIO.read(new File("src/images/silver.png"));
+			T = ImageIO.read(new File("src/images/bronze.png"));
 			
 		}
 		catch (IOException e)
@@ -1046,14 +1071,45 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		 * public static final int WONDERXPOS = 1120, WONDERYPOS = 720;
 			public static final int WONDERWIDTH = 756, WONDERHEIGHT = 313; // original image size is 605, 250
 		 */
-		int WONDERXPOS2 = 615;
-		int WONDERYPOS2 = 300;
+		
+		
+		int WONDERXPOS1 = 562;
+		int WONDERYPOS1 = 100;
 		
 		// draws shadow
 		g.setColor(TRANSPARENTBLACK);
+		g.fillRect(WONDERXPOS1 + 10, WONDERYPOS1 + 10, WONDERWIDTH, WONDERHEIGHT);
+		// draws wonder
+		g.drawImage(podium[0], WONDERXPOS1, WONDERYPOS1, WONDERWIDTH, WONDERHEIGHT, null);
+		g.drawImage(crown, 876, 22,126,100,null);
+		g.setFont(new Font("Times New Roman", Font.BOLD, 100));
+		g.setColor(Color.BLACK);
+		g.drawString(""+finalPoints.get(0), 890, 500);
+		g.drawImage(F, 1195, 220, 150 ,225, null);
+		
+		int WONDERXPOS2 = 50;
+		int WONDERYPOS2 = 550;
+		
+		int WONDERXPOS3 = 1064;
+		
+		g.setColor(TRANSPARENTBLACK);
 		g.fillRect(WONDERXPOS2 + 10, WONDERYPOS2 + 10, WONDERWIDTH, WONDERHEIGHT);
 		// draws wonder
-		g.drawImage(podium[0], WONDERXPOS2, WONDERYPOS2, WONDERWIDTH, WONDERHEIGHT, null);
+		g.drawImage(podium[1], WONDERXPOS2, WONDERYPOS2, WONDERWIDTH, WONDERHEIGHT, null);
+		g.setFont(new Font("Times New Roman", Font.BOLD, 100));
+		g.setColor(Color.BLACK);
+		g.drawString(""+finalPoints.get(1), 370, 950);
+		g.drawImage(S, 676, 688, 150 ,225, null);
+		
+		g.setColor(TRANSPARENTBLACK);
+		g.fillRect(WONDERXPOS3 + 10, WONDERYPOS2 + 10, WONDERWIDTH, WONDERHEIGHT);
+		// draws wonder
+		g.drawImage(podium[1], WONDERXPOS3, WONDERYPOS2, WONDERWIDTH, WONDERHEIGHT, null);
+		g.setFont(new Font("Times New Roman", Font.BOLD, 100));
+		g.setColor(Color.BLACK);
+		g.drawString(""+finalPoints.get(2), 1387, 950);
+		g.drawImage(T, 1702, 686, 150 ,225, null);
+		
 		
 		
 		
