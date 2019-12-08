@@ -15,7 +15,7 @@ public class SevenWondersFrame extends JFrame
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(WIDTH,HEIGHT);
 		add(new SevenWondersPanel(WIDTH, HEIGHT));
-		//setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setUndecorated(true);
 		
 		try {
