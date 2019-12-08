@@ -164,7 +164,7 @@ public class GameState
 			ArrayList<Card> list = new ArrayList<Card>();
 			list.addAll(currentWonder.getCardsPlayed().get("blue"));	
 			for(int j = 0; j < list.size(); j++) {
-				CivicsCard c = (CivicsCard) list.get(i);
+				CivicsCard c = (CivicsCard) list.get(j);
 				totalPoints += c.getVictoryPoints();
 			}
 			
@@ -233,7 +233,7 @@ public class GameState
 			}
 			else
 			{
-				totalPoints = calcTech(origTab, origGear, origComp);
+				totalPoints += calcTech(origTab, origGear, origComp);
 			}
 				
 			
@@ -493,6 +493,9 @@ public class GameState
 				graveyard.add(temp.remove(0));
 			}
 			//playerHands.clear();
+			wonders.get(0).setMoney(wonders.get(0).getMoney()+3);
+			wonders.get(1).setMoney(wonders.get(1).getMoney()+3);
+			wonders.get(2).setMoney(wonders.get(2).getMoney()+3);
 			warTime();
 			age++;
 			
