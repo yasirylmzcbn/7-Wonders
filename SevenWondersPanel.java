@@ -1019,30 +1019,41 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		int FP = 0;
 		int SP = 0;
 		int TP = 0;
-		ArrayList<String> stand = new ArrayList<String>(3);
+		String[] stand = new String[3];
 		ArrayList<Integer> finalPoints = game.finalPoints();
+		int ind = 0;
 		
 		for (int i = 0; i < finalPoints.size(); i++)
 			if (finalPoints.get(i) > FP)
 			{
 				FP = finalPoints.get(i);
-				 stand.set(0,game.getWonders().get(i).getName());
-				finalPoints.remove(i);
+				 stand[0] = game.getWonders().get(i).getName();
+				ind = i;
 			}
+		finalPoints.remove(ind);
+		ind = 0;
+		
+		finalPoints.remove(ind);
 		for (int i = 0; i < finalPoints.size(); i++)
 			if (finalPoints.get(i) > SP)
 			{
 				SP = finalPoints.get(i);
-				stand.set(1,game.getWonders().get(i).getName());
-				finalPoints.remove(i);
+				stand[1] = game.getWonders().get(i).getName();
+				ind = i;
 			}
+		finalPoints.remove(ind);
+		ind = 0;
+		
+		
 		for (int i = 0; i < finalPoints.size(); i++)
 			if (finalPoints.get(i) > TP)
 			{
 				TP = finalPoints.get(i);
-				stand.set(2,game.getWonders().get(i).getName());
-				finalPoints.remove(i);
+				stand[2] = game.getWonders().get(i).getName();
+				ind = i;
 			}
+		finalPoints.remove(ind);
+		ind = 0;
 		
 		/*
 		finalPoints.clear();
@@ -1066,11 +1077,11 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		try
 		{
 			crown= ImageIO.read(new File("src/images/winner.png"));
-			for(int i = 0; i <stand.size();i++ )
+			for(int i = 0; i <stand.length;i++ )
 			{
-				System.out.println("wonder"+stand.get(i)+finalPoints.get(i));
+				System.out.println("wonder"+stand[i]+finalPoints.get(i));
 				
-				podium[i] = ImageIO.read(new File("src/images/wonders/"+stand.get(i)+".png"));
+				podium[i] = ImageIO.read(new File("src/images/wonders/"+stand[i]+".png"));
 			}
 			F = ImageIO.read(new File("src/images/gold.png"));
 			S = ImageIO.read(new File("src/images/silver.png"));
