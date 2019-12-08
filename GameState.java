@@ -344,7 +344,7 @@ public class GameState
 				winner = i;
 		return winner+""+finalPoints.get(winner);
 	}
-	public TreeMap<String, Integer> standings()
+	/*public TreeMap<String, Integer> standings()
 	{
 		TreeMap<String, Integer> stand = new TreeMap<String, Integer>();
 		ArrayList<Integer> finalPoints = finalPoints();
@@ -360,7 +360,7 @@ public class GameState
 			stand.put(wonders.get(winner).getName(),winnerP);
 		}
 		return stand;
-	}
+	}*/
 	public void rotateHands()
 	{
 		for(Wonder w: wonders)
