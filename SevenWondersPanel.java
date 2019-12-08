@@ -1033,7 +1033,6 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		finalPoints.remove(ind);
 		ind = 0;
 		
-		finalPoints.remove(ind);
 		for (int i = 0; i < finalPoints.size(); i++)
 			if (finalPoints.get(i) > SP)
 			{
