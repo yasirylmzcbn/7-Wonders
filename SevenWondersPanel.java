@@ -981,9 +981,13 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		
 		// draws confirm button
 		g.setColor(new Color(95, 184, 119));
-		g.fillRect(1710, 1010, 210, 40);
+		g.fillRect(1710, 1010, 210, 70);
+		g.setColor(TRANSPARENTBLACK);
+		g.fillRect(730, 1010, 420, 70);
 		g.setColor(Color.WHITE);
-		g.drawString("CONFIRM", 1745, 1040);
+		g.setFont(new Font("Times New Roman", Font.BOLD, 24));
+		g.drawString("CONFIRM", 1745, 1050);
+		g.drawString("Halicarnassus: Play A Card For Free", 750, 1050);
 		
 		// draws card images
 		for (int i = 0; i < graveyard.size(); i++)
@@ -1825,7 +1829,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				}
 			}
 			// confirm button
-			if (e.getX() <= 1920 && e.getX() >= 1710 && e.getY() <= 1050 && e.getY() >= 1010 && current.getSelectedCard() != null && current.playable(current.getSelectedCard()))
+			if (e.getX() <= 1920 && e.getX() >= 1710 && e.getY() <= 1080 && e.getY() >= 1010 && current.getSelectedCard() != null && current.playable(current.getSelectedCard()))
 			{
 				int otherPlayer = game.getCurrentPlayer();
 				int p = 0;
