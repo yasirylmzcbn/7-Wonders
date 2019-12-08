@@ -72,7 +72,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		displayColor = "";
 		OlympiaAbility = false;
 		
-		displayGraveyard = false;
+		displayGraveyard = true;
 	}
 	
 	public void paint(Graphics g) 
@@ -887,10 +887,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		ArrayList<Card> graveyard = game.getGraveyard();
 		
 		//DELETE THIS LATER
-		for(Wonder w: game.getWonders())
-		{
-			game.getPlayerHands().get(w.getHand());
-		}
+		graveyard.addAll(game.getDeck().get(1));
 		
 		drawBackground(g);
 		// cancel button
@@ -917,23 +914,66 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				selected = i;
 			playerHandNames.add(graveyard.get(i).getName().replace(" ", "").toLowerCase());
 		}
-				
-				// assign card images
-		BufferedImage cards[] = new BufferedImage[playerHandNames.size()];
-		for (int i = 0; i < cards.length; i++)
+		ArrayList<String> playerHand1 = new ArrayList<String>();
+		ArrayList<String> playerHand2 = new ArrayList<String>();
+		ArrayList<String> playerHand3 = new ArrayList<String>();
+		for(int i = 0; i<playerHandNames.size();i++)
 		{
-			try {
-				cards[i] = ImageIO.read(new File("src/images/cards/" + playerHandNames.get(i) + ".png"));
-			} catch (IOException e) {
-				System.out.println("Cannot find file " + playerHandNames.get(i));
+			if(i<=9)
+			{
+				playerHand1.add(playerHandNames.get(i));
+			}
+			else if(i<=19)
+			{
+				playerHand2.add(playerHandNames.get(i));
+			}
+			else if(i<=29)
+			{
+				playerHand3.add(playerHandNames.get(i));
 			}
 		}
-		int HANDPOX2 = 5;
-		int HANDPOY2 = 5;
+		
+		
+		System.out.println("size"+playerHandNames.size());
+				
+				// assign card images
+		BufferedImage cards1[] = new BufferedImage[playerHand1.size()];
+		for (int i = 0; i < cards1.length; i++)
+		{
+			try {
+				cards1[i] = ImageIO.read(new File("src/images/cards/" + playerHand1.get(i) + ".png"));
+			} catch (IOException e) {
+				System.out.println("Cannot find file " + playerHand1.get(i));
+			}
+		}
+		BufferedImage cards2[] = new BufferedImage[playerHand2.size()];
+		for (int i = 0; i < cards2.length; i++)
+		{
+			try {
+				cards2[i] = ImageIO.read(new File("src/images/cards/" + playerHand2.get(i) + ".png"));
+			} catch (IOException e) {
+				System.out.println("Cannot find file " + playerHand2.get(i));
+			}
+		}
+		BufferedImage cards3[] = new BufferedImage[playerHand3.size()];
+		for (int i = 0; i < cards3.length; i++)
+		{
+			try {
+				cards3[i] = ImageIO.read(new File("src/images/cards/" + playerHand3.get(i) + ".png"));
+			} catch (IOException e) {
+				System.out.println("Cannot find file " + playerHand3.get(i));
+			}
+		}
+		
+		
+		int HANDYPOS2 = 5+CARDHEIGHT+20;
+		int HANDYPOS3 = 5+HANDYPOS2+CARDHEIGHT+20;
+		
 		
 		//draw card images
-		for (int i = 0; i < cards.length; i++)
+		for (int i = 0; i < cards1.length; i++)
 		{
+			
 			if (i != selected)
 			{
 				// draws shadow
@@ -941,7 +981,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				g.fillRect(5 + HANDXPOS + (CARDWIDTH + 10) * i, 5 + HANDYPOS, CARDWIDTH, CARDHEIGHT);
 				
 				
-				g.drawImage(cards[i], HANDXPOS + (CARDWIDTH + 10) * i, HANDYPOS, null);
+				g.drawImage(cards1[i], HANDXPOS + (CARDWIDTH + 10) * i, HANDYPOS, null);
 			}
 			else
 			{
@@ -950,9 +990,56 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				g.fillRect(5 + HANDXPOS + (CARDWIDTH + 10) * i, 5 + HANDYPOS + 20, CARDWIDTH, CARDHEIGHT);
 				
 				
-				g.drawImage(cards[i], HANDXPOS + (CARDWIDTH + 10) * i, HANDYPOS + 20, null);
+				g.drawImage(cards1[i], HANDXPOS + (CARDWIDTH + 10) * i, HANDYPOS + 20, null);
 			}
 		}
+		for (int i = 0; i < cards2.length; i++)
+		{
+			
+			if (i != selected)
+			{
+				// draws shadow
+				g.setColor(TRANSPARENTBLACK);
+				g.fillRect(5 + HANDXPOS + (CARDWIDTH + 10) * i, 5 + HANDYPOS2, CARDWIDTH, CARDHEIGHT);
+				
+				
+				g.drawImage(cards2[i], HANDXPOS + (CARDWIDTH + 10) * i, HANDYPOS2, null);
+			}
+			else
+			{
+				// draws shadow
+				g.setColor(TRANSPARENTBLACK);
+				g.fillRect(5 + HANDXPOS + (CARDWIDTH + 10) * i, 5 + HANDYPOS2 + 20, CARDWIDTH, CARDHEIGHT);
+				
+				
+				g.drawImage(cards2[i], HANDXPOS + (CARDWIDTH + 10) * i, HANDYPOS2 + 20, null);
+			}
+		}
+		for (int i = 0; i < cards3.length; i++)
+		{
+			
+			if (i != selected)
+			{
+				// draws shadow
+				g.setColor(TRANSPARENTBLACK);
+				g.fillRect(5 + HANDXPOS + (CARDWIDTH + 10) * i, 5 + HANDYPOS3, CARDWIDTH, CARDHEIGHT);
+				
+				
+				g.drawImage(cards3[i], HANDXPOS + (CARDWIDTH + 10) * i, HANDYPOS3, null);
+			}
+			else
+			{
+				// draws shadow
+				g.setColor(TRANSPARENTBLACK);
+				g.fillRect(5 + HANDXPOS + (CARDWIDTH + 10) * i, 5 + HANDYPOS3 + 20, CARDWIDTH, CARDHEIGHT);
+				
+				
+				g.drawImage(cards3[i], HANDXPOS + (CARDWIDTH + 10) * i, HANDYPOS3 + 20, null);
+			}
+		}
+		
+		
+		
 	
 		
 	
