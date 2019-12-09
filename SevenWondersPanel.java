@@ -1293,7 +1293,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 					optionSelection = false;
 					game.getCurrentWonder().setAction("Play");
 					OlympiaAbility = true;
-					game.setUsingO(true);
+					//game.setUsingO(true);
 				}
 				// TODO 
 				/*else if (e.getX() <= 610 && e.getX() >= 465 && e.getY() <= 910 && e.getY() >= 860)
@@ -1314,7 +1314,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				{
 					OlympiaAbility = false;
 					optionSelection = true;
-					game.setUsingO(false);
+					//game.setUsingO(false);
 					game.getSelectedResources().clear();
 					game.initSelection();
 				}
@@ -1353,9 +1353,9 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 						
 						if(needed.equals(selected) || needed.contains("null")||OlympiaAbility||game.getCurrentWonder().inChain(game.getCurrentWonder().getSelectedCard()))
 						{
-							if (needed.contains("null") && !selected.isEmpty())
+							if ((needed.contains("null")||needed.contains("null")|| game.getCurrentWonder().inChain(game.getCurrentWonder().getSelectedCard()))&& !selected.isEmpty())
 							{
-								System.out.println("You're actually paying for a free card? You actual fool. I actually cannot believe you");
+								System.out.println("You're actually paying for a free card/paying for a card in your chain/ paying when you have OlympiaAbility? You actual fool. I actually cannot believe you");
 							}
 							else
 							{
@@ -1372,7 +1372,9 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 										if(OlympiaAbility)
 										{
 											game.setUsedOlympia(true);
-											game.setUsingO(true);
+											//game.setUsingO(true);
+											game.getCurrentWonder().getSelectedCard().getCost().clear();
+											game.getCurrentWonder().getSelectedCard().getCost().add("null");
 										}
 										OlympiaAbility = false;
 										break;

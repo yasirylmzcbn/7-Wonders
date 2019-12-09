@@ -44,7 +44,7 @@ public class GameState
 		//0,1,2 not 123
 	private boolean halic;
 	private boolean usedOlympia;
-	private boolean usingO;
+	/*private boolean usingO;
 	
 	public boolean isUsingO() {
 		return usingO;
@@ -52,7 +52,7 @@ public class GameState
 
 	public void setUsingO(boolean usingO) {
 		this.usingO = usingO;
-	}
+	}*/
 
 	// for resource selection
 	private String[] ownSelected, leftSelected, rightSelected;
@@ -433,7 +433,7 @@ public class GameState
 					int leftBrown = getLeftWonder(w).getCardsPlayed().get("brown").size();
 					w.addMoney(numOfBrownCards+rightBrown+leftBrown);
 				}
-				if(w.getSelectedCard().getCost().contains("coin")&&!w.inChain(w.getSelectedCard())&&!usingO)
+				if(w.getSelectedCard().getCost().contains("coin")&&!w.inChain(w.getSelectedCard()))//usingO
 				{
 					for(int i = 0; i<w.getSelectedCard().getCost().size();i++)
 					{
@@ -443,7 +443,10 @@ public class GameState
 						}
 					}
 				}
-				usingO =false;
+				/*
+				if(usingO)
+					usedOlympia = true;
+				usingO =false;*/
 				
 			}
 			if(w.getAction().contentEquals("Build"))
