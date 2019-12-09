@@ -1366,6 +1366,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 									{
 										System.out.println("Removing " + currentHand.get(i).getName());
 										currentHand.remove(i);
+										OlympiaAbility = false;
 										break;
 									}
 								}
