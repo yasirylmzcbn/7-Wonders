@@ -32,7 +32,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			RED = new Color(248, 147, 144),
 			//BROWN = new Color(207, 178, 172); 
 			BROWN = new Color(101, 67, 33), // I found a better brown
-			PURPLE = new Color(255, 50, 100);
+			PURPLE = new Color(144, 120, 232);
 	
 	private boolean mainMenu; // shows the start button
 	private boolean wonderDist; // Shows distribution of wonders graphically (What wonders are in the current game)
