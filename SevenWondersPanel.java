@@ -1590,7 +1590,8 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 											if(silverR.contains(leftResources[i].split("\\|\\|")[0]))
 											{
 												t+=SilverCost;
-												game.minusCost(SilverCost);
+												//game.minusCost(SilverCost);
+												game.plusCost(SilverCost);
 											}
 											trades.put(leftName, t);
 											
