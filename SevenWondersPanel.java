@@ -1293,6 +1293,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 					optionSelection = false;
 					game.getCurrentWonder().setAction("Play");
 					OlympiaAbility = true;
+					game.setUsingO(true);
 				}
 				// TODO 
 				/*else if (e.getX() <= 610 && e.getX() >= 465 && e.getY() <= 910 && e.getY() >= 860)
@@ -1309,9 +1310,11 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			else
 			{
 				// cancel button // TODO what if they have selected a few resources? how would it reset that?
-				if (e.getX() <= 240 && e.getX() >= 30 && e.getY() <= 1030 && e.getY() >= 990&&!OlympiaAbility)//&&!game.isHalic()
+				if (e.getX() <= 240 && e.getX() >= 30 && e.getY() <= 1030 && e.getY() >= 990)//&&!game.isHalic() &&!OlympiaAbility
 				{
+					OlympiaAbility = false;
 					optionSelection = true;
+					game.setUsingO(false);
 					game.getSelectedResources().clear();
 					game.initSelection();
 				}
@@ -1366,6 +1369,11 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 									{
 										System.out.println("Removing " + currentHand.get(i).getName());
 										currentHand.remove(i);
+										if(OlympiaAbility)
+										{
+											game.setUsedOlympia(true);
+											game.setUsingO(true);
+										}
 										OlympiaAbility = false;
 										break;
 									}
