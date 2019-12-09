@@ -424,7 +424,7 @@ public class GameState
 					int leftBrown = getLeftWonder(w).getCardsPlayed().get("brown").size();
 					w.addMoney(numOfBrownCards+rightBrown+leftBrown);
 				}
-				if(w.getSelectedCard().getCost().contains("coin"))
+				if(w.getSelectedCard().getCost().contains("coin")&&!w.inChain(w.getSelectedCard()))
 				{
 					for(int i = 0; i<w.getSelectedCard().getCost().size();i++)
 					{
@@ -548,6 +548,7 @@ public class GameState
 				int leftBrown = getLeftWonder(w).getCardsPlayed().get("brown").size();
 				w.addMoney(numOfBrownCards+rightBrown+leftBrown);
 			}
+			/*
 			if(w.getSelectedCard().getCost().contains("coin"))
 			{
 				for(int i = 0; i<w.getSelectedCard().getCost().size();i++)
@@ -557,7 +558,7 @@ public class GameState
 						w.addMoney(-1);
 					}
 				}
-			}
+			}*/
 			
 		}
 		if(w.getAction().contentEquals("Build"))
