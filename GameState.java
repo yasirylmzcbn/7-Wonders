@@ -580,7 +580,7 @@ public class GameState
 				int tradeV = trades.get(getLeftWonder(i).getName());
 				getLeftWonder(i).addMoney(tradeV);
 				
-				System.out.println(we.getName() + " had " + we.getMoney() + " coins and now has " + (we.getMoney() - tradeV));// debugging
+				System.out.print(we.getName() + " had " + we.getMoney() + " coins and now has ");// debugging
 				
 				we.addMoney(-tradeV);
 				
@@ -589,6 +589,7 @@ public class GameState
 				tradeV = trades.get(getRightWonder(i).getName());
 				getRightWonder(i).addMoney(tradeV);
 				we.addMoney(-tradeV);
+				System.out.println(we.getMoney());//debugging
 				
 				trades.put(getRightWonder(i).getName(), 0);
 			}
