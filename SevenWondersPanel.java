@@ -66,7 +66,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		game = new GameState();
 		this.width = width;
 		this.height = height;
-		mainMenu = true;
+		mainMenu = false;//true;
 		wonderDist = false;
 		defaultView = false;
 		optionSelection = false;
@@ -74,9 +74,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		displayColor = "";
 		OlympiaAbility = false;
 		displayHalic = false;
-		
-		//displayGraveyard = false;;
-		//game.setEndOfGame(true);
+		displayGraveyard = false;
 
 	}
 	
@@ -104,15 +102,6 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				drawOptionSelection(g);
 			else
 			{
-				/*
-				if (game.getCurrentWonder().getAction().equalsIgnoreCase("play"))
-					drawResourceSelection(g);
-				else if (game.getCurrentWonder().getAction().equalsIgnoreCase("build"))
-					drawResourceSelection(g);
-				else if (game.getCurrentWonder().getAction().equalsIgnoreCase("burn"))
-					System.out.println("ok");
-				else if (game.getCurrentWonder().getAction().equalsIgnoreCase("ability"))
-					System.out.println("ok");*/
 				drawResourceSelection(g);
 			}
 			drawRoundInfo(g);
@@ -121,19 +110,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		{
 			drawBackground(g);
 			drawOtherWonder(g);
-		}/*
-		if (displayLeftPlayed)
-		{
-			drawBackground(g);
 		}
-		if (displayRightPlayed)
-		{
-			drawBackground(g);
-		}*/
-		//if (displayHalic)
-		//{
-			
-		//}
 		if (displayHalic)
 		{
 			drawGraveyard(g);
@@ -421,10 +398,6 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			g.drawString("Ability", 475, 900);
 	}
 	
-	/* TODO
-	 * needs cancel and confirm button
-	 * need to be able to select resource
-	 */
 	public void drawResourceSelection(Graphics g)
 	{
 		try
@@ -484,7 +457,6 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				int RightBrownCost = 2;// cost for trading for a brown card resource to the right
 				int LeftBrownCost = 2;//^*left
 				
-				// TODO-needed? yes it is needed fool
 				String brownR = "wood-Selected stone-Selected clay-Selected ore-Selected";
 	            String silverR = "paper-Selected cloth-Selected glass-Selected";
 				
@@ -992,11 +964,11 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		g.setColor(new Color(95, 184, 119));
 		g.fillRect(1710, 1010, 210, 70);
 		g.setColor(TRANSPARENTBLACK);
-		g.fillRect(730, 1010, 420, 70);
+		g.fillRect(0, 1010, 420, 70);
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("Times New Roman", Font.BOLD, 24));
 		g.drawString("CONFIRM", 1745, 1050);
-		g.drawString("Halicarnassus: Play A Card For Free", 750, 1050);
+		g.drawString("Halicarnassus: Play A Card For Free", 10, 1050);
 		
 		// draws card images
 		for (int i = 0; i < graveyard.size(); i++)
@@ -1014,6 +986,26 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			}
 			
 		}
+		
+		Color altgreen = new Color(50, 170, 140);
+		
+		g.setFont(new Font("Berlin Sans SB", Font.BOLD, 14));
+		g.setColor(altgreen);
+		g.fillRect(790, 1010, 250, 70); // displayAllCurrent
+		g.setColor(Color.white);
+		g.drawString("Display All of Your Played Cards", 800 , 1050);
+		
+		
+		
+		g.setColor(altgreen);
+		g.fillRect(490, 1010, 250, 70); // displayAllCurrent
+		g.setColor(Color.white);
+		g.drawString("Display Left Wonder", 540 , 1050);
+		
+		g.setColor(altgreen);
+		g.fillRect(1090, 1010, 250, 70); // displayAllCurrent
+		g.setColor(Color.white);
+		g.drawString("Display Right Wonder", 1140 , 1050);
 	}
 	public void drawFinalPoints(Graphics g)
 	{
@@ -1197,6 +1189,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			{
 				defaultView = false;
 				displayHalic = true;
+				displayGraveyard = true;
 			}
 			else
 			{
@@ -1264,7 +1257,6 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 					defaultView = false;
 					displayView = game.getRightWonder(game.getCurrentPlayer()).getName();
 				}
-				
 			}
 			
 			// choose option of play, build, burn, or ability
@@ -1295,21 +1287,9 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 					OlympiaAbility = true;
 					//game.setUsingO(true);
 				}
-				// TODO 
-				/*else if (e.getX() <= 610 && e.getX() >= 465 && e.getY() <= 910 && e.getY() >= 860)
-				{
-					optionSelection = false;
-					game.getCurrentWonder().setAction("play");
-				}*/
 			}
-			// if resource selection
-			/* TODO
-			 * || cards
-			 * taking away coins when trading? maybe not idk <-- finishRound() does that
-			 */
 			else
 			{
-				// cancel button // TODO what if they have selected a few resources? how would it reset that?
 				if (e.getX() <= 240 && e.getX() >= 30 && e.getY() <= 1030 && e.getY() >= 990)//&&!game.isHalic() &&!OlympiaAbility
 				{
 					OlympiaAbility = false;
@@ -1898,7 +1878,10 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			{
 				displayView = "";
 				displayColor = "";
-				defaultView = true;
+				if (displayGraveyard)
+					displayHalic = true;
+				else
+					defaultView = true;
 			}
 			
 			
@@ -1910,54 +1893,77 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				if (game.getWonders().get(s).getName().equals("The Mausoleum of Halicarnassus"))
 					current = game.getWonders().get(s);
 			
-			ArrayList<Card> graveyard = game.getGraveyard();
-			
-			int startingX = 5, startingY = 5;
-			
-			// goes through each card in the hand to check for the click
-			for (int i = 0; i < graveyard.size(); i++)
+			if (displayView.equals(""))
 			{
-				if (e.getX() >= startingX + (CARDWIDTH + 10) * (i % 9) && e.getX() <= startingX + (CARDWIDTH + 10) * (i % 9) + CARDWIDTH
-						&& e.getY() >= startingY + (CARDHEIGHT + 30) * (i / 9) && e.getY() <= startingY + (CARDHEIGHT + 30) * (i / 9) + CARDHEIGHT)
+				// own wonder
+				if(e.getX()>=790&&e.getX()<=1040&&e.getY()>=1010&&e.getY()<=1080)
 				{
-					if (!graveyard.get(i).equals(current.getSelectedCard()))
+					displayHalic = false;
+					displayView = current.getName();
+				}
+				// left wonder
+				else if(e.getX() >= 490 && e.getX() <= 740 && e.getY() >= 1010 && e.getY() <= 1080)
+				{
+					displayHalic = false;
+					displayView = game.getLeftWonder(current).getName();
+				}
+				// right wonder
+				else if(e.getX() >= 1090 && e.getX() <= 1340 && e.getY() >= 1010 && e.getY() <= 1080)
+				{
+					displayHalic = false;
+					displayView = game.getRightWonder(current).getName();
+				}
+				
+				ArrayList<Card> graveyard = game.getGraveyard();
+				
+				int startingX = 5, startingY = 5;
+				
+				// goes through each card in the hand to check for the click
+				for (int i = 0; i < graveyard.size(); i++)
+				{
+					if (e.getX() >= startingX + (CARDWIDTH + 10) * (i % 9) && e.getX() <= startingX + (CARDWIDTH + 10) * (i % 9) + CARDWIDTH
+							&& e.getY() >= startingY + (CARDHEIGHT + 30) * (i / 9) && e.getY() <= startingY + (CARDHEIGHT + 30) * (i / 9) + CARDHEIGHT)
 					{
-						current.setSelectedCard(graveyard.get(i));
-						System.out.println("Chosen card " + current.getSelectedCard());
+						if (!graveyard.get(i).equals(current.getSelectedCard()))
+						{
+							current.setSelectedCard(graveyard.get(i));
+							System.out.println("Chosen card " + current.getSelectedCard());
+						}
+						else
+						{
+							System.out.println("Deselected card " + graveyard.get(i).getName());
+							current.setSelectedCard(null);
+						}
+						
 					}
-					else
+				}
+				// confirm button
+				if (e.getX() <= 1920 && e.getX() >= 1710 && e.getY() <= 1080 && e.getY() >= 1010 && current.getSelectedCard() != null && current.playable(current.getSelectedCard()))
+				{
+					int otherPlayer = game.getCurrentPlayer();
+					int p = 0;
+					for(int i = 0; i<game.getWonders().size(); i++)
 					{
-						System.out.println("Deselected card " + graveyard.get(i).getName());
-						current.setSelectedCard(null);
+						if(game.getWonders().get(i).getName().equals("The Mausoleum of Halicarnassus"))
+						{
+							p = i;
+						}
 					}
+					game.setCurrentPlayer(p);
+					game.getCurrentWonder().setAction("Play");
+					game.finishRound(game.getCurrentWonder());
+					optionSelection = false;
 					
+					game.setCurrentPlayer(otherPlayer);
+					
+					displayHalic = false;
+					displayGraveyard = false;
+					defaultView = true;
+					optionSelection = true;
+					
+					game.nextRound();
+					game.initSelection();
 				}
-			}
-			// confirm button
-			if (e.getX() <= 1920 && e.getX() >= 1710 && e.getY() <= 1080 && e.getY() >= 1010 && current.getSelectedCard() != null && current.playable(current.getSelectedCard()))
-			{
-				int otherPlayer = game.getCurrentPlayer();
-				int p = 0;
-				for(int i = 0; i<game.getWonders().size(); i++)
-				{
-					if(game.getWonders().get(i).getName().equals("The Mausoleum of Halicarnassus"))
-					{
-						p = i;
-					}
-				}
-				game.setCurrentPlayer(p);
-				game.getCurrentWonder().setAction("Play");
-				game.finishRound(game.getCurrentWonder());
-				optionSelection = false;
-				
-				game.setCurrentPlayer(otherPlayer);
-				
-				displayHalic = false;
-				defaultView = true;
-				optionSelection = true;
-				
-				game.nextRound();
-				game.initSelection();
 			}
 		}
 		
