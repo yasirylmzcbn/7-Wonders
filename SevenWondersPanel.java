@@ -1226,6 +1226,14 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			displayView = "";
 			wonderDist = false;
 		}
+		for(Wonder w: game.getWonders())
+		{
+			if(w.getMoney()<0)
+			{
+				w.setMoney(0);
+			}
+			
+		}
 	}
 	
 	public void mousePressed(MouseEvent e)
