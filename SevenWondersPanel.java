@@ -66,7 +66,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		game = new GameState();
 		this.width = width;
 		this.height = height;
-		mainMenu = false;//true;
+		mainMenu = true;
 		wonderDist = false;
 		defaultView = false;
 		optionSelection = false;
