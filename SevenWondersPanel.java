@@ -54,6 +54,8 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 	
 	private GameState game;
 	
+	private boolean olympiaE, chainE, freeE, resE; // 'error' if choosing resources with olympia, chain, or free card, or wrong resources selected
+	
 	//private String displayOtherWonder;
 	
 	public SevenWondersPanel(int width, int height)
@@ -75,6 +77,11 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		OlympiaAbility = false;
 		displayHalic = false;
 		displayGraveyard = false;
+		
+		olympiaE = false;
+		chainE = false;
+		freeE = false;
+		resE = false;
 
 	}
 	
@@ -122,6 +129,22 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			wonderDist = false;
 			drawFinalPoints(g);
 		}
+		drawError(g);
+		
+	}
+	
+	public void drawError(Graphics g)
+	{
+		g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 38));
+		g.setColor(Color.red);
+		if (olympiaE)
+			g.drawString("Card free with Olympia", 1380, 150);
+		else if (chainE)
+			g.drawString("Card is in chain", 1380, 150);
+		else if (freeE)
+			g.drawString("Card is free", 1380, 150);
+		else if(resE)
+			g.drawString("Incorrect resources", 1380, 150);
 	}
 	
 	// draws start and quit buttons
@@ -1297,6 +1320,11 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 					//game.setUsingO(false);
 					game.getSelectedResources().clear();
 					game.initSelection();
+					
+					olympiaE = false;
+					chainE = false;
+					freeE = false;
+					resE = false;
 				}
 				
 				// confirm button
@@ -1331,11 +1359,16 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 						Collections.sort(needed);
 						Collections.sort(selected);
 						
-						if(needed.equals(selected) || needed.contains("null")||OlympiaAbility||game.getCurrentWonder().inChain(game.getCurrentWonder().getSelectedCard()))
+						if(needed.equals(selected) || needed.contains("null") || OlympiaAbility || game.getCurrentWonder().inChain(game.getCurrentWonder().getSelectedCard()))
 						{
-							if ((needed.contains("null")||needed.contains("null")|| game.getCurrentWonder().inChain(game.getCurrentWonder().getSelectedCard()))&& !selected.isEmpty())
+							if ((needed.contains("null") || game.getCurrentWonder().inChain(game.getCurrentWonder().getSelectedCard()) || OlympiaAbility) && !selected.isEmpty())
 							{
-								System.out.println("You're actually paying for a free card/paying for a card in your chain/ paying when you have OlympiaAbility? You actual fool. I actually cannot believe you");
+								if (OlympiaAbility)
+									olympiaE = true;
+								else if (needed.contains("null"))
+									freeE = true;
+								else if (game.getCurrentWonder().inChain(game.getCurrentWonder().getSelectedCard()))
+									chainE = true;
 							}
 							else
 							{
@@ -1361,7 +1394,16 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 									}
 								}
 								nextTurn();
+								
+								olympiaE = false;
+								chainE = false;
+								freeE = false;
+								resE = false;
 							}
+						}
+						else
+						{
+							resE = true;
 						}
 					}
 					else if(game.getCurrentWonder().getAction().equals("Burn") && game.getCurrentWonder().getSelectedCard() != null)
@@ -1412,12 +1454,13 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 						Collections.sort(selected);
 						if(needed.equals(selected) || needed.contains("null"))
 						{
+							if ((needed.contains("null") && !selected.isEmpty()))
+							{
+								freeE = true;
+							}
 							ArrayList<Card> currentHand = game.getPlayerHands().get(game.getCurrentWonder().getHand());
 							for (int i = 0; i < currentHand.size(); i++)
 							{
-								// System.out.println("[ ]" + currentHand.get(i).getName());
-								// System.out.println(">>>>" + game.getCurrentWonder().getSelectedCard().getName());
-								
 								if (currentHand.get(i).equals(game.getCurrentWonder().getSelectedCard()))
 								{
 									System.out.println("Removing " + currentHand.get(i).getName() + " to build wonder");
@@ -1426,6 +1469,12 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 								}
 							}
 							nextTurn();
+							freeE = false;
+							resE = false;
+						}
+						else
+						{
+							resE = true;
 						}
 						
 					}
