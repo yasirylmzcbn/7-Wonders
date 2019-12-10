@@ -187,7 +187,7 @@ public class GameState
 			boolean hasScientist = false;
 			ArrayList<Card> cds = new ArrayList<Card>();
 			cds.addAll(wonders.get(i).getCardsPlayed().get("purple"));
-			for(int c = 0; i<cds.size();c++)
+			for(int c = 0; c<cds.size();c++)
 			{
 				if(cds.get(c).getName().equals("Scientists Guild"))
 				{
