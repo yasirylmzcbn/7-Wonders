@@ -433,6 +433,9 @@ public class GameState
 					int leftBrown = getLeftWonder(w).getCardsPlayed().get("brown").size();
 					w.addMoney(numOfBrownCards+rightBrown+leftBrown);
 				}
+				
+				System.out.println(w.getName() + " had " + w.getMoney() + " coins and now has ");// debugging
+				
 				if(w.getSelectedCard().getCost().contains("coin")&&!w.inChain(w.getSelectedCard()))//usingO
 				{
 					for(int i = 0; i<w.getSelectedCard().getCost().size();i++)
@@ -499,7 +502,7 @@ public class GameState
 			int tradeV = trades.get(getLeftWonder(i).getName());
 			getLeftWonder(i).addMoney(tradeV);
 			
-			System.out.println(w.getName() + " had " + w.getMoney() + " coins and now has " + (w.getMoney() - tradeV));// debugging
+			
 			
 			w.addMoney(-tradeV);
 			
@@ -510,6 +513,8 @@ public class GameState
 			w.addMoney(-tradeV);
 			
 			trades.put(getRightWonder(i).getName(), 0);
+			
+			System.out.println(w.getName()+"now has"+w.getMoney());// debugging
 		}
 		
 		for (int i = 0; i < decisionMade.size(); i++)
