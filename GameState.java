@@ -275,41 +275,41 @@ public class GameState
 			ArrayList<Card> guilds = new ArrayList<Card>();
 			guilds.addAll(currentWonder.getCardsPlayed().get("purple"));
 			for (int j = 0; j < guilds.size(); j++) {
-				if(guilds.get(i).getName().equals("Builders Guild")) 
+				if(guilds.get(j).getName().equals("Builders Guild")) 
 					totalPoints += currentWonder.getPlayerWonders()
 								+ leftWonder.getPlayerWonders()
 								+ rightWonder.getPlayerWonders();
 				
-				if(guilds.get(i).getName().equals("Craftmens Guild"))
+				if(guilds.get(j).getName().equals("Craftmens Guild"))
 					totalPoints += 2 * (leftWonder.getCardsPlayed().get("silver").size()
 								+ rightWonder.getCardsPlayed().get("silver").size());
 				
-				if(guilds.get(i).getName().equals("Magistrates Guild"))
+				if(guilds.get(j).getName().equals("Magistrates Guild"))
 					totalPoints += leftWonder.getCardsPlayed().get("blue").size()
 								+ rightWonder.getCardsPlayed().get("blue").size();
 			
-				if(guilds.get(i).getName().equals("Philosophers Guild"))
+				if(guilds.get(j).getName().equals("Philosophers Guild"))
 					totalPoints += leftWonder.getCardsPlayed().get("green").size()
 								+ rightWonder.getCardsPlayed().get("green").size();
 				
-				if(guilds.get(i).getName().equals("Shipowners Guild"))
+				if(guilds.get(j).getName().equals("Shipowners Guild"))
 					totalPoints += currentWonder.getCardsPlayed().get("brown").size()
 								+ currentWonder.getCardsPlayed().get("silver").size()
 								+ currentWonder.getCardsPlayed().get("purple").size();
 				
-				if(guilds.get(i).getName().equals("Strategists Guild"))
+				if(guilds.get(j).getName().equals("Strategists Guild"))
 					totalPoints += leftWonder.getLosses()
 								+ rightWonder.getLosses();
 				
-				if(guilds.get(i).getName().equals("Traders Guild"))
+				if(guilds.get(j).getName().equals("Traders Guild"))
 					totalPoints += leftWonder.getCardsPlayed().get("yellow").size()
 								+ rightWonder.getCardsPlayed().get("yellow").size();
 				
-				if(guilds.get(i).getName().equals("Workers Guild"))
+				if(guilds.get(j).getName().equals("Workers Guild"))
 					totalPoints += leftWonder.getCardsPlayed().get("brown").size()
 								+ rightWonder.getCardsPlayed().get("brown").size();
 				
-				if(guilds.get(i).getName().equals("Spies Guild"))
+				if(guilds.get(j).getName().equals("Spies Guild"))
 					totalPoints += leftWonder.getCardsPlayed().get("red").size()
 								+ rightWonder.getCardsPlayed().get("red").size();
 			}
