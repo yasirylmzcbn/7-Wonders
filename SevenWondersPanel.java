@@ -638,7 +638,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				g.setColor(new Color(250, 60, 0));
 				g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 48));
 				g.drawString("BURN", 500, 390);
-				BufferedImage flame = ImageIO.read(new File("src/images/flames.png"));
+				BufferedImage flame = ImageIO.read(new File("src/images/Flames.png"));
 				g.drawImage(flame, 340, 566, 456, 458, null);
 				
 			}

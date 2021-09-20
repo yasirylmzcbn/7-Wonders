@@ -51,7 +51,6 @@ public class WonderPanel extends JPanel implements MouseListener
 	public void drawMainMenu(Graphics g)
 	{
 		BufferedImage mainMenuBackground = null;
-		BufferedImage mainMenuLogo = null;
 		try {
 		mainMenuBackground = ImageIO.read(new File("src/images/newmainmenubackground.png"));
 		} catch (Exception e) {
