@@ -152,7 +152,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 	{
 		try
 		{
-			BufferedImage mainMenuBackground = ImageIO.read(new File("src/images/newmainmenubackground.png"));
+			BufferedImage mainMenuBackground = ImageIO.read(new File("assets/images/newmainmenubackground.png"));
 			g.drawImage(mainMenuBackground, 0, 0, width, height, null);
 		}
 		catch(IOException e)
@@ -166,7 +166,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 	{
 		try
 		{
-			BufferedImage background = ImageIO.read(new File("src/images/background.png"));
+			BufferedImage background = ImageIO.read(new File("assets/images/background.png"));
 			g.drawImage(background, 0, 0, width, height, null);
 		}
 		catch(IOException e)
@@ -192,7 +192,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		{
 			try
 			{
-				wonders[i] = ImageIO.read(new File("src/images/wonders/" + chosenWonders[i].getName() + ".png"));
+				wonders[i] = ImageIO.read(new File("assets/images/wonders/" + chosenWonders[i].getName() + ".png"));
 			}
 			catch (IOException e)
 			{
@@ -261,7 +261,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		for (int i = 0; i < cards.length; i++)
 		{
 			try {
-				cards[i] = ImageIO.read(new File("src/images/cards/" + playerHandNames.get(i) + ".png"));
+				cards[i] = ImageIO.read(new File("assets/images/cards/" + playerHandNames.get(i) + ".png"));
 			} catch (IOException e) {
 				System.out.println("Cannot find file " + playerHandNames.get(i));
 			}
@@ -301,8 +301,8 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		BufferedImage wonder = null, backCard = null;
 		try
 		{
-			wonder = ImageIO.read(new File("src/images/wonders/" + currentWonder.getName() + ".png"));
-			backCard = ImageIO.read(new File("src/images/cards/age1.png"));
+			wonder = ImageIO.read(new File("assets/images/wonders/" + currentWonder.getName() + ".png"));
+			backCard = ImageIO.read(new File("assets/images/cards/age1.png"));
 		}
 		catch (IOException e)
 		{
@@ -322,7 +322,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		//draws the check marks that show which wonder has been built
 		try
 		{
-			BufferedImage check = ImageIO.read(new File("src/images/selected.png"));
+			BufferedImage check = ImageIO.read(new File("assets/images/selected.png"));
 			int checkw = 50;
 			int checkh = 50;
 			if(currentWonder.getPlayerWonders()>=1)
@@ -463,9 +463,9 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				g.drawString("Resource Selection", 350, 370);
 				// resource name (including coin) and their images
 				HashMap<String, BufferedImage> resources = new HashMap<String, BufferedImage>();
-				File imageFiles[] = new File("src/images/resources/").listFiles();
-				BufferedImage selected = ImageIO.read(new File("src/images/selected.png"));
-				BufferedImage OR = ImageIO.read(new File("src/images/OR.png"));
+				File imageFiles[] = new File("assets/images/resources/").listFiles();
+				BufferedImage selected = ImageIO.read(new File("assets/images/selected.png"));
+				BufferedImage OR = ImageIO.read(new File("assets/images/OR.png"));
 				
 				// imports resource images
 				for (int i = 0; i < imageFiles.length; i++)
@@ -638,7 +638,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 				g.setColor(new Color(250, 60, 0));
 				g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 48));
 				g.drawString("BURN", 500, 390);
-				BufferedImage flame = ImageIO.read(new File("src/images/Flames.png"));
+				BufferedImage flame = ImageIO.read(new File("assets/images/Flames.png"));
 				g.drawImage(flame, 340, 566, 456, 458, null);
 				
 			}
@@ -673,13 +673,13 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 	{
 		try
 		{
-			BufferedImage logo = ImageIO.read(new File("src/images/logo.png"));
+			BufferedImage logo = ImageIO.read(new File("assets/images/logo.png"));
 			BufferedImage rotation = null;
 			if (game.getOrder() == 1)
-				rotation = ImageIO.read(new File("src/images/rotationcc.png"));
+				rotation = ImageIO.read(new File("assets/images/rotationcc.png"));
 			else
-				rotation = ImageIO.read(new File("src/images/rotationac.png"));
-			BufferedImage card = ImageIO.read(new File("src/images/cards/age" + game.getAge() + ".png"));
+				rotation = ImageIO.read(new File("assets/images/rotationac.png"));
+			BufferedImage card = ImageIO.read(new File("assets/images/cards/age" + game.getAge() + ".png"));
 			
 			g.drawImage(logo, 1270, 320, logo.getWidth() * 3 / 7, logo.getHeight() * 3 / 7, null);
 			g.drawImage(rotation, 1370, 525, rotation.getWidth()/12, rotation.getHeight()/12, null); //y was 515
@@ -696,7 +696,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		/*
 		try
 		{
-			wonder = ImageIO.read(new File("src/images/wonders/" + currentWonder.getName() + ".png"));
+			wonder = ImageIO.read(new File("assets/images/wonders/" + currentWonder.getName() + ".png"));
 		}
 		catch (IOException e)
 		{
@@ -739,7 +739,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			BufferedImage wonder = null;
 			try
 			{
-				wonder = ImageIO.read(new File("src/images/wonders/" + displayWonder.getName() + ".png"));
+				wonder = ImageIO.read(new File("assets/images/wonders/" + displayWonder.getName() + ".png"));
 			}
 			catch (IOException e)
 			{
@@ -763,7 +763,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			
 			try
 			{
-				BufferedImage check = ImageIO.read(new File("src/images/selected.png"));
+				BufferedImage check = ImageIO.read(new File("assets/images/selected.png"));
 				int checkw = 50;
 				int checkh = 50;
 				if(displayWonder.getPlayerWonders()>=1)
@@ -920,7 +920,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 			for (int c = 0; c < cards.length; c++)
 			{
 				try {
-					cards[c] = ImageIO.read(new File("src/images/cards/" + cardNames.get(c) + ".png"));
+					cards[c] = ImageIO.read(new File("assets/images/cards/" + cardNames.get(c) + ".png"));
 				} catch (IOException e) {
 					System.out.println("Cannot find file " + cardNames.get(i));
 				}
@@ -973,7 +973,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		try
 		{
 			for (int i = 0; i < cardImages.length; i++)
-				cardImages[i] = ImageIO.read(new File("src/images/cards/" + graveyardNames.get(i) + ".png"));
+				cardImages[i] = ImageIO.read(new File("assets/images/cards/" + graveyardNames.get(i) + ".png"));
 		}
 		catch (IOException e)
 		{
@@ -1092,7 +1092,7 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 		
 		try
 		{
-			crown= ImageIO.read(new File("src/images/winner.png"));
+			crown= ImageIO.read(new File("assets/images/winner.png"));
 			for(int i = 0; i <stand.length;i++ )
 			{
 				System.out.println("wonder"+stand[i]);
@@ -1109,11 +1109,11 @@ public class SevenWondersPanel extends JPanel implements MouseListener
 					System.out.println("points"+TP);
 				}
 				
-				podium[i] = ImageIO.read(new File("src/images/wonders/"+stand[i]+".png"));
+				podium[i] = ImageIO.read(new File("assets/images/wonders/"+stand[i]+".png"));
 			}
-			F = ImageIO.read(new File("src/images/gold.png"));
-			S = ImageIO.read(new File("src/images/silver.png"));
-			T = ImageIO.read(new File("src/images/bronze.png"));
+			F = ImageIO.read(new File("assets/images/gold.png"));
+			S = ImageIO.read(new File("assets/images/silver.png"));
+			T = ImageIO.read(new File("assets/images/bronze.png"));
 			
 		}
 		catch (IOException e)
