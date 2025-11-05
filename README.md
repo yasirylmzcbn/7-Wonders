@@ -70,6 +70,6 @@ UML diagram of classes
       - Clone or download ZIP of the repository
       - Run the file `SevenWondersFrame.java`
 ## Contact
-mustafammbg@gmail.com
+mbugti04
 ## Project link
 [https://github.com/mbugti04/powergrid](https://github.com/yasirylmzcbn/7-Wonders)
